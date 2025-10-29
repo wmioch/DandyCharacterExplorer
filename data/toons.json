@@ -1,0 +1,1587 @@
+{
+  "toons": [
+    {
+      "id": "astro",
+      "name": "Astro",
+      "description": "Astro the Moon is a sleepy Toon who loves to take naps. Despite being tired, he's very observant and loves to help his friends. He teaches children the importance of rest and taking care of yourself.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 20,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 5,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "astro_nap_time",
+        "name": "Nap Time",
+        "description": "(Active) This Toon can create a pulse that fully restores the Stamina of the Toons around him. Has a cooldown of 75.",
+        "effectType": "teamBuff",
+        "targetStat": "stamina",
+        "value": 1.0,
+        "applicationType": "restore",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "ability2": {
+        "id": "astro_well_rested",
+        "name": "Well Rested",
+        "description": "(Passive) This Toon regenerates Stamina 50% faster, and can see Toons below 50% Stamina around the map.",
+        "effectType": "self",
+        "targetStat": "staminaRegen",
+        "value": 0.5,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "playerEffect": {
+          "staminaRegen": 0.5,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "bassie",
+      "name": "Bassie",
+      "description": "Bassie is an Easter basket Toon who can share items with teammates and carry an extra item in her basket.",
+      "baseStats": {
+        "walkSpeed": 20,
+        "runSpeed": 30,
+        "stealth": 15,
+        "extractionSpeed": 0.85,
+        "stamina": 175,
+        "skillCheckAmount": 1.0,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 5,
+        "runSpeed": 5,
+        "stealth": 4,
+        "extractionSpeed": 2,
+        "stamina": 4,
+        "skillCheckAmount": 1
+      },
+      "ability": {
+        "id": "bassie_springful_sharing",
+        "name": "Springful Sharing",
+        "description": "(Active) This Toon can drop items from her inventory, sharing them with other Toons.",
+        "effectType": "itemSharing",
+        "targetStat": "itemDrop",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "ability2": {
+        "id": "bassie_easter_basket",
+        "name": "Easter Basket",
+        "description": "(Passive) This Toon's basket provides her with an extra inventory slot for carrying 1 extra item.",
+        "effectType": "inventory",
+        "targetStat": "inventorySlots",
+        "value": 1.0,
+        "applicationType": "additive",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "blot",
+      "name": "Blot",
+      "description": "Blot is an ink bottle Toon who can place decoys to distract Twisteds. He's strategic and clever!",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 10,
+        "extractionSpeed": 0.85,
+        "stamina": 200,
+        "skillCheckAmount": 1.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 3,
+        "extractionSpeed": 2,
+        "stamina": 5,
+        "skillCheckAmount": 1
+      },
+      "ability": {
+        "id": "blot_jr",
+        "name": "Blot Jr.",
+        "description": "(Active) This Toon places a decoy that attracts nearby Twisteds and has 1 Heart. This ability costs 10 Tapes and has a cooldown of 60 seconds. For each extra Blot on a team the cost of the decoy costs an additional 10 tapes.",
+        "effectType": "decoy",
+        "targetStat": "distraction",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "bobette",
+      "name": "Bobette",
+      "description": "Bobette is a gift box Toon who can become invincible and provides faster stamina regeneration to nearby teammates.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 5,
+        "extractionSpeed": 0.85,
+        "stamina": 200,
+        "skillCheckAmount": 2.5,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 2,
+        "extractionSpeed": 2,
+        "stamina": 5,
+        "skillCheckAmount": 4
+      },
+      "ability": {
+        "id": "bobette_precious_packaging",
+        "name": "Precious Packaging",
+        "description": "(Active) This Toon can duck and cover herself into a gift box for 8 seconds, in which she is invincible yet unable to move. Has a Cooldown of 90.",
+        "effectType": "defense",
+        "targetStat": "invincibility",
+        "value": 8.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "ability2": {
+        "id": "bobette_festive_aura",
+        "name": "Festive Aura",
+        "description": "(Passive) The festive aura of this Toon passively gives those around her 50% faster stamina regeneration.",
+        "effectType": "teamBuff",
+        "targetStat": "staminaRegen",
+        "value": 0.5,
+        "applicationType": "multiplicative",
+        "affectsSelf": false,
+        "stackable": false,
+        "teamEffect": {
+          "staminaRegen": 0.5,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "boxten",
+      "name": "Boxten",
+      "description": "Boxten is a somewhat shy Toon. He is most comfortable around those he knows. He may not always know what to say, but he always tries to put a smile on a friend's face.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "boxten_wind_up",
+        "name": "Wind-Up",
+        "description": "(Passive) This Toon gains 6% more Extraction Speed for every alive Toon in the round. Maxes at 48%.",
+        "effectType": "self",
+        "targetStat": "extractionSpeed",
+        "value": 0.06,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": true,
+        "playerEffect": {
+          "extractionSpeed": 0.06,
+          "applicationType": "additive",
+          "perTeamMember": true
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "brightney",
+      "name": "Brightney",
+      "description": "Brightney is a lamp Toon who can light up dark areas. She's bright and helpful, always ready to shine a light on the situation!",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 0,
+        "extractionSpeed": 1.2,
+        "stamina": 175,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 1,
+        "extractionSpeed": 4,
+        "stamina": 4,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "brightney_night_light",
+        "name": "Night Light",
+        "description": "(Active) This Toon can shine lights on Twisteds to make them visible during Blackouts for 8 seconds. Has a Cooldown of 45.",
+        "effectType": "detection",
+        "targetStat": "twistedVisibility",
+        "value": 8.0,
+        "applicationType": "special",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "brusha",
+      "name": "Brusha",
+      "description": "Brusha is an artistic Toon who loves to paint and inspire creativity in others. She encourages children to express themselves through art.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 5,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 2,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 4
+      },
+      "ability": {
+        "id": "brusha_artistic_inspiration",
+        "name": "Artistic Inspiration",
+        "description": "(Toggle) Enter Painting Mode to inspire nearby Toons with a 50% Skill Check boost while they remain in your circle. This Toon moves 25% slower while in Painting Mode. Has a cooldown of 5.",
+        "effectType": "teamBuff",
+        "targetStat": "skillCheckAmount",
+        "value": 0.5,
+        "applicationType": "multiplicative",
+        "affectsSelf": false,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "movementSpeed": -0.25,
+          "applicationType": "multiplicative"
+        },
+        "teamEffect": {
+          "skillCheckSize": 0.5,
+          "skillCheckChance": 0.25,
+          "skillCheckSizeApplicationType": "multiplicative",
+          "skillCheckChanceApplicationType": "additive"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "coal",
+      "name": "Coal",
+      "description": "Coal is a reindeer Toon who can sniff out and highlight items for the entire team.",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 10,
+        "extractionSpeed": 0.85,
+        "stamina": 175,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 3,
+        "extractionSpeed": 2,
+        "stamina": 4,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "coal_scout",
+        "name": "Scout",
+        "description": "(Active) This Toon can sniff out items across the map, causing items to be highlighted for all Toons for 10 seconds. Has a cooldown of 100.",
+        "effectType": "detection",
+        "targetStat": "itemHighlight",
+        "value": 10.0,
+        "applicationType": "special",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "cocoa",
+      "name": "Cocoa",
+      "description": "Cocoa is a hot chocolate Toon who can place bonbon candies that boost extraction and movement speed.",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 15,
+        "extractionSpeed": 0.85,
+        "stamina": 125,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 4,
+        "extractionSpeed": 2,
+        "stamina": 2,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "cocoa_bonbon",
+        "name": "Bonbon",
+        "description": "(Active) This Toon places a Bonbon candy item that can be picked up and used by anyone. When used, the Bonbon boosts extraction speed (+50%) and movement speed (+25%) for 5 seconds. Has a cooldown of 40.",
+        "effectType": "itemGeneration",
+        "targetStat": "buffItem",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "connie",
+      "name": "Connie",
+      "description": "Connie is a ghost Toon who can turn invisible. She's mysterious and sneaky, teaching children about courage and facing fears.",
+      "baseStats": {
+        "walkSpeed": 10,
+        "runSpeed": 20,
+        "stealth": 20,
+        "extractionSpeed": 1.2,
+        "stamina": 150,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 1,
+        "runSpeed": 1,
+        "stealth": 5,
+        "extractionSpeed": 4,
+        "stamina": 3,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "connie_haunting_escape",
+        "name": "Haunting Escape",
+        "description": "(Active) This Toon uses her ability to become invisible for 5 seconds. Twisteds will not be able to notice her during this time, unless she is up against a Lethal Twisted which will still see her. Has a cooldown of 50.",
+        "effectType": "stealth",
+        "targetStat": "invisibility",
+        "value": 5.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "cosmo",
+      "name": "Cosmo",
+      "description": "Cosmo is a kind and caring Toon who loves to help others. He has a big heart and is always willing to lend a helping hand.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 15,
+        "extractionSpeed": 1.0,
+        "stamina": 175,
+        "skillCheckAmount": 1.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 4,
+        "extractionSpeed": 3,
+        "stamina": 4,
+        "skillCheckAmount": 1
+      },
+      "ability": {
+        "id": "cosmo_sharing_is_caring",
+        "name": "Sharing is Caring",
+        "description": "(Active) This Toon can give one of his own Hearts to heal a targeted Toon. Cannot be used when at 1 Heart. Has a Cooldown of 60.",
+        "effectType": "healing",
+        "targetStat": "hearts",
+        "value": 1.0,
+        "applicationType": "additive",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "eclipse",
+      "name": "Eclipse",
+      "description": "Eclipse is a wolf Toon who transforms into a werewolf during blackouts, gaining increased stamina and movement speed.",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 5,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 2,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "eclipse_total_eclipse",
+        "name": "Total Eclipse",
+        "description": "(Toggle) This Toon transforms into a werewolf in blackouts, giving off a glow, gaining 2 Stamina Stars, and a 20% Movement Speed boost.",
+        "effectType": "conditional",
+        "targetStat": "blackoutTransform",
+        "value": 0.2,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "movementSpeed": 0.2,
+          "stamina": 200,
+          "applicationType": "multiplicative",
+          "baseStatOverrides": {
+            "stamina": 200
+          }
+        }
+      },
+      "conditionalStats": [
+        {
+          "id": "eclipse_normal_speed",
+          "name": "Normal Speed",
+          "condition": "true",
+          "statModifiers": {}
+        },
+        {
+          "id": "eclipse_panic_speed",
+          "name": "Panic Speed",
+          "condition": "true",
+          "modifierOverrides": {
+            "movementSpeed": 0.25
+          }
+        },
+        {
+          "id": "eclipse_panic_suppressed_speed",
+          "name": "Panic + Suppressed Speed",
+          "condition": "true",
+          "modifierOverrides": {
+            "movementSpeed": 0.20
+          }
+        }
+      ]
+    },
+    {
+      "id": "eggson",
+      "name": "Eggson",
+      "description": "Eggson is an egg Toon who gives a 10% completion boost to the first extraction on each machine.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "eggson_fixer_upper",
+        "name": "Fixer Upper",
+        "description": "(Passive) This Toon hits a machine with his cane when he first extracts from it, granting 10% completion. This can only be used once per machine.",
+        "effectType": "machineBoost",
+        "targetStat": "initialCompletion",
+        "value": 0.1,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false,
+        "playerEffect": {
+          "machineCompletion": 0.1,
+          "applicationType": "special"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "finn",
+      "name": "Finn",
+      "description": "Finn is a fishbowl Toon who gets speed boosts when machines are completed. He's enthusiastic and motivated by progress!",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 125,
+        "skillCheckAmount": 2.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 2,
+        "skillCheckAmount": 4
+      },
+      "ability": {
+        "id": "finn_reel_in",
+        "name": "Reel In",
+        "description": "(Passive) This Toon gains a 33% Movement Speed boost when any Machine is completed for 10 seconds.",
+        "effectType": "conditional",
+        "targetStat": "movementSpeed",
+        "value": 0.33,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "movementSpeed": 0.33,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "flutter",
+      "name": "Flutter",
+      "description": "Flutter is a butterfly Toon who can dash forward quickly. She's graceful and agile, floating through the air!",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 10,
+        "extractionSpeed": 0.85,
+        "stamina": 175,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 3,
+        "extractionSpeed": 2,
+        "stamina": 4,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "flutter_floaty_dash",
+        "name": "Floaty Dash",
+        "description": "(Toggle) This Toon can dash forward, drastically increasing her Movement Speed for 0.75 seconds. Has a cooldown of 45 seconds.",
+        "effectType": "dash",
+        "targetStat": "movementSpeed",
+        "value": 50,
+        "applicationType": "additive",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "walkSpeed": 50,
+          "runSpeed": 50,
+          "applicationType": "additive",
+          "baseStatOverrides": {
+            "walkSpeed": 50,
+            "runSpeed": 50
+          }
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "flyte",
+      "name": "Flyte",
+      "description": "Flyte is a kite Toon who can place gusts that boost movement speed for teammates.",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 10,
+        "extractionSpeed": 1.2,
+        "stamina": 125,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 3,
+        "extractionSpeed": 4,
+        "stamina": 2,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "flyte_gust",
+        "name": "Gust",
+        "description": "(Toggle) This Toon places a \"Gust\" at his location for 10 seconds. Any Toon that walks into the Gust receives a +15% Movement Speed boost for 5 seconds. Has a cooldown of 50.",
+        "effectType": "zoneEffect",
+        "targetStat": "movementSpeed",
+        "value": 0.15,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "movementSpeed": 0.15,
+          "applicationType": "multiplicative"
+        },
+        "teamEffect": {
+          "movementSpeed": 0.15,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "gigi",
+      "name": "Gigi",
+      "description": "Gigi is a gacha machine Toon who can grant herself random items. She's lucky and fun, always ready for a surprise!",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 100,
+        "skillCheckAmount": 3.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 1,
+        "skillCheckAmount": 5
+      },
+      "ability": {
+        "id": "gigi_surprise",
+        "name": "Surprise!",
+        "description": "(Active) This Toon can grant herself a random item from any Tier (Dandy's Shop items included). Has a Cooldown of 80.",
+        "effectType": "itemGeneration",
+        "targetStat": "randomItem",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "ginger",
+      "name": "Ginger",
+      "description": "Ginger is a gingerbread Toon who can give her own hearts to heal teammates.",
+      "baseStats": {
+        "walkSpeed": 12.5,
+        "runSpeed": 22.5,
+        "stealth": 15,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 2,
+        "runSpeed": 2,
+        "stealth": 4,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "ginger_baked_with_care",
+        "name": "Baked with Care!",
+        "description": "(Active) This Toon can give one of her own Hearts to heal a targeted Toon. Cannot be used when at 1 Heart. Has a Cooldown of 100.",
+        "effectType": "healing",
+        "targetStat": "hearts",
+        "value": 1.0,
+        "applicationType": "additive",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "glisten",
+      "name": "Glisten",
+      "description": "Glisten is a mirror Toon who can teleport through mirrors to reach teammates. He's flashy and loves attention!",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 5,
+        "extractionSpeed": 1.5,
+        "stamina": 150,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 2,
+        "extractionSpeed": 5,
+        "stamina": 3,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "glisten_reflection",
+        "name": "Reflection",
+        "description": "(Active) This Toon can travel through a mirror, instantly teleporting to a targeted Toon regardless of line of sight and can inflict Confused III on himself. Has a cooldown of 100.",
+        "effectType": "teleport",
+        "targetStat": "position",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "goob",
+      "name": "Goob",
+      "description": "Goob is a craft Toon with long arms who can pull teammates towards him. He's friendly and loves to give hugs!",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 5,
+        "extractionSpeed": 0.85,
+        "stamina": 175,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 2,
+        "extractionSpeed": 2,
+        "stamina": 4,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "goob_hug",
+        "name": "Hug!",
+        "description": "(Active) This Toon can pull other Toons towards his position. Needs direct line of sight. 30 second cooldown.",
+        "effectType": "pull",
+        "targetStat": "position",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "gourdy",
+      "name": "Gourdy",
+      "description": "Gourdy is a pumpkin Toon who gives random buffs to teammates and speed boosts at key moments.",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 0,
+        "extractionSpeed": 1.5,
+        "stamina": 100,
+        "skillCheckAmount": 3.0,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 1,
+        "extractionSpeed": 5,
+        "stamina": 1,
+        "skillCheckAmount": 5
+      },
+      "ability": {
+        "id": "gourdy_trick_or_treat",
+        "name": "Trick or Treat",
+        "description": "(Active) This Toon applies a random 20% boost for 15 seconds to all Toons within range. Has a cooldown of 35.",
+        "effectType": "teamBuff",
+        "targetStat": "randomStat",
+        "value": 0.2,
+        "applicationType": "multiplicative",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "ability2": {
+        "id": "gourdy_sugar_rush",
+        "name": "Sugar Rush",
+        "description": "(Toggle) Provides a 20% speed boost to all Players for 5 seconds when the Elevator opens and when Panic Mode begins.",
+        "effectType": "teamBuff",
+        "targetStat": "movementSpeed",
+        "value": 0.2,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "movementSpeed": 0.2,
+          "applicationType": "multiplicative"
+        },
+        "teamEffect": {
+          "movementSpeed": 0.2,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "looey",
+      "name": "Looey",
+      "description": "Looey is a balloon Toon who gets faster and more agile as he loses air (hearts). He teaches children about resilience and adapting to challenges.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 5,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 2,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 4
+      },
+      "ability": {
+        "id": "looey_heart_of_helium",
+        "name": "Heart of Helium",
+        "description": "(Passive) For each missing heart this Toon has, they gain 20% more walk and run speed multiplier. At one heart, this Toon gains 40% more speed multiplier. His speed is reduced back when healed.",
+        "effectType": "conditional",
+        "targetStat": "movementSpeed",
+        "value": 0.2,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": true
+      },
+      "conditionalStats": [
+        {
+          "id": "looey_3hearts",
+          "name": "3 Hearts",
+          "condition": "hearts === 3",
+          "statModifiers": {}
+        },
+        {
+          "id": "looey_2hearts",
+          "name": "2 Hearts",
+          "condition": "hearts === 2",
+          "modifierOverrides": {
+            "movementSpeed": 0.2
+          }
+        },
+        {
+          "id": "looey_1heart",
+          "name": "1 Heart",
+          "condition": "hearts === 1",
+          "modifierOverrides": {
+            "movementSpeed": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "pebble",
+      "name": "Pebble",
+      "description": "Pebble is a dog Toon who can bark to alert Twisteds and sniff out items. He's loyal, energetic, and loves to help his friends!",
+      "baseStats": {
+        "walkSpeed": 20,
+        "runSpeed": 30,
+        "stealth": 10,
+        "extractionSpeed": 0.75,
+        "stamina": 175,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 5,
+        "runSpeed": 5,
+        "stealth": 3,
+        "extractionSpeed": 1,
+        "stamina": 4,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "pebble_speak",
+        "name": "Speak!",
+        "description": "(Active) This Toon can bark loudly, drastically decreasing Stealth to a value of -40 and alerting any Twisteds nearby to his location. Has a cooldown of 60.",
+        "effectType": "distraction",
+        "targetStat": "stealth",
+        "value": -40.0,
+        "applicationType": "additive",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "ability2": {
+        "id": "pebble_fetch",
+        "name": "Fetch!",
+        "description": "(Passive) This Toon can sniff out items, causing them to be highlighted when in the Toon's vicinity.",
+        "effectType": "detection",
+        "targetStat": "itemHighlight",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "poppy",
+      "name": "Poppy",
+      "description": "Poppy is one fun friend! This excitable Toon loves to share what's on her mind! Poppy shows children it's okay to be unique and not to be afraid to share your interests with others!",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "poppy_panic_pop",
+        "name": "Panic Pop",
+        "description": "(Passive) This Toon receives a 50% Speed boost for 3 seconds when attacked.",
+        "effectType": "self",
+        "targetStat": "movementSpeed",
+        "value": 0.5,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "movementSpeed": 0.5,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "razzle_dazzle",
+      "name": "Razzle & Dazzle",
+      "description": "Razzle & Dazzle are comedy and tragedy mask Toons who alternate between movement and extraction buffs based on floor number.",
+      "baseStats": {
+        "walkSpeed": 20,
+        "runSpeed": 30,
+        "stealth": 10,
+        "extractionSpeed": 1.6,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 5,
+        "runSpeed": 5,
+        "stealth": 3,
+        "extractionSpeed": 6,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "razzle_dazzle_comedy_tragedy",
+        "name": "Comedy/Tragedy",
+        "description": "(Passive) This Toon swaps between Movement Speed on odd numbered Floors, and Extraction Speed on even numbered Floors.",
+        "effectType": "conditional",
+        "targetStat": "alternating",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": [
+        {
+          "id": "razzle_dazzle_odd",
+          "name": "Odd Floor",
+          "condition": "floor % 2 === 1",
+          "statModifiers": {
+            "walkSpeed": 20,
+            "runSpeed": 30,
+            "extractionSpeed": 0.75
+          }
+        },
+        {
+          "id": "razzle_dazzle_even",
+          "name": "Even Floor",
+          "condition": "floor % 2 === 0",
+          "statModifiers": {
+            "walkSpeed": 10,
+            "runSpeed": 20,
+            "extractionSpeed": 1.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "ribecca",
+      "name": "Ribecca",
+      "description": "Ribecca is a skeleton Toon who is immune to all applied debuffs.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "ribecca_the_undead",
+        "name": "The Undead",
+        "description": "(Passive) Ribecca is immune to all applied debuffs (does not include trinkets)",
+        "effectType": "immunity",
+        "targetStat": "debuffImmunity",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "rodger",
+      "name": "Rodger",
+      "description": "Rodger is a detective magnifying glass Toon who excels at research and investigation. He's analytical and observant, always searching for clues.",
+      "baseStats": {
+        "walkSpeed": 12.5,
+        "runSpeed": 22.5,
+        "stealth": 10,
+        "extractionSpeed": 1.2,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 2,
+        "runSpeed": 2,
+        "stealth": 3,
+        "extractionSpeed": 4,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "rodger_detective",
+        "name": "Detective",
+        "description": "(Passive) This Toon gains twice the amount of Research from Capsules and encountering Twisteds.",
+        "effectType": "research",
+        "targetStat": "researchGain",
+        "value": 2.0,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "rudie",
+      "name": "Rudie",
+      "description": "Rudie is a reindeer Toon who can charge forward with his antlers for a quick speed boost.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "rudie_antler_charge",
+        "name": "Antler Charge",
+        "description": "(Toggle) This Toon uses his antlers to quickly charge forward in a short burst, increasing his movement speed for 0.4 seconds. Has a Cooldown of 23.",
+        "effectType": "dash",
+        "targetStat": "movementSpeed",
+        "value": 50,
+        "applicationType": "additive",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "walkSpeed": 50,
+          "runSpeed": 50,
+          "applicationType": "additive",
+          "baseStatOverrides": {
+            "walkSpeed": 50,
+            "runSpeed": 50
+          }
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "scraps",
+      "name": "Scraps",
+      "description": "Scraps is a craft Toon who can pull herself towards teammates or machines using her grapple. She's agile and loves adventure!",
+      "baseStats": {
+        "walkSpeed": 12.5,
+        "runSpeed": 22.5,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 200,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 2,
+        "runSpeed": 2,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 5,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "scraps_crafty_grapple",
+        "name": "Crafty Grapple",
+        "description": "(Active) This Toon can pull herself towards another Toon or Machine's targeted position. Needs direct line of sight. 25 second cooldown.",
+        "effectType": "grapple",
+        "targetStat": "position",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "shelly",
+      "name": "Shelly",
+      "description": "Shelly is a fossil Toon who excels at skill checks and can boost others' extraction speed. She's intelligent and loves to teach!",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 10,
+        "extractionSpeed": 1.0,
+        "stamina": 125,
+        "skillCheckAmount": 3.0,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 3,
+        "extractionSpeed": 3,
+        "stamina": 2,
+        "skillCheckAmount": 5
+      },
+      "ability": {
+        "id": "shelly_inspiration",
+        "name": "Inspiration",
+        "description": "(Active) This Toon can boost the Extraction Speed of a selected Toon by 75% for 15 seconds. Has a cooldown of 60.",
+        "effectType": "teamBuff",
+        "targetStat": "extractionSpeed",
+        "value": 0.75,
+        "applicationType": "multiplicative",
+        "affectsSelf": false,
+        "stackable": false,
+        "teamEffect": {
+          "extractionSpeed": 0.75,
+          "applicationType": "multiplicative"
+        }
+      },
+      "ability2": {
+        "id": "shelly_problem_solver",
+        "name": "Problem Solver",
+        "description": "(Passive) This Toon gains a 25% Movement Speed boost when any Machine is completed for 10 seconds.",
+        "effectType": "conditional",
+        "targetStat": "movementSpeed",
+        "value": 0.25,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "movementSpeed": 0.25,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "shrimpo",
+      "name": "Shrimpo",
+      "description": "Shrimpo is a mean Toon who hates everyone and everything. He is rude and aggressive, making him the least popular Toon in Dandy's World.",
+      "baseStats": {
+        "walkSpeed": 10,
+        "runSpeed": 20,
+        "stealth": -99,
+        "extractionSpeed": 0.75,
+        "stamina": 100,
+        "skillCheckAmount": 1.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 1,
+        "runSpeed": 1,
+        "stealth": 1,
+        "extractionSpeed": 1,
+        "stamina": 1,
+        "skillCheckAmount": 1
+      },
+      "ability": {
+        "id": "shrimpo_bully",
+        "name": "Bully",
+        "description": "(Passive) Stealth is drastically lower than any other Toon. Only play this Toon if you are looking for a challenge.",
+        "effectType": "self",
+        "targetStat": "stealth",
+        "value": -1.0,
+        "applicationType": "additive",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "soulvester",
+      "name": "Soulvester",
+      "description": "Soulvester is a knight Toon with extra armor who has an extra heart and is immune to ranged attacks.",
+      "baseStats": {
+        "walkSpeed": 10,
+        "runSpeed": 20,
+        "stealth": 10,
+        "extractionSpeed": 1.5,
+        "stamina": 100,
+        "skillCheckAmount": 3.0,
+        "skillCheckChance": 0.25,
+        "hearts": 4
+      },
+      "starRatings": {
+        "walkSpeed": 1,
+        "runSpeed": 1,
+        "stealth": 3,
+        "extractionSpeed": 5,
+        "stamina": 1,
+        "skillCheckAmount": 5
+      },
+      "ability": {
+        "id": "soulvester_knightly_armor",
+        "name": "Knightly Armor",
+        "description": "(Passive) This Toon has an extra heart and is immune to damage from ranged attacks.",
+        "effectType": "immunity",
+        "targetStat": "rangedImmunity",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "sprout",
+      "name": "Sprout",
+      "description": "Sprout is a strawberry Toon who can heal teammates and see everyone's health status. He's caring and protective, always watching over his friends!",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 10,
+        "extractionSpeed": 0.85,
+        "stamina": 200,
+        "skillCheckAmount": 1.5,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 3,
+        "extractionSpeed": 2,
+        "stamina": 5,
+        "skillCheckAmount": 2
+      },
+      "ability": {
+        "id": "sprout_baked_sweets",
+        "name": "Baked Sweets",
+        "description": "(Active) This Toon can heal a targeted Toon by 1 Heart at the cost of 100 Tapes. For each extra Sprout, the cost increases by 50 Tapes and the Cooldown increases by 30. Has a cooldown of 100.",
+        "effectType": "healing",
+        "targetStat": "hearts",
+        "value": 1.0,
+        "applicationType": "additive",
+        "affectsSelf": false,
+        "stackable": false
+      },
+      "ability2": {
+        "id": "sprout_overprotective",
+        "name": "Overprotective",
+        "description": "(Passive) This Toon can see where all the other alive Toons are, along with their current Health status.",
+        "effectType": "detection",
+        "targetStat": "toonVisibility",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "teagan",
+      "name": "Teagan",
+      "description": "Teagan is a teacup Toon who can heal herself using tapes. She's resourceful and teaches children about self-care and independence.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 5,
+        "extractionSpeed": 1.0,
+        "stamina": 175,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 2,
+        "extractionSpeed": 3,
+        "stamina": 4,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "teagan_tea_time",
+        "name": "Tea Time",
+        "description": "(Active) This Toon can spend 75 Tapes to heal themselves by 1 Heart. Has a Cooldown of 100.",
+        "effectType": "selfHeal",
+        "targetStat": "hearts",
+        "value": 1.0,
+        "applicationType": "additive",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "tisha",
+      "name": "Tisha",
+      "description": "Tisha is a tissuebox Toon who loves to clean and organize. She's very fast and efficient, always keeping things tidy!",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 10,
+        "extractionSpeed": 0.85,
+        "stamina": 125,
+        "skillCheckAmount": 2.5,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 3,
+        "extractionSpeed": 2,
+        "stamina": 2,
+        "skillCheckAmount": 4
+      },
+      "ability": {
+        "id": "tisha_tidy_up",
+        "name": "Tidy Up!",
+        "description": "(Active) This Toon can create a pulse that increases the Movement Speed of Toons around her by 25% for 5 seconds. Has a Cooldown of 50.",
+        "effectType": "teamBuff",
+        "targetStat": "movementSpeed",
+        "value": 0.25,
+        "applicationType": "multiplicative",
+        "affectsSelf": false,
+        "stackable": false,
+        "teamEffect": {
+          "movementSpeed": 0.25,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "toodles",
+      "name": "Toodles",
+      "description": "Toodles is an 8-ball Toon who can get random stat boosts. She's lucky and unpredictable, teaching children about taking chances!",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 15,
+        "extractionSpeed": 0.85,
+        "stamina": 150,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 4,
+        "extractionSpeed": 2,
+        "stamina": 3,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "toodles_beginners_luck",
+        "name": "Beginner's Luck",
+        "description": "(Active) This Toon can roll for a 15% boost to a random Stat that lasts for 10 seconds. Has a cooldown of 25.",
+        "effectType": "random",
+        "targetStat": "randomStat",
+        "value": 0.15,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "vee",
+      "name": "Vee",
+      "description": "Vee is a game show host who loves entertainment and putting on a good show. She's confident, charismatic, and always ready to help her contestants succeed.",
+      "baseStats": {
+        "walkSpeed": 12.5,
+        "runSpeed": 22.5,
+        "stealth": 5,
+        "extractionSpeed": 1.5,
+        "stamina": 150,
+        "skillCheckAmount": 2.5,
+        "skillCheckChance": 0.25,
+        "hearts": 2
+      },
+      "starRatings": {
+        "walkSpeed": 2,
+        "runSpeed": 2,
+        "stealth": 2,
+        "extractionSpeed": 5,
+        "stamina": 3,
+        "skillCheckAmount": 4
+      },
+      "ability": {
+        "id": "vee_mic_check",
+        "name": "Mic Check",
+        "description": "(Active) This Toon can highlight all Twisteds and Machines on the Floor for 5 seconds. Has a Cooldown of 50.",
+        "effectType": "detection",
+        "targetStat": "detection",
+        "value": 1.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "ability2": {
+        "id": "vee_camera_hijack",
+        "name": "Camera Hijack",
+        "description": "(Passive) This Toon will have the 2 nearest uncompleted Machines highlighted for them.",
+        "effectType": "detection",
+        "targetStat": "machineHighlight",
+        "value": 2.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    },
+    {
+      "id": "yatta",
+      "name": "Yatta",
+      "description": "Yatta is a pi\u00c3\u00b1ata Toon who drops candy items to help her team. She's festive and fun, bringing joy wherever she goes!",
+      "baseStats": {
+        "walkSpeed": 17.5,
+        "runSpeed": 27.5,
+        "stealth": 5,
+        "extractionSpeed": 1.5,
+        "stamina": 100,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 4,
+        "runSpeed": 4,
+        "stealth": 2,
+        "extractionSpeed": 5,
+        "stamina": 1,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "yatta_pinata_party",
+        "name": "Pi\u00c3\u00b1ata Party",
+        "description": "(Passive) This Toon drops 2 random candy items after completing a machine, and 4 random candy items when injured.",
+        "effectType": "itemGeneration",
+        "targetStat": "itemDrop",
+        "value": 2.0,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "stackable": false
+      },
+      "conditionalStats": null
+    }
+  ]
+}

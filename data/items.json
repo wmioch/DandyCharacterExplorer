@@ -1,0 +1,406 @@
+{
+  "items": [
+    {
+      "name": "Air Horn",
+      "effect": "Upon use, drastically decreases Stealth by 50 for 10 seconds and alerts nearby + specific Twisteds to your current location.",
+      "category": "distraction",
+      "rarity": "rare",
+      "dandy_shop_only": true,
+      "cost": 60,
+      "image_name": "air_horn.png",
+      "id": "air_horn",
+      "effects": [
+        {
+          "targetStat": "stealth",
+          "value": -50,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Bandage",
+      "effect": "Upon use, restores 1 Heart",
+      "category": "healing",
+      "rarity": "rare",
+      "dandy_shop_only": false,
+      "cost": 25,
+      "image_name": "bandage.png",
+      "id": "bandage"
+    },
+    {
+      "name": "Basket",
+      "effect": "Limited currency that spawns on floors during Easter Events",
+      "category": "currency",
+      "rarity": "event",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "basket.png",
+      "id": "basket"
+    },
+    {
+      "name": "BonBon",
+      "effect": "Use this item to increase Extraction Speed +50% and Movement Speed +25% for 5 seconds.",
+      "category": "speed",
+      "rarity": "rare",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "bonbon.png",
+      "id": "bonbon",
+      "effects": [
+        {
+          "targetStat": "extractionSpeed",
+          "value": 0.5,
+          "applicationType": "multiplicative"
+        },
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.25,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Bottle o' Pop",
+      "effect": "Upon use, refills your Stamina to full capacity.",
+      "category": "speed",
+      "rarity": "very_rare",
+      "dandy_shop_only": true,
+      "cost": 100,
+      "image_name": "bottle_o_pop.png",
+      "id": "bottle_o_pop"
+    },
+    {
+      "name": "Box o' Chocolates",
+      "effect": "Upon use, increases Max Stamina by 25, and Run Speed by 10% for 10 seconds. Can be used 5 times.",
+      "category": "stamina",
+      "rarity": "very_rare",
+      "dandy_shop_only": false,
+      "cost": 55,
+      "image_name": "box_o_chocolates.png",
+      "id": "box_o_chocolates",
+      "effects": [
+        {
+          "targetStat": "stamina",
+          "value": 25,
+          "applicationType": "baseStatIncrease"
+        },
+        {
+          "targetStat": "runSpeed",
+          "value": 0.1,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Chocolate",
+      "effect": "Upon use, increases Max Stamina by 25 and Walk Speed by 10% for 10 seconds.",
+      "category": "stamina",
+      "rarity": "common",
+      "dandy_shop_only": false,
+      "cost": 22,
+      "image_name": "chocolate.png",
+      "id": "chocolate",
+      "effects": [
+        {
+          "targetStat": "stamina",
+          "value": 25,
+          "applicationType": "baseStatIncrease"
+        },
+        {
+          "targetStat": "walkSpeed",
+          "value": 0.1,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Eject Button",
+      "effect": "Upon use, increases Stealth, Walk and Run Speed by 25 for 3 seconds, and removes the Slow debuff, if you have it.",
+      "category": "other",
+      "rarity": "ultra_rare",
+      "dandy_shop_only": false,
+      "cost": 85,
+      "image_name": "eject_button.png",
+      "id": "eject_button",
+      "effects": [
+        {
+          "targetStat": "stealth",
+          "value": 25,
+          "applicationType": "baseStatIncrease"
+        },
+        {
+          "targetStat": "walkSpeed",
+          "value": 25,
+          "applicationType": "baseStatIncrease"
+        },
+        {
+          "targetStat": "runSpeed",
+          "value": 25,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Extraction Speed Candy",
+      "effect": "While extracting a machine, increases Extraction Speed by 50% for 5 seconds upon use.",
+      "category": "extraction",
+      "rarity": "uncommon",
+      "dandy_shop_only": false,
+      "cost": 22,
+      "image_name": "extraction_speed_candy.png",
+      "id": "extraction_speed_candy",
+      "effects": [
+        {
+          "targetStat": "extractionSpeed",
+          "value": 0.5,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Gumballs",
+      "effect": "Upon use, boosts a random stat by 10% for 5 seconds. 3 usages (It is highly recommended to eat them all at once.)",
+      "category": "random",
+      "rarity": "common",
+      "dandy_shop_only": false,
+      "cost": 20,
+      "image_name": "gumballs.png",
+      "id": "gumballs"
+    },
+    {
+      "name": "Health Kit",
+      "effect": "Upon use, restores 2 Hearts",
+      "category": "healing",
+      "rarity": "very_rare",
+      "dandy_shop_only": false,
+      "cost": 100,
+      "image_name": "health_kit.png",
+      "id": "health_kit"
+    },
+    {
+      "name": "Ichor",
+      "effect": "Premium currency earned from Research Capsules. Obtain 2 Ichor and 1% research progress on a random Twisted",
+      "category": "currency",
+      "rarity": "uncommon",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "ichor.png",
+      "id": "ichor"
+    },
+    {
+      "name": "Instructions",
+      "effect": "While extracting a machine, increases Extraction Speed by 100% for 10 seconds upon use. (Cannot be used when not extracting a Machine.)",
+      "category": "extraction",
+      "rarity": "uncommon",
+      "dandy_shop_only": true,
+      "cost": 40,
+      "image_name": "instructions.png",
+      "id": "instructions",
+      "effects": [
+        {
+          "targetStat": "extractionSpeed",
+          "value": 1.0,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Jawbreaker",
+      "effect": "Upon use, you gain a random 50% effect for 20 seconds.",
+      "category": "random",
+      "rarity": "rare",
+      "dandy_shop_only": false,
+      "cost": 45,
+      "image_name": "jawbreaker.png",
+      "id": "jawbreaker"
+    },
+    {
+      "name": "Jumper Cable",
+      "effect": "While extracting a machine, adds a large amount of completion upon use. (33%) (Cannot be used when not extracting a Machine.)",
+      "category": "extraction",
+      "rarity": "rare",
+      "dandy_shop_only": true,
+      "cost": 88,
+      "image_name": "jumper_cable.png",
+      "id": "jumper_cable"
+    },
+    {
+      "name": "Ornament",
+      "effect": "Limited currency that spawns on floors during Christmas Events",
+      "category": "currency",
+      "rarity": "event",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "ornament.png",
+      "id": "ornament"
+    },
+    {
+      "name": "Pop",
+      "effect": "Upon use, grants 45 Stamina.",
+      "category": "stamina",
+      "rarity": "common",
+      "dandy_shop_only": false,
+      "cost": 25,
+      "image_name": "pop.png",
+      "id": "pop",
+      "hidden": true
+    },
+    {
+      "name": "Protein Bar",
+      "effect": "Upon use, increases Stamina Regeneration by 150% for 15 seconds, equivalent to +6 stamina per second for most Toons.",
+      "category": "extraction",
+      "rarity": "uncommon",
+      "dandy_shop_only": false,
+      "cost": 65,
+      "image_name": "protein_bar.png",
+      "id": "protein_bar",
+      "effects": [
+        {
+          "targetStat": "staminaRegen",
+          "value": 1.5,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Pumpkin",
+      "effect": "Limited currency that spawns on floors during Halloween Events",
+      "category": "currency",
+      "rarity": "event",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "pumpkin.png",
+      "id": "pumpkin"
+    },
+    {
+      "name": "Skill Check Candy",
+      "effect": "Upon use, increases Skill Check chance by 25% for 15 seconds.",
+      "category": "skill_check",
+      "rarity": "uncommon",
+      "dandy_shop_only": false,
+      "cost": 40,
+      "image_name": "skill_check_candy.png",
+      "id": "skill_check_candy",
+      "effects": [
+        {
+          "targetStat": "skillCheckChance",
+          "value": 0.25,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Smoke Bomb",
+      "effect": "While being chased by a Twisted, make it lose interest in you for 3 seconds. (You cannot be hurt during this time.) (Does not work on Lethal Twisteds.)",
+      "category": "stealth",
+      "rarity": "ultra_rare",
+      "dandy_shop_only": true,
+      "cost": 150,
+      "image_name": "smoke_bomb.png",
+      "id": "smoke_bomb"
+    },
+    {
+      "name": "Speed Candy",
+      "effect": "Upon use, increases Walk and Run Speed by 25% for 5 seconds.",
+      "category": "speed",
+      "rarity": "uncommon",
+      "dandy_shop_only": false,
+      "cost": 20,
+      "image_name": "speed_candy.png",
+      "id": "speed_candy",
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.25,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Stamina Candy",
+      "effect": "Upon use, increases Stamina Regeneration by 50% for 20 seconds.",
+      "category": "stamina",
+      "rarity": "common",
+      "dandy_shop_only": false,
+      "cost": 35,
+      "image_name": "stamina_candy.png",
+      "id": "stamina_candy",
+      "effects": [
+        {
+          "targetStat": "staminaRegen",
+          "value": 0.5,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Stealth Candy",
+      "effect": "Upon use, increases Stealth by 25% for 8 seconds.",
+      "category": "stealth",
+      "rarity": "common",
+      "dandy_shop_only": false,
+      "cost": 35,
+      "image_name": "stealth_candy.png",
+      "id": "stealth_candy",
+      "effects": [
+        {
+          "targetStat": "stealth",
+          "value": 0.25,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Stopwatch",
+      "effect": "While extracting a machine, increases Skill Check window size by 50 for 15 seconds. (Cannot be used when not extracting a Machine.)",
+      "category": "skill_check",
+      "rarity": "common",
+      "dandy_shop_only": true,
+      "cost": 18,
+      "image_name": "stopwatch.png",
+      "id": "stopwatch",
+      "effects": [
+        {
+          "targetStat": "skillCheckSize",
+          "value": 50,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Tapes",
+      "effect": "In-game currency used in Dandy's Shop during runs",
+      "category": "currency",
+      "rarity": "common",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "tapes.png",
+      "id": "tapes"
+    },
+    {
+      "name": "Valve",
+      "effect": "While extracting a Machine, instantly completes it upon use. (Cannot be used when not extracting a Machine.)",
+      "category": "extraction",
+      "rarity": "ultra_rare",
+      "dandy_shop_only": true,
+      "cost": 150,
+      "image_name": "valve.png",
+      "id": "valve"
+    }
+  ],
+  "count": 27,
+  "source": "Dandy's World - Namu.wiki (Korean) - https://en.namu.wiki/w/Dandy's%20World/%EC%95%84%EC%9D%B4%ED%85%9C",
+  "categories": {
+    "healing": "Items that restore health",
+    "speed": "Items that increase movement speed",
+    "stealth": "Items that increase stealth",
+    "stamina": "Items that affect stamina",
+    "extraction": "Items that affect machine extraction",
+    "skill_check": "Items that affect skill checks",
+    "distraction": "Items that attract Twisteds",
+    "random": "Items with random effects",
+    "currency": "Currency items",
+    "other": "Miscellaneous items"
+  },
+  "notes": "Complete list of 27 active items. Both Stopwatch and Skill Check Candy are separate, distinct items. Pop (Cancola in Korean) and Bottle o' Pop are also separate items with different effects."
+}

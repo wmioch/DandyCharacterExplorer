@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character Encoding and Viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags (SEO) -->
+    <title>Dandy's World Character Explorer - Build Calculator & Stats Tool</title>
+    <meta name="description" content="Explore and calculate character statistics for Dandy's World Roblox game. Build your perfect toon with trinkets and items, compare twisted enemy speeds, and simulate machine extraction times with skill checks.">
+    <meta name="keywords" content="Dandy's World, Roblox character, stat calculator, toon builder, trinket optimizer, game stats, Dandy's World wiki">
+    <meta name="author" content="Dandy's World Community">
+    <meta name="theme-color" content="#FFD700">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="canonical" href="https://wmioch.github.io/DandyCharacterExplorer/">
+    
+    <!-- Open Graph Tags (Social Media Sharing) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dandy's World Character Explorer - Build Your Toon">
+    <meta property="og:description" content="Calculate toon stats, optimize trinkets, plan team abilities, and master machine extraction times.">
+    <meta property="og:url" content="https://wmioch.github.io/DandyCharacterExplorer/">
+    <meta property="og:image" content="https://wmioch.github.io/DandyCharacterExplorer/assets/images/placeholder.png">
+    <meta property="og:site_name" content="Dandy's World Character Explorer">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dandy's World Character Explorer">
+    <meta name="twitter:description" content="Ultimate Roblox Dandy's World stat calculator and character builder">
+    <meta name="twitter:image" content="https://wmioch.github.io/DandyCharacterExplorer/assets/images/placeholder.png">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="General">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Preconnect to External Resources (Performance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Structured Data (Schema.org - Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Dandy's World Character Explorer",
+        "description": "An interactive tool for exploring and calculating character statistics for Dandy's World Roblox game",
+        "url": "https://wmioch.github.io/DandyCharacterExplorer/",
+        "applicationCategory": "GameApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Dandy's World Community"
+        },
+        "image": "https://wmioch.github.io/DandyCharacterExplorer/assets/images/placeholder.png"
+    }
+    </script>
+</head>
+<body>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Single Row: 3 Columns -->
+            <div class="row-one">
+                <!-- Column 1: Toon Selection + Trinkets + Items -->
+                <section class="column-one">
+                    <!-- Toon Selection -->
+                    <div class="toon-selection-compact">
+                        <div class="toon-selection-header">
+                            <span class="player-click-instruction">Select Your Toon --> Left Mouse Click</span>
+                            <span class="team-click-instruction">Right Mouse Click <-- Select Your Team</span>
+                        </div>
+                        <div id="toon-grid" class="toon-grid">
+                            <!-- Dynamically populated with toon images -->
+                        </div>
+                    </div>
+
+                    <!-- Trinkets -->
+                    <h3 class="section-heading">Trinkets (Stat changing only)</h3>
+                    <div class="trinket-filter">
+                        <label for="trinket-filter-select">Filter:</label>
+                        <select id="trinket-filter-select" class="filter-dropdown">
+                            <option value="all">All Trinkets</option>
+                            <option value="movementSpeed">Movement Speed</option>
+                            <option value="stealth">Stealth</option>
+                            <option value="extractionSpeed">Extraction Speed</option>
+                            <option value="stamina">Stamina</option>
+                            <option value="skillCheckAmount">Skill Check</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div id="trinket-list" class="trinket-list">
+                        <!-- Dynamically populated with images -->
+                    </div>
+
+                    <!-- Items -->
+                    <h3 class="section-heading">Active Items</h3>
+                    <div id="active-items" class="items-list-compact">
+                        <!-- Dynamically populated with images -->
+                    </div>
+                </section>
+
+                <!-- Column 2: Stats + Abilities + Team Abilities + Machine -->
+                <section class="column-two">
+                    <!-- Conditional Stats Selector -->
+                    <div id="conditional-stats" class="conditional-stats" style="display: none;">
+                        <h3 class="section-heading">Configuration</h3>
+                        <div class="stat-options">
+                            <label class="radio-option">
+                                <input type="radio" name="stat-set" value="3hearts" checked>
+                                <span>3 Hearts</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="stat-set" value="2hearts">
+                                <span>2 Hearts</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="stat-set" value="1heart">
+                                <span>1 Heart</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Player Toon Stats -->
+                    <h3 class="section-heading">Player Toon Stats</h3>
+                    <div class="stats-display-compact">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Stat</th>
+                                    <th>Stars</th>
+                                    <th>Base</th>
+                                    <th>Mod</th>
+                                    <th>Final</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="stat-name">Walk</td>
+                                    <td class="stat-base">15.0</td>
+                                    <td class="stat-modifier positive">+25%</td>
+                                    <td class="stat-final">18.8</td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Run</td>
+                                    <td class="stat-base">25.0</td>
+                                    <td class="stat-modifier positive">+25%</td>
+                                    <td class="stat-final">31.3</td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Stealth</td>
+                                    <td class="stat-base">10.0</td>
+                                    <td class="stat-modifier positive">+40%</td>
+                                    <td class="stat-final">14.0</td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Extract</td>
+                                    <td class="stat-base">1.0</td>
+                                    <td class="stat-modifier positive">+65%</td>
+                                    <td class="stat-final">1.7</td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Stamina</td>
+                                    <td class="stat-base">150.0</td>
+                                    <td class="stat-modifier">+0%</td>
+                                    <td class="stat-final">150.0</td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Skill Chk</td>
+                                    <td class="stat-base">2.0</td>
+                                    <td class="stat-modifier">+0%</td>
+                                    <td class="stat-final">2.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Player Toon Abilities -->
+                    <h3 class="section-heading">Player Toon Abilities</h3>
+                    <div id="abilities-display" class="abilities-display" style="display: none;">
+                        <!-- Dynamically populated -->
+                    </div>
+
+                    <!-- Team Abilities -->
+                    <h3 class="section-heading">Team Abilities</h3>
+                    <div class="team-slots-compact" style="display: none;">
+                        <select id="team-1" class="team-dropdown-compact">
+                            <option value="">-- Empty --</option>
+                            <option value="poppy">Poppy</option>
+                            <option value="astro">Astro</option>
+                        </select>
+                        <select id="team-2" class="team-dropdown-compact">
+                            <option value="">-- Empty --</option>
+                        </select>
+                        <select id="team-3" class="team-dropdown-compact">
+                            <option value="">-- Empty --</option>
+                        </select>
+                        <select id="team-4" class="team-dropdown-compact">
+                            <option value="">-- Empty --</option>
+                        </select>
+                        <select id="team-5" class="team-dropdown-compact">
+                            <option value="">-- Empty --</option>
+                        </select>
+                        <select id="team-6" class="team-dropdown-compact">
+                            <option value="">-- Empty --</option>
+                        </select>
+                        <select id="team-7" class="team-dropdown-compact">
+                            <option value="">-- Empty --</option>
+                        </select>
+                    </div>
+                    <div id="team-abilities" class="abilities-list-compact team-abilities-two-column">
+                        <p class="empty-message">Select team to see abilities</p>
+                    </div>
+                </section>
+
+                <!-- Column 3: Tabbed Content -->
+                <section class="column-three">
+                    <!-- Tab Navigation -->
+                    <div class="tab-navigation">
+                        <button class="tab-btn active" data-tab="twisted-speed">Twisted Speed</button>
+                        <button class="tab-btn" data-tab="machine-stats">Machine Stats</button>
+                    </div>
+
+                    <!-- Tab Content: Twisted Speed -->
+                    <div id="tab-twisted-speed" class="tab-content active">
+                        <div class="twisted-header-compact">
+                            <!-- Color Legend -->
+                            <div class="color-legend-compact">
+                                <span class="legend-item-compact"><span class="color-box green"></span>Out-Walk</span>
+                                <span class="legend-item-compact"><span class="color-box yellow"></span>Out-Run</span>
+                                <span class="legend-item-compact"><span class="color-box red"></span>Cannot Escape</span>
+                            </div>
+                            
+                            <div class="sort-controls">
+                                <button id="sort-speed" class="sort-btn active">Fastest ▼</button>
+                                <button id="sort-name" class="sort-btn">Name</button>
+                            </div>
+                        </div>
+
+                        <!-- Compact Twisted Table -->
+                        <div class="twisted-table-wrapper-compact">
+                            <table class="twisted-table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="twisted-name-col">Twisted</th>
+                                        <th class="group-header">Normal</th>
+                                        <th class="group-header">Panic</th>
+                                        <th class="group-header">P+Sup</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="twisted-name">Twisted Pebble</td>
+                                        <td class="speed-value red">32.0</td>
+                                        <td class="speed-value red">34.0</td>
+                                        <td class="speed-value red">33.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="twisted-name">Twisted Vee</td>
+                                        <td class="speed-value yellow">28.0</td>
+                                        <td class="speed-value yellow">30.0</td>
+                                        <td class="speed-value yellow">29.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="twisted-name">Twisted Shrimpo</td>
+                                        <td class="speed-value green">24.0</td>
+                                        <td class="speed-value green">26.0</td>
+                                        <td class="speed-value green">25.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Machine Stats -->
+                    <div id="tab-machine-stats" class="tab-content">
+                        <div class="machine-stats-container">
+                            <!-- Skill Check Great Rate Slider at the top -->
+                            <div class="machine-stats-slider-section">
+                                <div class="machine-stats-header">
+                                    <span class="machine-stats-label">Skill Check Great Rate</span>
+                                    <span id="skill-check-great-rate-value" class="machine-stats-value">100%</span>
+                                </div>
+                                <input type="range" id="skill-check-great-rate-slider" min="0" max="100" value="100" step="5" class="skill-slider">
+                            </div>
+
+                            <!-- Default / Circle Machines Section -->
+                            <div class="machine-type-section">
+                                <h4 class="machine-type-header">Default / Circle Machines</h4>
+                                <div class="machine-stats-grid">
+                                    <div class="machine-stat-item">
+                                        <span class="stat-label" title="Time to complete machine with all 'Good' skill checks - none Failed, none Great">Base Time</span>
+                                        <span id="default-base-time" class="stat-value">45.0s</span>
+                                    </div>
+                                    <div class="machine-stat-item">
+                                        <span class="stat-label">Average Time</span>
+                                        <span id="default-average-time" class="stat-value">26.5s</span>
+                                    </div>
+                                    <div class="machine-stat-item">
+                                        <span class="stat-label">Expected Skill Checks</span>
+                                        <span id="default-expected-checks" class="stat-value">5.2</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Treadmill Machines Section -->
+                            <div class="machine-type-section">
+                                <h4 class="machine-type-header">Treadmill Machines</h4>
+                                <div class="machine-stats-grid">
+                                    <div class="machine-stat-item">
+                                        <span class="stat-label">Base Time</span>
+                                        <span class="stat-value placeholder">TBD</span>
+                                    </div>
+                                    <div class="machine-stat-item">
+                                        <span class="stat-label">Average Time</span>
+                                        <span class="stat-value placeholder">TBD</span>
+                                    </div>
+                                    <div class="machine-stat-item">
+                                        <span class="stat-label">Expected Skill Checks</span>
+                                        <span class="stat-value placeholder">TBD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <button id="share-build" class="share-btn">📋 Share Build URL</button>
+            <p class="footer-text">Data from <a href="https://dandys-world-robloxhorror.fandom.com/wiki/Main_Page" target="_blank">Dandy's World Wiki</a></p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Link copied to clipboard!</div>
+
+    <!-- Scripts -->
+    <script src="js/data-loader.js?v=20251028"></script>
+    <script src="js/calculator.js?v=20251028"></script>
+    <script src="js/ui.js?v=20251028"></script>
+    <script src="js/app.js?v=20251028"></script>
+    <script>
+        // Debug script to log column scrollbar status
+        function logColumnScrollbars() {
+            const col1 = document.querySelector('.column-one');
+            const col2 = document.querySelector('.column-two');
+            const col3 = document.querySelector('.column-three');
+            
+            function getScrollbarInfo(col) {
+                if (!col) return { error: 'element not found' };
+                const scrollHeight = col.scrollHeight;
+                const clientHeight = col.clientHeight;
+                const hasOverflow = scrollHeight > clientHeight;
+                const overflowProperty = window.getComputedStyle(col).overflow;
+                const displayedScrollbar = hasOverflow && (overflowProperty === 'auto' || overflowProperty === 'scroll');
+                
+                return {
+                    scrollHeight: scrollHeight,
+                    clientHeight: clientHeight,
+                    difference: scrollHeight - clientHeight,
+                    hasOverflow: hasOverflow,
+                    overflowProperty: overflowProperty,
+                    scrollbarDisplayed: displayedScrollbar
+                };
+            }
+            
+            const info = {
+                viewport: window.innerWidth + 'x' + window.innerHeight,
+                col1: getScrollbarInfo(col1),
+                col2: getScrollbarInfo(col2),
+                col3: getScrollbarInfo(col3)
+            };
+            
+            console.log('SCROLLBAR_STATUS:', info);
+        }
+        
+        window.addEventListener('load', logColumnScrollbars);
+        window.addEventListener('resize', () => {
+            setTimeout(logColumnScrollbars, 100);
+        });
+    </script>
+</body>
+</html>
+

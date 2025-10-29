@@ -1,0 +1,816 @@
+{
+  "twisteds": [
+    {
+      "id": "twisted_astro",
+      "name": "Twisted Astro",
+      "rarity": "Main Character",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 19.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 23.75
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 22.8
+        }
+      },
+      "image": "twisteds/astro.png"
+    },
+    {
+      "id": "twisted_bassie",
+      "name": "Twisted Bassie",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 19.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 23.75
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 22.8
+        }
+      },
+      "image": "twisteds/bassie.png"
+    },
+    {
+      "id": "twisted_blot",
+      "name": "Twisted Blot",
+      "rarity": "Rare",
+      "speeds": {
+        "normal": {
+          "walk": 0,
+          "run": 0
+        },
+        "panic": {
+          "walk": 0,
+          "run": 0
+        },
+        "panicSuppressed": {
+          "walk": 0,
+          "run": 0
+        }
+      },
+      "image": "twisteds/blot.png",
+      "notes": "Static - does not move"
+    },
+    {
+      "id": "twisted_bobette",
+      "name": "Twisted Bobette",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 8.0,
+          "run": 23.0
+        },
+        "panic": {
+          "walk": 10.0,
+          "run": 28.75
+        },
+        "panicSuppressed": {
+          "walk": 9.6,
+          "run": 27.6
+        }
+      },
+      "image": "twisteds/bobette.png"
+    },
+    {
+      "id": "twisted_boxten",
+      "name": "Twisted Boxten",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/boxten.png"
+    },
+    {
+      "id": "twisted_brightney",
+      "name": "Twisted Brightney",
+      "rarity": "Uncommon",
+      "speeds": {
+        "normal": {
+          "walk": 12.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 15.0,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 14.4,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/brightney.png"
+    },
+    {
+      "id": "twisted_brusha",
+      "name": "Twisted Brusha",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/brusha.png"
+    },
+    {
+      "id": "twisted_coal",
+      "name": "Twisted Coal",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 8.0,
+          "run": 16.0
+        },
+        "panic": {
+          "walk": 10.0,
+          "run": 20.0
+        },
+        "panicSuppressed": {
+          "walk": 9.6,
+          "run": 19.2
+        }
+      },
+      "image": "twisteds/coal.png"
+    },
+    {
+      "id": "twisted_cocoa",
+      "name": "Twisted Cocoa",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 8.0,
+          "run": 21.0
+        },
+        "panic": {
+          "walk": 10.0,
+          "run": 26.25
+        },
+        "panicSuppressed": {
+          "walk": 9.6,
+          "run": 25.2
+        }
+      },
+      "image": "twisteds/cocoa.png"
+    },
+    {
+      "id": "twisted_connie",
+      "name": "Twisted Connie",
+      "rarity": "Uncommon",
+      "speeds": {
+        "normal": {
+          "walk": 8.0,
+          "run": 8.0
+        },
+        "panic": {
+          "walk": 10.0,
+          "run": 10.0
+        },
+        "panicSuppressed": {
+          "walk": 9.6,
+          "run": 9.6
+        }
+      },
+      "image": "twisteds/connie.png",
+      "notes": "Only walks, does not chase"
+    },
+    {
+      "id": "twisted_cosmo",
+      "name": "Twisted Cosmo",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/cosmo.png"
+    },
+    {
+      "id": "twisted_eclipse",
+      "name": "Twisted Eclipse",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 19.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 23.75
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 22.8
+        }
+      },
+      "image": "twisteds/eclipse.png"
+    },
+    {
+      "id": "twisted_eggson",
+      "name": "Twisted Eggson",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/eggson.png"
+    },
+    {
+      "id": "twisted_finn",
+      "name": "Twisted Finn",
+      "rarity": "Uncommon",
+      "speeds": {
+        "normal": {
+          "walk": 8.5,
+          "run": 15.5
+        },
+        "panic": {
+          "walk": 10.63,
+          "run": 19.38
+        },
+        "panicSuppressed": {
+          "walk": 10.2,
+          "run": 18.6
+        }
+      },
+      "image": "twisteds/finn.png"
+    },
+    {
+      "id": "twisted_flutter",
+      "name": "Twisted Flutter",
+      "rarity": "Rare",
+      "speeds": {
+        "normal": {
+          "walk": 18.0,
+          "run": 18.5
+        },
+        "panic": {
+          "walk": 22.5,
+          "run": 23.12
+        },
+        "panicSuppressed": {
+          "walk": 21.6,
+          "run": 22.2
+        }
+      },
+      "image": "twisteds/flutter.png"
+    },
+    {
+      "id": "twisted_flyte",
+      "name": "Twisted Flyte",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 17.0,
+          "run": 17.5
+        },
+        "panic": {
+          "walk": 21.25,
+          "run": 21.875
+        },
+        "panicSuppressed": {
+          "walk": 20.4,
+          "run": 21.0
+        }
+      },
+      "image": "twisteds/flyte.png"
+    },
+    {
+      "id": "twisted_gigi",
+      "name": "Twisted Gigi",
+      "rarity": "Rare",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 19.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 23.75
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 22.8
+        }
+      },
+      "image": "twisteds/gigi.png"
+    },
+    {
+      "id": "twisted_ginger",
+      "name": "Twisted Ginger",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 6.0,
+          "run": 14.0
+        },
+        "panic": {
+          "walk": 7.5,
+          "run": 17.5
+        },
+        "panicSuppressed": {
+          "walk": 7.2,
+          "run": 16.8
+        }
+      },
+      "image": "twisteds/ginger.png"
+    },
+    {
+      "id": "twisted_glisten",
+      "name": "Twisted Glisten",
+      "rarity": "Rare",
+      "speeds": {
+        "normal": {
+          "walk": 15.0,
+          "run": 24.0
+        },
+        "panic": {
+          "walk": 18.75,
+          "run": 30.0
+        },
+        "panicSuppressed": {
+          "walk": 18.0,
+          "run": 28.8
+        }
+      },
+      "image": "twisteds/glisten.png"
+    },
+    {
+      "id": "twisted_goob",
+      "name": "Twisted Goob",
+      "rarity": "Rare",
+      "speeds": {
+        "normal": {
+          "walk": 8.0,
+          "run": 16.0
+        },
+        "panic": {
+          "walk": 10.0,
+          "run": 20.0
+        },
+        "panicSuppressed": {
+          "walk": 9.6,
+          "run": 19.2
+        }
+      },
+      "image": "twisteds/goob.png"
+    },
+    {
+      "id": "twisted_gourdy",
+      "name": "Twisted Gourdy",
+      "rarity": "Main Character",
+      "speeds": {
+        "normal": {
+          "walk": 0,
+          "run": 26.0
+        },
+        "panic": {
+          "walk": 0,
+          "run": 32.5
+        },
+        "panicSuppressed": {
+          "walk": 0,
+          "run": 31.2
+        }
+      },
+      "image": "twisteds/gourdy.png",
+      "notes": "Static when passive, enraged speeds shown"
+    },
+    {
+      "id": "twisted_looey",
+      "name": "Twisted Looey",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/looey.png"
+    },
+    {
+      "id": "twisted_pebble",
+      "name": "Twisted Pebble",
+      "rarity": "Main Character",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 25.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 31.25
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 30.0
+        }
+      },
+      "image": "twisteds/pebble.png"
+    },
+    {
+      "id": "twisted_poppy",
+      "name": "Twisted Poppy",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/poppy.png"
+    },
+    {
+      "id": "twisted_razzle_and_dazzle",
+      "name": "Twisted Razzle & Dazzle",
+      "rarity": "Uncommon",
+      "speeds": {
+        "normal": {
+          "walk": 0,
+          "run": 0
+        },
+        "panic": {
+          "walk": 0,
+          "run": 0
+        },
+        "panicSuppressed": {
+          "walk": 0,
+          "run": 0
+        }
+      },
+      "image": "twisteds/razzle_and_dazzle.png",
+      "notes": "Static - does not move"
+    },
+    {
+      "id": "twisted_ribecca",
+      "name": "Twisted Ribecca",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/ribecca.png"
+    },
+    {
+      "id": "twisted_rodger",
+      "name": "Twisted Rodger",
+      "rarity": "Uncommon",
+      "speeds": {
+        "normal": {
+          "walk": 0,
+          "run": 0
+        },
+        "panic": {
+          "walk": 0,
+          "run": 0
+        },
+        "panicSuppressed": {
+          "walk": 0,
+          "run": 0
+        }
+      },
+      "image": "twisteds/rodger.png",
+      "notes": "Static - does not move"
+    },
+    {
+      "id": "twisted_rudie",
+      "name": "Twisted Rudie",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/rudie.png"
+    },
+    {
+      "id": "twisted_scraps",
+      "name": "Twisted Scraps",
+      "rarity": "Rare",
+      "speeds": {
+        "normal": {
+          "walk": 8.0,
+          "run": 16.0
+        },
+        "panic": {
+          "walk": 10.0,
+          "run": 20.0
+        },
+        "panicSuppressed": {
+          "walk": 9.6,
+          "run": 19.2
+        }
+      },
+      "image": "twisteds/scraps.png"
+    },
+    {
+      "id": "twisted_shelly",
+      "name": "Twisted Shelly",
+      "rarity": "Main Character",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 20.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 25.0
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 24.0
+        }
+      },
+      "image": "twisteds/shelly.png"
+    },
+    {
+      "id": "twisted_shrimpo",
+      "name": "Twisted Shrimpo",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 9.5,
+          "run": 16.5
+        },
+        "panic": {
+          "walk": 11.87,
+          "run": 20.62
+        },
+        "panicSuppressed": {
+          "walk": 11.4,
+          "run": 19.8
+        }
+      },
+      "image": "twisteds/shrimpo.png"
+    },
+    {
+      "id": "twisted_soulvester",
+      "name": "Twisted Soulvester",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 16.0,
+          "run": 16.0
+        },
+        "panic": {
+          "walk": 20.0,
+          "run": 20.0
+        },
+        "panicSuppressed": {
+          "walk": 19.2,
+          "run": 19.2
+        }
+      },
+      "image": "twisteds/soulvester.png"
+    },
+    {
+      "id": "twisted_sprout",
+      "name": "Twisted Sprout",
+      "rarity": "Main Character",
+      "speeds": {
+        "normal": {
+          "walk": 8.5,
+          "run": 17.0
+        },
+        "panic": {
+          "walk": 10.62,
+          "run": 21.25
+        },
+        "panicSuppressed": {
+          "walk": 10.1952,
+          "run": 20.4
+        }
+      },
+      "image": "twisteds/sprout.png"
+    },
+    {
+      "id": "twisted_teagan",
+      "name": "Twisted Teagan",
+      "rarity": "Uncommon",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.5
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 23.12
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 22.2
+        }
+      },
+      "image": "twisteds/teagan.png"
+    },
+    {
+      "id": "twisted_tisha",
+      "name": "Twisted Tisha",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/tisha.png"
+    },
+    {
+      "id": "twisted_toodles",
+      "name": "Twisted Toodles",
+      "rarity": "Uncommon",
+      "speeds": {
+        "normal": {
+          "walk": 12.0,
+          "run": 20.0
+        },
+        "panic": {
+          "walk": 15.0,
+          "run": 25.0
+        },
+        "panicSuppressed": {
+          "walk": 14.4,
+          "run": 24.0
+        }
+      },
+      "image": "twisteds/toodles.png"
+    },
+    {
+      "id": "twisted_vee",
+      "name": "Twisted Vee",
+      "rarity": "Main Character",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 18.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 22.5
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 21.6
+        }
+      },
+      "image": "twisteds/vee.png"
+    },
+    {
+      "id": "twisted_yatta",
+      "name": "Twisted Yatta",
+      "rarity": "Common",
+      "speeds": {
+        "normal": {
+          "walk": 7.0,
+          "run": 19.0
+        },
+        "panic": {
+          "walk": 8.75,
+          "run": 23.75
+        },
+        "panicSuppressed": {
+          "walk": 8.4,
+          "run": 22.8
+        }
+      },
+      "image": "twisteds/yatta.png"
+    },
+    {
+      "id": "twisted_dandy",
+      "name": "Twisted Dandy",
+      "rarity": "Lethal",
+      "speeds": {
+        "normal": {
+          "walk": 9.0,
+          "run": 16.0
+        },
+        "panic": {
+          "walk": 11.25,
+          "run": 20.0
+        },
+        "panicSuppressed": {
+          "walk": 10.8,
+          "run": 19.2
+        }
+      },
+      "image": "twisteds/dandy.png"
+    },
+    {
+      "id": "twisted_dyle",
+      "name": "Twisted Dyle",
+      "rarity": "Lethal",
+      "speeds": {
+        "normal": {
+          "walk": 22.5,
+          "run": 40.0
+        },
+        "panic": {
+          "walk": 28.1,
+          "run": 50.0
+        },
+        "panicSuppressed": {
+          "walk": 27.0,
+          "run": 48.0
+        }
+      },
+      "image": "twisteds/dyle.png",
+      "notes": "Variable speed - these are highest speeds"
+    }
+  ],
+  "metadata": {
+    "source": "Dandy's World Wiki",
+    "url": "https://dandys-world-robloxhorror.fandom.com/wiki/Twisteds",
+    "scraped_at": "2025-10-28 16:30:42",
+    "total_count": 40
+  }
+}

@@ -1,0 +1,22 @@
+# Dandy's World Character Explorer - Robots Configuration
+# Allow all search engine bots to crawl and index the site
+
+User-agent: *
+Allow: /
+Disallow: *.py
+Disallow: *.bat
+Disallow: *.ps1
+Disallow: /List\ of\ Items.files/
+Crawl-delay: 1
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Point to sitemap
+Sitemap: https://wmioch.github.io/DandyCharacterExplorer/sitemap.xml

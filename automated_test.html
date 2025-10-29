@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Trinket & Item Test</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 5px;
+        }
+        .test-case {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #252526;
+            border-left: 3px solid #666;
+        }
+        .pass {
+            border-left-color: #4ec9b0;
+        }
+        .fail {
+            border-left-color: #f48771;
+            background-color: #3c1f1e;
+        }
+        .test-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .test-result {
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+        h1 {
+            color: #4ec9b0;
+        }
+        h2 {
+            color: #569cd6;
+        }
+        .summary {
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #264f78;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Comprehensive Trinket & Item Testing</h1>
+    <div id="test-output"></div>
+
+    <script src="js/data-loader.js"></script>
+    <script src="js/calculator.js"></script>
+    <script>
+        const output = document.getElementById('test-output');
+        let totalTests = 0;
+        let passedTests = 0;
+
+        function logTest(name, passed, details) {
+            totalTests++;
+            if (passed) passedTests++;
+            
+            const testDiv = document.createElement('div');
+            testDiv.className = `test-case ${passed ? 'pass' : 'fail'}`;
+            testDiv.innerHTML = `
+                <div class="test-name">${passed ? '✓' : '✗'} ${name}</div>
+                <div class="test-result">${details}</div>
+            `;
+            output.appendChild(testDiv);
+        }
+
+        function addSection(title) {
+            const section = document.createElement('div');
+            section.className = 'test-section';
+            section.innerHTML = `<h2>${title}</h2>`;
+            output.appendChild(section);
+            return section;
+        }
+
+        function compareValues(actual, expected, tolerance = 0.1) {
+            return Math.abs(actual - expected) < tolerance;
+        }
+
+        // Wait for data to load
+        setTimeout(() => {
+            console.log('Starting automated tests...');
+            
+            // Section 1: Trinkets with Permanent Effects
+            addSection('Section 1: Trinkets with Permanent Effects (18 tests)');
+            
+            const testToon = DataLoader.getToon('goob'); // Walk: 10, Run: 14, Stamina: 100
+            
+            // Test 1: Dog Plush (walk-only)
+            const dogPlush = DataLoader.getTrinket('dog_plush');
+            const r1 = Calculator.calculateFinalStats(testToon, [dogPlush], [], []);
+            logTest(
+                'Dog Plush: +10% walk speed only',
+                r1.final.walkSpeed === 11.0 && r1.final.runSpeed === 14.0,
+                `Walk: ${r1.final.walkSpeed} (expected 11.0), Run: ${r1.final.runSpeed} (expected 14.0)`
+            );
+            
+            // Test 2: Pink Bow (run-only)
+            const pinkBow = DataLoader.getTrinket('pink_bow');
+            const r2 = Calculator.calculateFinalStats(testToon, [pinkBow], [], []);
+            logTest(
+                'Pink Bow: +7.5% run speed only',
+                r2.final.walkSpeed === 10.0 && compareValues(r2.final.runSpeed, 15.05),
+                `Walk: ${r2.final.walkSpeed} (expected 10.0), Run: ${r2.final.runSpeed} (expected 15.05)`
+            );
+            
+            // Test 3: Speedy Shoes (both speeds)
+            const speedyShoes = DataLoader.getTrinket('speedy_shoes');
+            const r3 = Calculator.calculateFinalStats(testToon, [speedyShoes], [], []);
+            logTest(
+                'Speedy Shoes: +5% both speeds',
+                compareValues(r3.final.walkSpeed, 10.5) && compareValues(r3.final.runSpeed, 14.7),
+                `Walk: ${r3.final.walkSpeed} (expected 10.5), Run: ${r3.final.runSpeed} (expected 14.7)`
+            );
+            
+            // Test 4: Brick (negative movement)
+            const brick = DataLoader.getTrinket('brick');
+            const r4 = Calculator.calculateFinalStats(testToon, [brick], [], []);
+            logTest(
+                'Brick: -10% movement speed',
+                compareValues(r4.final.walkSpeed, 9.0) && compareValues(r4.final.runSpeed, 12.6),
+                `Walk: ${r4.final.walkSpeed} (expected 9.0), Run: ${r4.final.runSpeed} (expected 12.6)`
+            );
+            
+            // Test 5: Speedometer (additive stamina)
+            const speedometer = DataLoader.getTrinket('speedometer');
+            const r5 = Calculator.calculateFinalStats(testToon, [speedometer], [], []);
+            logTest(
+                'Speedometer: +15 stamina',
+                r5.final.stamina === 115,
+                `Stamina: ${r5.final.stamina} (expected 115)`
+            );
+            
+            // Test 6: Cooler (additive + multiplicative)
+            const cooler = DataLoader.getTrinket('cooler');
+            const r6 = Calculator.calculateFinalStats(testToon, [cooler], [], []);
+            logTest(
+                'Cooler: +50 stamina, -5% movement',
+                r6.final.stamina === 150 && compareValues(r6.final.walkSpeed, 9.5),
+                `Stamina: ${r6.final.stamina} (expected 150), Walk: ${r6.final.walkSpeed} (expected 9.5)`
+            );
+            
+            // Test 7: Diary (stealth)
+            const diary = DataLoader.getTrinket('diary');
+            const r7 = Calculator.calculateFinalStats(testToon, [diary], [], []);
+            const expectedStealth = testToon.baseStats.stealth * 1.25;
+            logTest(
+                'Diary: +25% stealth',
+                compareValues(r7.final.stealth, expectedStealth),
+                `Stealth: ${r7.final.stealth} (expected ${expectedStealth.toFixed(1)})`
+            );
+            
+            // Test 8: Scrapbook (negative stealth)
+            const scrapbook = DataLoader.getTrinket('scrapbook');
+            const r8 = Calculator.calculateFinalStats(testToon, [scrapbook], [], []);
+            const expectedStealth2 = testToon.baseStats.stealth * 0.95;
+            logTest(
+                'Scrapbook: -5% stealth',
+                compareValues(r8.final.stealth, expectedStealth2),
+                `Stealth: ${r8.final.stealth} (expected ${expectedStealth2.toFixed(1)})`
+            );
+            
+            // Test 9: Machine Manual (extraction)
+            const machineManual = DataLoader.getTrinket('machine_manual');
+            const r9 = Calculator.calculateFinalStats(testToon, [machineManual], [], []);
+            const expectedExtraction = testToon.baseStats.extractionSpeed * 1.05;
+            logTest(
+                'Machine Manual: +5% extraction',
+                compareValues(r9.final.extractionSpeed, expectedExtraction),
+                `Extraction: ${r9.final.extractionSpeed} (expected ${expectedExtraction.toFixed(2)})`
+            );
+            
+            // Test 10: Blue Bandana (two effects)
+            const blueBandana = DataLoader.getTrinket('blue_bandana');
+            const r10 = Calculator.calculateFinalStats(testToon, [blueBandana], [], []);
+            const expectedExtraction2 = testToon.baseStats.extractionSpeed * 1.075;
+            const expectedSkillCheck = testToon.baseStats.skillCheckChance * 0.95;
+            logTest(
+                'Blue Bandana: +7.5% extraction, -5% skill check chance',
+                compareValues(r10.final.extractionSpeed, expectedExtraction2) && 
+                compareValues(r10.final.skillCheckChance, expectedSkillCheck, 0.001),
+                `Extraction: ${r10.final.extractionSpeed} (expected ${expectedExtraction2.toFixed(3)}), Skill Check: ${r10.final.skillCheckChance.toFixed(4)} (expected ${expectedSkillCheck.toFixed(4)})`
+            );
+            
+            // Test 11: Coal (two negative effects)
+            const coal = DataLoader.getTrinket('coal_trinket');
+            const r11 = Calculator.calculateFinalStats(testToon, [coal], [], []);
+            const expectedStealth3 = testToon.baseStats.stealth * 0.9;
+            const expectedWalk3 = testToon.baseStats.walkSpeed * 0.8;
+            logTest(
+                'Coal: -10% stealth, -20% movement',
+                compareValues(r11.final.stealth, expectedStealth3) && 
+                compareValues(r11.final.walkSpeed, expectedWalk3),
+                `Stealth: ${r11.final.stealth} (expected ${expectedStealth3.toFixed(1)}), Walk: ${r11.final.walkSpeed} (expected ${expectedWalk3.toFixed(1)})`
+            );
+            
+            // Test 12: Thermos (stamina regen)
+            const thermos = DataLoader.getTrinket('thermos');
+            const r12 = Calculator.calculateFinalStats(testToon, [thermos], [], []);
+            const expectedStaminaRegen = 2.4 * 1.15;
+            logTest(
+                'Thermos: +15% stamina regen',
+                compareValues(r12.final.staminaRegen, expectedStaminaRegen),
+                `Stamina Regen: ${r12.final.staminaRegen} (expected ${expectedStaminaRegen.toFixed(2)})`
+            );
+            
+            // Test 13: Thinking Cap (additive skill check size)
+            const thinkingCap = DataLoader.getTrinket('thinking_cap');
+            const r13 = Calculator.calculateFinalStats(testToon, [thinkingCap], [], []);
+            const baseSkillSize = DataLoader.getStatValue('skillCheckSize', testToon.starRatings.skillCheckAmount);
+            const expectedSkillSize = baseSkillSize + 40;
+            logTest(
+                'Thinking Cap: +40 skill check size',
+                compareValues(r13.final.skillCheckSize, expectedSkillSize),
+                `Skill Check Size: ${r13.final.skillCheckSize} (expected ${expectedSkillSize})`
+            );
+            
+            // Test 14: Paint Bucket (two skill check effects)
+            const paintBucket = DataLoader.getTrinket('paint_bucket');
+            const r14 = Calculator.calculateFinalStats(testToon, [paintBucket], [], []);
+            const expectedSkillSize2 = baseSkillSize * 1.05;
+            const expectedSkillChance2 = testToon.baseStats.skillCheckChance * 1.05;
+            logTest(
+                'Paint Bucket: +5% skill check size & chance',
+                compareValues(r14.final.skillCheckSize, expectedSkillSize2) && 
+                compareValues(r14.final.skillCheckChance, expectedSkillChance2, 0.001),
+                `Size: ${r14.final.skillCheckSize} (expected ${expectedSkillSize2.toFixed(1)}), Chance: ${r14.final.skillCheckChance.toFixed(4)} (expected ${expectedSkillChance2.toFixed(4)})`
+            );
+            
+            // Test 15: Participation Award (skill check trade-off)
+            const participationAward = DataLoader.getTrinket('participation_award');
+            const r15 = Calculator.calculateFinalStats(testToon, [participationAward], [], []);
+            const expectedSkillSize3 = baseSkillSize * 0.9;
+            const expectedSkillChance3 = testToon.baseStats.skillCheckChance * 1.25;
+            logTest(
+                'Participation Award: +25% chance, -10% size',
+                compareValues(r15.final.skillCheckSize, expectedSkillSize3) && 
+                compareValues(r15.final.skillCheckChance, expectedSkillChance3, 0.001),
+                `Size: ${r15.final.skillCheckSize} (expected ${expectedSkillSize3.toFixed(1)}), Chance: ${r15.final.skillCheckChance.toFixed(4)} (expected ${expectedSkillChance3.toFixed(4)})`
+            );
+            
+            // Test 16: Magnifying Glass (additive amount, multiplicative size)
+            const magnifyingGlass = DataLoader.getTrinket('magnifying_glass');
+            const r16 = Calculator.calculateFinalStats(testToon, [magnifyingGlass], [], []);
+            const expectedAmount = testToon.baseStats.skillCheckAmount + 1.75;
+            const expectedSize4 = baseSkillSize * 0.67; // -33%
+            logTest(
+                'Magnifying Glass: +1.75 amount, -33% size',
+                compareValues(r16.final.skillCheckAmount, expectedAmount) && 
+                compareValues(r16.final.skillCheckSize, expectedSize4),
+                `Amount: ${r16.final.skillCheckAmount} (expected ${expectedAmount.toFixed(2)}), Size: ${r16.final.skillCheckSize} (expected ${expectedSize4.toFixed(1)})`
+            );
+            
+            // Test 17: Dog Plush + Pink Bow (both walk and run)
+            const r17 = Calculator.calculateFinalStats(testToon, [dogPlush, pinkBow], [], []);
+            logTest(
+                'Dog Plush + Pink Bow: Walk +10%, Run +7.5%',
+                compareValues(r17.final.walkSpeed, 11.0) && 
+                compareValues(r17.final.runSpeed, 15.05),
+                `Walk: ${r17.final.walkSpeed} (expected 11.0), Run: ${r17.final.runSpeed} (expected 15.05)`
+            );
+            
+            // Test 18: Cooler + Speedometer (stacking stamina)
+            const r18 = Calculator.calculateFinalStats(testToon, [cooler, speedometer], [], []);
+            logTest(
+                'Cooler + Speedometer: +65 stamina total',
+                r18.final.stamina === 165,
+                `Stamina: ${r18.final.stamina} (expected 165)`
+            );
+            
+            // Section 2: Items with Effects
+            addSection('Section 2: Items with Effects (13 tests)');
+            
+            // Test 19: Speed Candy
+            const speedCandy = DataLoader.getItem('speed_candy');
+            const r19 = Calculator.calculateFinalStats(testToon, [], [], [{item: speedCandy, count: 1}]);
+            logTest(
+                'Speed Candy: +25% movement',
+                compareValues(r19.final.walkSpeed, 12.5) && 
+                compareValues(r19.final.runSpeed, 17.5),
+                `Walk: ${r19.final.walkSpeed} (expected 12.5), Run: ${r19.final.runSpeed} (expected 17.5)`
+            );
+            
+            // Test 20: Speed Candy x2 (stacking)
+            const r20 = Calculator.calculateFinalStats(testToon, [], [], [{item: speedCandy, count: 2}]);
+            const expectedWalk20 = 10 * 1.25 * 1.25;
+            const expectedRun20 = 14 * 1.25 * 1.25;
+            logTest(
+                'Speed Candy x2: Multiplicative stacking',
+                compareValues(r20.final.walkSpeed, expectedWalk20) && 
+                compareValues(r20.final.runSpeed, expectedRun20),
+                `Walk: ${r20.final.walkSpeed} (expected ${expectedWalk20.toFixed(2)}), Run: ${r20.final.runSpeed} (expected ${expectedRun20.toFixed(2)})`
+            );
+            
+            // Test 21: Chocolate (walk-only + stamina)
+            const chocolate = DataLoader.getItem('chocolate');
+            const r21 = Calculator.calculateFinalStats(testToon, [], [], [{item: chocolate, count: 1}]);
+            logTest(
+                'Chocolate: +25 stamina, +10% walk',
+                r21.final.stamina === 125 && compareValues(r21.final.walkSpeed, 11.0) && r21.final.runSpeed === 14.0,
+                `Stamina: ${r21.final.stamina} (expected 125), Walk: ${r21.final.walkSpeed} (expected 11.0), Run: ${r21.final.runSpeed} (expected 14.0)`
+            );
+            
+            // Test 22: Box o' Chocolates (run-only + stamina)
+            const boxChocolates = DataLoader.getItem('box_o_chocolates');
+            const r22 = Calculator.calculateFinalStats(testToon, [], [], [{item: boxChocolates, count: 1}]);
+            logTest(
+                'Box o\' Chocolates: +25 stamina, +10% run',
+                r22.final.stamina === 125 && r22.final.walkSpeed === 10.0 && compareValues(r22.final.runSpeed, 15.4),
+                `Stamina: ${r22.final.stamina} (expected 125), Walk: ${r22.final.walkSpeed} (expected 10.0), Run: ${r22.final.runSpeed} (expected 15.4)`
+            );
+            
+            // Test 23: BonBon (extraction + movement)
+            const bonbon = DataLoader.getItem('bonbon');
+            const r23 = Calculator.calculateFinalStats(testToon, [], [], [{item: bonbon, count: 1}]);
+            const expectedExtraction23 = testToon.baseStats.extractionSpeed * 1.5;
+            logTest(
+                'BonBon: +50% extraction, +25% movement',
+                compareValues(r23.final.extractionSpeed, expectedExtraction23) && 
+                compareValues(r23.final.walkSpeed, 12.5),
+                `Extraction: ${r23.final.extractionSpeed} (expected ${expectedExtraction23.toFixed(2)}), Walk: ${r23.final.walkSpeed} (expected 12.5)`
+            );
+            
+            // Test 24: Extraction Speed Candy
+            const extractionCandy = DataLoader.getItem('extraction_speed_candy');
+            const r24 = Calculator.calculateFinalStats(testToon, [], [], [{item: extractionCandy, count: 1}]);
+            const expectedExtraction24 = testToon.baseStats.extractionSpeed * 1.5;
+            logTest(
+                'Extraction Speed Candy: +50% extraction',
+                compareValues(r24.final.extractionSpeed, expectedExtraction24),
+                `Extraction: ${r24.final.extractionSpeed} (expected ${expectedExtraction24.toFixed(2)})`
+            );
+            
+            // Test 25: Instructions
+            const instructions = DataLoader.getItem('instructions');
+            const r25 = Calculator.calculateFinalStats(testToon, [], [], [{item: instructions, count: 1}]);
+            const expectedExtraction25 = testToon.baseStats.extractionSpeed * 2.0;
+            logTest(
+                'Instructions: +100% extraction',
+                compareValues(r25.final.extractionSpeed, expectedExtraction25),
+                `Extraction: ${r25.final.extractionSpeed} (expected ${expectedExtraction25.toFixed(2)})`
+            );
+            
+            // Test 26: Protein Bar
+            const proteinBar = DataLoader.getItem('protein_bar');
+            const r26 = Calculator.calculateFinalStats(testToon, [], [], [{item: proteinBar, count: 1}]);
+            const expectedStaminaRegen26 = 2.4 * 2.5; // +150%
+            logTest(
+                'Protein Bar: +150% stamina regen',
+                compareValues(r26.final.staminaRegen, expectedStaminaRegen26),
+                `Stamina Regen: ${r26.final.staminaRegen} (expected ${expectedStaminaRegen26.toFixed(2)})`
+            );
+            
+            // Test 27: Stamina Candy
+            const staminaCandy = DataLoader.getItem('stamina_candy');
+            const r27 = Calculator.calculateFinalStats(testToon, [], [], [{item: staminaCandy, count: 1}]);
+            const expectedStaminaRegen27 = 2.4 * 1.5; // +50%
+            logTest(
+                'Stamina Candy: +50% stamina regen',
+                compareValues(r27.final.staminaRegen, expectedStaminaRegen27),
+                `Stamina Regen: ${r27.final.staminaRegen} (expected ${expectedStaminaRegen27.toFixed(2)})`
+            );
+            
+            // Test 28: Stealth Candy
+            const stealthCandy = DataLoader.getItem('stealth_candy');
+            const r28 = Calculator.calculateFinalStats(testToon, [], [], [{item: stealthCandy, count: 1}]);
+            const expectedStealth28 = testToon.baseStats.stealth * 1.25;
+            logTest(
+                'Stealth Candy: +25% stealth',
+                compareValues(r28.final.stealth, expectedStealth28),
+                `Stealth: ${r28.final.stealth} (expected ${expectedStealth28.toFixed(1)})`
+            );
+            
+            // Test 29: Skill Check Candy
+            const skillCheckCandy = DataLoader.getItem('skill_check_candy');
+            const r29 = Calculator.calculateFinalStats(testToon, [], [], [{item: skillCheckCandy, count: 1}]);
+            const expectedSkillChance29 = testToon.baseStats.skillCheckChance * 1.25;
+            logTest(
+                'Skill Check Candy: +25% skill check chance',
+                compareValues(r29.final.skillCheckChance, expectedSkillChance29, 0.001),
+                `Skill Check Chance: ${r29.final.skillCheckChance.toFixed(4)} (expected ${expectedSkillChance29.toFixed(4)})`
+            );
+            
+            // Test 30: Stopwatch
+            const stopwatch = DataLoader.getItem('stopwatch');
+            const r30 = Calculator.calculateFinalStats(testToon, [], [], [{item: stopwatch, count: 1}]);
+            const expectedSkillSize30 = baseSkillSize + 50;
+            logTest(
+                'Stopwatch: +50 skill check size',
+                compareValues(r30.final.skillCheckSize, expectedSkillSize30),
+                `Skill Check Size: ${r30.final.skillCheckSize} (expected ${expectedSkillSize30})`
+            );
+            
+            // Test 31: Air Horn (negative stealth)
+            const airHorn = DataLoader.getItem('air_horn');
+            const r31 = Calculator.calculateFinalStats(testToon, [], [], [{item: airHorn, count: 1}]);
+            const expectedStealth31 = testToon.baseStats.stealth - 50;
+            logTest(
+                'Air Horn: -50 stealth',
+                compareValues(r31.final.stealth, expectedStealth31),
+                `Stealth: ${r31.final.stealth} (expected ${expectedStealth31.toFixed(1)})`
+            );
+            
+            // Section 3: Complex Combinations
+            addSection('Section 3: Complex Combinations (5 tests)');
+            
+            // Test 32: Multiple trinkets
+            const r32 = Calculator.calculateFinalStats(testToon, [dogPlush, cooler, speedometer], [], []);
+            logTest(
+                'Dog Plush + Cooler + Speedometer: Multiple effects',
+                r32.final.stamina === 165 && 
+                compareValues(r32.final.walkSpeed, 10.45) && // 11 * 0.95
+                r32.final.runSpeed === 13.3, // 14 * 0.95
+                `Stamina: ${r32.final.stamina} (expected 165), Walk: ${r32.final.walkSpeed} (expected 10.45), Run: ${r32.final.runSpeed} (expected 13.3)`
+            );
+            
+            // Test 33: Trinket + Item
+            const r33 = Calculator.calculateFinalStats(testToon, [dogPlush], [], [{item: speedCandy, count: 1}]);
+            const expectedWalk33 = 10 * 1.1 * 1.25; // 13.75
+            const expectedRun33 = 14 * 1.25; // 17.5
+            logTest(
+                'Dog Plush + Speed Candy: Combined effects',
+                compareValues(r33.final.walkSpeed, expectedWalk33) && 
+                compareValues(r33.final.runSpeed, expectedRun33),
+                `Walk: ${r33.final.walkSpeed} (expected ${expectedWalk33.toFixed(2)}), Run: ${r33.final.runSpeed} (expected ${expectedRun33.toFixed(2)})`
+            );
+            
+            // Test 34: Multiple items
+            const r34 = Calculator.calculateFinalStats(testToon, [], [], [
+                {item: chocolate, count: 1},
+                {item: speedCandy, count: 1}
+            ]);
+            const expectedWalk34 = (100 + 25) * 1.1 * 1.25 / 100 * 10; // Wait, this is wrong logic
+            // Actually: stamina = 100 + 25 = 125
+            // walk = 10 * 1.1 * 1.25 = 13.75
+            logTest(
+                'Chocolate + Speed Candy: Multiple items',
+                r34.final.stamina === 125 && 
+                compareValues(r34.final.walkSpeed, 13.75),
+                `Stamina: ${r34.final.stamina} (expected 125), Walk: ${r34.final.walkSpeed} (expected 13.75)`
+            );
+            
+            // Test 35: Thinking Cap + Magnifying Glass (additive + multiplicative skill check)
+            const r35 = Calculator.calculateFinalStats(testToon, [thinkingCap, magnifyingGlass], [], []);
+            // Base size: baseSkillSize
+            // +40 additive, then *0.67
+            const expectedSize35 = (baseSkillSize + 40) * 0.67;
+            const expectedAmount35 = testToon.baseStats.skillCheckAmount + 1.75;
+            logTest(
+                'Thinking Cap + Magnifying Glass: Complex skill check',
+                compareValues(r35.final.skillCheckSize, expectedSize35) && 
+                compareValues(r35.final.skillCheckAmount, expectedAmount35),
+                `Size: ${r35.final.skillCheckSize} (expected ${expectedSize35.toFixed(1)}), Amount: ${r35.final.skillCheckAmount} (expected ${expectedAmount35.toFixed(2)})`
+            );
+            
+            // Test 36: Eject Button (additive movement and stealth)
+            const ejectButton = DataLoader.getItem('eject_button');
+            const r36 = Calculator.calculateFinalStats(testToon, [], [], [{item: ejectButton, count: 1}]);
+            const expectedWalk36 = 10 + 25; // Additive
+            const expectedStealth36 = testToon.baseStats.stealth + 25;
+            logTest(
+                'Eject Button: +25 additive movement & stealth',
+                compareValues(r36.final.walkSpeed, expectedWalk36) && 
+                compareValues(r36.final.stealth, expectedStealth36),
+                `Walk: ${r36.final.walkSpeed} (expected ${expectedWalk36}), Stealth: ${r36.final.stealth} (expected ${expectedStealth36.toFixed(1)})`
+            );
+            
+            // Summary
+            const summary = document.createElement('div');
+            summary.className = 'summary';
+            summary.innerHTML = `
+                <h2>📊 Test Summary</h2>
+                <p><strong>Total Tests:</strong> ${totalTests}</p>
+                <p><strong>Passed:</strong> ${passedTests}</p>
+                <p><strong>Failed:</strong> ${totalTests - passedTests}</p>
+                <p><strong>Success Rate:</strong> ${((passedTests / totalTests) * 100).toFixed(1)}%</p>
+                <p><strong>Status:</strong> ${passedTests === totalTests ? '✅ ALL TESTS PASSED' : '❌ SOME TESTS FAILED'}</p>
+            `;
+            output.appendChild(summary);
+            
+            console.log(`Testing complete: ${passedTests}/${totalTests} passed`);
+        }, 1000);
+    </script>
+</body>
+</html>
+

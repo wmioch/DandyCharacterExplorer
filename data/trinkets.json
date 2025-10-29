@@ -1,0 +1,808 @@
+{
+  "trinkets": [
+    {
+      "name": "Alarm",
+      "effect": "Increases Movement Speed by 25% when Panic Mode activates for 10 seconds.",
+      "image": "trinket_alarm.png",
+      "category": "movement_speed",
+      "rarity": "store",
+      "id": "alarm",
+      "filterCategory": "movementSpeed",
+      "conditional": true,
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.25,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Blue Bandana",
+      "effect": "Increases your Extraction Speed by 7.5%, but reduces Skill Check chances by 5%.",
+      "image": "trinket_blue_bandana.png",
+      "category": "extraction",
+      "rarity": "common",
+      "id": "blue_bandana",
+      "filterCategory": "extractionSpeed",
+      "effects": [
+        {
+          "targetStat": "extractionSpeed",
+          "value": 0.075,
+          "applicationType": "multiplicative"
+        },
+        {
+          "targetStat": "skillCheckChance",
+          "value": -0.05,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Blushy Bat",
+      "effect": "Increases the Attack Cooldown of any Twisted that attacks the user by 3 seconds. Earned by joining the [https://www.roblox.com/groups/14576965/BlushCrunch-Studio#!/about BlushCrunch Studio ROBLOX Group].",
+      "image": "trinket_blushy_bat.png",
+      "category": "other",
+      "rarity": "store",
+      "id": "blushy_bat",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Bone",
+      "effect": "Increases Movement Speed by 25% for 4 seconds upon collecting or receiving an item. Effect can stack but caps at 40 speed. (capsules and tapes do not count).",
+      "image": "trinket_bone.png",
+      "category": "movement_speed",
+      "rarity": "main",
+      "id": "bone",
+      "filterCategory": "movementSpeed",
+      "conditional": true,
+      "stackable": true,
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.25,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Bone Needle and Thread",
+      "effect": "Highlights Pumpkins in your vicinity every 10 seconds during matches, making them easier to spot during Events.",
+      "image": "trinket_bone_needle_and_thread.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "bone_needle_and_thread",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Brick",
+      "effect": "Lowers both Walk and Run Speed by 10%. ''It's a brick, what did you expect?''",
+      "image": "trinket_brick.png",
+      "category": "movement_speed",
+      "rarity": "common",
+      "id": "brick",
+      "filterCategory": "movementSpeed",
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": -0.10,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Cardboard 'Armor'",
+      "effect": "Protects the user from long-ranged Twisted attacks. Limit of 1 activation per Floor.",
+      "image": "trinket_cardboard_armor.png",
+      "category": "other",
+      "rarity": "store",
+      "id": "cardboard_armor",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Clown Horn",
+      "effect": "Increases Walk and Run speed by 10% on odd-numbered Floors.",
+      "image": "trinket_clown_horn.png",
+      "category": "movement_speed",
+      "rarity": "common",
+      "id": "clown_horn",
+      "filterCategory": "movementSpeed",
+      "conditional": true,
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.10,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Coal (Trinket)",
+      "effect": "Decreases Stealth by 10% and Movement Speed by 20%.",
+      "image": "trinket_coal_trinket.png",
+      "category": "movement_speed",
+      "rarity": "event",
+      "id": "coal_trinket",
+      "filterCategory": "movementSpeed",
+      "effects": [
+        {
+          "targetStat": "stealth",
+          "value": -0.10,
+          "applicationType": "multiplicative"
+        },
+        {
+          "targetStat": "movementSpeed",
+          "value": -0.20,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Coin Purse",
+      "effect": "Start the round with 30 extra Tapes.",
+      "image": "trinket_coin_purse.png",
+      "category": "other",
+      "rarity": "store",
+      "id": "coin_purse",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Cooler",
+      "effect": "Grants the user 50 more Stamina, but lowers Movement Speed by 5%.",
+      "image": "trinket_cooler.png",
+      "category": "movement_speed",
+      "rarity": "store",
+      "id": "cooler",
+      "filterCategory": "movementSpeed",
+      "effects": [
+        {
+          "targetStat": "stamina",
+          "value": 50,
+          "applicationType": "baseStatIncrease"
+        },
+        {
+          "targetStat": "movementSpeed",
+          "value": -0.05,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Crayon Set",
+      "effect": "Get an item from the Uncommon tier at the start of every floor. Dandy's Shop exclusive items are included.",
+      "image": "trinket_crayon_set.png",
+      "category": "other",
+      "rarity": "rare",
+      "id": "crayon_set",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Dandy Plush",
+      "effect": "Grants the user a 50% discount on all Dandy's Shop items during intermissions on even floors.",
+      "image": "trinket_dandy_plush.png",
+      "category": "other",
+      "rarity": "lethal",
+      "id": "dandy_plush",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Diary",
+      "effect": "Increases Stealth by 25%.",
+      "image": "trinket_diary.png",
+      "category": "stealth",
+      "rarity": "rare",
+      "id": "diary",
+      "filterCategory": "stealth",
+      "effects": [
+        {
+          "targetStat": "stealth",
+          "value": 0.25,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Dog Plush",
+      "effect": "Increases Walk Speed by 10%.",
+      "image": "trinket_dog_plush.png",
+      "category": "movement_speed",
+      "rarity": "uncommon",
+      "id": "dog_plush",
+      "filterCategory": "movementSpeed",
+      "effects": [
+        {
+          "targetStat": "walkSpeed",
+          "value": 0.10,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Egg Radar",
+      "effect": "Highlights Baskets in your vicinity every 10 seconds during matches, making them easier to spot during events.",
+      "image": "trinket_egg_radar.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "egg_radar",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Fancy Purse",
+      "effect": "Start with 100 extra Tapes.",
+      "image": "trinket_fancy_purse.png",
+      "category": "other",
+      "rarity": "uncommon",
+      "id": "fancy_purse",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Feather Duster",
+      "effect": "Restores 20 Stamina when picking up an item. (Capsules and Tapes aren't included)",
+      "image": "trinket_feather_duster.png",
+      "category": "stamina",
+      "rarity": "common",
+      "id": "feather_duster",
+      "filterCategory": "stamina",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Festive Lights",
+      "effect": "Highlights in your vicinity every 10 seconds during matches, making them easier to spot during Events.",
+      "image": "trinket_festive_lights.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "festive_lights",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Fishing Rod",
+      "effect": "Start with 3 random items from the Common to Rare tiers. Dandy's Shop exclusive items not included.",
+      "image": "trinket_fishing_rod.png",
+      "category": "other",
+      "rarity": "uncommon",
+      "id": "fishing_rod",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Friendship Bracelet",
+      "effect": "Gain 5 more Stamina for every alive Toon in the round. Maxes out at 40 Stamina.",
+      "image": "trinket_friendship_bracelet.png",
+      "category": "stamina",
+      "rarity": "rare",
+      "id": "friendship_bracelet",
+      "filterCategory": "stamina",
+      "conditional": true,
+      "dynamicTeamBased": true,
+      "baseStaminaPerToon": 5,
+      "maxBonus": 40,
+      "note": "Effect varies by team size - adds 5 stamina per toon including player, caps at 40"
+    },
+    {
+      "name": "Ghost Snakes In A Can",
+      "effect": "Reduces your Active Ability cooldown by 5 seconds.",
+      "image": "trinket_ghost_snakes_in_a_can.png",
+      "category": "other",
+      "rarity": "uncommon",
+      "id": "ghost_snakes_in_a_can",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Glazed Fondant Bag",
+      "effect": "Candy items that provide a boost gain 4 seconds to their duration while this Trinket is equipped (BonBon included).",
+      "image": "trinket_glazed_fondant_bag.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "glazed_fondant_bag",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Lucky Coin",
+      "effect": "Boosts a random Stat by 12% once every Floor, effect wears off at the start of each Floor.",
+      "image": "trinket_lucky_coin.png",
+      "category": "other",
+      "rarity": "rare",
+      "id": "lucky_coin",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Machine Manual",
+      "effect": "Increases your Extraction Speed by 5%.",
+      "image": "trinket_machine_manual.png",
+      "category": "extraction",
+      "rarity": "store",
+      "id": "machine_manual",
+      "filterCategory": "extractionSpeed",
+      "effects": [
+        {
+          "targetStat": "extractionSpeed",
+          "value": 0.05,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Magnifying Glass",
+      "effect": "Adds slightly more completion when performing a successful Skill Check, but decreases Skill Check size by 33%. The amount increased is around exactly 1.75 in Skill Check Value. Landing on the white area will also add a small amount of completion.",
+      "image": "trinket_magnifying_glass.png",
+      "category": "skill_check",
+      "rarity": "uncommon",
+      "id": "magnifying_glass",
+      "filterCategory": "skillCheckAmount",
+      "effects": [
+        {
+          "targetStat": "skillCheckAmount",
+          "value": 1.75,
+          "applicationType": "baseStatIncrease"
+        },
+        {
+          "targetStat": "skillCheckSize",
+          "value": -0.33,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Megaphone",
+      "effect": "Grants the 'Air Horn' Item every other Floor (If user's inventory has a slot open)",
+      "image": "trinket_megaphone.png",
+      "category": "other",
+      "rarity": "store",
+      "id": "megaphone",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Memory Locket",
+      "effect": "If the user is not at full health, highlights all healing items currently on the Floor to the user until the user is healed.",
+      "image": "trinket_memory_locket.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "memory_locket",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Mime Makeup",
+      "effect": "Twisteds will no longer be alerted if a Skill Check is failed.",
+      "image": "trinket_mime_makeup.png",
+      "category": "skill_check",
+      "rarity": "rare",
+      "id": "mime_makeup",
+      "filterCategory": "skillCheckAmount",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Moon Pack Heirloom",
+      "effect": "Highlights all other teammates' locations for 3 seconds for the user after any user completes a machine.",
+      "image": "trinket_moon_pack_heirloom.png",
+      "category": "extraction",
+      "rarity": "event",
+      "id": "moon_pack_heirloom",
+      "filterCategory": "extractionSpeed",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Night Cap",
+      "effect": "Boring design according to Qwel (Replaced by ).",
+      "image": "trinket_night_cap.png",
+      "category": "other",
+      "rarity": "removed",
+      "id": "night_cap",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Paint Bucket",
+      "effect": "Increases Skill Check size and chance by 5%.",
+      "image": "trinket_paint_bucket.png",
+      "category": "skill_check",
+      "rarity": "common",
+      "id": "paint_bucket",
+      "filterCategory": "skillCheckAmount",
+      "effects": [
+        {
+          "targetStat": "skillCheckSize",
+          "value": 0.05,
+          "applicationType": "multiplicative"
+        },
+        {
+          "targetStat": "skillCheckChance",
+          "value": 0.05,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Participation Award",
+      "effect": "Increases Skill Check chance by 25%, but decreases Skill Check size by 10%.",
+      "image": "trinket_participation_award.png",
+      "category": "skill_check",
+      "rarity": "main",
+      "id": "participation_award",
+      "filterCategory": "skillCheckAmount",
+      "effects": [
+        {
+          "targetStat": "skillCheckChance",
+          "value": 0.25,
+          "applicationType": "baseStatIncrease"
+        },
+        {
+          "targetStat": "skillCheckSize",
+          "value": -0.10,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Party Popper",
+      "effect": "When starting to work on a machine, Twisteds in the initial nearby radius are highlighted for 5 seconds.",
+      "image": "trinket_party_popper.png",
+      "category": "extraction",
+      "rarity": "common",
+      "id": "party_popper",
+      "filterCategory": "extractionSpeed",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Peppermint Icing",
+      "effect": "Grants 30 stamina after using any active ability.",
+      "image": "trinket_peppermint_icing.png",
+      "category": "stamina",
+      "rarity": "event",
+      "id": "peppermint_icing",
+      "filterCategory": "stamina",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Pink Bow",
+      "effect": "Increases Run Speed by 7.5%.",
+      "image": "trinket_pink_bow.png",
+      "category": "movement_speed",
+      "rarity": "common",
+      "id": "pink_bow",
+      "filterCategory": "movementSpeed",
+      "effects": [
+        {
+          "targetStat": "runSpeed",
+          "value": 0.075,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Pop Pack",
+      "effect": "Grants the 'Pop' Item every new Floor (if user's inventory has a slot open).",
+      "image": "trinket_pop_pack.png",
+      "category": "other",
+      "rarity": "store",
+      "id": "pop_pack",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Pull Toy",
+      "effect": "Increases Movement Speed by 25% when a new Floor arrives for 10 seconds.",
+      "image": "trinket_pull_toy.png",
+      "category": "movement_speed",
+      "rarity": "store",
+      "id": "pull_toy",
+      "filterCategory": "movementSpeed",
+      "conditional": true,
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.25,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Research Map",
+      "effect": "Highlights all Research Capsules every 10 seconds during matches.",
+      "image": "trinket_research_map.png",
+      "category": "other",
+      "rarity": "store",
+      "id": "research_map",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Ribbon Spool",
+      "effect": "Increases Walk and Run speed by 10% on even-numbered Floors.",
+      "image": "trinket_ribbon_spool.png",
+      "category": "movement_speed",
+      "rarity": "uncommon",
+      "id": "ribbon_spool",
+      "filterCategory": "movementSpeed",
+      "conditional": true,
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.10,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Savory Charm",
+      "effect": "Saves the user from a fatal attack, granting them invincibility for 10 seconds. Can only activate once. Does not save the user from attacks.",
+      "image": "trinket_savory_charm.png",
+      "category": "other",
+      "rarity": "main",
+      "id": "savory_charm",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Scrapbook",
+      "effect": "Reduces your Stealth by 5%.",
+      "image": "trinket_scrapbook.png",
+      "category": "stealth",
+      "rarity": "event",
+      "id": "scrapbook",
+      "filterCategory": "stealth",
+      "effects": [
+        {
+          "targetStat": "stealth",
+          "value": -0.05,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Soul Sword",
+      "effect": "When a Twisted damages the user, the Twisted receives a 15% speed debuff for 30 seconds. Does not stack.",
+      "image": "trinket_soul_sword.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "soul_sword",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Spare Bulb",
+      "effect": "Increases Blackout light radius by 25%. Also increases light radius for light-producing Toons.",
+      "image": "trinket_spare_bulb.png",
+      "category": "other",
+      "rarity": "uncommon",
+      "id": "spare_bulb",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Speedometer",
+      "effect": "Grants the user 15 more Stamina.",
+      "image": "trinket_speedometer.png",
+      "category": "stamina",
+      "rarity": "store",
+      "id": "speedometer",
+      "filterCategory": "stamina",
+      "effects": [
+        {
+          "targetStat": "stamina",
+          "value": 15,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Speedy Shoes",
+      "effect": "Increases both Walk and Run Speed by 5%.",
+      "image": "trinket_speedy_shoes.png",
+      "category": "movement_speed",
+      "rarity": "store",
+      "id": "speedy_shoes",
+      "filterCategory": "movementSpeed",
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.05,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Star Pillow",
+      "effect": "Increases Stamina Regeneration by 100% while extracting from a Machine.",
+      "image": "trinket_star_pillow.png",
+      "category": "extraction",
+      "rarity": "main",
+      "id": "star_pillow",
+      "filterCategory": "extractionSpeed",
+      "conditional": true,
+      "effects": [
+        {
+          "targetStat": "staminaRegen",
+          "value": 1.0,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Sweet Charm",
+      "effect": "Decreases Active Ability Cooldown by 8%. Has no effect on Toons without an Active Ability.",
+      "image": "trinket_sweet_charm.png",
+      "category": "other",
+      "rarity": "common",
+      "id": "sweet_charm",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Thermos",
+      "effect": "Increases Stamina regeneration by 15%",
+      "image": "trinket_thermos.png",
+      "category": "stamina",
+      "rarity": "store",
+      "id": "thermos",
+      "filterCategory": "stamina",
+      "effects": [
+        {
+          "targetStat": "staminaRegen",
+          "value": 0.15,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Thinking Cap",
+      "effect": "Increases Skill Check Window size by 40 units.",
+      "image": "trinket_thinking_cap.png",
+      "category": "skill_check",
+      "rarity": "store",
+      "id": "thinking_cap",
+      "filterCategory": "skillCheckAmount",
+      "effects": [
+        {
+          "targetStat": "skillCheckSize",
+          "value": 40,
+          "applicationType": "baseStatIncrease"
+        }
+      ]
+    },
+    {
+      "name": "Toy Kit",
+      "effect": "Refreshes active ability cooldown every new Floor.",
+      "image": "trinket_toy_kit.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "toy_kit",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Train Whistle",
+      "effect": "Makes the user immune to the Debuff.",
+      "image": "trinket_train_whistle.png",
+      "category": "other",
+      "rarity": "lethal",
+      "id": "train_whistle",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Vanity Mirror",
+      "effect": "Increases Run Speed by 30% during Panic Mode.",
+      "image": "trinket_vanity_mirror.png",
+      "category": "movement_speed",
+      "rarity": "rare",
+      "id": "vanity_mirror",
+      "filterCategory": "movementSpeed",
+      "conditional": true,
+      "effects": [
+        {
+          "targetStat": "runSpeed",
+          "value": 0.30,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Vee's Remote",
+      "effect": "Instantly completes the first Machine you extract from on any Floor, but only if the number of Machines completed is below 50%. Limit of 1 activation per Floor.",
+      "image": "trinket_vees_remote.png",
+      "category": "extraction",
+      "rarity": "main",
+      "id": "vees_remote",
+      "filterCategory": "extractionSpeed",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Water Cooler",
+      "effect": "Grants the user 50 more Stamina, but lowers Movement Speed by 5%.",
+      "image": "trinket_water_cooler.png",
+      "category": "movement_speed",
+      "rarity": "removed",
+      "id": "water_cooler",
+      "filterCategory": "movementSpeed",
+      "hidden": true,
+      "effects": [
+        {
+          "targetStat": "stamina",
+          "value": 50,
+          "applicationType": "additive"
+        },
+        {
+          "targetStat": "movementSpeed",
+          "value": -0.05,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Whispering Flower",
+      "effect": "Highlights all items on the map during Panic Mode for the user with the trinket equipped.",
+      "image": "trinket_whispering_flower.png",
+      "category": "other",
+      "rarity": "event",
+      "id": "whispering_flower",
+      "filterCategory": "other",
+      "hidden": true,
+      "conditional": true
+    },
+    {
+      "name": "Wrench",
+      "effect": "Instantly adds a large amount of completion to the first Machine you extract from on any Floor. Has a limit of 1 activation per Floor.",
+      "image": "trinket_wrench.png",
+      "category": "extraction",
+      "rarity": "store",
+      "id": "wrench",
+      "filterCategory": "extractionSpeed",
+      "hidden": true,
+      "conditional": true
+    }
+  ],
+  "count": 57,
+  "source": "Dandy's World Wiki - https://dandys-world-robloxhorror.fandom.com/wiki/Trinkets",
+  "categories": {
+    "movement_speed": "Trinkets that affect walk or run speed",
+    "stealth": "Trinkets that affect stealth",
+    "extraction": "Trinkets that affect extraction speed",
+    "stamina": "Trinkets that affect stamina",
+    "skill_check": "Trinkets that affect skill checks",
+    "other": "Trinkets with miscellaneous effects"
+  }
+}

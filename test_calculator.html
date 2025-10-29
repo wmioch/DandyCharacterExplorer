@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-case {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .test-case h3 {
+            margin-top: 0;
+        }
+        .pass {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .fail {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trinket & Item Calculator Test</h1>
+    <div id="test-results"></div>
+
+    <script src="js/data-loader.js"></script>
+    <script src="js/calculator.js"></script>
+    <script>
+        // Wait for data to load
+        setTimeout(() => {
+            const testsDiv = document.getElementById('test-results');
+            
+            // Test Case 1: Dog Plush (walk only)
+            const toon1 = DataLoader.getToon('goob'); // Goob has walk: 10, run: 14
+            const dogPlush = DataLoader.getTrinket('dog_plush');
+            const result1 = Calculator.calculateFinalStats(toon1, [dogPlush], [], []);
+            const test1Pass = Math.abs(result1.final.walkSpeed - 11.0) < 0.1 && Math.abs(result1.final.runSpeed - 14.0) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test1Pass ? 'pass' : 'fail'}">
+                    <h3>Test 1: Dog Plush (+10% walk speed only)</h3>
+                    <p>Base Walk: 10, Base Run: 14</p>
+                    <p class="result">Expected Walk: 11.0, Got: ${result1.final.walkSpeed}</p>
+                    <p class="result">Expected Run: 14.0, Got: ${result1.final.runSpeed}</p>
+                    <p>${test1Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 2: Pink Bow (run only)
+            const pinkBow = DataLoader.getTrinket('pink_bow');
+            const result2 = Calculator.calculateFinalStats(toon1, [pinkBow], [], []);
+            const test2Pass = Math.abs(result2.final.walkSpeed - 10.0) < 0.1 && Math.abs(result2.final.runSpeed - 15.05) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test2Pass ? 'pass' : 'fail'}">
+                    <h3>Test 2: Pink Bow (+7.5% run speed only)</h3>
+                    <p>Base Walk: 10, Base Run: 14</p>
+                    <p class="result">Expected Walk: 10.0, Got: ${result2.final.walkSpeed}</p>
+                    <p class="result">Expected Run: 15.05, Got: ${result2.final.runSpeed}</p>
+                    <p>${test2Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 3: Dog Plush + Pink Bow
+            const result3 = Calculator.calculateFinalStats(toon1, [dogPlush, pinkBow], [], []);
+            const test3Pass = Math.abs(result3.final.walkSpeed - 11.0) < 0.1 && Math.abs(result3.final.runSpeed - 15.05) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test3Pass ? 'pass' : 'fail'}">
+                    <h3>Test 3: Dog Plush + Pink Bow</h3>
+                    <p>Base Walk: 10, Base Run: 14</p>
+                    <p class="result">Expected Walk: 11.0, Got: ${result3.final.walkSpeed}</p>
+                    <p class="result">Expected Run: 15.05, Got: ${result3.final.runSpeed}</p>
+                    <p>${test3Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 4: Speedometer (+15 stamina additive)
+            const toon2 = DataLoader.getToon('shrimpo'); // Shrimpo has stamina: 100
+            const speedometer = DataLoader.getTrinket('speedometer');
+            const result4 = Calculator.calculateFinalStats(toon2, [speedometer], [], []);
+            const test4Pass = Math.abs(result4.final.stamina - 115) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test4Pass ? 'pass' : 'fail'}">
+                    <h3>Test 4: Speedometer (+15 stamina additive)</h3>
+                    <p>Base Stamina: 100</p>
+                    <p class="result">Expected: 115, Got: ${result4.final.stamina}</p>
+                    <p>${test4Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 5: Cooler (+50 stamina, -5% movement)
+            const cooler = DataLoader.getTrinket('cooler');
+            const result5 = Calculator.calculateFinalStats(toon2, [cooler], [], []);
+            const test5Pass = Math.abs(result5.final.stamina - 150) < 0.1 && 
+                             Math.abs(result5.final.walkSpeed - (toon2.baseStats.walkSpeed * 0.95)) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test5Pass ? 'pass' : 'fail'}">
+                    <h3>Test 5: Cooler (+50 stamina, -5% movement)</h3>
+                    <p>Base Stamina: 100, Base Walk: ${toon2.baseStats.walkSpeed}</p>
+                    <p class="result">Expected Stamina: 150, Got: ${result5.final.stamina}</p>
+                    <p class="result">Expected Walk: ${(toon2.baseStats.walkSpeed * 0.95).toFixed(1)}, Got: ${result5.final.walkSpeed}</p>
+                    <p>${test5Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 6: Thinking Cap (+40 skill check size additive)
+            const thinkingCap = DataLoader.getTrinket('thinking_cap');
+            const result6 = Calculator.calculateFinalStats(toon1, [thinkingCap], [], []);
+            // Get base skill check size
+            const baseSkillCheckSize = DataLoader.getStatValue('skillCheckSize', toon1.starRatings.skillCheckAmount);
+            const test6Pass = Math.abs(result6.final.skillCheckSize - (baseSkillCheckSize + 40)) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test6Pass ? 'pass' : 'fail'}">
+                    <h3>Test 6: Thinking Cap (+40 skill check size additive)</h3>
+                    <p>Base Skill Check Size: ${baseSkillCheckSize}</p>
+                    <p class="result">Expected: ${baseSkillCheckSize + 40}, Got: ${result6.final.skillCheckSize}</p>
+                    <p>${test6Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 7: Multiple Speed Candies
+            const speedCandy = DataLoader.getItem('speed_candy');
+            const result7 = Calculator.calculateFinalStats(toon1, [], [], [
+                {item: speedCandy, count: 2}
+            ]);
+            // 25% + 25% = 1.25 * 1.25 = 1.5625 = 56.25% boost
+            const expectedWalk = 10 * 1.5625;
+            const expectedRun = 14 * 1.5625;
+            const test7Pass = Math.abs(result7.final.walkSpeed - expectedWalk) < 0.1 && 
+                             Math.abs(result7.final.runSpeed - expectedRun) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test7Pass ? 'pass' : 'fail'}">
+                    <h3>Test 7: Speed Candy x2 (multiplicative stacking)</h3>
+                    <p>Base Walk: 10, Base Run: 14</p>
+                    <p class="result">Expected Walk: ${expectedWalk.toFixed(2)}, Got: ${result7.final.walkSpeed}</p>
+                    <p class="result">Expected Run: ${expectedRun.toFixed(2)}, Got: ${result7.final.runSpeed}</p>
+                    <p>${test7Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 8: Chocolate (additive stamina + walk speed)
+            const chocolate = DataLoader.getItem('chocolate');
+            const result8 = Calculator.calculateFinalStats(toon2, [], [], [
+                {item: chocolate, count: 1}
+            ]);
+            const expectedStamina = 100 + 25;
+            const expectedChocolateWalk = toon2.baseStats.walkSpeed * 1.1;
+            const test8Pass = Math.abs(result8.final.stamina - expectedStamina) < 0.1 && 
+                             Math.abs(result8.final.walkSpeed - expectedChocolateWalk) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test8Pass ? 'pass' : 'fail'}">
+                    <h3>Test 8: Chocolate (+25 stamina, +10% walk speed)</h3>
+                    <p>Base Stamina: 100, Base Walk: ${toon2.baseStats.walkSpeed}</p>
+                    <p class="result">Expected Stamina: ${expectedStamina}, Got: ${result8.final.stamina}</p>
+                    <p class="result">Expected Walk: ${expectedChocolateWalk.toFixed(1)}, Got: ${result8.final.walkSpeed}</p>
+                    <p>${test8Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 9: Blue Bandana (extraction +7.5%, skill check chance -5%)
+            const blueBandana = DataLoader.getTrinket('blue_bandana');
+            const result9 = Calculator.calculateFinalStats(toon1, [blueBandana], [], []);
+            const expectedExtraction = toon1.baseStats.extractionSpeed * 1.075;
+            const expectedSkillCheckChance = toon1.baseStats.skillCheckChance * 0.95;
+            const test9Pass = Math.abs(result9.final.extractionSpeed - expectedExtraction) < 0.1 && 
+                             Math.abs(result9.final.skillCheckChance - expectedSkillCheckChance) < 0.01;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test9Pass ? 'pass' : 'fail'}">
+                    <h3>Test 9: Blue Bandana (+7.5% extraction, -5% skill check chance)</h3>
+                    <p>Base Extraction: ${toon1.baseStats.extractionSpeed}, Base Skill Check Chance: ${toon1.baseStats.skillCheckChance}</p>
+                    <p class="result">Expected Extraction: ${expectedExtraction.toFixed(2)}, Got: ${result9.final.extractionSpeed}</p>
+                    <p class="result">Expected Skill Check Chance: ${expectedSkillCheckChance.toFixed(3)}, Got: ${result9.final.skillCheckChance}</p>
+                    <p>${test9Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+            // Test Case 10: Thermos (+15% stamina regen)
+            const thermos = DataLoader.getTrinket('thermos');
+            const result10 = Calculator.calculateFinalStats(toon1, [thermos], [], []);
+            const expectedStaminaRegen = 2.4 * 1.15; // Base stamina regen is 2.4
+            const test10Pass = Math.abs(result10.final.staminaRegen - expectedStaminaRegen) < 0.1;
+            
+            testsDiv.innerHTML += `
+                <div class="test-case ${test10Pass ? 'pass' : 'fail'}">
+                    <h3>Test 10: Thermos (+15% stamina regen)</h3>
+                    <p>Base Stamina Regen: 2.4</p>
+                    <p class="result">Expected: ${expectedStaminaRegen.toFixed(2)}, Got: ${result10.final.staminaRegen}</p>
+                    <p>${test10Pass ? '✓ PASS' : '✗ FAIL'}</p>
+                </div>
+            `;
+            
+        }, 1000); // Wait for data to load
+    </script>
+</body>
+</html>
+
