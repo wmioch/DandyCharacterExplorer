@@ -77,8 +77,10 @@
                     <!-- Toon Selection -->
                     <div class="toon-selection-compact">
                         <div class="toon-selection-header">
-                            <span class="player-click-instruction">Select Your Toon --> Left Mouse Click</span>
-                            <span class="team-click-instruction">Right Mouse Click <-- Select Your Team</span>
+                            <span class="player-click-instruction desktop-input">Select Your Toon --> Left Mouse Click</span>
+                            <span class="player-click-instruction touch-input">Tap to Select Your Toon</span>
+                            <span class="team-click-instruction desktop-input">Right Mouse Click <-- Select Your Team</span>
+                            <span class="team-click-instruction touch-input">Long Press to Select Team</span>
                         </div>
                         <div id="toon-grid" class="toon-grid">
                             <!-- Dynamically populated with toon images -->
@@ -87,6 +89,12 @@
 
                     <!-- Trinkets -->
                     <h3 class="section-heading">Trinkets (Stat changing only)</h3>
+                    <div class="toon-selection-header">
+                        <span class="player-click-instruction desktop-input">Add Trinket --> Left Mouse Click</span>
+                        <span class="player-click-instruction touch-input">Tap to Add Trinket</span>
+                        <span class="team-click-instruction desktop-input">Right Mouse Click <-- Remove Trinket</span>
+                        <span class="team-click-instruction touch-input">Long Press to Remove Trinket</span>
+                    </div>
                     <div class="trinket-filter">
                         <label for="trinket-filter-select">Filter:</label>
                         <select id="trinket-filter-select" class="filter-dropdown">
@@ -105,6 +113,12 @@
 
                     <!-- Items -->
                     <h3 class="section-heading">Active Items</h3>
+                    <div class="toon-selection-header">
+                        <span class="player-click-instruction desktop-input">Add Item --> Left Mouse Click</span>
+                        <span class="player-click-instruction touch-input">Tap to Add Item</span>
+                        <span class="team-click-instruction desktop-input">Right Mouse Click <-- Remove Item</span>
+                        <span class="team-click-instruction touch-input">Long Press to Remove Item</span>
+                    </div>
                     <div id="active-items" class="items-list-compact">
                         <!-- Dynamically populated with images -->
                     </div>

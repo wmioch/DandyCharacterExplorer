@@ -2,6 +2,26 @@
    Responsive Styles
    =================================== */
 
+/* Input Method Detection */
+.desktop-input {
+    display: inline;
+}
+
+.touch-input {
+    display: none;
+}
+
+/* Touchscreen devices (coarse pointer) */
+@media (pointer: coarse), (hover: none) {
+    .desktop-input {
+        display: none;
+    }
+    
+    .touch-input {
+        display: inline;
+    }
+}
+
 /* Small screens - just adjust text sizes, layout is handled by clamp() */
 @media (max-width: 800px) {
     .column-one {

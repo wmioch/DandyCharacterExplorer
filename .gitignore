@@ -1,0 +1,13 @@
+# Local server startup scripts
+start_server.bat
+
+# Common development files
+.DS_Store
+node_modules/
+*.log
+.env
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
