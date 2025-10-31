@@ -165,9 +165,12 @@ const App = {
         }
         
         // Skill check slider (tab in column 3) - Now using Skill Check Great Rate
-        document.getElementById('skill-check-great-rate-slider').addEventListener('input', (e) => {
-            this.handleSkillCheckGreatRateChange(e.target.value);
-        });
+        const skillCheckGreatRateSlider = document.getElementById('skill-check-great-rate-slider');
+        if (skillCheckGreatRateSlider) {
+            skillCheckGreatRateSlider.addEventListener('input', (e) => {
+                this.handleSkillCheckGreatRateChange(e.target.value);
+            });
+        }
         
         // Tab navigation
         document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -802,7 +805,8 @@ const App = {
             const extraction = Calculator.calculateMachineTime(
                 stats.final.extractionSpeed,
                 stats.final.skillCheckAmount,
-                this.state.skillCheckSuccessRate
+                this.state.skillCheckSuccessRate,
+                stats.final.skillCheckChance
             );
             UI.updateMachineExtraction(extraction);
             

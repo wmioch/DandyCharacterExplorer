@@ -647,11 +647,12 @@ const Calculator = {
      * @param {number} extractionSpeed - Final extraction speed
      * @param {number} skillCheckAmount - Final skill check bonus units
      * @param {number} skillCheckSuccess - Success rate (0-1)
+     * @param {number} skillCheckChance - Chance of skill check per second (0-1)
      * @returns {Object} Extraction time information
      */
-    calculateMachineTime(extractionSpeed, skillCheckAmount, skillCheckSuccess) {
+    calculateMachineTime(extractionSpeed, skillCheckAmount, skillCheckSuccess, skillCheckChance = 0.25) {
         const TOTAL_UNITS = 45.0;
-        const SKILL_CHECK_CHANCE = 0.25;  // p = 25% per second
+        const SKILL_CHECK_CHANCE = skillCheckChance;  // p = skill check chance per second
         const MIN_DURATION = 0.75;
         const MAX_DURATION = 2.5;
         const GRACE_PERIOD = 2.0;
