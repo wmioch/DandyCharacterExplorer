@@ -3,6 +3,7 @@
     {
       "name": "Air Horn",
       "effect": "Upon use, drastically decreases Stealth by 50 for 10 seconds and alerts nearby + specific Twisteds to your current location.",
+      "duration": 10,
       "category": "distraction",
       "rarity": "rare",
       "dandy_shop_only": true,
@@ -20,6 +21,7 @@
     {
       "name": "Bandage",
       "effect": "Upon use, restores 1 Heart",
+      "duration": null,
       "category": "healing",
       "rarity": "rare",
       "dandy_shop_only": false,
@@ -30,6 +32,7 @@
     {
       "name": "Basket",
       "effect": "Limited currency that spawns on floors during Easter Events",
+      "duration": null,
       "category": "currency",
       "rarity": "event",
       "dandy_shop_only": false,
@@ -40,6 +43,7 @@
     {
       "name": "BonBon",
       "effect": "Use this item to increase Extraction Speed +50% and Movement Speed +25% for 5 seconds.",
+      "duration": 5,
       "category": "speed",
       "rarity": "rare",
       "dandy_shop_only": false,
@@ -62,6 +66,7 @@
     {
       "name": "Bottle o' Pop",
       "effect": "Upon use, refills your Stamina to full capacity.",
+      "duration": null,
       "category": "speed",
       "rarity": "very_rare",
       "dandy_shop_only": true,
@@ -72,6 +77,7 @@
     {
       "name": "Box o' Chocolates",
       "effect": "Upon use, increases Max Stamina by 25, and Run Speed by 10% for 10 seconds. Can be used 5 times.",
+      "duration": 10,
       "category": "stamina",
       "rarity": "very_rare",
       "dandy_shop_only": false,
@@ -94,6 +100,7 @@
     {
       "name": "Chocolate",
       "effect": "Upon use, increases Max Stamina by 25 and Walk Speed by 10% for 10 seconds.",
+      "duration": 10,
       "category": "stamina",
       "rarity": "common",
       "dandy_shop_only": false,
@@ -116,6 +123,7 @@
     {
       "name": "Eject Button",
       "effect": "Upon use, increases Stealth, Walk and Run Speed by 25 for 3 seconds, and removes the Slow debuff, if you have it.",
+      "duration": 3,
       "category": "other",
       "rarity": "ultra_rare",
       "dandy_shop_only": false,
@@ -143,6 +151,7 @@
     {
       "name": "Extraction Speed Candy",
       "effect": "While extracting a machine, increases Extraction Speed by 50% for 5 seconds upon use.",
+      "duration": 5,
       "category": "extraction",
       "rarity": "uncommon",
       "dandy_shop_only": false,
@@ -160,6 +169,7 @@
     {
       "name": "Gumballs",
       "effect": "Upon use, boosts a random stat by 10% for 5 seconds. 3 usages (It is highly recommended to eat them all at once.)",
+      "duration": 5,
       "category": "random",
       "rarity": "common",
       "dandy_shop_only": false,
@@ -170,6 +180,7 @@
     {
       "name": "Health Kit",
       "effect": "Upon use, restores 2 Hearts",
+      "duration": null,
       "category": "healing",
       "rarity": "very_rare",
       "dandy_shop_only": false,
@@ -180,6 +191,7 @@
     {
       "name": "Ichor",
       "effect": "Premium currency earned from Research Capsules. Obtain 2 Ichor and 1% research progress on a random Twisted",
+      "duration": null,
       "category": "currency",
       "rarity": "uncommon",
       "dandy_shop_only": false,
@@ -190,6 +202,7 @@
     {
       "name": "Instructions",
       "effect": "While extracting a machine, increases Extraction Speed by 100% for 10 seconds upon use. (Cannot be used when not extracting a Machine.)",
+      "duration": 10,
       "category": "extraction",
       "rarity": "uncommon",
       "dandy_shop_only": true,
@@ -207,6 +220,7 @@
     {
       "name": "Jawbreaker",
       "effect": "Upon use, you gain a random 50% effect for 20 seconds.",
+      "duration": 20,
       "category": "random",
       "rarity": "rare",
       "dandy_shop_only": false,
@@ -217,6 +231,7 @@
     {
       "name": "Jumper Cable",
       "effect": "While extracting a machine, adds a large amount of completion upon use. (33%) (Cannot be used when not extracting a Machine.)",
+      "duration": null,
       "category": "extraction",
       "rarity": "rare",
       "dandy_shop_only": true,
@@ -227,6 +242,7 @@
     {
       "name": "Ornament",
       "effect": "Limited currency that spawns on floors during Christmas Events",
+      "duration": null,
       "category": "currency",
       "rarity": "event",
       "dandy_shop_only": false,
@@ -237,6 +253,7 @@
     {
       "name": "Pop",
       "effect": "Upon use, grants 45 Stamina.",
+      "duration": null,
       "category": "stamina",
       "rarity": "common",
       "dandy_shop_only": false,
@@ -248,6 +265,7 @@
     {
       "name": "Protein Bar",
       "effect": "Upon use, increases Stamina Regeneration by 150% for 15 seconds, equivalent to +6 stamina per second for most Toons.",
+      "duration": 15,
       "category": "extraction",
       "rarity": "uncommon",
       "dandy_shop_only": false,
@@ -265,6 +283,7 @@
     {
       "name": "Pumpkin",
       "effect": "Limited currency that spawns on floors during Halloween Events",
+      "duration": null,
       "category": "currency",
       "rarity": "event",
       "dandy_shop_only": false,
@@ -275,6 +294,7 @@
     {
       "name": "Skill Check Candy",
       "effect": "Upon use, increases Skill Check chance by 25% for 15 seconds.",
+      "duration": 15,
       "category": "skill_check",
       "rarity": "uncommon",
       "dandy_shop_only": false,
@@ -292,6 +312,7 @@
     {
       "name": "Smoke Bomb",
       "effect": "While being chased by a Twisted, make it lose interest in you for 3 seconds. (You cannot be hurt during this time.) (Does not work on Lethal Twisteds.)",
+      "duration": 3,
       "category": "stealth",
       "rarity": "ultra_rare",
       "dandy_shop_only": true,
@@ -302,6 +323,7 @@
     {
       "name": "Speed Candy",
       "effect": "Upon use, increases Walk and Run Speed by 25% for 5 seconds.",
+      "duration": 5,
       "category": "speed",
       "rarity": "uncommon",
       "dandy_shop_only": false,
@@ -319,6 +341,7 @@
     {
       "name": "Stamina Candy",
       "effect": "Upon use, increases Stamina Regeneration by 50% for 20 seconds.",
+      "duration": 20,
       "category": "stamina",
       "rarity": "common",
       "dandy_shop_only": false,
@@ -336,6 +359,7 @@
     {
       "name": "Stealth Candy",
       "effect": "Upon use, increases Stealth by 25% for 8 seconds.",
+      "duration": 8,
       "category": "stealth",
       "rarity": "common",
       "dandy_shop_only": false,
@@ -353,6 +377,7 @@
     {
       "name": "Stopwatch",
       "effect": "While extracting a machine, increases Skill Check window size by 50 for 15 seconds. (Cannot be used when not extracting a Machine.)",
+      "duration": 15,
       "category": "skill_check",
       "rarity": "common",
       "dandy_shop_only": true,
@@ -370,6 +395,7 @@
     {
       "name": "Tapes",
       "effect": "In-game currency used in Dandy's Shop during runs",
+      "duration": null,
       "category": "currency",
       "rarity": "common",
       "dandy_shop_only": false,
@@ -380,6 +406,7 @@
     {
       "name": "Valve",
       "effect": "While extracting a Machine, instantly completes it upon use. (Cannot be used when not extracting a Machine.)",
+      "duration": null,
       "category": "extraction",
       "rarity": "ultra_rare",
       "dandy_shop_only": true,

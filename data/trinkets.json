@@ -317,7 +317,6 @@
       "rarity": "event",
       "id": "glazed_fondant_bag",
       "filterCategory": "other",
-      "hidden": true,
       "conditional": true
     },
     {
@@ -791,7 +790,6 @@
       "rarity": "store",
       "id": "wrench",
       "filterCategory": "extractionSpeed",
-      "hidden": true,
       "conditional": true
     }
   ],

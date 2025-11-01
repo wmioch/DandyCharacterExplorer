@@ -359,7 +359,7 @@ const UI = {
         // Check both the explicit hidden property and the hardcoded list for backward compatibility
         const hiddenItemNames = [
             'Bandage', 'Basket', 'Bottle o\' Pop', 'Gumballs', 'Health Kit',
-            'Ichor', 'Jawbreaker', 'Jumper Cable', 'Ornament', 'Pumpkin',
+            'Ichor', 'Jawbreaker', 'Ornament', 'Pumpkin',
             'Smoke Bomb', 'Tapes', 'Valve'
         ];
         
