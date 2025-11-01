@@ -652,7 +652,7 @@ const Calculator = {
      */
     calculateMachineTime(extractionSpeed, skillCheckAmount, skillCheckSuccess, skillCheckChance = 0.25) {
         const TOTAL_UNITS = 45.0;
-        const SKILL_CHECK_CHANCE = skillCheckChance;  // p = skill check chance per second
+        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999); // Clamp to prevent log(0)
         const MIN_DURATION = 0.75;
         const MAX_DURATION = 2.5;
         const GRACE_PERIOD = 2.0;
@@ -727,6 +727,130 @@ const Calculator = {
     },
 
     /**
+     * Calculate partial machine completion for a specific duration with current stats
+     * Detects early completion and returns actual time taken if machine finishes before duration ends
+     * @param {number} extractionSpeed - Final extraction speed
+     * @param {number} skillCheckAmount - Final skill check bonus units
+     * @param {number} skillCheckSuccess - Success rate (0-1)
+     * @param {number} durationSeconds - Maximum duration to calculate for (in real time)
+     * @param {number} unitsRemaining - Units remaining in machine (default 45)
+     * @param {number} skillCheckChance - Chance of skill check per second (0-1)
+     * @returns {Object} Partial machine completion state with actual time taken
+     */
+    calculatePartialMachineCompletion(extractionSpeed, skillCheckAmount, skillCheckSuccess, durationSeconds, unitsRemaining = 45, skillCheckChance = 0.25) {
+        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999); // Clamp to prevent log(0)
+        const MIN_DURATION = 0.75;
+        const MAX_DURATION = 2.5;
+        const GRACE_PERIOD = 2.0;
+
+        // Calculate dead time
+        const meanDuration = (MIN_DURATION + MAX_DURATION) / 2;
+        const deadTime = meanDuration + GRACE_PERIOD;
+
+        // Calculate hazard (d) from skill check chance using -LN(1-p)
+        const hazard = -Math.log(1 - SKILL_CHECK_CHANCE);
+
+        // Discrete model: effective check rate
+        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+
+        // Expected bonus per check
+        const expectedBonusPerCheck = skillCheckAmount * skillCheckSuccess;
+
+        // Effective progress rate (units per second)
+        const effectiveProgressRate = extractionSpeed + (expectedBonusPerCheck * effectiveCheckRate);
+
+        // Calculate time to completion
+        const timeToCompletion = unitsRemaining / effectiveProgressRate;
+
+        // Determine actual time taken (might be less than requested duration if machine completes early)
+        const actualTimeTaken = Math.min(timeToCompletion, durationSeconds);
+        const isEarlyCompletion = timeToCompletion < durationSeconds;
+
+        // Progress in actual time taken
+        const baseProgress = extractionSpeed * actualTimeTaken;
+        
+        // Expected skill checks in actual time
+        const expectedSkillChecksThisWindow = effectiveCheckRate * actualTimeTaken;
+        const expectedSkillCheckUnits = expectedSkillChecksThisWindow * expectedBonusPerCheck;
+        
+        // Total units completed in this window
+        const unitsCompletedThisWindow = baseProgress + expectedSkillCheckUnits;
+        
+        // Units remaining after this window
+        const newUnitsRemaining = Math.max(0, unitsRemaining - unitsCompletedThisWindow);
+
+        return {
+            unitsCompleted: Math.round(unitsCompletedThisWindow * 100) / 100,
+            unitsRemaining: Math.round(newUnitsRemaining * 100) / 100,
+            expectedSkillChecks: Math.round(expectedSkillChecksThisWindow * 100) / 100,
+            expectedSuccessfulChecks: Math.round(expectedSkillChecksThisWindow * skillCheckSuccess * 100) / 100,
+            timeConsumed: actualTimeTaken,  // Actual time taken, not always = durationSeconds
+            isComplete: isEarlyCompletion,  // TRUE if machine finished before duration ended
+            effectiveProgressRate: Math.round(effectiveProgressRate * 100) / 100
+        };
+    },
+
+    /**
+     * Calculate machine completion for remaining units with current stats
+     * @param {number} extractionSpeed - Final extraction speed
+     * @param {number} skillCheckAmount - Final skill check bonus units
+     * @param {number} skillCheckSuccess - Success rate (0-1)
+     * @param {number} unitsRemaining - Units remaining in machine
+     * @param {number} skillCheckChance - Chance of skill check per second (0-1)
+     * @returns {Object} Machine completion results
+     */
+    calculateMachineCompletion(extractionSpeed, skillCheckAmount, skillCheckSuccess, unitsRemaining, skillCheckChance = 0.25) {
+        if (unitsRemaining <= 0) {
+            return {
+                defaultTime: 0,
+                averageTime: 0,
+                expectedSkillChecks: 0,
+                expectedSuccessfulChecks: 0,
+                effectiveProgressRate: extractionSpeed
+            };
+        }
+
+        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999); // Clamp to prevent log(0)
+        const MIN_DURATION = 0.75;
+        const MAX_DURATION = 2.5;
+        const GRACE_PERIOD = 2.0;
+
+        // Calculate dead time
+        const meanDuration = (MIN_DURATION + MAX_DURATION) / 2;
+        const deadTime = meanDuration + GRACE_PERIOD;
+
+        // Base time without any skill checks
+        const defaultTime = unitsRemaining / extractionSpeed;
+
+        // Calculate hazard (d) from skill check chance using -LN(1-p)
+        const hazard = -Math.log(1 - SKILL_CHECK_CHANCE);
+
+        // Discrete model: effective check rate
+        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+
+        // Expected bonus per check
+        const expectedBonusPerCheck = skillCheckAmount * skillCheckSuccess;
+
+        // Effective progress rate (units per second)
+        const effectiveProgressRate = extractionSpeed + (expectedBonusPerCheck * effectiveCheckRate);
+
+        // Average completion time for remaining units
+        const averageTime = unitsRemaining / effectiveProgressRate;
+
+        // Expected number of skill checks
+        const expectedSkillChecks = effectiveCheckRate * averageTime;
+        const expectedSuccessfulChecks = expectedSkillChecks * skillCheckSuccess;
+
+        return {
+            defaultTime: Math.round(defaultTime * 10) / 10,
+            averageTime: Math.round(averageTime * 10) / 10,
+            expectedSkillChecks: Math.round(expectedSkillChecks * 10) / 10,
+            expectedSuccessfulChecks: Math.round(expectedSuccessfulChecks * 10) / 10,
+            effectiveProgressRate: Math.round(effectiveProgressRate * 100) / 100
+        };
+    },
+
+    /**
      * Compare player speed against twisted speed
      * @param {number} playerWalk - Player's walk speed
      * @param {number} playerRun - Player's run speed
@@ -741,6 +865,406 @@ const Calculator = {
         } else {
             return 'red';
         }
+    },
+
+    /**
+     * Create a deep copy of the calculation state object
+     * @param {Object} state - State object with toon, trinkets, items, abilities, etc.
+     * @returns {Object} Deep copy of the state
+     */
+    _cloneCalculationState(state) {
+        return {
+            selectedToon: state.selectedToon,
+            // Shallow copy the equipped trinkets array - preserve full objects
+            equippedTrinkets: state.equippedTrinkets ? state.equippedTrinkets.map(t => ({...t})) : [],
+            // Shallow copy the active items array - preserve full objects
+            activeItems: state.activeItems ? state.activeItems.map(i => ({...i})) : [],
+            teamMembers: state.teamMembers ? [...state.teamMembers] : [],
+            activeAbilities: state.activeAbilities ? [...state.activeAbilities] : [],
+            selectedConditionalStat: state.selectedConditionalStat,
+            teamSize: state.teamSize || 1,
+            skillCheckSuccessRate: state.skillCheckSuccessRate || 1.0
+        };
+    },
+
+    /**
+     * Calculate final stats from a state object
+     * @param {Object} state - State object containing toon, trinkets, items, abilities, etc.
+     * @returns {Object} Final calculated stats
+     */
+    calculateStatsFromState(state) {
+        if (!state || !state.selectedToon) {
+            return null;
+        }
+
+        // Debug logging for cascade troubleshooting
+        const trinketList = (state.equippedTrinkets || []).map(t => (t.trinket || t).name || (t.trinket || t).id).join(', ');
+        const itemList = (state.activeItems || []).map(i => (i.item || i).name || (i.item || i).id).join(', ');
+        console.log(`    calculateStatsFromState: Trinkets=[${trinketList}], Items=[${itemList}]`);
+
+        return this.calculateFinalStats(
+            state.selectedToon,
+            state.equippedTrinkets || [],
+            state.activeAbilities || [],
+            state.activeItems || [],
+            state.selectedConditionalStat,
+            state.teamSize || 1
+        );
+    },
+
+    /**
+     * Remove items by ID from state's active items list
+     * @param {Object} state - State object to modify
+     * @param {Array} itemIdsToRemove - Array of item IDs to remove
+     * @returns {Object} Modified state (mutates input)
+     */
+    _removeItemsFromState(state, itemIdsToRemove) {
+        state.activeItems = state.activeItems.filter(itemObj => {
+            const item = itemObj.item || itemObj;
+            return !itemIdsToRemove.includes(item.id);
+        });
+        return state;
+    },
+
+    /**
+     * Calculate machine stats with cascading item duration support using state object
+     * This version properly recalculates stats at each cascade step as items expire
+     * @param {Object} state - State object containing: selectedToon, equippedTrinkets, activeItems, activeAbilities, selectedConditionalStat, teamSize, skillCheckSuccessRate
+     * @returns {Object} Complete machine stats with cascade breakdown
+     */
+    calculateMachineStatsFromState(state) {
+        console.group('🎰 MACHINE STATS CALCULATION - STATE-BASED CASCADING');
+        console.log('📊 INPUT STATE:');
+        console.log(`  Toon: ${state.selectedToon ? state.selectedToon.name : 'None'}`);
+        console.log(`  Trinkets: ${state.equippedTrinkets ? state.equippedTrinkets.length : 0}`);
+        console.log(`  Items: ${state.activeItems ? state.activeItems.length : 0}`);
+        console.log(`  Team Size: ${state.teamSize || 1}`);
+        console.log(`  Team Members: ${state.teamMembers ? state.teamMembers.filter(t => t).length : 0} active`);
+        console.log(`  Skill Check Success Rate: ${(state.skillCheckSuccessRate * 100).toFixed(1)}%`);
+        
+        // Calculate initial stats from state
+        const initialStats = this.calculateStatsFromState(state);
+        if (!initialStats) {
+            console.log('❌ No toon selected - cannot calculate');
+            console.groupEnd();
+            return null;
+        }
+
+        const initialExtractionSpeed = initialStats.final.extractionSpeed;
+        const initialSkillCheckAmount = initialStats.final.skillCheckAmount;
+        const initialSkillCheckChance = initialStats.final.skillCheckChance;
+
+        console.log(`\n📈 INITIAL STATS (ALL ITEMS ACTIVE):`);
+        console.log(`  Extraction Speed: ${initialExtractionSpeed} (base: ${initialStats.base.extractionSpeed})`);
+        console.log(`  Skill Check Amount: ${initialSkillCheckAmount}`);
+        console.log(`  Skill Check Chance: ${(initialSkillCheckChance * 100).toFixed(1)}%`);
+
+        let machineUnits = 45;
+
+        // Check for special items and trinkets
+        const activeItems = state.activeItems || [];
+        const jumperCables = activeItems.filter(itemObj => {
+            const item = itemObj.item || itemObj;
+            return item.id === 'jumper_cable' && (itemObj.count || 1) > 0;
+        });
+        const hasWrench = (state.equippedTrinkets || []).some(t => (t.trinket || t).id === 'wrench');
+        const isEggson = state.selectedToon && state.selectedToon.id === 'eggson';
+        const hasGlazedFondantBag = (state.equippedTrinkets || []).some(t => (t.trinket || t).id === 'glazed_fondant_bag');
+
+        console.log('\n🔍 SPECIAL ITEMS:');
+        // Calculate total jumper cable count (sum of counts across all entries)
+        const totalJumperCableCount = jumperCables.reduce((sum, itemObj) => sum + (itemObj.count || 1), 0);
+        console.log(`  Jumper Cables: ${totalJumperCableCount}`);
+        console.log(`  Wrench: ${hasWrench ? 'Yes' : 'No'}`);
+        console.log(`  Eggson: ${isEggson ? 'Yes' : 'No'}`);
+        console.log(`  Glazed Fondant Bag: ${hasGlazedFondantBag ? 'Yes' : 'No'}`);
+
+        // Apply Jumper Cables instant completion
+        if (totalJumperCableCount > 0) {
+            const jumpCompletion = Math.min(0.33 * totalJumperCableCount, 1.0);
+            console.log(`\n⚡ JUMPER CABLES:`);
+            console.log(`  Count: ${totalJumperCableCount} × 33% = ${(jumpCompletion * 100).toFixed(1)}%`);
+            machineUnits *= (1 - jumpCompletion);
+            console.log(`  Remaining units: ${machineUnits.toFixed(2)}`);
+
+            if (jumpCompletion >= 1.0) {
+                console.log(`  ✨ INSTANT COMPLETION`);
+                const instantResult = {
+                    defaultTime: 0,
+                    averageTime: 0,
+                    expectedSkillChecks: 0,
+                    expectedSuccessfulChecks: 0,
+                    instant: true
+                };
+                const results = {
+                    default: instantResult,
+                    firstMachine: instantResult,
+                    hasWrench: hasWrench,
+                    cascadeBreakdown: []
+                };
+                console.groupEnd();
+                return results;
+            }
+        }
+
+        // Apply Eggson automatic completion
+        if (isEggson) {
+            console.log(`\n🥚 EGGSON: 10% automatic completion`);
+            machineUnits *= 0.9;
+            console.log(`  Remaining units: ${machineUnits.toFixed(2)}`);
+        }
+
+        // Build items with durations
+        const itemsWithDuration = [];
+        activeItems.forEach(itemObj => {
+            const item = itemObj.item || itemObj;
+            const count = itemObj.count || 1;
+
+            if (item && item.duration && item.duration > 0 && item.id !== 'jumper_cable' && count > 0) {
+                let duration = item.duration;
+
+                if (hasGlazedFondantBag && this._isGlazedFondantItem(item.id)) {
+                    duration += 4;
+                }
+
+                itemsWithDuration.push({
+                    id: item.id,
+                    name: item.name || 'Unknown',
+                    duration: item.duration,
+                    actualDuration: duration
+                });
+            }
+        });
+
+        if (itemsWithDuration.length > 0) {
+            console.log(`\n⏱️ ITEMS WITH DURATION:`);
+            itemsWithDuration.forEach(item => {
+                console.log(`  - ${item.name}: ${item.actualDuration}s`);
+            });
+        }
+
+        // Calculate both scenarios in parallel
+        console.log(`\n📊 CALCULATING MACHINE STATS:`);
+        console.log(`  Scenario 1: Default (${machineUnits.toFixed(2)} units)`);
+        if (hasWrench) {
+            console.log(`  Scenario 2: First Machine with Wrench (${Math.max(0, machineUnits - 15).toFixed(2)} units)`);
+        }
+
+        // Calculate default scenario
+        const defaultResult = this._calculateCascadingMachineStats(
+            state,
+            itemsWithDuration,
+            machineUnits,
+            initialExtractionSpeed,
+            initialSkillCheckAmount,
+            initialSkillCheckChance
+        );
+
+        // Calculate wrench scenario if applicable
+        let wrenchResult = null;
+        if (hasWrench) {
+            console.log(`\n🔧 CALCULATING WRENCH SCENARIO:`);
+            const wrenchMachineUnits = Math.max(0, machineUnits - 15);
+            wrenchResult = this._calculateCascadingMachineStats(
+                state,
+                itemsWithDuration,
+                wrenchMachineUnits,
+                initialExtractionSpeed,
+                initialSkillCheckAmount,
+                initialSkillCheckChance
+            );
+            console.log(`  Wrench scenario completed`);
+        }
+
+        // Combine results
+        const results = {
+            default: defaultResult,
+            firstMachine: wrenchResult || defaultResult,
+            hasWrench: hasWrench,
+            cascadeBreakdown: defaultResult.cascadeBreakdown
+        };
+
+        console.log(`\n✅ FINAL RESULTS:`);
+        console.log(`  Default Time: ${results.default.averageTime}s`);
+        if (hasWrench) {
+            console.log(`  First Machine (with Wrench): ${results.firstMachine.averageTime}s`);
+        }
+        console.groupEnd();
+
+        return results;
+    },
+
+    /**
+     * Helper function to calculate cascading machine stats for a given machine unit count
+     * @private
+     */
+    _calculateCascadingMachineStats(state, itemsWithDuration, machineUnits, initialExtractionSpeed, initialSkillCheckAmount, initialSkillCheckChance) {
+        const cascadeBreakdown = [];
+
+        // If no items with duration, simple calculation
+        if (itemsWithDuration.length === 0) {
+            console.log(`  ⚙️ NO CASCADING - SIMPLE CALCULATION`);
+            const result = this.calculateMachineCompletion(
+                initialExtractionSpeed,
+                initialSkillCheckAmount,
+                state.skillCheckSuccessRate,
+                machineUnits,
+                initialSkillCheckChance
+            );
+            return {
+                ...result,
+                cascadeBreakdown: []
+            };
+        }
+
+        // Build cascade timeline
+        const timeline = this._buildItemTimeline(itemsWithDuration);
+        console.log(`  📅 CASCADE TIMELINE (${timeline.length} breakpoints)`);
+
+        // Cascade through item durations with state recalculation
+        let unitsRemaining = machineUnits;
+        let timeSoFar = 0;
+        let totalSkillChecks = 0;
+        let totalSuccessfulChecks = 0;
+        let workingState = this._cloneCalculationState(state);
+
+        console.log(`  🔄 Starting cascade with ${unitsRemaining.toFixed(2)} units`);
+
+        for (let i = 0; i < timeline.length; i++) {
+            const timePoint = timeline[i];
+            const windowDuration = timePoint.time - timeSoFar;
+
+            if (windowDuration <= 0) continue;
+
+            // Get current stats with all still-active items
+            const stepStats = this.calculateStatsFromState(workingState);
+            const stepExtractionSpeed = stepStats.final.extractionSpeed;
+            const stepSkillCheckAmount = stepStats.final.skillCheckAmount;
+            const stepSkillCheckChance = stepStats.final.skillCheckChance;
+
+            console.log(`    ▶️ Step ${i + 1}: ${timeSoFar}s → ${timePoint.time}s (${windowDuration}s)`);
+            console.log(`       Stats: ${stepExtractionSpeed} extraction, ${stepSkillCheckAmount} skill bonus`);
+
+            // Calculate partial completion
+            const partial = this.calculatePartialMachineCompletion(
+                stepExtractionSpeed,
+                stepSkillCheckAmount,
+                state.skillCheckSuccessRate,
+                windowDuration,
+                unitsRemaining,
+                stepSkillCheckChance
+            );
+
+            console.log(`       Progress: ${partial.unitsCompleted.toFixed(2)} units, ${partial.expectedSkillChecks.toFixed(2)} checks`);
+
+            unitsRemaining = partial.unitsRemaining;
+            timeSoFar += partial.timeConsumed;
+            totalSkillChecks += partial.expectedSkillChecks;
+            totalSuccessfulChecks += partial.expectedSuccessfulChecks;
+
+            cascadeBreakdown.push({
+                timePoint: timePoint.time,
+                itemsExpired: timePoint.expiredItems.map(item => item.name),
+                statsAtStep: {
+                    extractionSpeed: stepExtractionSpeed,
+                    skillCheckAmount: stepSkillCheckAmount,
+                    skillCheckChance: stepSkillCheckChance
+                },
+                unitsCompleted: partial.unitsCompleted,
+                unitsRemaining: partial.unitsRemaining,
+                skillChecksThisWindow: partial.expectedSkillChecks,
+                actualTimeTaken: partial.timeConsumed,
+                isEarlyCompletion: partial.isComplete
+            });
+
+            // Check for early completion
+            if (partial.isComplete) {
+                console.log(`       ⚠️ Machine completed early!`);
+                break;
+            }
+
+            // Remove expired items from working state for next iteration
+            const expiredItemIds = timePoint.expiredItems.map(item => item.id);
+            this._removeItemsFromState(workingState, expiredItemIds);
+        }
+
+        // Final phase - recalculate stats without any timed items
+        console.log(`  ▶️ FINAL PHASE (${timeSoFar}s → completion)`);
+        
+        if (unitsRemaining > 0) {
+            const finalStats = this.calculateStatsFromState(workingState);
+            const finalExtractionSpeed = finalStats.final.extractionSpeed;
+            const finalSkillCheckAmount = finalStats.final.skillCheckAmount;
+            const finalSkillCheckChance = finalStats.final.skillCheckChance;
+
+            const finalResult = this.calculateMachineCompletion(
+                finalExtractionSpeed,
+                finalSkillCheckAmount,
+                state.skillCheckSuccessRate,
+                unitsRemaining,
+                finalSkillCheckChance
+            );
+
+            timeSoFar += finalResult.averageTime;
+            totalSkillChecks += finalResult.expectedSkillChecks;
+            totalSuccessfulChecks += finalResult.expectedSuccessfulChecks;
+            console.log(`    Final: ${finalResult.averageTime}s for remaining ${unitsRemaining.toFixed(2)} units`);
+        } else {
+            console.log(`    Already completed`);
+        }
+
+        // Combine results
+        const totalAverageTime = timeSoFar;
+        const totalDefaultTime = machineUnits / initialExtractionSpeed;
+
+        return {
+            defaultTime: Math.round(totalDefaultTime * 10) / 10,
+            averageTime: Math.round(totalAverageTime * 10) / 10,
+            expectedSkillChecks: Math.round(totalSkillChecks * 10) / 10,
+            expectedSuccessfulChecks: Math.round(totalSuccessfulChecks * 10) / 10,
+            effectiveProgressRate: initialExtractionSpeed,
+            cascadeBreakdown: cascadeBreakdown
+        };
+    },
+
+    /**
+     * Check if item qualifies for Glazed Fondant Bag bonus
+     */
+    _isGlazedFondantItem(itemId) {
+        const glazedItems = [
+            'gumballs',
+            'stamina_candy',
+            'stealth_candy',
+            'chocolate',
+            'speed_candy',
+            'extraction_speed_candy',
+            'skill_check_candy',
+            'jawbreaker',
+            'bonbon',
+            'box_o_chocolates'
+        ];
+        return glazedItems.includes(itemId);
+    },
+
+    /**
+     * Build a timeline of when items expire to handle cascading calculations
+     */
+    _buildItemTimeline(itemsWithDuration) {
+        // Get unique time points where items expire
+        const timePoints = new Set();
+        itemsWithDuration.forEach(item => {
+            timePoints.add(item.actualDuration);
+        });
+
+        // Convert to sorted array
+        const sortedTimes = Array.from(timePoints).sort((a, b) => a - b);
+
+        // For each time point, identify which items expire
+        const timeline = sortedTimes.map(time => ({
+            time,
+            expiredItems: itemsWithDuration.filter(item => item.actualDuration === time)
+        }));
+
+        return timeline;
     }
 };
-

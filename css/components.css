@@ -651,3 +651,20 @@
     font-style: italic;
 }
 
+.stat-value-dual {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+}
+
+.stat-label-small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    background-color: var(--bg-secondary);
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+

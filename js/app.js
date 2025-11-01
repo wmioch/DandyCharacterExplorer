@@ -13,6 +13,7 @@ const App = {
         activeItems: [],
         selectedConditionalStat: null,
         skillCheckSuccessRate: 1.0,
+        teamSize: 1,  // ← ADD THIS: Calculate based on teamMembers
         sortBy: 'speed',
         sortDirection: 'desc'
     },
@@ -403,6 +404,9 @@ const App = {
     handleTeamChange(slot, toonId) {
         this.state.teamMembers[slot] = toonId ? DataLoader.getToon(toonId) : null;
         
+        // Update team size based on active team members (including player)
+        this.state.teamSize = 1 + this.state.teamMembers.filter(t => t !== null).length;
+        
         // Get all available team ability IDs from current team
         const availableAbilityIds = new Set();
         this.state.teamMembers.forEach(toon => {
@@ -458,6 +462,7 @@ const App = {
         this.state.teamToons = {};
         this.state.teamMembers = [null, null, null, null, null, null, null];
         this.state.activeAbilities = [];
+        this.state.teamSize = 1;  // Just the player toon, no team members
         
         // Update UI
         UI.updateTeamToonSelection(this.state.teamToons, this.state.selectedToon ? this.state.selectedToon.id : null);
@@ -481,6 +486,9 @@ const App = {
                 this.state.teamMembers[index++] = toon;
             }
         }
+        
+        // Update team size based on active team members (including player)
+        this.state.teamSize = 1 + this.state.teamMembers.filter(t => t !== null).length;
         
         // Get all available team ability IDs from current team
         const availableAbilityIds = new Set();
@@ -800,14 +808,11 @@ const App = {
         if (stats) {
             // Update stats table (pass the selected toon for star ratings and conditional stat set)
             UI.updateStatsDisplay(stats, this.state.selectedToon, this.state.selectedConditionalStat);
+            console.log('🔍 TOON STATS - Extraction Speed:', stats.final.extractionSpeed);
+            console.log('   Full stats object:', stats);
             
-            // Update machine extraction
-            const extraction = Calculator.calculateMachineTime(
-                stats.final.extractionSpeed,
-                stats.final.skillCheckAmount,
-                this.state.skillCheckSuccessRate,
-                stats.final.skillCheckChance
-            );
+            // Update machine extraction with state-based cascading calculation
+            const extraction = Calculator.calculateMachineStatsFromState(this.state);
             UI.updateMachineExtraction(extraction);
             
             // Update twisted table with current sort

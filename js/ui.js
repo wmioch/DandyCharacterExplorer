@@ -642,14 +642,85 @@ const UI = {
     updateMachineExtraction(extractionResult) {
         if (!extractionResult) return;
 
-        // Update Default / Circle Machines section
         const baseTimeEl = document.getElementById('default-base-time');
         const avgTimeEl = document.getElementById('default-average-time');
         const checksEl = document.getElementById('default-expected-checks');
         
-        if (baseTimeEl) baseTimeEl.textContent = `${extractionResult.defaultTime}s`;
-        if (avgTimeEl) avgTimeEl.textContent = `${extractionResult.averageTime}s`;
-        if (checksEl) checksEl.textContent = `${extractionResult.expectedSkillChecks}`;
+        console.log('📦 updateMachineExtraction called with:', extractionResult);
+        console.log('   hasWrench:', extractionResult.hasWrench);
+        console.log('   firstMachine:', extractionResult.firstMachine);
+
+        // Handle instant completion
+        if (extractionResult.default && extractionResult.default.instant) {
+            if (baseTimeEl) baseTimeEl.textContent = 'Instant';
+            if (avgTimeEl) avgTimeEl.textContent = 'Instant';
+            if (checksEl) checksEl.textContent = '—';
+            return;
+        }
+
+        // Get stats
+        const defaultStats = extractionResult.default;
+        if (!defaultStats) return;
+
+        // If NO Wrench, simple display
+        if (!extractionResult.hasWrench || !extractionResult.firstMachine) {
+            if (baseTimeEl) baseTimeEl.textContent = `${defaultStats.defaultTime}s`;
+            if (avgTimeEl) avgTimeEl.textContent = `${defaultStats.averageTime}s`;
+            if (checksEl) checksEl.textContent = `${defaultStats.expectedSkillChecks}`;
+            return;
+        }
+
+        // WITH Wrench - display dual stats
+        const firstMachineStats = extractionResult.firstMachine;
+        
+        // Create cleaner HTML structure for dual display
+        if (baseTimeEl) {
+            baseTimeEl.innerHTML = '';
+            
+            const firstLine = document.createElement('div');
+            firstLine.style.display = 'flex';
+            firstLine.style.alignItems = 'center';
+            firstLine.style.gap = '0.4rem';
+            firstLine.style.marginBottom = '0.3rem';
+            firstLine.textContent = `${firstMachineStats.defaultTime}s`;
+            
+            const firstLabel = document.createElement('span');
+            firstLabel.className = 'stat-label-small';
+            firstLabel.textContent = '1st';
+            firstLabel.title = 'First machine only';
+            firstLine.appendChild(firstLabel);
+            
+            baseTimeEl.appendChild(firstLine);
+            
+            const secondLine = document.createElement('div');
+            secondLine.style.opacity = '0.6';
+            secondLine.textContent = `${defaultStats.defaultTime}s`;
+            baseTimeEl.appendChild(secondLine);
+        }
+        
+        if (avgTimeEl) {
+            avgTimeEl.innerHTML = '';
+            
+            const firstLine = document.createElement('div');
+            firstLine.style.display = 'flex';
+            firstLine.style.alignItems = 'center';
+            firstLine.style.gap = '0.4rem';
+            firstLine.style.marginBottom = '0.3rem';
+            firstLine.textContent = `${firstMachineStats.averageTime}s`;
+            
+            const firstLabel = document.createElement('span');
+            firstLabel.className = 'stat-label-small';
+            firstLabel.textContent = '1st';
+            firstLabel.title = 'First machine only';
+            firstLine.appendChild(firstLabel);
+            
+            avgTimeEl.appendChild(firstLine);
+            
+            const secondLine = document.createElement('div');
+            secondLine.style.opacity = '0.6';
+            secondLine.textContent = `${defaultStats.averageTime}s`;
+            avgTimeEl.appendChild(secondLine);
+        }
     },
 
     /**
