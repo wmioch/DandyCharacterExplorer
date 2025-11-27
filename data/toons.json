@@ -25,7 +25,7 @@
       "ability": {
         "id": "astro_nap_time",
         "name": "Nap Time",
-        "description": "(Active) This Toon can create a pulse that fully restores the Stamina of the Toons around him. Has a cooldown of 75.",
+        "description": "(Active) This Toon can create a pulse that fully restores the Stamina of the Toons around him. Has a cooldown of 60.",
         "effectType": "teamBuff",
         "targetStat": "stamina",
         "value": 1.0,
@@ -295,7 +295,7 @@
         },
         "teamEffect": {
           "skillCheckSize": 0.5,
-          "skillCheckChance": 0.25,
+          "skillCheckChance": 0.5,
           "skillCheckSizeApplicationType": "multiplicative",
           "skillCheckChanceApplicationType": "additive"
         }
