@@ -710,11 +710,14 @@
 
 .filter-content {
     padding: var(--spacing-sm) var(--spacing-md);
+    padding-bottom: var(--spacing-lg);
     border-top: 1px solid var(--border-color);
     background: var(--bg-primary);
     max-height: 60vh;
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-bottom: var(--spacing-md);
 }
 
 .star-rating-filters {
@@ -731,8 +734,8 @@
 
 .ability-filter-group:last-child {
     border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
 }
 
 .ability-filter-label {
