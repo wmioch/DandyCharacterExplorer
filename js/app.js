@@ -431,10 +431,18 @@ const App = {
 
     /**
      * Handle toon star rating filter changes
+     * Filters toons based on star ratings for each ability (AND logic)
+     * Example: Show only toons with 4-5 star movement speed AND 5 star stamina
      */
     handleToonStarFilter() {
-        const checkedStars = Array.from(document.querySelectorAll('.star-filter-checkbox input:checked'))
-            .map(checkbox => parseInt(checkbox.value));
+        // Get checked stars for each ability
+        const abilityFilters = {
+            movementSpeed: this._getCheckedStarsForAbility('movementSpeed'),
+            stealth: this._getCheckedStarsForAbility('stealth'),
+            extractionSpeed: this._getCheckedStarsForAbility('extractionSpeed'),
+            stamina: this._getCheckedStarsForAbility('stamina'),
+            skillCheckAmount: this._getCheckedStarsForAbility('skillCheckAmount')
+        };
 
         const toonItems = document.querySelectorAll('.toon-grid-item');
 
@@ -449,23 +457,60 @@ const App = {
             const toon = DataLoader.getToon(toonId);
             if (!toon) return;
 
-            // Check if toon has any star rating that matches the selected filters
-            // We'll consider the highest star rating across all stats
-            const maxStars = Math.max(
-                toon.starRatings.walkSpeed,
-                toon.starRatings.runSpeed,
-                toon.starRatings.stealth,
-                toon.starRatings.extractionSpeed,
-                toon.starRatings.stamina,
-                toon.starRatings.skillCheckAmount
-            );
+            // Check if toon matches ALL active ability filters (AND logic)
+            let shouldShow = true;
 
-            if (checkedStars.includes(maxStars)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
+            // Check Movement Speed (uses max of walkSpeed and runSpeed)
+            if (abilityFilters.movementSpeed.length > 0) {
+                const movementStars = Math.max(
+                    toon.starRatings.walkSpeed,
+                    toon.starRatings.runSpeed
+                );
+                if (!abilityFilters.movementSpeed.includes(movementStars)) {
+                    shouldShow = false;
+                }
             }
+
+            // Check Stealth
+            if (shouldShow && abilityFilters.stealth.length > 0) {
+                if (!abilityFilters.stealth.includes(toon.starRatings.stealth)) {
+                    shouldShow = false;
+                }
+            }
+
+            // Check Extraction Speed
+            if (shouldShow && abilityFilters.extractionSpeed.length > 0) {
+                if (!abilityFilters.extractionSpeed.includes(toon.starRatings.extractionSpeed)) {
+                    shouldShow = false;
+                }
+            }
+
+            // Check Stamina
+            if (shouldShow && abilityFilters.stamina.length > 0) {
+                if (!abilityFilters.stamina.includes(toon.starRatings.stamina)) {
+                    shouldShow = false;
+                }
+            }
+
+            // Check Skill Check Amount
+            if (shouldShow && abilityFilters.skillCheckAmount.length > 0) {
+                if (!abilityFilters.skillCheckAmount.includes(toon.starRatings.skillCheckAmount)) {
+                    shouldShow = false;
+                }
+            }
+
+            item.style.display = shouldShow ? 'block' : 'none';
         });
+    },
+
+    /**
+     * Get checked star values for a specific ability
+     * @param {string} ability - The ability name (e.g., 'movementSpeed', 'stamina')
+     * @returns {number[]} Array of checked star values
+     */
+    _getCheckedStarsForAbility(ability) {
+        return Array.from(document.querySelectorAll(`.star-filter-checkbox input[data-ability="${ability}"]:checked`))
+            .map(checkbox => parseInt(checkbox.value));
     },
 
     /**
