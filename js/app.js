@@ -33,7 +33,10 @@ const App = {
 
         // Populate all dropdowns and lists
         this.populateUI();
-        
+
+        // Update star rating counts
+        this.updateStarCounts();
+
         // Attach event listeners
         this.attachEventListeners();
         
@@ -115,6 +118,18 @@ const App = {
         // Trinket filter
         document.getElementById('trinket-filter-select').addEventListener('change', (e) => {
             this.handleTrinketFilter(e.target.value);
+        });
+
+        // Toon filter toggle
+        document.getElementById('toon-filter-toggle').addEventListener('click', () => {
+            this.handleToonFilterToggle();
+        });
+
+        // Toon star rating filters
+        document.querySelectorAll('.star-filter-checkbox input').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                this.handleToonStarFilter();
+            });
         });
 
         // Team member selection
@@ -388,7 +403,7 @@ const App = {
      */
     handleTrinketFilter(category) {
         const trinkets = document.querySelectorAll('.trinket-grid-item');
-        
+
         trinkets.forEach(trinket => {
             if (category === 'all' || trinket.dataset.category === category) {
                 trinket.style.display = 'block';
@@ -396,6 +411,90 @@ const App = {
                 trinket.style.display = 'none';
             }
         });
+    },
+
+    /**
+     * Handle toon filter toggle (expand/collapse)
+     */
+    handleToonFilterToggle() {
+        const header = document.getElementById('toon-filter-toggle');
+        const content = document.getElementById('toon-filter-content');
+
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+            header.classList.add('expanded');
+        } else {
+            content.style.display = 'none';
+            header.classList.remove('expanded');
+        }
+    },
+
+    /**
+     * Handle toon star rating filter changes
+     */
+    handleToonStarFilter() {
+        const checkedStars = Array.from(document.querySelectorAll('.star-filter-checkbox input:checked'))
+            .map(checkbox => parseInt(checkbox.value));
+
+        const toonItems = document.querySelectorAll('.toon-grid-item');
+
+        toonItems.forEach(item => {
+            if (item.classList.contains('clear-team-btn')) {
+                return; // Skip the clear team button
+            }
+
+            const toonId = item.dataset.toonId;
+            if (!toonId) return;
+
+            const toon = DataLoader.getToon(toonId);
+            if (!toon) return;
+
+            // Check if toon has any star rating that matches the selected filters
+            // We'll consider the highest star rating across all stats
+            const maxStars = Math.max(
+                toon.starRatings.walkSpeed,
+                toon.starRatings.runSpeed,
+                toon.starRatings.stealth,
+                toon.starRatings.extractionSpeed,
+                toon.starRatings.stamina,
+                toon.starRatings.skillCheckAmount
+            );
+
+            if (checkedStars.includes(maxStars)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    },
+
+    /**
+     * Update star rating counts
+     */
+    updateStarCounts() {
+        const starCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+        const allToons = DataLoader.getAllToons();
+
+        // Count toons by their maximum star rating
+        allToons.forEach(toon => {
+            const maxStars = Math.max(
+                toon.starRatings.walkSpeed,
+                toon.starRatings.runSpeed,
+                toon.starRatings.stealth,
+                toon.starRatings.extractionSpeed,
+                toon.starRatings.stamina,
+                toon.starRatings.skillCheckAmount
+            );
+            starCounts[maxStars]++;
+        });
+
+        // Update the count displays
+        for (let i = 1; i <= 5; i++) {
+            const countElement = document.getElementById(`star-${i}-count`);
+            if (countElement) {
+                countElement.textContent = `(${starCounts[i]})`;
+            }
+        }
     },
 
     /**

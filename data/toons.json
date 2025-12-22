@@ -483,31 +483,7 @@
             "stamina": 200
           }
         }
-      },
-      "conditionalStats": [
-        {
-          "id": "eclipse_normal_speed",
-          "name": "Normal Speed",
-          "condition": "true",
-          "statModifiers": {}
-        },
-        {
-          "id": "eclipse_panic_speed",
-          "name": "Panic Speed",
-          "condition": "true",
-          "modifierOverrides": {
-            "movementSpeed": 0.25
-          }
-        },
-        {
-          "id": "eclipse_panic_suppressed_speed",
-          "name": "Panic + Suppressed Speed",
-          "condition": "true",
-          "modifierOverrides": {
-            "movementSpeed": 0.20
-          }
-        }
-      ]
+      }
     },
     {
       "id": "eggson",
