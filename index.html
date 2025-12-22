@@ -94,32 +94,139 @@
                             <span class="filter-toggle-icon">▼</span>
                         </div>
                         <div class="filter-content" id="toon-filter-content" style="display: none;">
-                            <div class="star-rating-filters">
-                                <label class="star-filter-checkbox">
-                                    <input type="checkbox" value="5" checked>
-                                    <span class="star-display">★★★★★</span>
-                                    <span class="star-count" id="star-5-count">(0)</span>
-                                </label>
-                                <label class="star-filter-checkbox">
-                                    <input type="checkbox" value="4" checked>
-                                    <span class="star-display">★★★★☆</span>
-                                    <span class="star-count" id="star-4-count">(0)</span>
-                                </label>
-                                <label class="star-filter-checkbox">
-                                    <input type="checkbox" value="3" checked>
-                                    <span class="star-display">★★★☆☆</span>
-                                    <span class="star-count" id="star-3-count">(0)</span>
-                                </label>
-                                <label class="star-filter-checkbox">
-                                    <input type="checkbox" value="2" checked>
-                                    <span class="star-display">★★☆☆☆</span>
-                                    <span class="star-count" id="star-2-count">(0)</span>
-                                </label>
-                                <label class="star-filter-checkbox">
-                                    <input type="checkbox" value="1" checked>
-                                    <span class="star-display">★☆☆☆☆</span>
-                                    <span class="star-count" id="star-1-count">(0)</span>
-                                </label>
+                            <!-- Movement Speed Filter -->
+                            <div class="ability-filter-group">
+                                <div class="ability-filter-label">Movement Speed (Walk/Run)</div>
+                                <div class="star-rating-filters">
+                                    <label class="star-filter-checkbox" data-ability="movementSpeed">
+                                        <input type="checkbox" value="5" data-ability="movementSpeed" checked>
+                                        <span class="star-display">★★★★★</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="movementSpeed">
+                                        <input type="checkbox" value="4" data-ability="movementSpeed" checked>
+                                        <span class="star-display">★★★★☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="movementSpeed">
+                                        <input type="checkbox" value="3" data-ability="movementSpeed" checked>
+                                        <span class="star-display">★★★☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="movementSpeed">
+                                        <input type="checkbox" value="2" data-ability="movementSpeed" checked>
+                                        <span class="star-display">★★☆☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="movementSpeed">
+                                        <input type="checkbox" value="1" data-ability="movementSpeed" checked>
+                                        <span class="star-display">★☆☆☆☆</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Stealth Filter -->
+                            <div class="ability-filter-group">
+                                <div class="ability-filter-label">Stealth</div>
+                                <div class="star-rating-filters">
+                                    <label class="star-filter-checkbox" data-ability="stealth">
+                                        <input type="checkbox" value="5" data-ability="stealth" checked>
+                                        <span class="star-display">★★★★★</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stealth">
+                                        <input type="checkbox" value="4" data-ability="stealth" checked>
+                                        <span class="star-display">★★★★☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stealth">
+                                        <input type="checkbox" value="3" data-ability="stealth" checked>
+                                        <span class="star-display">★★★☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stealth">
+                                        <input type="checkbox" value="2" data-ability="stealth" checked>
+                                        <span class="star-display">★★☆☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stealth">
+                                        <input type="checkbox" value="1" data-ability="stealth" checked>
+                                        <span class="star-display">★☆☆☆☆</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Extraction Speed Filter -->
+                            <div class="ability-filter-group">
+                                <div class="ability-filter-label">Extraction Speed</div>
+                                <div class="star-rating-filters">
+                                    <label class="star-filter-checkbox" data-ability="extractionSpeed">
+                                        <input type="checkbox" value="5" data-ability="extractionSpeed" checked>
+                                        <span class="star-display">★★★★★</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="extractionSpeed">
+                                        <input type="checkbox" value="4" data-ability="extractionSpeed" checked>
+                                        <span class="star-display">★★★★☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="extractionSpeed">
+                                        <input type="checkbox" value="3" data-ability="extractionSpeed" checked>
+                                        <span class="star-display">★★★☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="extractionSpeed">
+                                        <input type="checkbox" value="2" data-ability="extractionSpeed" checked>
+                                        <span class="star-display">★★☆☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="extractionSpeed">
+                                        <input type="checkbox" value="1" data-ability="extractionSpeed" checked>
+                                        <span class="star-display">★☆☆☆☆</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Stamina Filter -->
+                            <div class="ability-filter-group">
+                                <div class="ability-filter-label">Stamina</div>
+                                <div class="star-rating-filters">
+                                    <label class="star-filter-checkbox" data-ability="stamina">
+                                        <input type="checkbox" value="5" data-ability="stamina" checked>
+                                        <span class="star-display">★★★★★</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stamina">
+                                        <input type="checkbox" value="4" data-ability="stamina" checked>
+                                        <span class="star-display">★★★★☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stamina">
+                                        <input type="checkbox" value="3" data-ability="stamina" checked>
+                                        <span class="star-display">★★★☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stamina">
+                                        <input type="checkbox" value="2" data-ability="stamina" checked>
+                                        <span class="star-display">★★☆☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="stamina">
+                                        <input type="checkbox" value="1" data-ability="stamina" checked>
+                                        <span class="star-display">★☆☆☆☆</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Skill Check Amount Filter -->
+                            <div class="ability-filter-group">
+                                <div class="ability-filter-label">Skill Check Amount</div>
+                                <div class="star-rating-filters">
+                                    <label class="star-filter-checkbox" data-ability="skillCheckAmount">
+                                        <input type="checkbox" value="5" data-ability="skillCheckAmount" checked>
+                                        <span class="star-display">★★★★★</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="skillCheckAmount">
+                                        <input type="checkbox" value="4" data-ability="skillCheckAmount" checked>
+                                        <span class="star-display">★★★★☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="skillCheckAmount">
+                                        <input type="checkbox" value="3" data-ability="skillCheckAmount" checked>
+                                        <span class="star-display">★★★☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="skillCheckAmount">
+                                        <input type="checkbox" value="2" data-ability="skillCheckAmount" checked>
+                                        <span class="star-display">★★☆☆☆</span>
+                                    </label>
+                                    <label class="star-filter-checkbox" data-ability="skillCheckAmount">
+                                        <input type="checkbox" value="1" data-ability="skillCheckAmount" checked>
+                                        <span class="star-display">★☆☆☆☆</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
