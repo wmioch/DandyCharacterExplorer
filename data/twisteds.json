@@ -142,8 +142,8 @@
       "image": "twisteds/brusha.png"
     },
     {
-      "id": "twisted_coal",
-      "name": "Twisted Coal",
+      "id": "twisted_coal_normal",
+      "name": "Twisted Coal (Normal)",
       "rarity": "Event",
       "speeds": {
         "normal": {
@@ -157,6 +157,26 @@
         "panicSuppressed": {
           "walk": 9.6,
           "run": 19.2
+        }
+      },
+      "image": "twisteds/coal.png"
+    },
+    {
+      "id": "twisted_coal_blackout",
+      "name": "Twisted Coal (Blackout)",
+      "rarity": "Event",
+      "speeds": {
+        "normal": {
+          "walk": 10.0,
+          "run": 25.0
+        },
+        "panic": {
+          "walk": 12.5,
+          "run": 31.25
+        },
+        "panicSuppressed": {
+          "walk": 12.0,
+          "run": 30.0
         }
       },
       "image": "twisteds/coal.png"
