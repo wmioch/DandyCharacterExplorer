@@ -67,16 +67,16 @@
       "rarity": "Event",
       "speeds": {
         "normal": {
-          "walk": 8.0,
-          "run": 23.0
+          "walk": 8.5,
+          "run": 25.0
         },
         "panic": {
-          "walk": 10.0,
-          "run": 28.75
+          "walk": 10.625,
+          "run": 31.25
         },
         "panicSuppressed": {
-          "walk": 9.6,
-          "run": 27.6
+          "walk": 10.2,
+          "run": 30.0
         }
       },
       "image": "twisteds/bobette.png"
