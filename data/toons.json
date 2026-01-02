@@ -167,7 +167,7 @@
       "ability2": {
         "id": "bobette_festive_aura",
         "name": "Festive Aura",
-        "description": "(Passive) The festive aura of this Toon passively gives those around her 50% faster stamina regeneration.",
+        "description": "(Passive) The festive aura of this Toon passively gives those around her 50% faster stamina regeneration and a 25% speed boost that lasts for 5 seconds.",
         "effectType": "teamBuff",
         "targetStat": "staminaRegen",
         "value": 0.5,
@@ -176,6 +176,7 @@
         "stackable": false,
         "teamEffect": {
           "staminaRegen": 0.5,
+          "movementSpeed": 0.25,
           "applicationType": "multiplicative"
         }
       },
