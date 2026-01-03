@@ -714,7 +714,6 @@
     background: var(--bg-primary);
     max-height: 60vh;
     overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .star-rating-filters {
