@@ -40,6 +40,9 @@ const App = {
         // Initialize star filter defaults (1 star active for each stat)
         this.initializeStarFilters();
 
+        // Apply default star filtering
+        this.handleToonStarFilter();
+
         // Attach event listeners
         this.attachEventListeners();
         
