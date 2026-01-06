@@ -440,7 +440,6 @@ const App = {
      */
     handleToonStarFilterClick(clickedOption) {
         const ability = clickedOption.closest('.star-rating-filters').dataset.ability;
-        const clickedStars = parseInt(clickedOption.dataset.stars);
 
         // Remove active class from all options in this ability group
         const abilityGroup = clickedOption.closest('.star-rating-filters');
@@ -448,13 +447,8 @@ const App = {
             option.classList.remove('active');
         });
 
-        // Add active class to all stars up to and including the clicked star
-        abilityGroup.querySelectorAll('.star-filter-option').forEach(option => {
-            const optionStars = parseInt(option.dataset.stars);
-            if (optionStars <= clickedStars) {
-                option.classList.add('active');
-            }
-        });
+        // Add active class to the clicked option only
+        clickedOption.classList.add('active');
 
         // Apply filtering
         this.handleToonStarFilter();
@@ -530,16 +524,8 @@ const App = {
      * @returns {number} Minimum star rating (defaults to 1)
      */
     _getMinStarsForAbility(ability) {
-        const activeOptions = document.querySelectorAll(`.star-rating-filters[data-ability="${ability}"] .star-filter-option.active`);
-        if (activeOptions.length === 0) return 1;
-
-        // Return the highest active star rating (since multiple can be active)
-        let maxStars = 1;
-        activeOptions.forEach(option => {
-            const stars = parseInt(option.dataset.stars);
-            if (stars > maxStars) maxStars = stars;
-        });
-        return maxStars;
+        const activeOption = document.querySelector(`.star-rating-filters[data-ability="${ability}"] .star-filter-option.active`);
+        return activeOption ? parseInt(activeOption.dataset.stars) : 1;
     },
 
 
