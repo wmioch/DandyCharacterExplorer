@@ -17,6 +17,13 @@ const App = {
         sortBy: 'speed',
         sortDirection: 'desc'
     },
+    currentStarFilters: {
+        skillCheckAmount: 1,
+        movementSpeed: 1,
+        stamina: 1,
+        stealth: 1,
+        extractionSpeed: 1
+    },
 
     /**
      * Initialize the application
@@ -132,10 +139,7 @@ const App = {
             this.handleTrinketFilter(e.target.value);
         });
 
-        // Toon filter toggle
-        document.getElementById('toon-filter-toggle').addEventListener('click', () => {
-            this.handleToonFilterToggle();
-        });
+        // Toon filter toggle (removed - no longer exists)
 
         // Toon star rating filters
         document.querySelectorAll('.star-selector').forEach(star => {
@@ -444,11 +448,10 @@ const App = {
 
     /**
      * Handle toon star rating filter changes
-     * Clicking a star sets the minimum rating for that stat
      * Shows only toons with star rating >= selected minimum for each stat (AND logic)
      */
     handleToonStarFilter(clickedStar = null) {
-        // If a star was clicked, update the selection for that ability
+        // If a star was clicked, update the selection for that ability (legacy - not used in modal system)
         if (clickedStar) {
             const ability = clickedStar.closest('.star-rating-selector').dataset.ability;
             const clickedRating = parseInt(clickedStar.dataset.stars);
@@ -465,20 +468,20 @@ const App = {
             });
         }
 
-        // Get minimum ratings for each ability
+        // Get minimum ratings for each ability from currentStarFilters
         const abilityMinRatings = {
-            movementSpeed: this._getMinRatingForAbility('movementSpeed'),
-            stealth: this._getMinRatingForAbility('stealth'),
-            extractionSpeed: this._getMinRatingForAbility('extractionSpeed'),
-            stamina: this._getMinRatingForAbility('stamina'),
-            skillCheckAmount: this._getMinRatingForAbility('skillCheckAmount')
+            movementSpeed: this.currentStarFilters.movementSpeed,
+            stealth: this.currentStarFilters.stealth,
+            extractionSpeed: this.currentStarFilters.extractionSpeed,
+            stamina: this.currentStarFilters.stamina,
+            skillCheckAmount: this.currentStarFilters.skillCheckAmount
         };
 
         const toonItems = document.querySelectorAll('.toon-grid-item');
 
         toonItems.forEach(item => {
-            if (item.classList.contains('clear-team-btn')) {
-                return; // Skip the clear team button
+            if (item.classList.contains('clear-team-btn') || item.classList.contains('filter-toons-btn')) {
+                return; // Skip the buttons
             }
 
             const toonId = item.dataset.toonId;
@@ -524,25 +527,12 @@ const App = {
     },
 
     /**
-     * Get minimum rating for a specific ability based on active stars
+     * Get minimum rating for a specific ability based on current filters
      * @param {string} ability - The ability name (e.g., 'movementSpeed', 'stamina')
      * @returns {number} Minimum star rating (1-5, defaults to 1)
      */
     _getMinRatingForAbility(ability) {
-        const selector = document.querySelector(`.star-rating-selector[data-ability="${ability}"]`);
-        if (!selector) return 1;
-
-        // Find the highest active star rating
-        let maxActiveRating = 0;
-        selector.querySelectorAll('.star-selector.active').forEach(star => {
-            const rating = parseInt(star.dataset.stars);
-            if (rating > maxActiveRating) {
-                maxActiveRating = rating;
-            }
-        });
-
-        // If no stars are active, default to 1
-        return maxActiveRating > 0 ? maxActiveRating : 1;
+        return this.currentStarFilters[ability] || 1;
     },
 
     /**
@@ -712,14 +702,10 @@ const App = {
         }
 
         // Star selectors
-        const modalStars = document.querySelectorAll('#star-filter-modal .star-selector');
-        console.log('Found modal stars:', modalStars.length);
-        modalStars.forEach(star => {
+        document.querySelectorAll('#star-filter-modal .star-selector').forEach(star => {
             star.onclick = () => {
-                console.log('Modal star onclick triggered');
                 this.handleModalStarFilter(star);
             };
-            star.style.cursor = 'pointer'; // Ensure cursor shows clickable
         });
     },
 
@@ -738,7 +724,7 @@ const App = {
         const abilities = ['skillCheckAmount', 'movementSpeed', 'stamina', 'stealth', 'extractionSpeed'];
 
         abilities.forEach(ability => {
-            const minRating = this._getMinRatingForAbility(ability);
+            const minRating = this.currentStarFilters[ability];
             const selector = document.querySelector(`#star-filter-modal .star-rating-selector[data-ability="${ability}"]`);
 
             if (selector) {
@@ -758,10 +744,8 @@ const App = {
      * Handle star filter clicks in modal
      */
     handleModalStarFilter(clickedStar) {
-        console.log('Modal star clicked:', clickedStar.dataset.stars);
         const ability = clickedStar.closest('.star-rating-selector').dataset.ability;
         const clickedRating = parseInt(clickedStar.dataset.stars);
-        console.log('Ability:', ability, 'Rating:', clickedRating);
 
         // Update visual state - mark clicked star and all lower ratings as active
         const selector = clickedStar.closest('.star-rating-selector');
@@ -769,10 +753,8 @@ const App = {
             const starRating = parseInt(star.dataset.stars);
             if (starRating <= clickedRating) {
                 star.classList.add('active');
-                console.log('Added active to star:', starRating);
             } else {
                 star.classList.remove('active');
-                console.log('Removed active from star:', starRating);
             }
         });
     },
@@ -781,27 +763,16 @@ const App = {
      * Apply filters from modal to main filter system
      */
     applyStarFilters() {
+        // Store the current filter selections from modal
+        this.currentStarFilters = {};
         const abilities = ['skillCheckAmount', 'movementSpeed', 'stamina', 'stealth', 'extractionSpeed'];
 
-        // Clear all existing star selections
-        document.querySelectorAll('.star-selector').forEach(star => {
-            star.classList.remove('active');
-        });
-
-        // Apply modal selections to main filter system
         abilities.forEach(ability => {
             const modalSelector = document.querySelector(`#star-filter-modal .star-rating-selector[data-ability="${ability}"]`);
-            const mainSelector = document.querySelector(`.star-rating-selector[data-ability="${ability}"]:not(#star-filter-modal .star-rating-selector)`);
-
-            if (modalSelector && mainSelector) {
+            if (modalSelector) {
                 const activeStars = modalSelector.querySelectorAll('.star-selector.active');
-                activeStars.forEach(modalStar => {
-                    const rating = modalStar.dataset.stars;
-                    const mainStar = mainSelector.querySelector(`.star-selector[data-stars="${rating}"]`);
-                    if (mainStar) {
-                        mainStar.classList.add('active');
-                    }
-                });
+                const maxActiveRating = Math.max(...Array.from(activeStars).map(star => parseInt(star.dataset.stars)), 0);
+                this.currentStarFilters[ability] = maxActiveRating;
             }
         });
 

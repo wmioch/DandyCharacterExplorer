@@ -638,8 +638,7 @@ button {
     cursor: pointer;
 }
 
-.toon-grid-item.clear-team-btn .toon-grid-image,
-.toon-grid-item.filter-toons-btn .toon-grid-image {
+.toon-grid-item.clear-team-btn .toon-grid-image {
     background: linear-gradient(135deg, var(--color-red) 0%, #8b0000 100%);
     border-color: var(--color-red);
     font-size: 0.65rem;
