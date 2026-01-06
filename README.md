@@ -110,6 +110,18 @@ If images are missing, colorful letter placeholders will display automatically.
 - [ ] Create build sharing functionality
 - [ ] Add more conditional stat scenarios
 
+## AI Assistant Guidelines
+
+**⚠️ Important: Do NOT open the website when finishing feature work**
+
+When completing feature development or testing changes:
+- ✅ **Commit and push code changes**
+- ✅ **Verify code changes are correct**
+- ❌ **Do NOT run `start index.html` or open the website**
+- ❌ **Do NOT use any command that opens a web browser**
+
+**Reason:** Opening the website disrupts the developer's workflow and can cause unwanted browser windows/tabs to appear.
+
 ## Credits
 
 Based on the Roblox game **Dandy's World**
