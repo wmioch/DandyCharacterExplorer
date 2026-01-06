@@ -126,9 +126,9 @@ const App = {
         });
 
         // Toon star rating filters
-        document.querySelectorAll('.star-filter-checkbox input').forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                this.handleToonStarFilter();
+        document.querySelectorAll('.star-filter-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                this.handleToonStarFilterClick(e.target.closest('.star-filter-option'));
             });
         });
 
@@ -434,14 +434,39 @@ const App = {
      * Filters toons based on star ratings for each ability (AND logic)
      * Example: Show only toons with 4-5 star movement speed AND 5 star stamina
      */
+    /**
+     * Handle clicking on a star filter option
+     * Sets the minimum star rating for that ability and filters toons
+     */
+    handleToonStarFilterClick(clickedOption) {
+        const ability = clickedOption.closest('.star-rating-filters').dataset.ability;
+        const stars = parseInt(clickedOption.dataset.stars);
+
+        // Remove active class from all options in this ability group
+        clickedOption.closest('.star-rating-filters').querySelectorAll('.star-filter-option').forEach(option => {
+            option.classList.remove('active');
+        });
+
+        // Add active class to clicked option
+        clickedOption.classList.add('active');
+
+        // Apply filtering
+        this.handleToonStarFilter();
+    }
+
+    /**
+     * Handle toon star rating filtering
+     * Filters toons based on minimum star ratings for each ability (AND logic)
+     * Example: Show only toons with 2+ star movement speed AND 3+ star stamina
+     */
     handleToonStarFilter() {
-        // Get checked stars for each ability
-        const abilityFilters = {
-            movementSpeed: this._getCheckedStarsForAbility('movementSpeed'),
-            stealth: this._getCheckedStarsForAbility('stealth'),
-            extractionSpeed: this._getCheckedStarsForAbility('extractionSpeed'),
-            stamina: this._getCheckedStarsForAbility('stamina'),
-            skillCheckAmount: this._getCheckedStarsForAbility('skillCheckAmount')
+        // Get minimum star ratings for each ability
+        const minStarRatings = {
+            movementSpeed: this._getMinStarsForAbility('movementSpeed'),
+            stealth: this._getMinStarsForAbility('stealth'),
+            extractionSpeed: this._getMinStarsForAbility('extractionSpeed'),
+            stamina: this._getMinStarsForAbility('stamina'),
+            skillCheckAmount: this._getMinStarsForAbility('skillCheckAmount')
         };
 
         const toonItems = document.querySelectorAll('.toon-grid-item');
@@ -457,61 +482,52 @@ const App = {
             const toon = DataLoader.getToon(toonId);
             if (!toon) return;
 
-            // Check if toon matches ALL active ability filters (AND logic)
+            // Check if toon meets minimum requirements for ALL abilities (AND logic)
             let shouldShow = true;
 
             // Check Movement Speed (uses max of walkSpeed and runSpeed)
-            if (abilityFilters.movementSpeed.length > 0) {
-                const movementStars = Math.max(
-                    toon.starRatings.walkSpeed,
-                    toon.starRatings.runSpeed
-                );
-                if (!abilityFilters.movementSpeed.includes(movementStars)) {
-                    shouldShow = false;
-                }
+            const movementStars = Math.max(
+                toon.starRatings.walkSpeed,
+                toon.starRatings.runSpeed
+            );
+            if (movementStars < minStarRatings.movementSpeed) {
+                shouldShow = false;
             }
 
             // Check Stealth
-            if (shouldShow && abilityFilters.stealth.length > 0) {
-                if (!abilityFilters.stealth.includes(toon.starRatings.stealth)) {
-                    shouldShow = false;
-                }
+            if (shouldShow && toon.starRatings.stealth < minStarRatings.stealth) {
+                shouldShow = false;
             }
 
             // Check Extraction Speed
-            if (shouldShow && abilityFilters.extractionSpeed.length > 0) {
-                if (!abilityFilters.extractionSpeed.includes(toon.starRatings.extractionSpeed)) {
-                    shouldShow = false;
-                }
+            if (shouldShow && toon.starRatings.extractionSpeed < minStarRatings.extractionSpeed) {
+                shouldShow = false;
             }
 
             // Check Stamina
-            if (shouldShow && abilityFilters.stamina.length > 0) {
-                if (!abilityFilters.stamina.includes(toon.starRatings.stamina)) {
-                    shouldShow = false;
-                }
+            if (shouldShow && toon.starRatings.stamina < minStarRatings.stamina) {
+                shouldShow = false;
             }
 
             // Check Skill Check Amount
-            if (shouldShow && abilityFilters.skillCheckAmount.length > 0) {
-                if (!abilityFilters.skillCheckAmount.includes(toon.starRatings.skillCheckAmount)) {
-                    shouldShow = false;
-                }
+            if (shouldShow && toon.starRatings.skillCheckAmount < minStarRatings.skillCheckAmount) {
+                shouldShow = false;
             }
 
             item.style.display = shouldShow ? 'block' : 'none';
         });
-    },
+    }
 
     /**
-     * Get checked star values for a specific ability
+     * Get minimum star rating for a specific ability
      * @param {string} ability - The ability name (e.g., 'movementSpeed', 'stamina')
-     * @returns {number[]} Array of checked star values
+     * @returns {number} Minimum star rating (defaults to 1)
      */
-    _getCheckedStarsForAbility(ability) {
-        return Array.from(document.querySelectorAll(`.star-filter-checkbox input[data-ability="${ability}"]:checked`))
-            .map(checkbox => parseInt(checkbox.value));
+    _getMinStarsForAbility(ability) {
+        const activeOption = document.querySelector(`.star-rating-filters[data-ability="${ability}"] .star-filter-option.active`);
+        return activeOption ? parseInt(activeOption.dataset.stars) : 1;
     },
+
 
     /**
      * Update star rating counts
