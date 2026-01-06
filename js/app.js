@@ -90,12 +90,21 @@ const App = {
         // Toon selection (grid) - right click for team
         document.getElementById('toon-grid').addEventListener('contextmenu', (e) => {
             const toonItem = e.target.closest('.toon-grid-item');
-            if (toonItem && !toonItem.classList.contains('clear-team-btn')) {
+            if (toonItem && !toonItem.classList.contains('clear-team-btn') && !toonItem.classList.contains('filter-toons-btn')) {
                 e.preventDefault(); // Prevent context menu
                 const toonId = toonItem.dataset.toonId;
                 if (toonId) {
                     this.handleTeamToonToggle(toonId);
                 }
+            }
+        });
+
+        // Filter Toons button
+        document.getElementById('toon-grid').addEventListener('click', (e) => {
+            const filterBtn = e.target.closest('.filter-toons-btn');
+            if (filterBtn) {
+                this.showStarFilterModal();
+                return;
             }
         });
 
@@ -209,6 +218,33 @@ const App = {
         // Share button
         document.getElementById('share-build').addEventListener('click', () => {
             this.handleShareBuild();
+        });
+
+        // Star Filter Modal
+        document.getElementById('close-star-modal').addEventListener('click', () => {
+            this.hideStarFilterModal();
+        });
+
+        document.getElementById('star-filter-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'star-filter-modal') {
+                this.hideStarFilterModal();
+            }
+        });
+
+        document.getElementById('apply-star-filters').addEventListener('click', () => {
+            this.applyStarFilters();
+            this.hideStarFilterModal();
+        });
+
+        document.getElementById('reset-star-filters').addEventListener('click', () => {
+            this.resetStarFilters();
+        });
+
+        // Star filter modal selectors
+        document.querySelectorAll('#star-filter-modal .star-selector').forEach(star => {
+            star.addEventListener('click', () => {
+                this.handleModalStarFilter(star);
+            });
         });
     },
 
@@ -642,12 +678,133 @@ const App = {
         this.state.teamMembers = [null, null, null, null, null, null, null];
         this.state.activeAbilities = [];
         this.state.teamSize = 1;  // Just the player toon, no team members
-        
+
         // Update UI
         UI.updateTeamToonSelection(this.state.teamToons, this.state.selectedToon ? this.state.selectedToon.id : null);
         UI.updateTeamAbilities([], this.state.activeAbilities);
-        
+
         this.updateDisplay();
+    },
+
+    /**
+     * Show star filter modal
+     */
+    showStarFilterModal() {
+        const modal = document.getElementById('star-filter-modal');
+        modal.style.display = 'flex';
+
+        // Sync current filter state to modal
+        this.syncFiltersToModal();
+    },
+
+    /**
+     * Hide star filter modal
+     */
+    hideStarFilterModal() {
+        const modal = document.getElementById('star-filter-modal');
+        modal.style.display = 'none';
+    },
+
+    /**
+     * Sync current filter state to modal display
+     */
+    syncFiltersToModal() {
+        const abilities = ['skillCheckAmount', 'movementSpeed', 'stamina', 'stealth', 'extractionSpeed'];
+
+        abilities.forEach(ability => {
+            const minRating = this._getMinRatingForAbility(ability);
+            const selector = document.querySelector(`#star-filter-modal .star-rating-selector[data-ability="${ability}"]`);
+
+            if (selector) {
+                selector.querySelectorAll('.star-selector').forEach(star => {
+                    const starRating = parseInt(star.dataset.stars);
+                    if (starRating <= minRating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+            }
+        });
+    },
+
+    /**
+     * Handle star filter clicks in modal
+     */
+    handleModalStarFilter(clickedStar) {
+        const ability = clickedStar.closest('.star-rating-selector').dataset.ability;
+        const clickedRating = parseInt(clickedStar.dataset.stars);
+
+        // Update visual state - mark clicked star and all lower ratings as active
+        const selector = clickedStar.closest('.star-rating-selector');
+        selector.querySelectorAll('.star-selector').forEach(star => {
+            const starRating = parseInt(star.dataset.stars);
+            if (starRating <= clickedRating) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+    },
+
+    /**
+     * Apply filters from modal to main filter system
+     */
+    applyStarFilters() {
+        const abilities = ['skillCheckAmount', 'movementSpeed', 'stamina', 'stealth', 'extractionSpeed'];
+
+        // Clear all existing star selections
+        document.querySelectorAll('.star-selector').forEach(star => {
+            star.classList.remove('active');
+        });
+
+        // Apply modal selections to main filter system
+        abilities.forEach(ability => {
+            const modalSelector = document.querySelector(`#star-filter-modal .star-rating-selector[data-ability="${ability}"]`);
+            const mainSelector = document.querySelector(`.star-rating-selector[data-ability="${ability}"]:not(#star-filter-modal .star-rating-selector)`);
+
+            if (modalSelector && mainSelector) {
+                const activeStars = modalSelector.querySelectorAll('.star-selector.active');
+                activeStars.forEach(modalStar => {
+                    const rating = modalStar.dataset.stars;
+                    const mainStar = mainSelector.querySelector(`.star-selector[data-stars="${rating}"]`);
+                    if (mainStar) {
+                        mainStar.classList.add('active');
+                    }
+                });
+            }
+        });
+
+        // Apply the filtering
+        this.handleToonStarFilter();
+    },
+
+    /**
+     * Reset all star filters
+     */
+    resetStarFilters() {
+        // Reset modal stars
+        document.querySelectorAll('#star-filter-modal .star-selector').forEach(star => {
+            const rating = parseInt(star.dataset.stars);
+            if (rating === 1) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+
+        // Reset main filter stars
+        document.querySelectorAll('.star-selector:not(#star-filter-modal .star-selector)').forEach(star => {
+            const rating = parseInt(star.dataset.stars);
+            if (rating === 1) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+
+        // Apply the reset filtering
+        this.handleToonStarFilter();
     },
     
     /**

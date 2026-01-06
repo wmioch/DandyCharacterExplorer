@@ -56,15 +56,27 @@ const UI = {
             grid.appendChild(toonItem);
         });
         
+        // Add "Filter Toons" button
+        const filterBtn = document.createElement('div');
+        filterBtn.className = 'toon-grid-item filter-toons-btn';
+        filterBtn.title = 'Filter Toons by Star Ratings';
+
+        const filterBtnImage = document.createElement('div');
+        filterBtnImage.className = 'toon-grid-image';
+        filterBtnImage.textContent = 'Filter Toons';
+
+        filterBtn.appendChild(filterBtnImage);
+        grid.appendChild(filterBtn);
+
         // Add "Clear Team" button at the end
         const clearBtn = document.createElement('div');
         clearBtn.className = 'toon-grid-item clear-team-btn';
         clearBtn.title = 'Clear Team Selection';
-        
+
         const clearBtnImage = document.createElement('div');
         clearBtnImage.className = 'toon-grid-image';
         clearBtnImage.textContent = 'Clear Team';
-        
+
         clearBtn.appendChild(clearBtnImage);
         grid.appendChild(clearBtn);
         

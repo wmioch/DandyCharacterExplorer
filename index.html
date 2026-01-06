@@ -87,74 +87,6 @@
                         </div>
                     </div>
 
-                    <!-- Star Rating Filter -->
-                    <div class="toon-filter-section">
-                        <div class="filter-header" id="toon-filter-toggle">
-                            <span class="filter-toggle-text">Filter by Star Ratings</span>
-                            <span class="filter-toggle-icon">▼</span>
-                        </div>
-                        <div class="filter-content" id="toon-filter-content" style="display: none;">
-                            <!-- Skill Check Filter -->
-                            <div class="ability-filter-group">
-                                <div class="ability-filter-label">Skill Check</div>
-                                <div class="star-rating-selector" data-ability="skillCheckAmount">
-                                    <span class="star-selector" data-stars="1">★</span>
-                                    <span class="star-selector" data-stars="2">★</span>
-                                    <span class="star-selector" data-stars="3">★</span>
-                                    <span class="star-selector" data-stars="4">★</span>
-                                    <span class="star-selector" data-stars="5">★</span>
-                                </div>
-                            </div>
-
-                            <!-- Movement Speed Filter -->
-                            <div class="ability-filter-group">
-                                <div class="ability-filter-label">Movement Speed</div>
-                                <div class="star-rating-selector" data-ability="movementSpeed">
-                                    <span class="star-selector" data-stars="1">★</span>
-                                    <span class="star-selector" data-stars="2">★</span>
-                                    <span class="star-selector" data-stars="3">★</span>
-                                    <span class="star-selector" data-stars="4">★</span>
-                                    <span class="star-selector" data-stars="5">★</span>
-                                </div>
-                            </div>
-
-                            <!-- Stamina Filter -->
-                            <div class="ability-filter-group">
-                                <div class="ability-filter-label">Stamina</div>
-                                <div class="star-rating-selector" data-ability="stamina">
-                                    <span class="star-selector" data-stars="1">★</span>
-                                    <span class="star-selector" data-stars="2">★</span>
-                                    <span class="star-selector" data-stars="3">★</span>
-                                    <span class="star-selector" data-stars="4">★</span>
-                                    <span class="star-selector" data-stars="5">★</span>
-                                </div>
-                            </div>
-
-                            <!-- Stealth Filter -->
-                            <div class="ability-filter-group">
-                                <div class="ability-filter-label">Stealth</div>
-                                <div class="star-rating-selector" data-ability="stealth">
-                                    <span class="star-selector" data-stars="1">★</span>
-                                    <span class="star-selector" data-stars="2">★</span>
-                                    <span class="star-selector" data-stars="3">★</span>
-                                    <span class="star-selector" data-stars="4">★</span>
-                                    <span class="star-selector" data-stars="5">★</span>
-                                </div>
-                            </div>
-
-                            <!-- Extraction Speed Filter -->
-                            <div class="ability-filter-group">
-                                <div class="ability-filter-label">Extraction Speed</div>
-                                <div class="star-rating-selector" data-ability="extractionSpeed">
-                                    <span class="star-selector" data-stars="1">★</span>
-                                    <span class="star-selector" data-stars="2">★</span>
-                                    <span class="star-selector" data-stars="3">★</span>
-                                    <span class="star-selector" data-stars="4">★</span>
-                                    <span class="star-selector" data-stars="5">★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Trinkets -->
                     <div class="toon-selection-header">
@@ -429,6 +361,83 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="toast">Link copied to clipboard!</div>
+
+    <!-- Star Filter Modal -->
+    <div id="star-filter-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Filter Toons by Star Ratings</h3>
+                <button id="close-star-modal" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="star-filter-modal-content">
+                    <!-- Skill Check Filter -->
+                    <div class="ability-filter-group">
+                        <div class="ability-filter-label">Skill Check</div>
+                        <div class="star-rating-selector" data-ability="skillCheckAmount">
+                            <span class="star-selector" data-stars="1">★</span>
+                            <span class="star-selector" data-stars="2">★</span>
+                            <span class="star-selector" data-stars="3">★</span>
+                            <span class="star-selector" data-stars="4">★</span>
+                            <span class="star-selector" data-stars="5">★</span>
+                        </div>
+                    </div>
+
+                    <!-- Movement Speed Filter -->
+                    <div class="ability-filter-group">
+                        <div class="ability-filter-label">Movement Speed</div>
+                        <div class="star-rating-selector" data-ability="movementSpeed">
+                            <span class="star-selector" data-stars="1">★</span>
+                            <span class="star-selector" data-stars="2">★</span>
+                            <span class="star-selector" data-stars="3">★</span>
+                            <span class="star-selector" data-stars="4">★</span>
+                            <span class="star-selector" data-stars="5">★</span>
+                        </div>
+                    </div>
+
+                    <!-- Stamina Filter -->
+                    <div class="ability-filter-group">
+                        <div class="ability-filter-label">Stamina</div>
+                        <div class="star-rating-selector" data-ability="stamina">
+                            <span class="star-selector" data-stars="1">★</span>
+                            <span class="star-selector" data-stars="2">★</span>
+                            <span class="star-selector" data-stars="3">★</span>
+                            <span class="star-selector" data-stars="4">★</span>
+                            <span class="star-selector" data-stars="5">★</span>
+                        </div>
+                    </div>
+
+                    <!-- Stealth Filter -->
+                    <div class="ability-filter-group">
+                        <div class="ability-filter-label">Stealth</div>
+                        <div class="star-rating-selector" data-ability="stealth">
+                            <span class="star-selector" data-stars="1">★</span>
+                            <span class="star-selector" data-stars="2">★</span>
+                            <span class="star-selector" data-stars="3">★</span>
+                            <span class="star-selector" data-stars="4">★</span>
+                            <span class="star-selector" data-stars="5">★</span>
+                        </div>
+                    </div>
+
+                    <!-- Extraction Speed Filter -->
+                    <div class="ability-filter-group">
+                        <div class="ability-filter-label">Extraction Speed</div>
+                        <div class="star-rating-selector" data-ability="extractionSpeed">
+                            <span class="star-selector" data-stars="1">★</span>
+                            <span class="star-selector" data-stars="2">★</span>
+                            <span class="star-selector" data-stars="3">★</span>
+                            <span class="star-selector" data-stars="4">★</span>
+                            <span class="star-selector" data-stars="5">★</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="apply-star-filters" class="modal-apply-btn">Apply Filters</button>
+                <button id="reset-star-filters" class="modal-reset-btn">Reset All</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="js/data-loader.js?v=20251028"></script>

@@ -668,6 +668,123 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Star Filter Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    margin: 0;
+    color: var(--accent-color);
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.2rem;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: var(--spacing-lg);
+}
+
+.star-filter-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+}
+
+.modal-apply-btn,
+.modal-reset-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: 'Fredoka One', sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-apply-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.modal-apply-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.modal-reset-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.modal-reset-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--primary-color);
+}
+
+/* Filter Toons Button */
+.filter-toons-btn .toon-grid-image {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #ff4d9d 100%);
+    border-color: var(--secondary-color);
+}
+
+.filter-toons-btn:hover .toon-grid-image {
+    background: linear-gradient(135deg, #ff4d9d 0%, var(--secondary-color) 100%);
+    transform: scale(1.05);
+}
+
 /* Toon Filter Section */
 .toon-filter-section {
     margin: var(--spacing-sm) 0;
