@@ -37,6 +37,9 @@ const App = {
         // Update star rating counts
         this.updateStarCounts();
 
+        // Initialize star filter defaults (1 star active for each stat)
+        this.initializeStarFilters();
+
         // Attach event listeners
         this.attachEventListeners();
         
@@ -126,9 +129,9 @@ const App = {
         });
 
         // Toon star rating filters
-        document.querySelectorAll('.star-filter-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                this.handleToonStarFilterClick(e.target.closest('.star-filter-option'));
+        document.querySelectorAll('.star-selector').forEach(star => {
+            star.addEventListener('click', () => {
+                this.handleToonStarFilter(star);
             });
         });
 
@@ -431,42 +434,34 @@ const App = {
 
     /**
      * Handle toon star rating filter changes
-     * Filters toons based on star ratings for each ability (AND logic)
-     * Example: Show only toons with 4-5 star movement speed AND 5 star stamina
+     * Clicking a star sets the minimum rating for that stat
+     * Shows only toons with star rating >= selected minimum for each stat (AND logic)
      */
-    /**
-     * Handle clicking on a star filter option
-     * Sets the minimum star rating for that ability and filters toons
-     */
-    handleToonStarFilterClick(clickedOption) {
-        const ability = clickedOption.closest('.star-rating-filters').dataset.ability;
+    handleToonStarFilter(clickedStar = null) {
+        // If a star was clicked, update the selection for that ability
+        if (clickedStar) {
+            const ability = clickedStar.closest('.star-rating-selector').dataset.ability;
+            const clickedRating = parseInt(clickedStar.dataset.stars);
 
-        // Remove active class from all options in this ability group
-        const abilityGroup = clickedOption.closest('.star-rating-filters');
-        abilityGroup.querySelectorAll('.star-filter-option').forEach(option => {
-            option.classList.remove('active');
-        });
+            // Update visual state - mark clicked star and all lower ratings as active
+            const selector = clickedStar.closest('.star-rating-selector');
+            selector.querySelectorAll('.star-selector').forEach(star => {
+                const starRating = parseInt(star.dataset.stars);
+                if (starRating <= clickedRating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
 
-        // Add active class to the clicked option only
-        clickedOption.classList.add('active');
-
-        // Apply filtering
-        this.handleToonStarFilter();
-    }
-
-    /**
-     * Handle toon star rating filtering
-     * Filters toons based on minimum star ratings for each ability (AND logic)
-     * Example: Show only toons with 2+ star movement speed AND 3+ star stamina
-     */
-    handleToonStarFilter() {
-        // Get minimum star ratings for each ability
-        const minStarRatings = {
-            movementSpeed: this._getMinStarsForAbility('movementSpeed'),
-            stealth: this._getMinStarsForAbility('stealth'),
-            extractionSpeed: this._getMinStarsForAbility('extractionSpeed'),
-            stamina: this._getMinStarsForAbility('stamina'),
-            skillCheckAmount: this._getMinStarsForAbility('skillCheckAmount')
+        // Get minimum ratings for each ability
+        const abilityMinRatings = {
+            movementSpeed: this._getMinRatingForAbility('movementSpeed'),
+            stealth: this._getMinRatingForAbility('stealth'),
+            extractionSpeed: this._getMinRatingForAbility('extractionSpeed'),
+            stamina: this._getMinRatingForAbility('stamina'),
+            skillCheckAmount: this._getMinRatingForAbility('skillCheckAmount')
         };
 
         const toonItems = document.querySelectorAll('.toon-grid-item');
@@ -482,7 +477,7 @@ const App = {
             const toon = DataLoader.getToon(toonId);
             if (!toon) return;
 
-            // Check if toon meets minimum requirements for ALL abilities (AND logic)
+            // Check if toon matches ALL minimum rating filters (AND logic)
             let shouldShow = true;
 
             // Check Movement Speed (uses max of walkSpeed and runSpeed)
@@ -490,44 +485,68 @@ const App = {
                 toon.starRatings.walkSpeed,
                 toon.starRatings.runSpeed
             );
-            if (movementStars < minStarRatings.movementSpeed) {
+            if (movementStars < abilityMinRatings.movementSpeed) {
                 shouldShow = false;
             }
 
             // Check Stealth
-            if (shouldShow && toon.starRatings.stealth < minStarRatings.stealth) {
+            if (shouldShow && toon.starRatings.stealth < abilityMinRatings.stealth) {
                 shouldShow = false;
             }
 
             // Check Extraction Speed
-            if (shouldShow && toon.starRatings.extractionSpeed < minStarRatings.extractionSpeed) {
+            if (shouldShow && toon.starRatings.extractionSpeed < abilityMinRatings.extractionSpeed) {
                 shouldShow = false;
             }
 
             // Check Stamina
-            if (shouldShow && toon.starRatings.stamina < minStarRatings.stamina) {
+            if (shouldShow && toon.starRatings.stamina < abilityMinRatings.stamina) {
                 shouldShow = false;
             }
 
             // Check Skill Check Amount
-            if (shouldShow && toon.starRatings.skillCheckAmount < minStarRatings.skillCheckAmount) {
+            if (shouldShow && toon.starRatings.skillCheckAmount < abilityMinRatings.skillCheckAmount) {
                 shouldShow = false;
             }
 
             item.style.display = shouldShow ? 'block' : 'none';
         });
-    }
-
-    /**
-     * Get minimum star rating for a specific ability
-     * @param {string} ability - The ability name (e.g., 'movementSpeed', 'stamina')
-     * @returns {number} Minimum star rating (defaults to 1)
-     */
-    _getMinStarsForAbility(ability) {
-        const activeOption = document.querySelector(`.star-rating-filters[data-ability="${ability}"] .star-filter-option.active`);
-        return activeOption ? parseInt(activeOption.dataset.stars) : 1;
     },
 
+    /**
+     * Get minimum rating for a specific ability based on active stars
+     * @param {string} ability - The ability name (e.g., 'movementSpeed', 'stamina')
+     * @returns {number} Minimum star rating (1-5, defaults to 1)
+     */
+    _getMinRatingForAbility(ability) {
+        const selector = document.querySelector(`.star-rating-selector[data-ability="${ability}"]`);
+        if (!selector) return 1;
+
+        // Find the highest active star rating
+        let maxActiveRating = 0;
+        selector.querySelectorAll('.star-selector.active').forEach(star => {
+            const rating = parseInt(star.dataset.stars);
+            if (rating > maxActiveRating) {
+                maxActiveRating = rating;
+            }
+        });
+
+        // If no stars are active, default to 1
+        return maxActiveRating > 0 ? maxActiveRating : 1;
+    },
+
+    /**
+     * Initialize star filter defaults (1 star active for each stat)
+     */
+    initializeStarFilters() {
+        document.querySelectorAll('.star-rating-selector').forEach(selector => {
+            // Set the first star as active by default
+            const firstStar = selector.querySelector('.star-selector[data-stars="1"]');
+            if (firstStar) {
+                firstStar.classList.add('active');
+            }
+        });
+    },
 
     /**
      * Update star rating counts
