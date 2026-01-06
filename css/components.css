@@ -776,12 +776,12 @@
 
 /* Filter Toons Button */
 .filter-toons-btn .toon-grid-image {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, #ff4d9d 100%);
-    border-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--color-green) 0%, #4caf50 100%);
+    border-color: var(--color-green);
 }
 
 .filter-toons-btn:hover .toon-grid-image {
-    background: linear-gradient(135deg, #ff4d9d 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, #4caf50 0%, var(--color-green) 100%);
     transform: scale(1.05);
 }
 
@@ -883,11 +883,6 @@
     color: var(--accent-color);
     background: rgba(255, 217, 61, 0.2);
     font-weight: bold;
-}
-
-.star-selector.active ~ .star-selector {
-    color: var(--accent-color);
-    background: rgba(255, 217, 61, 0.2);
 }
 
 .star-count {

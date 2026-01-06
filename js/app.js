@@ -712,10 +712,14 @@ const App = {
         }
 
         // Star selectors
-        document.querySelectorAll('#star-filter-modal .star-selector').forEach(star => {
+        const modalStars = document.querySelectorAll('#star-filter-modal .star-selector');
+        console.log('Found modal stars:', modalStars.length);
+        modalStars.forEach(star => {
             star.onclick = () => {
+                console.log('Modal star onclick triggered');
                 this.handleModalStarFilter(star);
             };
+            star.style.cursor = 'pointer'; // Ensure cursor shows clickable
         });
     },
 
@@ -754,8 +758,10 @@ const App = {
      * Handle star filter clicks in modal
      */
     handleModalStarFilter(clickedStar) {
+        console.log('Modal star clicked:', clickedStar.dataset.stars);
         const ability = clickedStar.closest('.star-rating-selector').dataset.ability;
         const clickedRating = parseInt(clickedStar.dataset.stars);
+        console.log('Ability:', ability, 'Rating:', clickedRating);
 
         // Update visual state - mark clicked star and all lower ratings as active
         const selector = clickedStar.closest('.star-rating-selector');
@@ -763,8 +769,10 @@ const App = {
             const starRating = parseInt(star.dataset.stars);
             if (starRating <= clickedRating) {
                 star.classList.add('active');
+                console.log('Added active to star:', starRating);
             } else {
                 star.classList.remove('active');
+                console.log('Removed active from star:', starRating);
             }
         });
     },
