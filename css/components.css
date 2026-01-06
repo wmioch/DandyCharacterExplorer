@@ -779,6 +779,7 @@
     background: linear-gradient(135deg, var(--color-green) 0%, #4caf50 100%);
     border-color: var(--color-green);
     font-size: 0.65rem;
+    text-align: center;
 }
 
 .filter-toons-btn:hover .toon-grid-image {
