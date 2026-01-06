@@ -220,32 +220,6 @@ const App = {
             this.handleShareBuild();
         });
 
-        // Star Filter Modal
-        document.getElementById('close-star-modal').addEventListener('click', () => {
-            this.hideStarFilterModal();
-        });
-
-        document.getElementById('star-filter-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'star-filter-modal') {
-                this.hideStarFilterModal();
-            }
-        });
-
-        document.getElementById('apply-star-filters').addEventListener('click', () => {
-            this.applyStarFilters();
-            this.hideStarFilterModal();
-        });
-
-        document.getElementById('reset-star-filters').addEventListener('click', () => {
-            this.resetStarFilters();
-        });
-
-        // Star filter modal selectors
-        document.querySelectorAll('#star-filter-modal .star-selector').forEach(star => {
-            star.addEventListener('click', () => {
-                this.handleModalStarFilter(star);
-            });
-        });
     },
 
     /**
@@ -695,6 +669,54 @@ const App = {
 
         // Sync current filter state to modal
         this.syncFiltersToModal();
+
+        // Add event listeners dynamically (in case they weren't set up properly)
+        this.setupModalEventListeners();
+    },
+
+    /**
+     * Setup modal event listeners
+     */
+    setupModalEventListeners() {
+        // Close button
+        const closeBtn = document.getElementById('close-star-modal');
+        if (closeBtn) {
+            closeBtn.onclick = () => this.hideStarFilterModal();
+        }
+
+        // Click outside to close
+        const modal = document.getElementById('star-filter-modal');
+        if (modal) {
+            modal.onclick = (e) => {
+                if (e.target.id === 'star-filter-modal') {
+                    this.hideStarFilterModal();
+                }
+            };
+        }
+
+        // Apply button
+        const applyBtn = document.getElementById('apply-star-filters');
+        if (applyBtn) {
+            applyBtn.onclick = () => {
+                this.applyStarFilters();
+                this.hideStarFilterModal();
+            };
+        }
+
+        // Reset button
+        const resetBtn = document.getElementById('reset-star-filters');
+        if (resetBtn) {
+            resetBtn.onclick = () => {
+                this.resetStarFilters();
+            };
+        }
+
+        // Star selectors
+        document.querySelectorAll('#star-filter-modal .star-selector').forEach(star => {
+            star.onclick = () => {
+                this.handleModalStarFilter(star);
+            };
+        });
     },
 
     /**
