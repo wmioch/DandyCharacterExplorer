@@ -717,6 +717,9 @@
 }
 
 .ability-filter-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: var(--spacing-xs);
     padding-bottom: 2px;
     border-bottom: 1px solid var(--border-color);
@@ -732,8 +735,9 @@
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 2px;
     text-transform: capitalize;
+    flex-shrink: 0;
+    margin-right: var(--spacing-md);
 }
 
 .star-rating-selector {
