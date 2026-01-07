@@ -140,18 +140,6 @@ const App = {
             this.handleTrinketFilter(e.target.value);
         });
 
-        // Show/hide Lucky Coin stat menu based on whether Lucky Coin trinket is equipped
-        updateLuckyCoinMenuVisibility() {
-            const luckyCoinSelected = this.state.equippedTrinkets.some(
-                t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin'
-            );
-        
-            const menuEl = document.getElementById('lucky-coin-menu'); // replace with actual menu ID
-            if (menuEl) {
-                menuEl.style.display = luckyCoinSelected ? 'block' : 'none';
-            }
-        }
-
         // Toon filter toggle (removed - no longer exists)
 
         // Toon star rating filters
@@ -1195,8 +1183,21 @@ const App = {
             
             UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true);
         }
+    },
+
+    // Show/hide Lucky Coin stat menu based on whether Lucky Coin trinket is equipped
+    updateLuckyCoinMenuVisibility() {
+        const luckyCoinSelected = this.state.equippedTrinkets.some(
+            t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin'
+        );
+        
+        const menuEl = document.getElementById('lucky-coin-menu'); // replace with actual menu ID
+        if (menuEl) {
+            menuEl.style.display = luckyCoinSelected ? 'block' : 'none';
+        }
     }
 };
+
 
 // Initialize app when DOM is ready
 // Expose App to window for ability checkbox event listeners
