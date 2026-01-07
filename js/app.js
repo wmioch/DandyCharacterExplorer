@@ -1153,7 +1153,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize
         );
-    }
+    },
 
     /**
      * Update all displays
