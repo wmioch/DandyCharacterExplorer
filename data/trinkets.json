@@ -46,7 +46,7 @@
       "rarity": "store",
       "id": "blushy_bat",
       "filterCategory": "other",
-      "hidden": true,
+      "hidden": false,
       "conditional": true
     },
     {
