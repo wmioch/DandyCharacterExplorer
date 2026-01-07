@@ -448,7 +448,7 @@ const App = {
             value: 0.12,
             applicationType: 'multiplicative'
         };
-    }
+    },
 
     /**
      * Handle toon filter toggle (expand/collapse)
