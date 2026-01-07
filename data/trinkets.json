@@ -46,7 +46,7 @@
       "rarity": "store",
       "id": "blushy_bat",
       "filterCategory": "other",
-      "hidden": false,
+      "hidden": true,
       "conditional": true
     },
     {
@@ -327,7 +327,7 @@
       "rarity": "rare",
       "id": "lucky_coin",
       "filterCategory": "other",
-      "hidden": true,
+      "hidden": false,
       "conditional": true
     },
     {
