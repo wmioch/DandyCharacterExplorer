@@ -59,7 +59,8 @@ const App = {
         if (boxten) {
             this.handleToonChange('boxten');
         }
-        
+
+        this.updateLuckyCoinMenuVisibility();
         console.log('✅ Application initialized successfully');
     },
 
@@ -138,6 +139,18 @@ const App = {
         document.getElementById('trinket-filter-select').addEventListener('change', (e) => {
             this.handleTrinketFilter(e.target.value);
         });
+
+        // Show/hide Lucky Coin stat menu based on whether Lucky Coin trinket is equipped
+        updateLuckyCoinMenuVisibility() {
+            const luckyCoinSelected = this.state.equippedTrinkets.some(
+                t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin'
+            );
+        
+            const menuEl = document.getElementById('lucky-coin-menu'); // replace with actual menu ID
+            if (menuEl) {
+                menuEl.style.display = luckyCoinSelected ? 'block' : 'none';
+            }
+        }
 
         // Toon filter toggle (removed - no longer exists)
 
@@ -363,6 +376,7 @@ const App = {
         }
         
         this.updateDisplay();
+        this.updateLuckyCoinMenuVisibility();
     },
     
     /**
@@ -382,6 +396,7 @@ const App = {
         }
         
         this.updateDisplay();
+        this.updateLuckyCoinMenuVisibility();
     },
     
     /**
