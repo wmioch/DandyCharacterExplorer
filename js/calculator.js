@@ -509,6 +509,15 @@ const Calculator = {
             const trinket = trinketEntry.trinket || trinketEntry;
             const count = trinketEntry.count || 1;
 
+            // Handle Lucky Coin: Apply once user selects a stat:
+            if (trinket && trinket.id === 'lucky_coin' && trinket.selectedStat) {
+                const stat = this._mapTargetStat(trinket.selectedStat);
+                if (baseStats[stat] !== undefined) {
+                    baseStats[stat] += trinket.value * count; // trinket.value holds bonus amount
+                }
+                return;
+            }
+
             // Handle dynamic team-based trinkets (e.g., Friendship Bracelet)
             if (trinket && trinket.dynamicTeamBased && trinket.id === 'friendship_bracelet') {
                 // 5 stamina per toon in team (including player), max 40

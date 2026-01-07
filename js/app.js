@@ -59,7 +59,8 @@ const App = {
         if (boxten) {
             this.handleToonChange('boxten');
         }
-        
+
+        this.updateLuckyCoinMenuVisibility();
         console.log('✅ Application initialized successfully');
     },
 
@@ -224,6 +225,13 @@ const App = {
             this.handleShareBuild();
         });
 
+        // Lucky Coin stat selection change
+        const luckyCoinSelect = document.getElementById('lucky-coin-stat');
+        if (luckyCoinSelect) {
+            luckyCoinSelect.addEventListener('change', () => {
+                this.updateDisplay(); // Recalculate stats immediately
+            });
+        }
     },
 
     /**
@@ -363,6 +371,7 @@ const App = {
         }
         
         this.updateDisplay();
+        this.updateLuckyCoinMenuVisibility();
     },
     
     /**
@@ -382,6 +391,7 @@ const App = {
         }
         
         this.updateDisplay();
+        this.updateLuckyCoinMenuVisibility();
     },
     
     /**
@@ -428,6 +438,16 @@ const App = {
                 trinket.style.display = 'none';
             }
         });
+    },
+
+    getLuckyCoinEffect() {
+        const select = document.getElementById('lucky-coin-stat');
+        const stat = select ? select.value : 'movementSpeed';
+        return {
+            targetStat: stat,
+            value: 0.12,
+            applicationType: 'multiplicative'
+        };
     },
 
     /**
@@ -1109,13 +1129,26 @@ const App = {
         if (!this.state.selectedToon) {
             return null;
         }
-        
+    
         // Count team size (player toon + team members)
         const teamSize = 1 + this.state.teamMembers.filter(t => t !== null).length;
-        
+    
+        // Copy equipped trinkets for calculation
+        let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
+    
+        // Inject Lucky Coin effect if equipped
+        const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
+        if (luckyCoinEntry) {
+            const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
+            const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
+            trinketsForCalc = trinketsForCalc.map(t =>
+                (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
+            );
+        }
+    
         return Calculator.calculateFinalStats(
             this.state.selectedToon,
-            this.state.equippedTrinkets.filter(t => t !== null),
+            trinketsForCalc,
             this.state.activeAbilities,
             this.state.activeItems,
             this.state.selectedConditionalStat,
@@ -1149,7 +1182,22 @@ const App = {
             console.log('   Full stats object:', stats);
             
             // Update machine extraction with state-based cascading calculation
-            const extraction = Calculator.calculateMachineStatsFromState(this.state);
+            // --- Inject Lucky Coin for machine stats ---
+            let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
+            const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
+            if (luckyCoinEntry) {
+                const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
+                const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
+                trinketsForCalc = trinketsForCalc.map(t =>
+                    (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
+                );
+            }
+            
+            // Pass the modified trinkets array to machine stats calculation
+            const extraction = Calculator.calculateMachineStatsFromState({
+                ...this.state,
+                equippedTrinkets: trinketsForCalc
+            });
             UI.updateMachineExtraction(extraction);
             
             // Update twisted table with current sort
@@ -1180,8 +1228,21 @@ const App = {
             
             UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true);
         }
+    },
+
+    // Show/hide Lucky Coin stat menu based on whether Lucky Coin trinket is equipped
+    updateLuckyCoinMenuVisibility() {
+        const luckyCoinSelected = this.state.equippedTrinkets.some(
+            t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin'
+        );
+        
+        const menuEl = document.getElementById('lucky-coin-container');
+        if (menuEl) {
+            menuEl.style.display = luckyCoinSelected ? 'block' : 'none';
+        }
     }
 };
+
 
 // Initialize app when DOM is ready
 // Expose App to window for ability checkbox event listeners
