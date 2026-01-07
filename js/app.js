@@ -1191,7 +1191,7 @@ const App = {
             t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin'
         );
         
-        const menuEl = document.getElementById('lucky-coin-menu'); // replace with actual menu ID
+        const menuEl = document.getElementById('lucky-coin-container');
         if (menuEl) {
             menuEl.style.display = luckyCoinSelected ? 'block' : 'none';
         }
