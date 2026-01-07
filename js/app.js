@@ -225,6 +225,13 @@ const App = {
             this.handleShareBuild();
         });
 
+        // Lucky Coin stat selection change
+        const luckyCoinSelect = document.getElementById('lucky-coin-stat');
+        if (luckyCoinSelect) {
+            luckyCoinSelect.addEventListener('change', () => {
+                this.updateDisplay(); // Recalculate stats immediately
+            });
+        }
     },
 
     /**
@@ -432,6 +439,16 @@ const App = {
             }
         });
     },
+
+    getLuckyCoinEffect() {
+        const select = document.getElementById('lucky-coin-stat');
+        const stat = select ? select.value : 'movementSpeed';
+        return {
+            targetStat: stat,
+            value: 0.12,
+            applicationType: 'multiplicative'
+        };
+    }
 
     /**
      * Handle toon filter toggle (expand/collapse)
@@ -1112,19 +1129,31 @@ const App = {
         if (!this.state.selectedToon) {
             return null;
         }
-        
+    
         // Count team size (player toon + team members)
         const teamSize = 1 + this.state.teamMembers.filter(t => t !== null).length;
-        
+    
+        // Copy equipped trinkets for calculation
+        let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
+    
+        // Inject Lucky Coin effect if equipped
+        const hasLuckyCoin = trinketsForCalc.some(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
+        if (hasLuckyCoin) {
+            trinketsForCalc.push({
+                id: 'lucky_coin',
+                effects: [this.getLuckyCoinEffect()]
+            });
+        }
+    
         return Calculator.calculateFinalStats(
             this.state.selectedToon,
-            this.state.equippedTrinkets.filter(t => t !== null),
+            trinketsForCalc,
             this.state.activeAbilities,
             this.state.activeItems,
             this.state.selectedConditionalStat,
             teamSize
         );
-    },
+    }
 
     /**
      * Update all displays
