@@ -1182,7 +1182,22 @@ const App = {
             console.log('   Full stats object:', stats);
             
             // Update machine extraction with state-based cascading calculation
-            const extraction = Calculator.calculateMachineStatsFromState(this.state);
+            // --- Inject Lucky Coin for machine stats ---
+            let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
+            const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
+            if (luckyCoinEntry) {
+                const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
+                const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
+                trinketsForCalc = trinketsForCalc.map(t =>
+                    (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
+                );
+            }
+            
+            // Pass the modified trinkets array to machine stats calculation
+            const extraction = Calculator.calculateMachineStatsFromState({
+                ...this.state,
+                equippedTrinkets: trinketsForCalc
+            });
             UI.updateMachineExtraction(extraction);
             
             // Update twisted table with current sort
