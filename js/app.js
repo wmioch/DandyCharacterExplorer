@@ -1137,12 +1137,13 @@ const App = {
         let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
     
         // Inject Lucky Coin effect if equipped
-        const hasLuckyCoin = trinketsForCalc.some(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
-        if (hasLuckyCoin) {
-            trinketsForCalc.push({
-                id: 'lucky_coin',
-                effects: [this.getLuckyCoinEffect()]
-            });
+        const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
+        if (luckyCoinEntry) {
+            const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
+            const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
+            trinketsForCalc = trinketsForCalc.map(t =>
+                (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
+            );
         }
     
         return Calculator.calculateFinalStats(
