@@ -470,15 +470,15 @@
       "speeds": {
         "normal": {
           "walk": 10.0,
-          "run": 25.0
+          "run": 24.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 31.25
+          "walk": 12.0,
+          "run": 28.8
         },
         "panicSuppressed": {
-          "walk": 12.0,
-          "run": 30.0
+          "walk": 11.5,
+          "run": 27.6
         }
       },
       "image": "twisteds/pebble.png"
