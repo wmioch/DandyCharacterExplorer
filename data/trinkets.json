@@ -327,7 +327,7 @@
       "rarity": "rare",
       "id": "lucky_coin",
       "filterCategory": "other",
-      "hidden": true,
+      "hidden": false,
       "conditional": true
     },
     {
