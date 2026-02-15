@@ -328,7 +328,8 @@
       "id": "lucky_coin",
       "filterCategory": "other",
       "hidden": false,
-      "conditional": true
+      "conditional": true,
+      "effects": []
     },
     {
       "name": "Machine Manual",

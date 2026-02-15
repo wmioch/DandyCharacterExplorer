@@ -451,6 +451,26 @@ const App = {
     },
 
     /**
+     * Prepare trinkets array for calculation, injecting Lucky Coin effect if equipped
+     * @returns {Array} Trinkets array with Lucky Coin effect properly configured
+     */
+    _prepareTrinketsForCalculation() {
+        let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
+        
+        // Inject Lucky Coin effect if equipped
+        const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
+        if (luckyCoinEntry) {
+            const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
+            const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
+            trinketsForCalc = trinketsForCalc.map(t =>
+                (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
+            );
+        }
+        
+        return trinketsForCalc;
+    },
+
+    /**
      * Handle toon filter toggle (expand/collapse)
      */
     handleToonFilterToggle() {
@@ -1133,18 +1153,8 @@ const App = {
         // Count team size (player toon + team members)
         const teamSize = 1 + this.state.teamMembers.filter(t => t !== null).length;
     
-        // Copy equipped trinkets for calculation
-        let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
-    
-        // Inject Lucky Coin effect if equipped
-        const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
-        if (luckyCoinEntry) {
-            const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
-            const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
-            trinketsForCalc = trinketsForCalc.map(t =>
-                (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
-            );
-        }
+        // Get trinkets with Lucky Coin effect properly configured
+        const trinketsForCalc = this._prepareTrinketsForCalculation();
     
         return Calculator.calculateFinalStats(
             this.state.selectedToon,
@@ -1182,16 +1192,8 @@ const App = {
             console.log('   Full stats object:', stats);
             
             // Update machine extraction with state-based cascading calculation
-            // --- Inject Lucky Coin for machine stats ---
-            let trinketsForCalc = [...this.state.equippedTrinkets.filter(t => t !== null)];
-            const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
-            if (luckyCoinEntry) {
-                const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
-                const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
-                trinketsForCalc = trinketsForCalc.map(t =>
-                    (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
-                );
-            }
+            // Get trinkets with Lucky Coin effect properly configured
+            const trinketsForCalc = this._prepareTrinketsForCalculation();
             
             // Pass the modified trinkets array to machine stats calculation
             const extraction = Calculator.calculateMachineStatsFromState({
@@ -1242,7 +1244,6 @@ const App = {
         }
     }
 };
-
 
 // Initialize app when DOM is ready
 // Expose App to window for ability checkbox event listeners
