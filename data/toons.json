@@ -1290,6 +1290,46 @@
       "conditionalStats": null
     },
     {
+      "id": "squirm",
+      "name": "Squirm",
+      "description": "Squirm is a caterpillar-like Toon who can eat books to dramatically boost his extraction speed. He's most effective when working near bookshelves, where his ability cooldown recovers twice as fast.",
+      "baseStats": {
+        "walkSpeed": 15,
+        "runSpeed": 25,
+        "stealth": 5,
+        "extractionSpeed": 1.5,
+        "stamina": 125,
+        "skillCheckAmount": 2.0,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 3,
+        "runSpeed": 3,
+        "stealth": 2,
+        "extractionSpeed": 5,
+        "stamina": 2,
+        "skillCheckAmount": 3
+      },
+      "ability": {
+        "id": "squirm_distressed_delicacy",
+        "name": "Distressed Delicacy",
+        "description": "(Active) Hold down your ability to eat books, gaining 100% Extraction Speed for 10 seconds. Proximity to a bookshelf makes this Toon's cooldown recover twice as fast.",
+        "effectType": "self",
+        "targetStat": "extractionSpeed",
+        "value": 1.0,
+        "applicationType": "multiplicative",
+        "affectsSelf": true,
+        "stackable": false,
+        "hasToggle": true,
+        "playerEffect": {
+          "extractionSpeed": 1.0,
+          "applicationType": "multiplicative"
+        }
+      },
+      "conditionalStats": null
+    },
+    {
       "id": "soulvester",
       "name": "Soulvester",
       "description": "Soulvester is a knight Toon with extra armor who has an extra heart and is immune to ranged attacks.",
