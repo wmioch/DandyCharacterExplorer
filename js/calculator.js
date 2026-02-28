@@ -979,6 +979,10 @@ const Calculator = {
         const hasWrench = (state.equippedTrinkets || []).some(t => (t.trinket || t).id === 'wrench');
         const isEggson = state.selectedToon && state.selectedToon.id === 'eggson';
         const hasGlazedFondantBag = (state.equippedTrinkets || []).some(t => (t.trinket || t).id === 'glazed_fondant_bag');
+        const stressBallCount = (state.equippedTrinkets || []).reduce((sum, t) => {
+            const trinket = t.trinket || t;
+            return sum + (trinket.id === 'stress_ball' ? (t.count || 1) : 0);
+        }, 0);
 
         console.log('\n🔍 SPECIAL ITEMS:');
         // Calculate total jumper cable count (sum of counts across all entries)
@@ -987,6 +991,7 @@ const Calculator = {
         console.log(`  Wrench: ${hasWrench ? 'Yes' : 'No'}`);
         console.log(`  Eggson: ${isEggson ? 'Yes' : 'No'}`);
         console.log(`  Glazed Fondant Bag: ${hasGlazedFondantBag ? 'Yes' : 'No'}`);
+        console.log(`  Stress Ball: ${stressBallCount > 0 ? `${stressBallCount}x` : 'No'}`);
 
         // Apply Jumper Cables instant completion
         if (totalJumperCableCount > 0) {
@@ -1066,7 +1071,8 @@ const Calculator = {
             machineUnits,
             initialExtractionSpeed,
             initialSkillCheckAmount,
-            initialSkillCheckChance
+            initialSkillCheckChance,
+            stressBallCount
         );
 
         // Calculate wrench scenario if applicable
@@ -1080,7 +1086,8 @@ const Calculator = {
                 wrenchMachineUnits,
                 initialExtractionSpeed,
                 initialSkillCheckAmount,
-                initialSkillCheckChance
+                initialSkillCheckChance,
+                stressBallCount
             );
             console.log(`  Wrench scenario completed`);
         }
@@ -1107,14 +1114,19 @@ const Calculator = {
      * Helper function to calculate cascading machine stats for a given machine unit count
      * @private
      */
-    _calculateCascadingMachineStats(state, itemsWithDuration, machineUnits, initialExtractionSpeed, initialSkillCheckAmount, initialSkillCheckChance) {
+    _calculateCascadingMachineStats(state, itemsWithDuration, machineUnits, initialExtractionSpeed, initialSkillCheckAmount, initialSkillCheckChance, stressBallCount = 0) {
         const cascadeBreakdown = [];
 
         // If no items with duration, simple calculation
         if (itemsWithDuration.length === 0) {
             console.log(`  ⚙️ NO CASCADING - SIMPLE CALCULATION`);
+            const stressBallMultiplier = this._calculateStressBallMultiplier(initialSkillCheckChance, state.skillCheckSuccessRate, stressBallCount);
+            const adjustedExtractionSpeed = initialExtractionSpeed * stressBallMultiplier;
+            if (stressBallCount > 0) {
+                console.log(`  🎯 Stress Ball (${stressBallCount}x): ×${stressBallMultiplier.toFixed(3)} → ${adjustedExtractionSpeed.toFixed(3)} extraction`);
+            }
             const result = this.calculateMachineCompletion(
-                initialExtractionSpeed,
+                adjustedExtractionSpeed,
                 initialSkillCheckAmount,
                 state.skillCheckSuccessRate,
                 machineUnits,
@@ -1122,6 +1134,7 @@ const Calculator = {
             );
             return {
                 ...result,
+                defaultTime: Math.round((machineUnits / initialExtractionSpeed) * 10) / 10,
                 cascadeBreakdown: []
             };
         }
@@ -1150,13 +1163,15 @@ const Calculator = {
             const stepExtractionSpeed = stepStats.final.extractionSpeed;
             const stepSkillCheckAmount = stepStats.final.skillCheckAmount;
             const stepSkillCheckChance = stepStats.final.skillCheckChance;
+            const stepStressBallMultiplier = this._calculateStressBallMultiplier(stepSkillCheckChance, state.skillCheckSuccessRate, stressBallCount);
+            const adjustedStepExtractionSpeed = stepExtractionSpeed * stepStressBallMultiplier;
 
             console.log(`    ▶️ Step ${i + 1}: ${timeSoFar}s → ${timePoint.time}s (${windowDuration}s)`);
-            console.log(`       Stats: ${stepExtractionSpeed} extraction, ${stepSkillCheckAmount} skill bonus`);
+            console.log(`       Stats: ${adjustedStepExtractionSpeed.toFixed(3)} extraction (${stepExtractionSpeed}${stressBallCount > 0 ? ` ×${stepStressBallMultiplier.toFixed(3)} Stress Ball` : ''}), ${stepSkillCheckAmount} skill bonus`);
 
             // Calculate partial completion
             const partial = this.calculatePartialMachineCompletion(
-                stepExtractionSpeed,
+                adjustedStepExtractionSpeed,
                 stepSkillCheckAmount,
                 state.skillCheckSuccessRate,
                 windowDuration,
@@ -1205,9 +1220,11 @@ const Calculator = {
             const finalExtractionSpeed = finalStats.final.extractionSpeed;
             const finalSkillCheckAmount = finalStats.final.skillCheckAmount;
             const finalSkillCheckChance = finalStats.final.skillCheckChance;
+            const finalStressBallMultiplier = this._calculateStressBallMultiplier(finalSkillCheckChance, state.skillCheckSuccessRate, stressBallCount);
+            const adjustedFinalExtractionSpeed = finalExtractionSpeed * finalStressBallMultiplier;
 
             const finalResult = this.calculateMachineCompletion(
-                finalExtractionSpeed,
+                adjustedFinalExtractionSpeed,
                 finalSkillCheckAmount,
                 state.skillCheckSuccessRate,
                 unitsRemaining,
@@ -1253,6 +1270,29 @@ const Calculator = {
             'box_o_chocolates'
         ];
         return glazedItems.includes(itemId);
+    },
+
+    /**
+     * Calculate the steady-state extraction speed multiplier from Stress Ball trinket.
+     * Uses the same hazard/dead-time model as the main extraction calculator to estimate
+     * the average number of active stacks at any moment during machine extraction.
+     * @param {number} skillCheckChance - Probability of a skill check spawning (0-1)
+     * @param {number} successRate - Player's skill check success rate (0-1)
+     * @param {number} stressBallCount - Number of Stress Ball trinkets equipped
+     * @returns {number} Multiplicative bonus to apply to extraction speed (e.g. 1.106)
+     */
+    _calculateStressBallMultiplier(skillCheckChance, successRate, stressBallCount) {
+        if (stressBallCount <= 0) return 1.0;
+        const STACK_DURATION = 15;
+        const MIN_DURATION = 0.75;
+        const MAX_DURATION = 2.5;
+        const GRACE_PERIOD = 2.0;
+        const deadTime = (MIN_DURATION + MAX_DURATION) / 2 + GRACE_PERIOD;
+        const clampedChance = Math.min(skillCheckChance, 0.9999);
+        const hazard = -Math.log(1 - clampedChance);
+        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+        const avgStacks = effectiveCheckRate * successRate * STACK_DURATION * stressBallCount;
+        return 1.0 + (0.05 * avgStacks);
     },
 
     /**

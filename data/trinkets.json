@@ -657,6 +657,23 @@
       ]
     },
     {
+      "name": "Stress Ball",
+      "effect": "Increases your Extraction Speed by 5% upon completion of a Skill Check. Effect lasts for 15 seconds and stacks.",
+      "image": "trinket_stress_ball.png",
+      "category": "extraction",
+      "rarity": "common",
+      "id": "stress_ball",
+      "filterCategory": "extractionSpeed",
+      "stackable": true,
+      "effects": [
+        {
+          "targetStat": "extractionSpeed",
+          "value": 0.05,
+          "applicationType": "stressBall"
+        }
+      ]
+    },
+    {
       "name": "Sweet Charm",
       "effect": "Decreases Active Ability Cooldown by 8%. Has no effect on Toons without an Active Ability.",
       "image": "trinket_sweet_charm.png",
