@@ -124,7 +124,7 @@
     },
     {
       "name": "Coal (Trinket)",
-      "effect": "Decreases Stealth by 10% and Movement Speed by 20%.",
+      "effect": "Decreases Stealth by 10% and Walk and Run Speed by 10%.",
       "image": "trinket_coal_trinket.png",
       "category": "movement_speed",
       "rarity": "event",
@@ -138,7 +138,7 @@
         },
         {
           "targetStat": "movementSpeed",
-          "value": -0.20,
+          "value": -0.10,
           "applicationType": "multiplicative"
         }
       ]
@@ -177,7 +177,7 @@
     },
     {
       "name": "Crayon Set",
-      "effect": "Get an item from the Uncommon tier at the start of every floor. Dandy's Shop exclusive items are included.",
+      "effect": "Grants a random item from the Uncommon Tier every new Floor (if user's Inventory has a slot open). Dandy's Shop exclusive items are included.",
       "image": "trinket_crayon_set.png",
       "category": "other",
       "rarity": "rare",
@@ -188,7 +188,7 @@
     },
     {
       "name": "Dandy Plush",
-      "effect": "Grants the user a 50% discount on all Dandy's Shop items during intermissions on even floors.",
+      "effect": "Grants the user a 50% discount on all Dandy's Shop Items.",
       "image": "trinket_dandy_plush.png",
       "category": "other",
       "rarity": "lethal",
@@ -264,7 +264,7 @@
     },
     {
       "name": "Festive Lights",
-      "effect": "Highlights in your vicinity every 10 seconds during matches, making them easier to spot during Events.",
+      "effect": "Highlights Ornaments in your vicinity every 10 seconds during matches, making them easier to spot during events.",
       "image": "trinket_festive_lights.png",
       "category": "other",
       "rarity": "event",
@@ -300,7 +300,7 @@
     },
     {
       "name": "Ghost Snakes In A Can",
-      "effect": "Reduces your Active Ability cooldown by 5 seconds.",
+      "effect": "Reduces an Active Ability's cooldown by 5 Seconds. Has no effect on Toons without an Active Ability.",
       "image": "trinket_ghost_snakes_in_a_can.png",
       "category": "other",
       "rarity": "uncommon",
@@ -413,7 +413,7 @@
     },
     {
       "name": "Night Cap",
-      "effect": "Boring design according to Qwel (Replaced by ).",
+      "effect": "Increases Stamina Regeneration by 40% while extracting from a Machine.",
       "image": "trinket_night_cap.png",
       "category": "other",
       "rarity": "removed",
@@ -560,7 +560,7 @@
     },
     {
       "name": "Savory Charm",
-      "effect": "Saves the user from a fatal attack, granting them invincibility for 10 seconds. Can only activate once. Does not save the user from attacks.",
+      "effect": "Saves the user from a fatal attack, granting them invincibility for 10 seconds. Can only activate once per round. Does not save the user from Lethal attacks.",
       "image": "trinket_savory_charm.png",
       "category": "other",
       "rarity": "main",
@@ -718,7 +718,7 @@
     },
     {
       "name": "Toy Kit",
-      "effect": "Refreshes active ability cooldown every new Floor.",
+      "effect": "If your Toon has a ring-based aura ability, increase the radius by 25%.",
       "image": "trinket_toy_kit.png",
       "category": "other",
       "rarity": "event",
@@ -729,7 +729,7 @@
     },
     {
       "name": "Train Whistle",
-      "effect": "Makes the user immune to the Debuff.",
+      "effect": "Makes the user immune to the Slow Debuff.",
       "image": "trinket_train_whistle.png",
       "category": "other",
       "rarity": "lethal",
@@ -790,14 +790,17 @@
     },
     {
       "name": "Whispering Flower",
-      "effect": "Highlights all items on the map during Panic Mode for the user with the trinket equipped.",
+      "effect": "Increases Stamina Regeneration by 15% for every item in your inventory.",
       "image": "trinket_whispering_flower.png",
       "category": "other",
       "rarity": "event",
       "id": "whispering_flower",
       "filterCategory": "other",
       "hidden": true,
-      "conditional": true
+      "conditional": true,
+      "dynamicItemBased": true,
+      "dynamicTargetStat": "staminaRegen",
+      "valuePerItem": 0.15
     },
     {
       "name": "Wrench",
@@ -810,7 +813,7 @@
       "conditional": true
     }
   ],
-  "count": 57,
+  "count": 58,
   "source": "Dandy's World Wiki - https://dandys-world-robloxhorror.fandom.com/wiki/Trinkets",
   "categories": {
     "movement_speed": "Trinkets that affect walk or run speed",

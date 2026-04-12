@@ -6,8 +6,8 @@
       "duration": 10,
       "category": "distraction",
       "rarity": "rare",
-      "dandy_shop_only": true,
-      "cost": 60,
+      "dandy_shop_only": false,
+      "cost": 55,
       "image_name": "air_horn.png",
       "id": "air_horn",
       "effects": [
@@ -31,7 +31,7 @@
     },
     {
       "name": "Basket",
-      "effect": "Limited currency that spawns on floors during Easter Events",
+      "effect": "Adds 5 Baskets to the baskets counter, which could be used to purchase Easter Event Toons, Skins, or Stickers from Bassie's Store, which was found in the lobby. Two Baskets would spawn on each Floor.",
       "duration": null,
       "category": "currency",
       "rarity": "event",
@@ -42,8 +42,8 @@
     },
     {
       "name": "BonBon",
-      "effect": "Use this item to increase Extraction Speed +50% and Movement Speed +25% for 5 seconds.",
-      "duration": 5,
+      "effect": "Use this item to increase Extraction Speed +50% and Movement Speed +25% for 10 seconds.",
+      "duration": 10,
       "category": "speed",
       "rarity": "rare",
       "dandy_shop_only": false,
@@ -64,13 +64,49 @@
       ]
     },
     {
+      "name": "Christmas Cookie",
+      "effect": "Use this Item to create a pulse that increases the Movement Speed of Toons around you by 15% for 10 seconds.",
+      "duration": 10,
+      "category": "speed",
+      "rarity": "rare",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "christmas_cookie.png",
+      "id": "christmas_cookie",
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.15,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
+      "name": "Dandy Easter Egg",
+      "effect": "Use this Item to create a pulse that increases the Movement Speed of Toons around you by 15% for 10 seconds.",
+      "duration": 10,
+      "category": "speed",
+      "rarity": "rare",
+      "dandy_shop_only": false,
+      "cost": 0,
+      "image_name": "dandy_easter_egg.png",
+      "id": "dandy_easter_egg",
+      "effects": [
+        {
+          "targetStat": "movementSpeed",
+          "value": 0.15,
+          "applicationType": "multiplicative"
+        }
+      ]
+    },
+    {
       "name": "Bottle o' Pop",
       "effect": "Upon use, refills your Stamina to full capacity.",
       "duration": null,
       "category": "speed",
       "rarity": "very_rare",
-      "dandy_shop_only": true,
-      "cost": 100,
+      "dandy_shop_only": false,
+      "cost": 85,
       "image_name": "bottle_o_pop.png",
       "id": "bottle_o_pop"
     },
@@ -81,7 +117,7 @@
       "category": "stamina",
       "rarity": "very_rare",
       "dandy_shop_only": false,
-      "cost": 55,
+      "cost": 88,
       "image_name": "box_o_chocolates.png",
       "id": "box_o_chocolates",
       "effects": [
@@ -122,18 +158,18 @@
     },
     {
       "name": "Eject Button",
-      "effect": "Upon use, increases Stealth, Walk and Run Speed by 25 for 3 seconds, and removes the Slow debuff, if you have it.",
+      "effect": "Upon use, increases Stealth by 15 points, Walk and Run Speed by 25 for 3 seconds, and removes the Slow Debuff, if you have it.",
       "duration": 3,
       "category": "other",
       "rarity": "ultra_rare",
       "dandy_shop_only": false,
-      "cost": 85,
+      "cost": 150,
       "image_name": "eject_button.png",
       "id": "eject_button",
       "effects": [
         {
           "targetStat": "stealth",
-          "value": 25,
+          "value": 15,
           "applicationType": "baseStatIncrease"
         },
         {
@@ -155,7 +191,7 @@
       "category": "extraction",
       "rarity": "uncommon",
       "dandy_shop_only": false,
-      "cost": 22,
+      "cost": 35,
       "image_name": "extraction_speed_candy.png",
       "id": "extraction_speed_candy",
       "effects": [
@@ -179,7 +215,7 @@
     },
     {
       "name": "Health Kit",
-      "effect": "Upon use, restores 2 Hearts",
+      "effect": "Upon use, restores to the maximum.",
       "duration": null,
       "category": "healing",
       "rarity": "very_rare",
@@ -224,7 +260,7 @@
       "category": "random",
       "rarity": "rare",
       "dandy_shop_only": false,
-      "cost": 45,
+      "cost": 58,
       "image_name": "jawbreaker.png",
       "id": "jawbreaker"
     },
@@ -234,14 +270,14 @@
       "duration": null,
       "category": "extraction",
       "rarity": "rare",
-      "dandy_shop_only": true,
-      "cost": 88,
+      "dandy_shop_only": false,
+      "cost": 65,
       "image_name": "jumper_cable.png",
       "id": "jumper_cable"
     },
     {
       "name": "Ornament",
-      "effect": "Limited currency that spawns on floors during Christmas Events",
+      "effect": "Adds 5 Ornaments to the ornaments counter, which could be used to purchase Christmas Event Toons, Skins, or Stickers from Bobette's Store, which was found in the lobby. Two Ornaments would spawn on each Floor.",
       "duration": null,
       "category": "currency",
       "rarity": "event",
@@ -269,7 +305,7 @@
       "category": "extraction",
       "rarity": "uncommon",
       "dandy_shop_only": false,
-      "cost": 65,
+      "cost": 45,
       "image_name": "protein_bar.png",
       "id": "protein_bar",
       "effects": [
@@ -282,7 +318,7 @@
     },
     {
       "name": "Pumpkin",
-      "effect": "Limited currency that spawns on floors during Halloween Events",
+      "effect": "Adds 5 Pumpkins to the pumpkins counter, which will be used to purchase Halloween Event Toons, Skins, or Stickers from Gourdy's Store, which will be found in the lobby. Two Pumpkins will spawn on each Floor.",
       "duration": null,
       "category": "currency",
       "rarity": "event",
@@ -298,7 +334,7 @@
       "category": "skill_check",
       "rarity": "uncommon",
       "dandy_shop_only": false,
-      "cost": 40,
+      "cost": 42,
       "image_name": "skill_check_candy.png",
       "id": "skill_check_candy",
       "effects": [
@@ -315,7 +351,7 @@
       "duration": 3,
       "category": "stealth",
       "rarity": "ultra_rare",
-      "dandy_shop_only": true,
+      "dandy_shop_only": false,
       "cost": 150,
       "image_name": "smoke_bomb.png",
       "id": "smoke_bomb"
@@ -327,7 +363,7 @@
       "category": "speed",
       "rarity": "uncommon",
       "dandy_shop_only": false,
-      "cost": 20,
+      "cost": 45,
       "image_name": "speed_candy.png",
       "id": "speed_candy",
       "effects": [
@@ -415,8 +451,8 @@
       "id": "valve"
     }
   ],
-  "count": 27,
-  "source": "Dandy's World - Namu.wiki (Korean) - https://en.namu.wiki/w/Dandy's%20World/%EC%95%84%EC%9D%B4%ED%85%9C",
+  "count": 29,
+  "source": "Dandy's World Wiki - https://dandys-world-robloxhorror.fandom.com/wiki/Items",
   "categories": {
     "healing": "Items that restore health",
     "speed": "Items that increase movement speed",
@@ -429,5 +465,5 @@
     "currency": "Currency items",
     "other": "Miscellaneous items"
   },
-  "notes": "Complete list of 27 active items. Both Stopwatch and Skill Check Candy are separate, distinct items. Pop (Cancola in Korean) and Bottle o' Pop are also separate items with different effects."
+  "notes": "Complete list of 29 items in app data. Both Stopwatch and Skill Check Candy are separate, distinct items. Pop and Bottle o' Pop are also separate items with different effects."
 }

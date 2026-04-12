@@ -65,6 +65,9 @@ const Calculator = {
             });
         }
 
+        // Apply dynamic trinket effects that depend on the current item loadout
+        this._applyDynamicTrinketModifiers(trinkets, items, modifiers);
+
         // Handle Bone trinket separately - it needs special logic for the 40 cap
         const boneModifiers = this._extractBoneModifiers(trinkets);
         
@@ -553,6 +556,40 @@ const Calculator = {
     },
 
     /**
+     * Apply dynamic trinket modifiers that depend on the current item loadout
+     */
+    _applyDynamicTrinketModifiers(trinkets, items, modifiers) {
+        const totalItemCount = items.reduce((sum, itemObj) => sum + (itemObj.count || 0), 0);
+
+        if (totalItemCount <= 0) {
+            return;
+        }
+
+        trinkets.forEach(trinketEntry => {
+            const trinket = trinketEntry.trinket || trinketEntry;
+            if (!trinket || !trinket.dynamicItemBased) {
+                return;
+            }
+
+            const stat = this._mapTargetStat(trinket.dynamicTargetStat || trinket.targetStat);
+            if (!modifiers[stat]) {
+                return;
+            }
+
+            const valuePerItem = trinket.valuePerItem ?? trinket.value ?? 0;
+            const totalValue = valuePerItem * totalItemCount;
+            if (totalValue === 0) {
+                return;
+            }
+
+            modifiers[stat].multiplicative.push({
+                value: totalValue,
+                cap: null
+            });
+        });
+    },
+
+    /**
      * Apply both multiplicative and additive modifiers
      */
     _applyAllModifiers(baseStat, modifierObj, shouldRound = true, decimalPlaces = 1) {
@@ -1023,8 +1060,8 @@ const Calculator = {
 
         // Apply Eggson automatic completion
         if (isEggson) {
-            console.log(`\n🥚 EGGSON: 10% automatic completion`);
-            machineUnits *= 0.9;
+            console.log(`\n🥚 EGGSON: 20% automatic completion`);
+            machineUnits *= 0.8;
             console.log(`  Remaining units: ${machineUnits.toFixed(2)}`);
         }
 
