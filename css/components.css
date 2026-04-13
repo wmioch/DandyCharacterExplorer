@@ -516,30 +516,6 @@
     margin-top: var(--spacing-xl);
 }
 
-.share-btn {
-    padding: var(--spacing-md) var(--spacing-xl);
-    font-size: 1.1rem;
-    font-weight: 400;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-    margin-bottom: var(--spacing-md);
-    font-family: 'Fredoka One', sans-serif;
-}
-
-.share-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-.share-btn:active {
-    transform: translateY(0);
-}
-
 .footer-actions {
     display: flex;
     justify-content: center;
@@ -874,6 +850,14 @@
     font-size: 1.15rem;
     line-height: 1.5;
     text-align: left;
+}
+
+.tutorial-line {
+    display: block;
+}
+
+.tutorial-line + .tutorial-line {
+    margin-top: 0.5rem;
 }
 
 .tutorial-modal-footer {

@@ -224,7 +224,6 @@
         flex-direction: column;
     }
 
-    .share-btn,
     .feedback-btn {
         width: 100%;
         padding: var(--spacing-md);
@@ -308,7 +307,6 @@
     .app-header,
     .app-footer,
     .sort-controls,
-    .share-btn,
     .feedback-btn {
         display: none;
     }

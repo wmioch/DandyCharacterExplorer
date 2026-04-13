@@ -224,11 +224,6 @@ const App = {
             this.handleSort('name');
         });
 
-        // Share button
-        document.getElementById('share-build').addEventListener('click', () => {
-            this.handleShareBuild();
-        });
-
         // Lucky Coin stat selection change
         const luckyCoinSelect = document.getElementById('lucky-coin-stat');
         if (luckyCoinSelect) {
@@ -1190,50 +1185,6 @@ const App = {
         
         if (selectedBtn) selectedBtn.classList.add('active');
         if (selectedContent) selectedContent.classList.add('active');
-    },
-
-    /**
-     * Handle share build button
-     */
-    handleShareBuild() {
-        const url = this.generateShareURL();
-        
-        // Copy to clipboard
-        navigator.clipboard.writeText(url).then(() => {
-            UI.showToast('Build URL copied to clipboard!');
-        }).catch(() => {
-            UI.showToast('Failed to copy URL');
-        });
-    },
-
-    /**
-     * Generate shareable URL
-     */
-    generateShareURL() {
-        const params = new URLSearchParams();
-        
-        if (this.state.selectedToon) {
-            params.set('toon', this.state.selectedToon.id);
-        }
-        
-        if (this.state.equippedTrinkets[0]) {
-            params.set('t1', this.state.equippedTrinkets[0].id);
-        }
-        
-        if (this.state.equippedTrinkets[1]) {
-            params.set('t2', this.state.equippedTrinkets[1].id);
-        }
-        
-        const teamIds = this.state.teamMembers.map(t => t ? t.id : '').join(',');
-        if (teamIds) {
-            params.set('team', teamIds);
-        }
-        
-        if (this.state.selectedConditionalStat) {
-            params.set('cond', this.state.selectedConditionalStat.id);
-        }
-        
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
     },
 
     /**
