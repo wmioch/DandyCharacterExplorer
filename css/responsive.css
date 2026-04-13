@@ -224,6 +224,7 @@
         flex-direction: column;
     }
 
+    .tutorial-open-btn,
     .feedback-btn {
         width: 100%;
         padding: var(--spacing-md);
@@ -257,6 +258,18 @@
     
     .panel-title {
         font-size: 1.2rem;
+    }
+
+    .tutorial-modal-body {
+        min-height: 0;
+    }
+
+    .tutorial-visual-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tutorial-image {
+        max-height: 180px;
     }
 }
 
@@ -307,6 +320,7 @@
     .app-header,
     .app-footer,
     .sort-controls,
+    .tutorial-open-btn,
     .feedback-btn {
         display: none;
     }

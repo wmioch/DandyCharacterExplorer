@@ -524,23 +524,35 @@
     margin-bottom: var(--spacing-md);
 }
 
+.tutorial-open-btn,
 .feedback-btn {
     padding: var(--spacing-md) var(--spacing-xl);
     font-size: 1.1rem;
     font-weight: 400;
-    background: transparent;
-    color: var(--text-primary);
-    border: 2px solid var(--border-color);
     border-radius: var(--radius-md);
     cursor: pointer;
     transition: all var(--transition-fast);
 }
 
+.tutorial-open-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.feedback-btn {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.tutorial-open-btn:hover,
 .feedback-btn:hover {
     background: var(--bg-hover);
     border-color: var(--primary-color);
 }
 
+.tutorial-open-btn:active,
 .feedback-btn:active {
     transform: translateY(0);
 }
@@ -785,7 +797,7 @@
 
 /* Tutorial Modal */
 .tutorial-modal-content {
-    max-width: 560px;
+    max-width: 760px;
 }
 
 .feedback-modal-content {
@@ -835,14 +847,34 @@
 }
 
 .tutorial-modal-body {
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 420px;
 }
 
 .tutorial-page {
     width: 100%;
+}
+
+.tutorial-visual {
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    justify-content: center;
+}
+
+.tutorial-visual-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-md);
+}
+
+.tutorial-image {
+    width: 100%;
+    max-width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-sm);
 }
 
 .tutorial-message {

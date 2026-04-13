@@ -4,7 +4,7 @@
  */
 
 const App = {
-    tutorialStorageKey: 'tutorialSeen:v2',
+    tutorialStorageKey: 'tutorialSeen:v3',
     tutorialCurrentPage: 1,
     tutorialTotalPages: 6,
     state: {
@@ -234,12 +234,24 @@ const App = {
 
         // Tutorial modal controls
         const tutorialModal = document.getElementById('tutorial-modal');
+        const openTutorialBtn = document.getElementById('open-tutorial-modal');
         const closeTutorialBtn = document.getElementById('close-tutorial-modal');
+        const tutorialPrevBtn = document.getElementById('tutorial-prev-btn');
         const tutorialNextBtn = document.getElementById('tutorial-next-btn');
         const tutorialFinishBtn = document.getElementById('tutorial-finish-btn');
 
+        if (openTutorialBtn) {
+            openTutorialBtn.addEventListener('click', () => this.showTutorialModal());
+        }
+
         if (closeTutorialBtn) {
             closeTutorialBtn.addEventListener('click', () => this.hideTutorialModal());
+        }
+
+        if (tutorialPrevBtn) {
+            tutorialPrevBtn.addEventListener('click', () => {
+                this.goToTutorialPage(this.tutorialCurrentPage - 1);
+            });
         }
 
         if (tutorialNextBtn) {
@@ -318,6 +330,7 @@ const App = {
 
         const title = document.getElementById('tutorial-title');
         const progress = document.getElementById('tutorial-progress');
+        const prevBtn = document.getElementById('tutorial-prev-btn');
         const nextBtn = document.getElementById('tutorial-next-btn');
         const finishBtn = document.getElementById('tutorial-finish-btn');
         const currentPage = modal.querySelector(`.tutorial-page[data-page="${pageNumber}"]`);
@@ -328,6 +341,10 @@ const App = {
 
         if (progress) {
             progress.textContent = `${pageNumber} / ${this.tutorialTotalPages}`;
+        }
+
+        if (prevBtn) {
+            prevBtn.style.display = pageNumber > 1 ? 'inline-flex' : 'none';
         }
 
         if (nextBtn) {
