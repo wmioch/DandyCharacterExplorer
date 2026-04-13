@@ -72,7 +72,6 @@ Deployment is handled by `.github/workflows/deploy-dandy-feedback.yml` on pushes
 Required GitHub configuration:
 
 - repository secret: `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`
-- repository variable: `AZURE_FUNCTIONAPP_NAME`
 
 ## Notes
 

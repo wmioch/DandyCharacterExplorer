@@ -268,8 +268,8 @@ The workflow should:
   - `Azure/functions-action@v1`
 - deploy using repository secret:
   - `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`
-- read the Function App name from repository variable:
-  - `AZURE_FUNCTIONAPP_NAME`
+- deploy to the Function App name baked into the workflow:
+  - `dandy-feedback-prod`
 
 The workflow should deploy the Azure Function backend only. It should not replace the existing GitHub Pages setup for the static site.
 
@@ -346,12 +346,6 @@ In the GitHub repository settings for `wmioch/DandyCharacterExplorer`, add this 
 
 - `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`
 
-Also add this repository variable:
-
-- `AZURE_FUNCTIONAPP_NAME=<FUNCTION_APP_NAME>`
-
-Use these exact values:
-
 - `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`
   - value: the full XML contents of the publish profile file you download from Azure
   - do not paste the filename
@@ -362,15 +356,9 @@ Use these exact values:
 <publishData><publishProfile ...
 ```
 
-- `AZURE_FUNCTIONAPP_NAME`
-  - value: the exact Azure Function App name you chose in step 1
-  - example:
-    - `dandy-feedback-prod`
-  - this is not the full URL, only the app name itself
-
 The workflow uses:
 
-- `AZURE_FUNCTIONAPP_NAME` to know which Function App to deploy to
+- the baked-in Function App name `dandy-feedback-prod` to know which Function App to deploy to
 - `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` to authenticate that deployment
 
 ### 5. Configure the frontend feedback URL
@@ -479,8 +467,6 @@ then your manual values become:
   - `9f3b7a7ef7d1c6bb7f1b87f4b6f0d6d83c96d8ab3d3f5d685b3b9554d4cf62a1`
 - Azure app setting `FEEDBACK_TABLE_NAME`
   - `DandyFeedback`
-- GitHub variable `AZURE_FUNCTIONAPP_NAME`
-  - `dandy-feedback-prod`
 - `js/feedback-config.js` `feedbackApiUrl`
   - `https://dandy-feedback-prod.azurewebsites.net/api/feedback`
 - PollingStation `baseUrl`
