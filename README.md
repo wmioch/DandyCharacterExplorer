@@ -1,132 +1,81 @@
 # Dandy's World Character Explorer
 
-A web application for exploring and calculating detailed character statistics for the Roblox game **Dandy's World**.
+Static character calculator for **Dandy's World** with a lightweight Azure Functions feedback backend.
 
-## Features
+## Frontend
 
-- 📊 Real-time stat calculations based on Toons, Trinkets, and Items
-- 👥 Team composition planning with ability toggles
-- 🎯 Color-coded Twisted enemy speed comparisons
-- ⚙️ Machine extraction time calculator with skill check success rate slider
-- 🔗 Shareable builds via URL parameters
-- 📱 Fully responsive design for desktop, tablet, and mobile
+- Real-time stat calculations for toons, trinkets, items, and team abilities
+- Twisted speed comparison table
+- Machine extraction timing estimates
+- Shareable build URL button
+- Feedback modal that submits PollingStation-compatible payloads
 
-## How to Run
+## Local Run
 
-### Option 1: Double-click the Batch File (Easiest)
-1. Double-click `start-server.bat`
-2. Wait for the server to start
-3. Open your browser to: **http://localhost:8000**
+This site must be served over HTTP. Do not open `index.html` with `file://`.
 
-### Option 2: PowerShell
-1. Right-click `start-server.ps1` → "Run with PowerShell"
-2. Open your browser to: **http://localhost:8000**
-
-### Option 3: Manual Python Command
 ```bash
 python -m http.server 8000
 ```
-Then open: **http://localhost:8000**
 
-### ⚠️ Important: Do NOT open index.html directly
-Opening the HTML file directly in your browser (`file://` protocol) will **not work** due to CORS security restrictions. You **must** use a local web server.
+Then open `http://localhost:8000`.
 
-## Usage
+`start_server.bat` is the repo-provided helper if you want the server lifecycle handled for you.
 
-1. **Select a Toon** - Choose your playable character
-2. **Equip Trinkets** - Check up to 2 trinkets (or more for experimentation)
-3. **Choose Team Members** - Select up to 7 other Toons
-4. **Toggle Abilities & Items** - See real-time stat changes
-5. **Review Twisted Speeds** - Color-coded enemy speed comparisons
-6. **Adjust Machine Stats** - Use the skill check slider to see extraction times
+## Project Layout
 
-## Project Structure
-
-```
-DandyCharacterExplorer/
-├── index.html              # Main application page
-├── start-server.bat        # Windows batch server launcher
-├── start-server.ps1        # PowerShell server launcher
-├── css/
-│   ├── main.css           # Core styles and layout
-│   ├── components.css     # UI component styles
-│   └── responsive.css     # Mobile/tablet responsive styles
-├── js/
-│   ├── app.js            # Main application logic
-│   ├── ui.js             # UI rendering functions
-│   ├── data-loader.js    # JSON data loading
-│   ├── calculator.js     # Stat calculation engine
-│   └── url-params.js     # URL parameter encoding/decoding
-├── data/
-│   ├── stat-mappings.json # Star rating → number conversions
-│   ├── toons.json         # Character data
-│   ├── trinkets.json      # Equipment data
-│   ├── items.json         # Consumable items data
-│   └── twisteds.json      # Enemy data
-├── assets/
-│   └── images/
-│       ├── toons/         # Character images (place here)
-│       ├── trinkets/      # Trinket images (place here)
-│       ├── items/         # Item images (place here)
-│       └── twisteds/      # Enemy images (place here)
-└── generator_models.py    # Machine extraction formula reference
-
+```text
+index.html
+css/
+  main.css
+  components.css
+  responsive.css
+js/
+  data-loader.js
+  calculator.js
+  ui.js
+  app.js
+  feedback-config.js
+  feedback.js
+data/
+assets/
+api/
+  package.json
+  host.json
+  local.settings.json.example
+  src/index.js
+.github/workflows/deploy-dandy-feedback.yml
 ```
 
-## Adding Images
+## Feedback Setup
 
-To add images, place PNG files in the appropriate folders under `assets/images/`:
+The frontend feedback modal reads its deployment settings from `js/feedback-config.js`.
 
-- **Toons**: `assets/images/toons/{toon-id}.png` (e.g., `poppy.png`)
-- **Trinkets**: `assets/images/trinkets/{trinket-id}.png` (e.g., `speedy_shoes.png`)
-- **Items**: `assets/images/items/{item-id}.png` (e.g., `speed_candy.png`)
-- **Twisteds**: `assets/images/twisteds/{twisted-id}.png` (e.g., `twisted_poppy.png`)
+Set:
 
-If images are missing, colorful letter placeholders will display automatically.
+- `feedbackApiUrl` to `https://<FUNCTION_APP_NAME>.azurewebsites.net/api/feedback`
+- `appVersion` to the frontend version string you want submitted
 
-## Fonts Used
+The backend lives in `api/` and deploys separately from the GitHub Pages frontend.
 
-- **Fredoka One** (Google Fonts) - Main UI text
-- **ITC Kabel Bold** - Logo and headings (with fallbacks)
+## Backend Deploy
 
-## Technology Stack
+Install backend dependencies from the `api/` folder:
 
-- Pure HTML5, CSS3, and Vanilla JavaScript
-- No build tools or dependencies required
-- Static hosting compatible (GitHub Pages, Netlify, Vercel)
+```bash
+cd api
+npm ci
+```
 
-## Browser Support
+Deployment is handled by `.github/workflows/deploy-dandy-feedback.yml` on pushes to `main` that touch `api/**` or the workflow file.
 
-- ✅ Chrome/Edge (recommended)
-- ✅ Firefox
-- ✅ Safari
-- ⚠️ Requires modern browser with ES6+ support
+Required GitHub configuration:
 
-## Future Enhancements
+- repository secret: `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`
+- repository variable: `AZURE_FUNCTIONAPP_NAME`
 
-- [ ] Extract complete data from Dandy's World wiki
-- [ ] Implement full machine extraction formula
-- [ ] Add ability/item stacking calculations
-- [ ] Create build sharing functionality
-- [ ] Add more conditional stat scenarios
+## Notes
 
-## AI Assistant Guidelines
-
-**⚠️ Important: Do NOT open the website when finishing feature work**
-
-When completing feature development or testing changes:
-- ✅ **Commit and push code changes**
-- ✅ **Verify code changes are correct**
-- ❌ **Do NOT run `start index.html` or open the website**
-- ❌ **Do NOT use any command that opens a web browser**
-
-**Reason:** Opening the website disrupts the developer's workflow and can cause unwanted browser windows/tabs to appear.
-
-## Credits
-
-Based on the Roblox game **Dandy's World**
-- Wiki: https://dandys-world-robloxhorror.fandom.com/wiki/Main_Page
-
----
-
-**Made with 💜 for the Dandy's World community**
+- `POST /api/feedback` is anonymous for browser submissions.
+- `GET /api/feedback` requires `admin_token` and is meant for PollingStation polling only.
+- Dandy-specific metadata is appended inside `feedback.message`; `ecg_case` stays `null`.

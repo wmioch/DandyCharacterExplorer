@@ -206,7 +206,9 @@ const Calculator = {
             stamina: this._applyAllModifiers(baseStats.stamina, modifiers.stamina),
             skillCheckAmount: this._applyAllModifiers(baseStats.skillCheckAmount, modifiers.skillCheckAmount, true, 2),
             skillCheckSize: this._applyAllModifiers(skillCheckSizeBase, modifiers.skillCheckSize),
-            skillCheckChance: this._applyAllModifiers(baseStats.skillCheckChance, modifiers.skillCheckChance, false),
+            skillCheckChance: this._normalizeSkillCheckChance(
+                this._applyAllModifiers(baseStats.skillCheckChance, modifiers.skillCheckChance, false)
+            ),
             staminaRegen: this._applyAllModifiers(STAMINA_REGEN_BASE, modifiers.staminaRegen),
             hearts: baseStats.hearts
         };
@@ -307,13 +309,8 @@ const Calculator = {
     _applyBaseStatOverrides(toon, baseStats) {
         // Check ability 1
         if (toon.ability && toon.ability.playerEffect && toon.ability.playerEffect.baseStatOverrides) {
-            // Check if ability is toggled on
-            if (toon.ability.hasToggle) {
-                const savedState = localStorage.getItem(`ability-${toon.ability.id}-state`);
-                const isEnabled = savedState !== null ? savedState === 'true' : false;
-                if (!isEnabled) {
-                    return; // Ability is toggled off
-                }
+            if (!this._isAbilityEnabled(toon.ability)) {
+                return; // Ability is toggled off
             }
             
             // Apply overrides
@@ -331,13 +328,8 @@ const Calculator = {
         
         // Check ability 2
         if (toon.ability2 && toon.ability2.playerEffect && toon.ability2.playerEffect.baseStatOverrides) {
-            // Check if ability is toggled on
-            if (toon.ability2.hasToggle) {
-                const savedState = localStorage.getItem(`ability-${toon.ability2.id}-state`);
-                const isEnabled = savedState !== null ? savedState === 'true' : false;
-                if (!isEnabled) {
-                    return; // Ability is toggled off
-                }
+            if (!this._isAbilityEnabled(toon.ability2)) {
+                return; // Ability is toggled off
             }
             
             // Apply overrides
@@ -443,13 +435,8 @@ const Calculator = {
     _applyAbilityEffect(ability, modifiers, teamSize) {
         const effect = ability.playerEffect;
         
-        // Check if ability is toggled on (if it has a toggle)
-        if (ability.hasToggle) {
-            const savedState = localStorage.getItem(`ability-${ability.id}-state`);
-            const isEnabled = savedState !== null ? savedState === 'true' : false;
-            if (!isEnabled) {
-                return; // Ability is toggled off
-            }
+        if (!this._isAbilityEnabled(ability)) {
+            return; // Ability is toggled off
         }
 
         // Handle special abilities
@@ -502,6 +489,19 @@ const Calculator = {
         if (effect.staminaRegen !== undefined) {
             modifiers.staminaRegen.multiplicative.push({ value: effect.staminaRegen, cap: null });
         }
+    },
+
+    /**
+     * Check whether a player ability is currently enabled
+     * @private
+     */
+    _isAbilityEnabled(ability) {
+        if (!ability || !ability.hasToggle) {
+            return true;
+        }
+
+        const savedState = localStorage.getItem(`ability-${ability.id}-state`);
+        return savedState !== null ? savedState === 'true' : false;
     },
 
     /**
@@ -698,7 +698,6 @@ const Calculator = {
      */
     calculateMachineTime(extractionSpeed, skillCheckAmount, skillCheckSuccess, skillCheckChance = 0.25) {
         const TOTAL_UNITS = 45.0;
-        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999); // Clamp to prevent log(0)
         const MIN_DURATION = 0.75;
         const MAX_DURATION = 2.5;
         const GRACE_PERIOD = 2.0;
@@ -706,15 +705,13 @@ const Calculator = {
         // Calculate dead time (mean duration + grace)
         const meanDuration = (MIN_DURATION + MAX_DURATION) / 2;
         const deadTime = meanDuration + GRACE_PERIOD;
+        const SKILL_CHECK_CHANCE = this._normalizeSkillCheckChance(skillCheckChance);
 
         // Base time without any skill checks
         const defaultTime = TOTAL_UNITS / extractionSpeed;
 
         // Calculate hazard (d) from skill check chance using -LN(1-p)
-        const hazard = -Math.log(1 - SKILL_CHECK_CHANCE);
-
-        // Discrete model: effective check rate using formula r = d / (1 + d*D)
-        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+        const effectiveCheckRate = this._calculateEffectiveCheckRate(SKILL_CHECK_CHANCE, deadTime);
 
         // Expected bonus per check
         const expectedBonusPerCheck = skillCheckAmount * skillCheckSuccess;
@@ -784,7 +781,6 @@ const Calculator = {
      * @returns {Object} Partial machine completion state with actual time taken
      */
     calculatePartialMachineCompletion(extractionSpeed, skillCheckAmount, skillCheckSuccess, durationSeconds, unitsRemaining = 45, skillCheckChance = 0.25) {
-        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999); // Clamp to prevent log(0)
         const MIN_DURATION = 0.75;
         const MAX_DURATION = 2.5;
         const GRACE_PERIOD = 2.0;
@@ -792,12 +788,10 @@ const Calculator = {
         // Calculate dead time
         const meanDuration = (MIN_DURATION + MAX_DURATION) / 2;
         const deadTime = meanDuration + GRACE_PERIOD;
-
-        // Calculate hazard (d) from skill check chance using -LN(1-p)
-        const hazard = -Math.log(1 - SKILL_CHECK_CHANCE);
+        const SKILL_CHECK_CHANCE = this._normalizeSkillCheckChance(skillCheckChance);
 
         // Discrete model: effective check rate
-        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+        const effectiveCheckRate = this._calculateEffectiveCheckRate(SKILL_CHECK_CHANCE, deadTime);
 
         // Expected bonus per check
         const expectedBonusPerCheck = skillCheckAmount * skillCheckSuccess;
@@ -856,7 +850,6 @@ const Calculator = {
             };
         }
 
-        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999); // Clamp to prevent log(0)
         const MIN_DURATION = 0.75;
         const MAX_DURATION = 2.5;
         const GRACE_PERIOD = 2.0;
@@ -864,15 +857,14 @@ const Calculator = {
         // Calculate dead time
         const meanDuration = (MIN_DURATION + MAX_DURATION) / 2;
         const deadTime = meanDuration + GRACE_PERIOD;
+        const SKILL_CHECK_CHANCE = this._normalizeSkillCheckChance(skillCheckChance);
 
         // Base time without any skill checks
         const defaultTime = unitsRemaining / extractionSpeed;
 
         // Calculate hazard (d) from skill check chance using -LN(1-p)
-        const hazard = -Math.log(1 - SKILL_CHECK_CHANCE);
-
         // Discrete model: effective check rate
-        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+        const effectiveCheckRate = this._calculateEffectiveCheckRate(SKILL_CHECK_CHANCE, deadTime);
 
         // Expected bonus per check
         const expectedBonusPerCheck = skillCheckAmount * skillCheckSuccess;
@@ -959,6 +951,142 @@ const Calculator = {
     },
 
     /**
+     * Create a machine-specific state snapshot that converts timed player abilities into timed machine effects
+     * @private
+     */
+    _createMachineCalculationState(state) {
+        const machineState = this._cloneCalculationState(state);
+        const machineToon = this._stripTimedMachineAbilitiesFromToon(machineState.selectedToon);
+        const timedAbilityItems = this._getTimedMachineAbilityItems(
+            state.selectedToon,
+            state.activeAbilities || []
+        );
+
+        machineState.selectedToon = machineToon;
+        machineState.activeAbilities = this._stripTimedMachineTeamAbilities(machineState.activeAbilities || []);
+        machineState.activeItems = [...(machineState.activeItems || []), ...timedAbilityItems.map(item => ({ item, count: 1 }))];
+
+        return machineState;
+    },
+
+    /**
+     * Create the permanent-only machine state used for Base Time
+     * @private
+     */
+    _createPermanentMachineBaseState(state) {
+        const baseState = this._cloneCalculationState(state);
+
+        baseState.selectedToon = this._stripTimedMachineAbilitiesFromToon(baseState.selectedToon);
+        baseState.activeAbilities = this._stripTimedMachineTeamAbilities(baseState.activeAbilities || []);
+        baseState.activeItems = (baseState.activeItems || []).filter(itemObj => {
+            const item = itemObj.item || itemObj;
+            const count = itemObj.count || 1;
+            return count > 0 && (!item.duration || item.duration <= 0);
+        });
+
+        return baseState;
+    },
+
+    /**
+     * Remove timed machine abilities from the normal player-effect pass
+     * @private
+     */
+    _stripTimedMachineAbilitiesFromToon(toon) {
+        if (!toon) {
+            return toon;
+        }
+
+        const stripAbility = (ability) => {
+            if (!this._isTimedMachineAbility(ability)) {
+                return ability;
+            }
+
+            return {
+                ...ability,
+                playerEffect: null
+            };
+        };
+
+        return {
+            ...toon,
+            ability: stripAbility(toon.ability),
+            ability2: stripAbility(toon.ability2)
+        };
+    },
+
+    /**
+     * Remove timed machine team abilities from the persistent team-effect pass
+     * @private
+     */
+    _stripTimedMachineTeamAbilities(activeAbilities) {
+        return (activeAbilities || []).filter(ability => !this._isTimedMachineAbility(ability));
+    },
+
+    /**
+     * Get timed machine ability pseudo-items that should start at the beginning of extraction
+     * @private
+     */
+    _getTimedMachineAbilityItems(toon, activeAbilities = []) {
+        const abilities = toon ? [toon.ability, toon.ability2].filter(Boolean) : [];
+        const timedItems = [];
+
+        abilities.forEach((ability, index) => {
+            if (!this._isTimedMachineAbility(ability) || !this._isAbilityEnabled(ability)) {
+                return;
+            }
+
+            if (ability.id === 'squirm_distressed_delicacy') {
+                timedItems.push({
+                    id: `machine_ability_squirm_distressed_delicacy_${index + 1}`,
+                    name: ability.name,
+                    duration: 10,
+                    effects: [
+                        {
+                            targetStat: 'extractionSpeed',
+                            value: 1.0,
+                            applicationType: 'multiplicative'
+                        }
+                    ]
+                });
+            }
+        });
+
+        activeAbilities.forEach((ability, index) => {
+            if (!this._isTimedMachineAbility(ability)) {
+                return;
+            }
+
+            if (ability.id === 'shelly_inspiration') {
+                timedItems.push({
+                    id: `machine_ability_shelly_inspiration_${index + 1}`,
+                    name: ability.name,
+                    duration: 15,
+                    effects: [
+                        {
+                            targetStat: 'extractionSpeed',
+                            value: 0.75,
+                            applicationType: 'multiplicative'
+                        }
+                    ]
+                });
+            }
+        });
+
+        return timedItems;
+    },
+
+    /**
+     * Identify player abilities that should be treated as timed machine effects instead of always-on modifiers
+     * @private
+     */
+    _isTimedMachineAbility(ability) {
+        return Boolean(ability && (
+            ability.id === 'squirm_distressed_delicacy' ||
+            ability.id === 'shelly_inspiration'
+        ));
+    },
+
+    /**
      * Remove items by ID from state's active items list
      * @param {Object} state - State object to modify
      * @param {Array} itemIdsToRemove - Array of item IDs to remove
@@ -987,9 +1115,10 @@ const Calculator = {
         console.log(`  Team Size: ${state.teamSize || 1}`);
         console.log(`  Team Members: ${state.teamMembers ? state.teamMembers.filter(t => t).length : 0} active`);
         console.log(`  Skill Check Success Rate: ${(state.skillCheckSuccessRate * 100).toFixed(1)}%`);
+        const machineState = this._createMachineCalculationState(state);
         
         // Calculate initial stats from state
-        const initialStats = this.calculateStatsFromState(state);
+        const initialStats = this.calculateStatsFromState(machineState);
         if (!initialStats) {
             console.log('❌ No toon selected - cannot calculate');
             console.groupEnd();
@@ -1008,7 +1137,7 @@ const Calculator = {
         let machineUnits = 45;
 
         // Check for special items and trinkets
-        const activeItems = state.activeItems || [];
+        const activeItems = machineState.activeItems || [];
         const jumperCables = activeItems.filter(itemObj => {
             const item = itemObj.item || itemObj;
             return item.id === 'jumper_cable' && (itemObj.count || 1) > 0;
@@ -1094,6 +1223,10 @@ const Calculator = {
             });
         }
 
+        const permanentBaseState = this._createPermanentMachineBaseState(state);
+        const permanentBaseStats = this.calculateStatsFromState(permanentBaseState);
+        const permanentBaseExtractionSpeed = permanentBaseStats ? permanentBaseStats.final.extractionSpeed : 0;
+
         // Calculate both scenarios in parallel
         console.log(`\n📊 CALCULATING MACHINE STATS:`);
         console.log(`  Scenario 1: Default (${machineUnits.toFixed(2)} units)`);
@@ -1103,13 +1236,14 @@ const Calculator = {
 
         // Calculate default scenario
         const defaultResult = this._calculateCascadingMachineStats(
-            state,
+            machineState,
             itemsWithDuration,
             machineUnits,
             initialExtractionSpeed,
             initialSkillCheckAmount,
             initialSkillCheckChance,
-            hasStressBall
+            hasStressBall,
+            permanentBaseExtractionSpeed
         );
 
         // Calculate wrench scenario if applicable
@@ -1118,13 +1252,14 @@ const Calculator = {
             console.log(`\n🔧 CALCULATING WRENCH SCENARIO:`);
             const wrenchMachineUnits = Math.max(0, machineUnits - 15);
             wrenchResult = this._calculateCascadingMachineStats(
-                state,
+                machineState,
                 itemsWithDuration,
                 wrenchMachineUnits,
                 initialExtractionSpeed,
                 initialSkillCheckAmount,
                 initialSkillCheckChance,
-                hasStressBall
+                hasStressBall,
+                permanentBaseExtractionSpeed
             );
             console.log(`  Wrench scenario completed`);
         }
@@ -1138,9 +1273,11 @@ const Calculator = {
         };
 
         console.log(`\n✅ FINAL RESULTS:`);
-        console.log(`  Default Time: ${results.default.averageTime}s`);
+        console.log(`  Base Time: ${results.default.defaultTime}s`);
+        console.log(`  Average Time: ${results.default.averageTime}s`);
         if (hasWrench) {
-            console.log(`  First Machine (with Wrench): ${results.firstMachine.averageTime}s`);
+            console.log(`  First Machine Base Time (with Wrench): ${results.firstMachine.defaultTime}s`);
+            console.log(`  First Machine Average Time (with Wrench): ${results.firstMachine.averageTime}s`);
         }
         console.groupEnd();
 
@@ -1151,7 +1288,7 @@ const Calculator = {
      * Helper function to calculate cascading machine stats for a given machine unit count
      * @private
      */
-    _calculateCascadingMachineStats(state, itemsWithDuration, machineUnits, initialExtractionSpeed, initialSkillCheckAmount, initialSkillCheckChance, hasStressBall = false) {
+    _calculateCascadingMachineStats(state, itemsWithDuration, machineUnits, initialExtractionSpeed, initialSkillCheckAmount, initialSkillCheckChance, hasStressBall = false, permanentBaseExtractionSpeed = 0) {
         const cascadeBreakdown = [];
         const timeline = this._buildItemTimeline(itemsWithDuration);
         const EPSILON = 1e-9;
@@ -1283,7 +1420,7 @@ const Calculator = {
         }
 
         return {
-            defaultTime: Math.round((machineUnits / initialExtractionSpeed) * 10) / 10,
+            defaultTime: Math.round(this._calculateBaseMachineTime(machineUnits, permanentBaseExtractionSpeed) * 10) / 10,
             averageTime: Math.round(timeSoFar * 10) / 10,
             expectedSkillChecks: Math.round(totalSkillChecks * 10) / 10,
             expectedSuccessfulChecks: Math.round(totalSuccessfulChecks * 10) / 10,
@@ -1293,18 +1430,29 @@ const Calculator = {
     },
 
     /**
+     * Calculate base machine time using only permanent extraction stats and upfront completion effects
+     * @private
+     */
+    _calculateBaseMachineTime(machineUnits, extractionSpeed) {
+        if (extractionSpeed <= 0) {
+            return Infinity;
+        }
+
+        return machineUnits / extractionSpeed;
+    },
+
+    /**
      * Calculate machine progress metrics for a fixed extraction segment
      * @private
      */
     _getMachineProgressMetrics(extractionSpeed, skillCheckAmount, skillCheckSuccess, skillCheckChance = 0.25, stressStacks = 0) {
-        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999);
+        const SKILL_CHECK_CHANCE = this._normalizeSkillCheckChance(skillCheckChance);
         const MIN_DURATION = 0.75;
         const MAX_DURATION = 2.5;
         const GRACE_PERIOD = 2.0;
         const meanDuration = (MIN_DURATION + MAX_DURATION) / 2;
         const deadTime = meanDuration + GRACE_PERIOD;
-        const hazard = -Math.log(1 - SKILL_CHECK_CHANCE);
-        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+        const effectiveCheckRate = this._calculateEffectiveCheckRate(SKILL_CHECK_CHANCE, deadTime);
         const successfulCheckRate = effectiveCheckRate * skillCheckSuccess;
         const adjustedExtractionSpeed = extractionSpeed * (1 + (0.05 * stressStacks));
         const effectiveProgressRate = adjustedExtractionSpeed + (skillCheckAmount * successfulCheckRate);
@@ -1346,6 +1494,28 @@ const Calculator = {
             isComplete: timeToCompletion <= durationSeconds,
             effectiveProgressRate: Math.round(metrics.effectiveProgressRate * 100) / 100
         };
+    },
+
+    /**
+     * Clamp skill check chance to the valid in-game range
+     * @private
+     */
+    _normalizeSkillCheckChance(skillCheckChance) {
+        return Math.min(Math.max(skillCheckChance, 0), 1);
+    },
+
+    /**
+     * Convert skill check chance into an effective check rate, with 100% treated as a hard cap
+     * @private
+     */
+    _calculateEffectiveCheckRate(skillCheckChance, deadTime) {
+        const normalizedChance = this._normalizeSkillCheckChance(skillCheckChance);
+        if (normalizedChance >= 1) {
+            return 1 / deadTime;
+        }
+
+        const hazard = -Math.log(1 - normalizedChance);
+        return hazard / (1.0 + hazard * deadTime);
     },
 
     /**

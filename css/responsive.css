@@ -220,7 +220,12 @@
     }
     
     /* Footer */
-    .share-btn {
+    .footer-actions {
+        flex-direction: column;
+    }
+
+    .share-btn,
+    .feedback-btn {
         width: 100%;
         padding: var(--spacing-md);
         font-size: 1rem;
@@ -303,7 +308,8 @@
     .app-header,
     .app-footer,
     .sort-controls,
-    .share-btn {
+    .share-btn,
+    .feedback-btn {
         display: none;
     }
     
@@ -319,4 +325,3 @@
         box-shadow: none;
     }
 }
-

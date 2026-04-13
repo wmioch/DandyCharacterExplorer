@@ -4,6 +4,9 @@
  */
 
 const App = {
+    tutorialStorageKey: 'tutorialSeen:v2',
+    tutorialCurrentPage: 1,
+    tutorialTotalPages: 6,
     state: {
         selectedToon: null,
         equippedTrinkets: [], // Array of {trinket, count} objects for stackable trinkets, or just trinkets for non-stackable
@@ -61,6 +64,7 @@ const App = {
         }
 
         this.updateLuckyCoinMenuVisibility();
+        this.maybeShowTutorial();
         console.log('✅ Application initialized successfully');
     },
 
@@ -231,6 +235,112 @@ const App = {
             luckyCoinSelect.addEventListener('change', () => {
                 this.updateDisplay(); // Recalculate stats immediately
             });
+        }
+
+        // Tutorial modal controls
+        const tutorialModal = document.getElementById('tutorial-modal');
+        const closeTutorialBtn = document.getElementById('close-tutorial-modal');
+        const tutorialNextBtn = document.getElementById('tutorial-next-btn');
+        const tutorialFinishBtn = document.getElementById('tutorial-finish-btn');
+
+        if (closeTutorialBtn) {
+            closeTutorialBtn.addEventListener('click', () => this.hideTutorialModal());
+        }
+
+        if (tutorialNextBtn) {
+            tutorialNextBtn.addEventListener('click', () => {
+                this.goToTutorialPage(this.tutorialCurrentPage + 1);
+            });
+        }
+
+        if (tutorialFinishBtn) {
+            tutorialFinishBtn.addEventListener('click', () => this.hideTutorialModal());
+        }
+
+        if (tutorialModal) {
+            tutorialModal.addEventListener('click', (e) => {
+                if (e.target.id === 'tutorial-modal') {
+                    this.hideTutorialModal();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && tutorialModal && tutorialModal.style.display === 'flex') {
+                this.hideTutorialModal();
+            }
+        });
+    },
+
+    maybeShowTutorial() {
+        if (!this.hasSeenTutorial()) {
+            this.showTutorialModal();
+        }
+    },
+
+    hasSeenTutorial() {
+        try {
+            return localStorage.getItem(this.tutorialStorageKey) === 'true';
+        } catch (error) {
+            console.warn('Tutorial state could not be read from localStorage:', error);
+            return false;
+        }
+    },
+
+    markTutorialSeen() {
+        try {
+            localStorage.setItem(this.tutorialStorageKey, 'true');
+        } catch (error) {
+            console.warn('Tutorial state could not be saved to localStorage:', error);
+        }
+    },
+
+    showTutorialModal() {
+        const modal = document.getElementById('tutorial-modal');
+        if (!modal) return;
+
+        modal.style.display = 'flex';
+        this.goToTutorialPage(1);
+    },
+
+    hideTutorialModal() {
+        const modal = document.getElementById('tutorial-modal');
+        if (!modal) return;
+
+        modal.style.display = 'none';
+        this.markTutorialSeen();
+    },
+
+    goToTutorialPage(pageNumber) {
+        const modal = document.getElementById('tutorial-modal');
+        if (!modal) return;
+
+        this.tutorialCurrentPage = pageNumber;
+
+        modal.querySelectorAll('.tutorial-page').forEach(page => {
+            page.style.display = parseInt(page.dataset.page) === pageNumber ? 'block' : 'none';
+        });
+
+        const title = document.getElementById('tutorial-title');
+        const progress = document.getElementById('tutorial-progress');
+        const nextBtn = document.getElementById('tutorial-next-btn');
+        const finishBtn = document.getElementById('tutorial-finish-btn');
+        const currentPage = modal.querySelector(`.tutorial-page[data-page="${pageNumber}"]`);
+
+        if (title && currentPage) {
+            title.textContent = currentPage.dataset.title || 'Tutorial';
+        }
+
+        if (progress) {
+            progress.textContent = `${pageNumber} / ${this.tutorialTotalPages}`;
+        }
+
+        if (nextBtn) {
+            nextBtn.style.display = pageNumber < this.tutorialTotalPages ? 'inline-flex' : 'none';
+        }
+
+        if (finishBtn) {
+            finishBtn.style.display = pageNumber === this.tutorialTotalPages ? 'inline-flex' : 'none';
         }
     },
 
@@ -430,9 +540,13 @@ const App = {
      */
     handleTrinketFilter(category) {
         const trinkets = document.querySelectorAll('.trinket-grid-item');
+        const mergedMachineCategories = new Set(['extractionSpeed', 'skillCheckAmount']);
 
         trinkets.forEach(trinket => {
-            if (category === 'all' || trinket.dataset.category === category) {
+            const trinketCategory = trinket.dataset.category;
+            const showMergedMachineCategory = category === 'machineStats' && mergedMachineCategories.has(trinketCategory);
+
+            if (category === 'all' || showMergedMachineCategory || trinketCategory === category) {
                 trinket.style.display = 'block';
             } else {
                 trinket.style.display = 'none';

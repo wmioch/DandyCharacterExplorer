@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FEEDBACK_ADMIN_TOKEN": "replace-me",
+    "FEEDBACK_TABLE_NAME": "DandyFeedback"
+  }
+}

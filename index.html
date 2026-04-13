@@ -101,9 +101,8 @@
                             <option value="all">All Trinkets</option>
                             <option value="movementSpeed">Movement Speed</option>
                             <option value="stealth">Stealth</option>
-                            <option value="extractionSpeed">Extraction Speed</option>
+                            <option value="machineStats">Extraction + Skill Check</option>
                             <option value="stamina">Stamina</option>
-                            <option value="skillCheckAmount">Skill Check</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
@@ -366,13 +365,78 @@
     <!-- Footer -->
     <footer class="app-footer">
         <div class="container">
-            <button id="share-build" class="share-btn">📋 Share Build URL</button>
+            <div class="footer-actions">
+                <button id="share-build" class="share-btn">📋 Share Build URL</button>
+                <button id="open-feedback-modal" class="feedback-btn">Send Feedback</button>
+            </div>
             <p class="footer-text">Data from <a href="https://dandys-world-robloxhorror.fandom.com/wiki/Main_Page" target="_blank">Dandy's World Wiki</a></p>
         </div>
     </footer>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast">Link copied to clipboard!</div>
+
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+        <div class="modal-content feedback-modal-content">
+            <div class="modal-header">
+                <h3 id="feedback-title" class="modal-title">Send Feedback</h3>
+                <button id="close-feedback-modal" class="modal-close-btn" aria-label="Close feedback dialog">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="feedback-message" class="feedback-label">What should change or what went wrong?</label>
+                <textarea
+                    id="feedback-message"
+                    class="feedback-textarea"
+                    rows="6"
+                    maxlength="3000"
+                    placeholder="Tell me what happened, what you expected, and anything that helps reproduce it."
+                ></textarea>
+                <p id="feedback-status" class="feedback-status" data-state="idle" aria-live="polite"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-feedback-modal" class="modal-reset-btn">Cancel</button>
+                <button id="submit-feedback" class="modal-apply-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial Modal -->
+    <div id="tutorial-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
+        <div class="modal-content tutorial-modal-content">
+            <div class="modal-header">
+                <h3 id="tutorial-title" class="modal-title">Welcome!</h3>
+                <button id="close-tutorial-modal" class="modal-close-btn" aria-label="Close tutorial">&times;</button>
+            </div>
+            <div class="modal-body tutorial-modal-body">
+                <div class="tutorial-page" data-page="1" data-title="Welcome!">
+                    <p class="tutorial-message">Welcome! This calculator can be used to compare toons, find the best trinket combos or explore team setups!</p>
+                </div>
+                <div class="tutorial-page" data-page="2" data-title="Toons" style="display: none;">
+                    <p class="tutorial-message">Left Click to select your toon. Right click to select Team Toons. Use the Filter Toons button to show less toons. Use the Clear Team button to reset.</p>
+                </div>
+                <div class="tutorial-page" data-page="3" data-title="Trinkets and Items" style="display: none;">
+                    <p class="tutorial-message">Select Trinkets and Items to see their effects. Right click to remove. Some items allow multiple stacks to be applied, like the Dog Bone.</p>
+                </div>
+                <div class="tutorial-page" data-page="4" data-title="Abilities" style="display: none;">
+                    <p class="tutorial-message">Turn on or off Toon and Teammate abilities to see their effects.</p>
+                </div>
+                <div class="tutorial-page" data-page="5" data-title="Comparison Tools" style="display: none;">
+                    <p class="tutorial-message">Twisted Speed: review how your Toon's walk and run speed compares to the Twisteds' speeds. Machine Stats: see how quickly you will finish machines on average.</p>
+                </div>
+                <div class="tutorial-page" data-page="6" data-title="Feedback" style="display: none;">
+                    <p class="tutorial-message">Click the Send Feedback button at the bottom of the screen with suggestions, bugs or any other feedback!</p>
+                </div>
+            </div>
+            <div class="modal-footer tutorial-modal-footer">
+                <span id="tutorial-progress" class="tutorial-progress">1 / 6</span>
+                <div class="tutorial-actions">
+                    <button id="tutorial-next-btn" class="modal-apply-btn">Next</button>
+                    <button id="tutorial-finish-btn" class="modal-apply-btn" style="display: none;">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Star Filter Modal -->
     <div id="star-filter-modal" class="modal-overlay" style="display: none;">
@@ -456,6 +520,8 @@
     <script src="js/calculator.js?v=20251028"></script>
     <script src="js/ui.js?v=20251028"></script>
     <script src="js/app.js?v=20251028"></script>
+    <script src="js/feedback-config.js?v=20260413"></script>
+    <script src="js/feedback.js?v=20260413"></script>
     <script>
         // Debug script to log column scrollbar status
         function logColumnScrollbars() {
