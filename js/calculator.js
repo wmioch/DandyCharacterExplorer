@@ -1016,10 +1016,10 @@ const Calculator = {
         const hasWrench = (state.equippedTrinkets || []).some(t => (t.trinket || t).id === 'wrench');
         const isEggson = state.selectedToon && state.selectedToon.id === 'eggson';
         const hasGlazedFondantBag = (state.equippedTrinkets || []).some(t => (t.trinket || t).id === 'glazed_fondant_bag');
-        const stressBallCount = (state.equippedTrinkets || []).reduce((sum, t) => {
+        const hasStressBall = (state.equippedTrinkets || []).some(t => {
             const trinket = t.trinket || t;
-            return sum + (trinket.id === 'stress_ball' ? (t.count || 1) : 0);
-        }, 0);
+            return trinket.id === 'stress_ball';
+        });
 
         console.log('\n🔍 SPECIAL ITEMS:');
         // Calculate total jumper cable count (sum of counts across all entries)
@@ -1028,7 +1028,7 @@ const Calculator = {
         console.log(`  Wrench: ${hasWrench ? 'Yes' : 'No'}`);
         console.log(`  Eggson: ${isEggson ? 'Yes' : 'No'}`);
         console.log(`  Glazed Fondant Bag: ${hasGlazedFondantBag ? 'Yes' : 'No'}`);
-        console.log(`  Stress Ball: ${stressBallCount > 0 ? `${stressBallCount}x` : 'No'}`);
+        console.log(`  Stress Ball: ${hasStressBall ? 'Yes' : 'No'}`);
 
         // Apply Jumper Cables instant completion
         if (totalJumperCableCount > 0) {
@@ -1109,7 +1109,7 @@ const Calculator = {
             initialExtractionSpeed,
             initialSkillCheckAmount,
             initialSkillCheckChance,
-            stressBallCount
+            hasStressBall
         );
 
         // Calculate wrench scenario if applicable
@@ -1124,7 +1124,7 @@ const Calculator = {
                 initialExtractionSpeed,
                 initialSkillCheckAmount,
                 initialSkillCheckChance,
-                stressBallCount
+                hasStressBall
             );
             console.log(`  Wrench scenario completed`);
         }
@@ -1151,142 +1151,200 @@ const Calculator = {
      * Helper function to calculate cascading machine stats for a given machine unit count
      * @private
      */
-    _calculateCascadingMachineStats(state, itemsWithDuration, machineUnits, initialExtractionSpeed, initialSkillCheckAmount, initialSkillCheckChance, stressBallCount = 0) {
+    _calculateCascadingMachineStats(state, itemsWithDuration, machineUnits, initialExtractionSpeed, initialSkillCheckAmount, initialSkillCheckChance, hasStressBall = false) {
         const cascadeBreakdown = [];
-
-        // If no items with duration, simple calculation
-        if (itemsWithDuration.length === 0) {
-            console.log(`  ⚙️ NO CASCADING - SIMPLE CALCULATION`);
-            const stressBallMultiplier = this._calculateStressBallMultiplier(initialSkillCheckChance, state.skillCheckSuccessRate, stressBallCount);
-            const adjustedExtractionSpeed = initialExtractionSpeed * stressBallMultiplier;
-            if (stressBallCount > 0) {
-                console.log(`  🎯 Stress Ball (${stressBallCount}x): ×${stressBallMultiplier.toFixed(3)} → ${adjustedExtractionSpeed.toFixed(3)} extraction`);
-            }
-            const result = this.calculateMachineCompletion(
-                adjustedExtractionSpeed,
-                initialSkillCheckAmount,
-                state.skillCheckSuccessRate,
-                machineUnits,
-                initialSkillCheckChance
-            );
-            return {
-                ...result,
-                defaultTime: Math.round((machineUnits / initialExtractionSpeed) * 10) / 10,
-                cascadeBreakdown: []
-            };
-        }
-
-        // Build cascade timeline
         const timeline = this._buildItemTimeline(itemsWithDuration);
-        console.log(`  📅 CASCADE TIMELINE (${timeline.length} breakpoints)`);
-
-        // Cascade through item durations with state recalculation
+        const EPSILON = 1e-9;
         let unitsRemaining = machineUnits;
         let timeSoFar = 0;
         let totalSkillChecks = 0;
         let totalSuccessfulChecks = 0;
         let workingState = this._cloneCalculationState(state);
+        let itemIndex = 0;
+        let successProgress = 0;
+        let stressExpirations = [];
 
+        console.log(`  📅 CASCADE TIMELINE (${timeline.length} item breakpoints${hasStressBall ? ' + Stress Ball events' : ''})`);
         console.log(`  🔄 Starting cascade with ${unitsRemaining.toFixed(2)} units`);
 
-        for (let i = 0; i < timeline.length; i++) {
-            const timePoint = timeline[i];
-            const windowDuration = timePoint.time - timeSoFar;
+        while (unitsRemaining > 0) {
+            while (stressExpirations.length > 0 && stressExpirations[0] <= timeSoFar + EPSILON) {
+                stressExpirations.shift();
+            }
 
-            if (windowDuration <= 0) continue;
-
-            // Get current stats with all still-active items
             const stepStats = this.calculateStatsFromState(workingState);
             const stepExtractionSpeed = stepStats.final.extractionSpeed;
             const stepSkillCheckAmount = stepStats.final.skillCheckAmount;
             const stepSkillCheckChance = stepStats.final.skillCheckChance;
-            const stepStressBallMultiplier = this._calculateStressBallMultiplier(stepSkillCheckChance, state.skillCheckSuccessRate, stressBallCount);
-            const adjustedStepExtractionSpeed = stepExtractionSpeed * stepStressBallMultiplier;
-
-            console.log(`    ▶️ Step ${i + 1}: ${timeSoFar}s → ${timePoint.time}s (${windowDuration}s)`);
-            console.log(`       Stats: ${adjustedStepExtractionSpeed.toFixed(3)} extraction (${stepExtractionSpeed}${stressBallCount > 0 ? ` ×${stepStressBallMultiplier.toFixed(3)} Stress Ball` : ''}), ${stepSkillCheckAmount} skill bonus`);
-
-            // Calculate partial completion
-            const partial = this.calculatePartialMachineCompletion(
-                adjustedStepExtractionSpeed,
+            const currentStressStacks = hasStressBall ? stressExpirations.length : 0;
+            const metrics = this._getMachineProgressMetrics(
+                stepExtractionSpeed,
                 stepSkillCheckAmount,
                 state.skillCheckSuccessRate,
-                windowDuration,
-                unitsRemaining,
-                stepSkillCheckChance
+                stepSkillCheckChance,
+                currentStressStacks
             );
 
-            console.log(`       Progress: ${partial.unitsCompleted.toFixed(2)} units, ${partial.expectedSkillChecks.toFixed(2)} checks`);
+            const nextItemTime = itemIndex < timeline.length ? timeline[itemIndex].time : Infinity;
+            const nextStressProcTime = (hasStressBall && metrics.successfulCheckRate > 0)
+                ? timeSoFar + ((1 - successProgress) / metrics.successfulCheckRate)
+                : Infinity;
+            const nextStressExpiryTime = stressExpirations.length > 0 ? stressExpirations[0] : Infinity;
+            const timeToCompletion = metrics.effectiveProgressRate > 0
+                ? unitsRemaining / metrics.effectiveProgressRate
+                : Infinity;
+            const nextCompletionTime = timeSoFar + timeToCompletion;
+            const nextBreakpointTime = Math.min(
+                nextItemTime,
+                nextStressProcTime,
+                nextStressExpiryTime,
+                nextCompletionTime
+            );
+            const segmentDuration = Math.max(0, nextBreakpointTime - timeSoFar);
+            const segment = this._calculateMachineSegment(
+                stepExtractionSpeed,
+                stepSkillCheckAmount,
+                state.skillCheckSuccessRate,
+                segmentDuration,
+                unitsRemaining,
+                stepSkillCheckChance,
+                currentStressStacks
+            );
+            const segmentStart = timeSoFar;
+            const segmentEnd = timeSoFar + segment.timeConsumed;
 
-            unitsRemaining = partial.unitsRemaining;
-            timeSoFar += partial.timeConsumed;
-            totalSkillChecks += partial.expectedSkillChecks;
-            totalSuccessfulChecks += partial.expectedSuccessfulChecks;
+            console.log(`    ▶️ Step ${cascadeBreakdown.length + 1}: ${segmentStart.toFixed(2)}s → ${segmentEnd.toFixed(2)}s (${segmentDuration.toFixed(2)}s)`);
+            console.log(`       Stats: ${segment.adjustedExtractionSpeed.toFixed(3)} extraction (${stepExtractionSpeed}${currentStressStacks > 0 ? ` ×${(1 + (0.05 * currentStressStacks)).toFixed(3)} Stress Ball` : ''}), ${stepSkillCheckAmount} skill bonus`);
+            console.log(`       Progress: ${segment.unitsCompleted.toFixed(2)} units, ${segment.expectedSkillChecks.toFixed(2)} checks`);
+
+            unitsRemaining = segment.unitsRemaining;
+            timeSoFar = segmentEnd;
+            totalSkillChecks += segment.expectedSkillChecks;
+            totalSuccessfulChecks += segment.expectedSuccessfulChecks;
+
+            const reachedCompletion = unitsRemaining <= EPSILON || segment.isComplete;
+            const itemExpiryTriggered = Math.abs(timeSoFar - nextItemTime) <= EPSILON;
+            const stressProcTriggered = Math.abs(timeSoFar - nextStressProcTime) <= EPSILON;
+            const stressExpiryTriggered = Math.abs(timeSoFar - nextStressExpiryTime) <= EPSILON;
+
+            if (hasStressBall && metrics.successfulCheckRate > 0) {
+                successProgress = Math.min(1, successProgress + (metrics.successfulCheckRate * segment.timeConsumed));
+            }
+
+            const expiredItems = [];
+            if (itemExpiryTriggered) {
+                while (itemIndex < timeline.length && Math.abs(timeline[itemIndex].time - timeSoFar) <= EPSILON) {
+                    const timePoint = timeline[itemIndex];
+                    expiredItems.push(...timePoint.expiredItems.map(item => item.name));
+                    this._removeItemsFromState(workingState, timePoint.expiredItems.map(item => item.id));
+                    itemIndex += 1;
+                }
+            }
+
+            if (stressExpiryTriggered) {
+                while (stressExpirations.length > 0 && stressExpirations[0] <= timeSoFar + EPSILON) {
+                    stressExpirations.shift();
+                }
+            }
+
+            if (stressProcTriggered) {
+                successProgress = Math.max(0, successProgress - 1);
+                stressExpirations.push(timeSoFar + 15);
+                stressExpirations.sort((a, b) => a - b);
+            }
 
             cascadeBreakdown.push({
-                timePoint: timePoint.time,
-                itemsExpired: timePoint.expiredItems.map(item => item.name),
+                timePoint: Math.round(timeSoFar * 100) / 100,
+                itemsExpired: expiredItems,
                 statsAtStep: {
                     extractionSpeed: stepExtractionSpeed,
                     skillCheckAmount: stepSkillCheckAmount,
-                    skillCheckChance: stepSkillCheckChance
+                    skillCheckChance: stepSkillCheckChance,
+                    stressStacks: currentStressStacks,
+                    adjustedExtractionSpeed: segment.adjustedExtractionSpeed
                 },
-                unitsCompleted: partial.unitsCompleted,
-                unitsRemaining: partial.unitsRemaining,
-                skillChecksThisWindow: partial.expectedSkillChecks,
-                actualTimeTaken: partial.timeConsumed,
-                isEarlyCompletion: partial.isComplete
+                unitsCompleted: segment.unitsCompleted,
+                unitsRemaining: segment.unitsRemaining,
+                skillChecksThisWindow: segment.expectedSkillChecks,
+                expectedSuccessfulChecks: segment.expectedSuccessfulChecks,
+                actualTimeTaken: segment.timeConsumed,
+                events: {
+                    itemExpiry: itemExpiryTriggered,
+                    stressProc: stressProcTriggered,
+                    stressExpiry: stressExpiryTriggered
+                },
+                isEarlyCompletion: reachedCompletion
             });
 
-            // Check for early completion
-            if (partial.isComplete) {
+            if (reachedCompletion) {
                 console.log(`       ⚠️ Machine completed early!`);
                 break;
             }
-
-            // Remove expired items from working state for next iteration
-            const expiredItemIds = timePoint.expiredItems.map(item => item.id);
-            this._removeItemsFromState(workingState, expiredItemIds);
         }
-
-        // Final phase - recalculate stats without any timed items
-        console.log(`  ▶️ FINAL PHASE (${timeSoFar}s → completion)`);
-        
-        if (unitsRemaining > 0) {
-            const finalStats = this.calculateStatsFromState(workingState);
-            const finalExtractionSpeed = finalStats.final.extractionSpeed;
-            const finalSkillCheckAmount = finalStats.final.skillCheckAmount;
-            const finalSkillCheckChance = finalStats.final.skillCheckChance;
-            const finalStressBallMultiplier = this._calculateStressBallMultiplier(finalSkillCheckChance, state.skillCheckSuccessRate, stressBallCount);
-            const adjustedFinalExtractionSpeed = finalExtractionSpeed * finalStressBallMultiplier;
-
-            const finalResult = this.calculateMachineCompletion(
-                adjustedFinalExtractionSpeed,
-                finalSkillCheckAmount,
-                state.skillCheckSuccessRate,
-                unitsRemaining,
-                finalSkillCheckChance
-            );
-
-            timeSoFar += finalResult.averageTime;
-            totalSkillChecks += finalResult.expectedSkillChecks;
-            totalSuccessfulChecks += finalResult.expectedSuccessfulChecks;
-            console.log(`    Final: ${finalResult.averageTime}s for remaining ${unitsRemaining.toFixed(2)} units`);
-        } else {
-            console.log(`    Already completed`);
-        }
-
-        // Combine results
-        const totalAverageTime = timeSoFar;
-        const totalDefaultTime = machineUnits / initialExtractionSpeed;
 
         return {
-            defaultTime: Math.round(totalDefaultTime * 10) / 10,
-            averageTime: Math.round(totalAverageTime * 10) / 10,
+            defaultTime: Math.round((machineUnits / initialExtractionSpeed) * 10) / 10,
+            averageTime: Math.round(timeSoFar * 10) / 10,
             expectedSkillChecks: Math.round(totalSkillChecks * 10) / 10,
             expectedSuccessfulChecks: Math.round(totalSuccessfulChecks * 10) / 10,
             effectiveProgressRate: initialExtractionSpeed,
             cascadeBreakdown: cascadeBreakdown
+        };
+    },
+
+    /**
+     * Calculate machine progress metrics for a fixed extraction segment
+     * @private
+     */
+    _getMachineProgressMetrics(extractionSpeed, skillCheckAmount, skillCheckSuccess, skillCheckChance = 0.25, stressStacks = 0) {
+        const SKILL_CHECK_CHANCE = Math.min(skillCheckChance, 0.9999);
+        const MIN_DURATION = 0.75;
+        const MAX_DURATION = 2.5;
+        const GRACE_PERIOD = 2.0;
+        const meanDuration = (MIN_DURATION + MAX_DURATION) / 2;
+        const deadTime = meanDuration + GRACE_PERIOD;
+        const hazard = -Math.log(1 - SKILL_CHECK_CHANCE);
+        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
+        const successfulCheckRate = effectiveCheckRate * skillCheckSuccess;
+        const adjustedExtractionSpeed = extractionSpeed * (1 + (0.05 * stressStacks));
+        const effectiveProgressRate = adjustedExtractionSpeed + (skillCheckAmount * successfulCheckRate);
+
+        return {
+            adjustedExtractionSpeed,
+            effectiveCheckRate,
+            successfulCheckRate,
+            effectiveProgressRate
+        };
+    },
+
+    /**
+     * Calculate partial machine progress for a segment with fixed stats and Stress Ball stacks
+     * @private
+     */
+    _calculateMachineSegment(extractionSpeed, skillCheckAmount, skillCheckSuccess, durationSeconds, unitsRemaining = 45, skillCheckChance = 0.25, stressStacks = 0) {
+        const metrics = this._getMachineProgressMetrics(
+            extractionSpeed,
+            skillCheckAmount,
+            skillCheckSuccess,
+            skillCheckChance,
+            stressStacks
+        );
+        const timeToCompletion = metrics.effectiveProgressRate > 0 ? unitsRemaining / metrics.effectiveProgressRate : Infinity;
+        const actualTimeTaken = Math.min(timeToCompletion, durationSeconds);
+        const unitsCompleted = metrics.effectiveProgressRate * actualTimeTaken;
+        const expectedSkillChecksThisWindow = metrics.effectiveCheckRate * actualTimeTaken;
+        const expectedSuccessfulChecks = metrics.successfulCheckRate * actualTimeTaken;
+        const newUnitsRemaining = Math.max(0, unitsRemaining - unitsCompleted);
+
+        return {
+            adjustedExtractionSpeed: metrics.adjustedExtractionSpeed,
+            unitsCompleted: Math.round(unitsCompleted * 100) / 100,
+            unitsRemaining: Math.round(newUnitsRemaining * 100) / 100,
+            expectedSkillChecks: Math.round(expectedSkillChecksThisWindow * 100) / 100,
+            expectedSuccessfulChecks: Math.round(expectedSuccessfulChecks * 100) / 100,
+            timeConsumed: actualTimeTaken,
+            isComplete: timeToCompletion <= durationSeconds,
+            effectiveProgressRate: Math.round(metrics.effectiveProgressRate * 100) / 100
         };
     },
 
@@ -1307,29 +1365,6 @@ const Calculator = {
             'box_o_chocolates'
         ];
         return glazedItems.includes(itemId);
-    },
-
-    /**
-     * Calculate the steady-state extraction speed multiplier from Stress Ball trinket.
-     * Uses the same hazard/dead-time model as the main extraction calculator to estimate
-     * the average number of active stacks at any moment during machine extraction.
-     * @param {number} skillCheckChance - Probability of a skill check spawning (0-1)
-     * @param {number} successRate - Player's skill check success rate (0-1)
-     * @param {number} stressBallCount - Number of Stress Ball trinkets equipped
-     * @returns {number} Multiplicative bonus to apply to extraction speed (e.g. 1.106)
-     */
-    _calculateStressBallMultiplier(skillCheckChance, successRate, stressBallCount) {
-        if (stressBallCount <= 0) return 1.0;
-        const STACK_DURATION = 15;
-        const MIN_DURATION = 0.75;
-        const MAX_DURATION = 2.5;
-        const GRACE_PERIOD = 2.0;
-        const deadTime = (MIN_DURATION + MAX_DURATION) / 2 + GRACE_PERIOD;
-        const clampedChance = Math.min(skillCheckChance, 0.9999);
-        const hazard = -Math.log(1 - clampedChance);
-        const effectiveCheckRate = hazard / (1.0 + hazard * deadTime);
-        const avgStacks = effectiveCheckRate * successRate * STACK_DURATION * stressBallCount;
-        return 1.0 + (0.05 * avgStacks);
     },
 
     /**

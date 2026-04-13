@@ -664,7 +664,6 @@
       "rarity": "common",
       "id": "stress_ball",
       "filterCategory": "extractionSpeed",
-      "stackable": true,
       "effects": [
         {
           "targetStat": "extractionSpeed",
