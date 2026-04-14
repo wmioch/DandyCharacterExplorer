@@ -561,10 +561,6 @@ const Calculator = {
     _applyDynamicTrinketModifiers(trinkets, items, modifiers) {
         const totalItemCount = items.reduce((sum, itemObj) => sum + (itemObj.count || 0), 0);
 
-        if (totalItemCount <= 0) {
-            return;
-        }
-
         trinkets.forEach(trinketEntry => {
             const trinket = trinketEntry.trinket || trinketEntry;
             if (!trinket || !trinket.dynamicItemBased) {
@@ -577,7 +573,10 @@ const Calculator = {
             }
 
             const valuePerItem = trinket.valuePerItem ?? trinket.value ?? 0;
-            const totalValue = valuePerItem * totalItemCount;
+            const dynamicCount = trinket.id === 'whispering_flower'
+                ? (trinketEntry.count || 1)
+                : totalItemCount;
+            const totalValue = valuePerItem * dynamicCount;
             if (totalValue === 0) {
                 return;
             }
