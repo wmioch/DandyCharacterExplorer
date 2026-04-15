@@ -120,8 +120,10 @@ const UI = {
             const trinketItem = document.createElement('div');
             trinketItem.className = 'trinket-grid-item';
             trinketItem.dataset.trinketId = trinket.id;
-            // Use filterCategory from the data
-            trinketItem.dataset.category = trinket.filterCategory || trinket.category || 'other';
+            // Use filterCategory/filterCategories from the data
+            const filterCategories = trinket.filterCategories
+                || (trinket.filterCategory ? [trinket.filterCategory] : [trinket.category || 'other']);
+            trinketItem.dataset.category = filterCategories.join(' ');
             
             const conditional = trinket.conditional ? ' [Cond]' : '';
             // Use the effect text directly from the data
@@ -198,7 +200,7 @@ const UI = {
      * Get trinket category for filtering (legacy - now stored in data)
      */
     _getTrinketCategory(trinket) {
-        return trinket.filterCategory || trinket.category || 'other';
+        return trinket.filterCategories || trinket.filterCategory || trinket.category || 'other';
     },
     
     /**

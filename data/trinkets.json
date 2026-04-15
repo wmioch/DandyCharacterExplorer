@@ -129,7 +129,7 @@
       "category": "movement_speed",
       "rarity": "event",
       "id": "coal_trinket",
-      "filterCategory": "movementSpeed",
+      "filterCategories": ["movementSpeed", "stealth"],
       "effects": [
         {
           "targetStat": "stealth",
@@ -158,10 +158,10 @@
       "name": "Cooler",
       "effect": "Grants the user 50 more Stamina, but lowers Movement Speed by 5%.",
       "image": "trinket_cooler.png",
-      "category": "movement_speed",
+      "category": "stamina",
       "rarity": "store",
       "id": "cooler",
-      "filterCategory": "movementSpeed",
+      "filterCategory": "stamina",
       "effects": [
         {
           "targetStat": "stamina",
@@ -415,10 +415,10 @@
       "name": "Night Cap",
       "effect": "Increases Stamina Regeneration by 40% while extracting from a Machine.",
       "image": "trinket_night_cap.png",
-      "category": "other",
+      "category": "stamina",
       "rarity": "removed",
       "id": "night_cap",
-      "filterCategory": "other",
+      "filterCategory": "stamina",
       "hidden": true,
       "conditional": true
     },
@@ -643,10 +643,10 @@
       "name": "Star Pillow",
       "effect": "Increases Stamina Regeneration by 100% while extracting from a Machine.",
       "image": "trinket_star_pillow.png",
-      "category": "extraction",
+      "category": "stamina",
       "rarity": "main",
       "id": "star_pillow",
-      "filterCategory": "extractionSpeed",
+      "filterCategory": "stamina",
       "conditional": true,
       "effects": [
         {
@@ -769,10 +769,10 @@
       "name": "Water Cooler",
       "effect": "Grants the user 50 more Stamina, but lowers Movement Speed by 5%.",
       "image": "trinket_water_cooler.png",
-      "category": "movement_speed",
+      "category": "stamina",
       "rarity": "removed",
       "id": "water_cooler",
-      "filterCategory": "movementSpeed",
+      "filterCategory": "stamina",
       "hidden": true,
       "effects": [
         {
@@ -791,10 +791,10 @@
       "name": "Whispering Flower",
       "effect": "Increases Stamina Regeneration by 15% for every item in your inventory.",
       "image": "trinket_whispering_flower.png",
-      "category": "other",
+      "category": "stamina",
       "rarity": "event",
       "id": "whispering_flower",
-      "filterCategory": "other",
+      "filterCategory": "stamina",
       "stackable": true,
       "conditional": true,
       "dynamicItemBased": true,

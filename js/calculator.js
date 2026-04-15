@@ -109,7 +109,7 @@ const Calculator = {
         
         // Now apply Bone modifiers with special capping logic
         if (boneModifiers.count > 0) {
-            this._applyBoneModifiers(baseStats, modifiers, boneModifiers);
+            this._applyBoneModifiers(modifiers, boneModifiers);
         }
 
         // Add team ability modifiers
@@ -240,67 +240,51 @@ const Calculator = {
     /**
      * Extract Bone trinket modifiers from trinket list
      * @param {Array} trinkets - Array of trinkets
-     * @returns {Object} { count: number, singleModifier: number }
+     * @returns {Object} { count: number, modifiers: number[], singleModifier: number }
      */
     _extractBoneModifiers(trinkets) {
         let count = 0;
         let singleModifier = 0.25; // Default Bone modifier
+        const appliedModifiers = [];
         
         trinkets.forEach(trinketEntry => {
             const trinket = trinketEntry.trinket || trinketEntry;
             const trinketCount = trinketEntry.count || 1;
             
             if (trinket && trinket.id === 'bone' && trinket.effects) {
-                count += trinketCount;
                 // Extract the modifier value from effects
                 trinket.effects.forEach(effect => {
                     if (effect.targetStat === 'movementSpeed' && effect.applicationType === 'multiplicative') {
                         singleModifier = effect.value;
                     }
                 });
+
+                if (Array.isArray(trinketEntry.stackModifiers) && trinketEntry.stackModifiers.length > 0) {
+                    appliedModifiers.push(...trinketEntry.stackModifiers);
+                } else {
+                    for (let i = 0; i < trinketCount; i++) {
+                        appliedModifiers.push(singleModifier);
+                    }
+                }
             }
         });
+
+        count = appliedModifiers.length;
         
-        return { count, singleModifier };
+        return { count, modifiers: appliedModifiers, singleModifier };
     },
 
     /**
-     * Apply Bone trinket modifiers with special capping logic
-     * When Run speed reaches 40, cap the modifier so Run = 40 and apply same modifier to Walk
+     * Apply the stored Bone trinket modifiers.
+     * Bone stack sizing is decided at click time in app.js so order-dependent behavior is preserved.
      */
-    _applyBoneModifiers(baseStats, modifiers, boneModifiers) {
-        const RUN_SPEED_CAP = 40;
-        const { count, singleModifier } = boneModifiers;
-        
-        // Calculate what the multiplier would be after applying count Bone trinkets
-        // Each Bone trinket multiplies by (1 + singleModifier)
-        let targetMultiplier = Math.pow(1 + singleModifier, count);
-        
-        // Calculate what Run speed would be with this multiplier
-        let projectedRunSpeed = baseStats.runSpeed * targetMultiplier;
-        
-        // If Run speed would exceed the cap, calculate the exact modifier needed
-        if (projectedRunSpeed > RUN_SPEED_CAP) {
-            // Calculate the multiplier that makes Run = 40
-            const cappedMultiplier = RUN_SPEED_CAP / baseStats.runSpeed;
-            
-            // Convert back to modifier form: multiplier = 1 + modifier, so modifier = multiplier - 1
-            const cappedModifier = cappedMultiplier - 1;
-            
-            // Apply this capped modifier to movementSpeed
+    _applyBoneModifiers(modifiers, boneModifiers) {
+        boneModifiers.modifiers.forEach(boneModifier => {
             modifiers.movementSpeed.multiplicative.push({
-                value: cappedModifier,
+                value: boneModifier,
                 cap: null
             });
-        } else {
-            // Run speed is still under cap, apply all Bone modifiers normally
-            for (let i = 0; i < count; i++) {
-                modifiers.movementSpeed.multiplicative.push({
-                    value: singleModifier,
-                    cap: null
-                });
-            }
-        }
+        });
     },
 
     /**

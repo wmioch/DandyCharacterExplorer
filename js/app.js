@@ -401,6 +401,103 @@ const App = {
         }
     },
 
+    _findEquippedTrinketEntry(trinketId) {
+        return this.state.equippedTrinkets.find(t =>
+            (t.trinket ? t.trinket.id === trinketId : t.id === trinketId)
+        );
+    },
+
+    _getDefaultBoneModifier(trinket) {
+        const boneEffect = trinket.effects.find(effect =>
+            effect.targetStat === 'movementSpeed' && effect.applicationType === 'multiplicative'
+        );
+        return boneEffect ? boneEffect.value : 0.25;
+    },
+
+    _normalizeBoneStackState(entry, defaultModifier) {
+        if (!entry) {
+            return [];
+        }
+
+        if (Array.isArray(entry.stackModifiers) && entry.stackModifiers.length > 0) {
+            entry.count = entry.stackModifiers.length;
+            return entry.stackModifiers;
+        }
+
+        const currentCount = entry.count || 0;
+        entry.stackModifiers = Array(currentCount).fill(defaultModifier);
+        entry.count = entry.stackModifiers.length;
+        return entry.stackModifiers;
+    },
+
+    _calculateNextBoneStackModifier() {
+        const BONE_SPEED_CAP = 40;
+        const MAX_STACK_MODIFIER = 0.25;
+        const EPSILON = 1e-9;
+        const currentStats = this.getCalculatedStats();
+
+        if (!currentStats) {
+            return { allowed: false, message: 'Select a toon before applying Bone stacks.' };
+        }
+
+        const currentWalkSpeed = currentStats.final.walkSpeed;
+        const currentRunSpeed = currentStats.final.runSpeed;
+
+        if (currentWalkSpeed >= BONE_SPEED_CAP - EPSILON || currentRunSpeed >= BONE_SPEED_CAP - EPSILON) {
+            return {
+                allowed: false,
+                message: 'Bone cannot stack because Walk or Run Speed is already 40 or higher.'
+            };
+        }
+
+        const maxWalkModifier = (BONE_SPEED_CAP / currentWalkSpeed) - 1;
+        const maxRunModifier = (BONE_SPEED_CAP / currentRunSpeed) - 1;
+        const nextModifier = Math.min(MAX_STACK_MODIFIER, maxWalkModifier, maxRunModifier);
+
+        if (nextModifier <= EPSILON) {
+            return {
+                allowed: false,
+                message: 'Bone cannot stack because Walk or Run Speed is already capped.'
+            };
+        }
+
+        return { allowed: true, modifier: nextModifier };
+    },
+
+    _addBoneStack(trinket) {
+        const existing = this._findEquippedTrinketEntry('bone');
+        const defaultBoneModifier = this._getDefaultBoneModifier(trinket);
+        const stackCount = existing
+            ? this._normalizeBoneStackState(existing, defaultBoneModifier).length
+            : 0;
+
+        if (stackCount >= 10) {
+            UI.showToast('Bone is already at the 10 stack limit.');
+            return false;
+        }
+
+        const nextBoneModifier = this._calculateNextBoneStackModifier();
+        if (!nextBoneModifier.allowed) {
+            UI.showToast(nextBoneModifier.message);
+            console.log(nextBoneModifier.message);
+            return false;
+        }
+
+        if (existing) {
+            const stackModifiers = this._normalizeBoneStackState(existing, defaultBoneModifier);
+            stackModifiers.push(nextBoneModifier.modifier);
+            existing.count = stackModifiers.length;
+        } else {
+            this.state.equippedTrinkets.push({
+                trinket,
+                count: 1,
+                stackModifiers: [nextBoneModifier.modifier]
+            });
+        }
+
+        return true;
+    },
+
     /**
      * Handle trinket grid item toggle
      */
@@ -409,60 +506,12 @@ const App = {
         
         if (trinket.stackable) {
             // For stackable trinkets, increment count (max 10)
-            const existing = this.state.equippedTrinkets.find(t => 
-                (t.trinket ? t.trinket.id === trinketId : t.id === trinketId)
-            );
+            const existing = this._findEquippedTrinketEntry(trinketId);
             
-            // Special check for Bone: cannot exceed run speed cap of 40
+            let didChange = false;
+
             if (trinketId === 'bone') {
-                // Get current stats
-                const currentStats = Calculator.calculateFinalStats(
-                    this.state.selectedToon,
-                    this.state.equippedTrinkets,
-                    this.state.activeAbilities,
-                    this.state.activeItems,
-                    null,
-                    this.state.teamMembers.length
-                );
-                
-                // Simulate what the trinkets array would look like with one more Bone
-                let simulatedTrinkets = this.state.equippedTrinkets.map(t => ({...t})); // Deep copy
-                
-                if (existing) {
-                    // Find and increment the Bone in the simulated array
-                    const simBone = simulatedTrinkets.find(t => (t.trinket ? t.trinket.id === 'bone' : t.id === 'bone'));
-                    if (simBone) simBone.count += 1;
-                } else {
-                    // Add a new Bone entry to the simulated array
-                    simulatedTrinkets.push({ trinket, count: 1 });
-                }
-                
-                // Calculate stats with the simulated Bone count
-                const statsResult = Calculator.calculateFinalStats(
-                    this.state.selectedToon,
-                    simulatedTrinkets,
-                    this.state.activeAbilities,
-                    this.state.activeItems,
-                    null,
-                    this.state.teamMembers.length
-                );
-                
-                // Check if stats are already at cap (adding another Bone doesn't change them)
-                const walkSpeedAtCap = currentStats.final.walkSpeed >= 40 && statsResult.final.walkSpeed === currentStats.final.walkSpeed;
-                const runSpeedAtCap = currentStats.final.runSpeed >= 40 && statsResult.final.runSpeed === currentStats.final.runSpeed;
-                
-                if (walkSpeedAtCap || runSpeedAtCap) {
-                    console.log('Bone stacking limit reached - movement speed already at cap of 40');
-                    this.updateDisplay();
-                    return;
-                }
-                
-                // Cap check passed - now actually update the state
-                if (existing) {
-                    existing.count += 1;
-                } else {
-                    this.state.equippedTrinkets.push({ trinket, count: 1 });
-                }
+                didChange = this._addBoneStack(trinket);
             } else {
                 // For other stackable trinkets, just increment normally
                 if (existing) {
@@ -470,8 +519,14 @@ const App = {
                 } else {
                     this.state.equippedTrinkets.push({ trinket, count: 1 });
                 }
+                didChange = true;
             }
-            
+
+            if (!didChange) {
+                this.updateDisplay();
+                return;
+            }
+
             trinketItem.classList.add('selected');
         } else {
             // For non-stackable trinkets, toggle on/off
@@ -525,11 +580,17 @@ const App = {
         
         if (trinket.stackable) {
             // For stackable trinkets, decrement count
-            const existing = this.state.equippedTrinkets.find(t => 
-                (t.trinket ? t.trinket.id === trinketId : t.id === trinketId)
-            );
+            const existing = this._findEquippedTrinketEntry(trinketId);
             if (existing) {
-                existing.count = Math.max(existing.count - 1, 0);
+                if (trinketId === 'bone') {
+                    const defaultBoneModifier = this._getDefaultBoneModifier(trinket);
+                    const stackModifiers = this._normalizeBoneStackState(existing, defaultBoneModifier);
+                    stackModifiers.pop();
+                    existing.count = stackModifiers.length;
+                } else {
+                    existing.count = Math.max(existing.count - 1, 0);
+                }
+
                 if (existing.count === 0) {
                     // Remove from equipped trinkets when count reaches 0
                     this.state.equippedTrinkets = this.state.equippedTrinkets.filter(t => 
@@ -555,10 +616,11 @@ const App = {
         const mergedMachineCategories = new Set(['extractionSpeed', 'skillCheckAmount']);
 
         trinkets.forEach(trinket => {
-            const trinketCategory = trinket.dataset.category;
-            const showMergedMachineCategory = category === 'machineStats' && mergedMachineCategories.has(trinketCategory);
+            const trinketCategories = (trinket.dataset.category || '').split(/\s+/).filter(Boolean);
+            const showMergedMachineCategory = category === 'machineStats'
+                && trinketCategories.some(trinketCategory => mergedMachineCategories.has(trinketCategory));
 
-            if (category === 'all' || showMergedMachineCategory || trinketCategory === category) {
+            if (category === 'all' || showMergedMachineCategory || trinketCategories.includes(category)) {
                 trinket.style.display = 'block';
             } else {
                 trinket.style.display = 'none';
