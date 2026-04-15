@@ -31,6 +31,8 @@ css/
   components.css
   responsive.css
 js/
+  analytics-config.js
+  analytics.js
   data-loader.js
   calculator.js
   ui.js
@@ -57,6 +59,17 @@ Set:
 - `appVersion` to the frontend version string you want submitted
 
 The backend lives in `api/` and deploys separately from the GitHub Pages frontend.
+
+## Google Analytics Setup
+
+The frontend Google Analytics tag reads its settings from `js/analytics-config.js`.
+
+Set:
+
+- `measurementId` to your GA4 web stream ID, for example `G-XXXXXXXXXX`
+- `allowLocalhost` to `true` only if you want local page views sent during HTTP-served testing
+
+If `measurementId` is empty, Analytics stays disabled. Localhost traffic is skipped by default even when the site is served with `python -m http.server`.
 
 ## Backend Deploy
 
