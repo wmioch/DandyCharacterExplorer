@@ -467,6 +467,20 @@ const UI = {
     },
 
     /**
+     * Convert a base stat value back to its displayed star rating.
+     */
+    _getStarRatingForBaseValue(statKey, value, fallbackStarCount) {
+        const mapping = DataLoader.data.statMappings?.[statKey];
+        if (!mapping || value === undefined || Number.isNaN(value)) {
+            return fallbackStarCount;
+        }
+
+        return Object.entries(mapping).reduce((bestRating, [rating, statValue]) => {
+            return value >= statValue ? Math.max(bestRating, parseInt(rating, 10)) : bestRating;
+        }, 1);
+    },
+
+    /**
      * Update stats display
      */
     updateStatsDisplay(statsResult, toon = null, conditionalStatSet = null) {
@@ -611,12 +625,7 @@ const UI = {
                         }
                         // For walkSpeed and runSpeed
                         else if (stat.key === 'walkSpeed' || stat.key === 'runSpeed') {
-                            if (currentBase >= 60) starCount = 5; // Allow for dash abilities
-                            else if (currentBase >= 20) starCount = 5;
-                            else if (currentBase >= 17.5) starCount = 4;
-                            else if (currentBase >= 15) starCount = 3;
-                            else if (currentBase >= 12.5) starCount = 2;
-                            else starCount = 1;
+                            starCount = this._getStarRatingForBaseValue(stat.key, currentBase, starCount);
                         }
                         // For extractionSpeed
                         else if (stat.key === 'extractionSpeed') {
