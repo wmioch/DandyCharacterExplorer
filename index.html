@@ -323,6 +323,13 @@
 
                             <!-- Default / Circle Machines Section -->
                             <div class="machine-type-section">
+                                <button
+                                    id="open-machine-calculation-modal"
+                                    class="machine-calculation-info-btn"
+                                    type="button"
+                                    title="View current machine calculation details"
+                                    aria-label="View current machine calculation details"
+                                >?</button>
                                 <h4 class="machine-type-header">Default / Circle Machines</h4>
                                 <div class="machine-stats-grid">
                                     <div class="machine-stat-item">
@@ -400,6 +407,22 @@
             <div class="modal-footer">
                 <button id="cancel-feedback-modal" class="modal-reset-btn">Cancel</button>
                 <button id="submit-feedback" class="modal-apply-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Machine Calculation Modal -->
+    <div id="machine-calculation-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="machine-calculation-title">
+        <div class="modal-content machine-calculation-modal-content">
+            <div class="modal-header">
+                <h3 id="machine-calculation-title" class="modal-title">Current Machine Calculation</h3>
+                <button id="close-machine-calculation-modal" class="modal-close-btn" aria-label="Close machine calculation details">&times;</button>
+            </div>
+            <div class="modal-body">
+                <pre id="machine-calculation-output" class="machine-calculation-output"></pre>
+            </div>
+            <div class="modal-footer">
+                <button id="dismiss-machine-calculation-modal" class="modal-reset-btn">Close</button>
             </div>
         </div>
     </div>
@@ -561,9 +584,9 @@
 
     <!-- Scripts -->
     <script src="js/data-loader.js?v=20251028"></script>
-    <script src="js/calculator.js?v=20251028"></script>
-    <script src="js/ui.js?v=20251028"></script>
-    <script src="js/app.js?v=20251028"></script>
+    <script src="js/calculator.js?v=20260506"></script>
+    <script src="js/ui.js?v=20260506"></script>
+    <script src="js/app.js?v=20260506"></script>
     <script src="js/feedback-config.js?v=20260413"></script>
     <script src="js/feedback.js?v=20260413"></script>
     <script>

@@ -1260,3 +1260,23 @@ button {
     line-height: 1;
 }
 
+.stress-ball-stack-badge {
+    flex-direction: column;
+    gap: 1px;
+    min-width: 30px;
+    padding: 2px 4px;
+    line-height: 1;
+}
+
+.stress-ball-stack-label {
+    color: var(--text-secondary);
+    font-size: 0.45rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.stress-ball-stack-value {
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+}

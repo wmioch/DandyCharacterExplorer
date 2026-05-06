@@ -624,6 +624,34 @@
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
+    position: relative;
+}
+
+.machine-calculation-info-btn {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    z-index: 1;
+}
+
+.machine-calculation-info-btn:hover,
+.machine-calculation-info-btn:focus-visible {
+    background: var(--bg-hover);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    outline: none;
 }
 
 .machine-type-header {
@@ -802,6 +830,26 @@
 
 .feedback-modal-content {
     max-width: 560px;
+}
+
+.machine-calculation-modal-content {
+    max-width: 760px;
+}
+
+.machine-calculation-output {
+    margin: 0;
+    padding: var(--spacing-md);
+    max-height: 58vh;
+    overflow: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .feedback-label {

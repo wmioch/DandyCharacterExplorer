@@ -52,6 +52,18 @@
         font-size: 0.6rem;
         padding: 1px 3px;
     }
+
+    .stress-ball-stack-badge {
+        min-width: 24px;
+    }
+
+    .stress-ball-stack-label {
+        font-size: 0.35rem;
+    }
+
+    .stress-ball-stack-value {
+        font-size: 0.6rem;
+    }
 }
 
 /* Tablet (768px - 1024px) */

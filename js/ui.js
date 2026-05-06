@@ -162,7 +162,7 @@ const UI = {
     /**
      * Update selected trinkets in grid (add/remove selected class and show counts)
      */
-    updateSelectedTrinketsInGrid(selectedTrinketIds, equippedTrinkets) {
+    updateSelectedTrinketsInGrid(selectedTrinketIds, equippedTrinkets, machineExtractionResult = null) {
         const grid = document.getElementById('trinket-list');
         if (!grid) return;
         
@@ -184,6 +184,24 @@ const UI = {
             const selectedItem = grid.querySelector(`[data-trinket-id="${trinketId}"]`);
             if (selectedItem) {
                 selectedItem.classList.add('selected');
+
+                if (trinketId === 'stress_ball') {
+                    const badge = document.createElement('div');
+                    badge.className = 'count-badge stress-ball-stack-badge';
+
+                    const label = document.createElement('span');
+                    label.className = 'stress-ball-stack-label';
+                    label.textContent = 'STACKS';
+
+                    const value = document.createElement('span');
+                    value.className = 'stress-ball-stack-value';
+                    value.textContent = `x${machineExtractionResult?.maxStressBallStacks ?? 0}`;
+
+                    badge.appendChild(label);
+                    badge.appendChild(value);
+                    selectedItem.appendChild(badge);
+                    return;
+                }
                 
                 // Add count badge for stackable trinkets with count > 0
                 if (trinket.stackable && count > 0) {

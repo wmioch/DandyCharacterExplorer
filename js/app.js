@@ -7,6 +7,7 @@ const App = {
     tutorialStorageKey: 'tutorialSeen:v3',
     tutorialCurrentPage: 1,
     tutorialTotalPages: 6,
+    lastMachineCalculationDebug: '',
     state: {
         selectedToon: null,
         equippedTrinkets: [], // Array of {trinket, count} objects for stackable trinkets, or just trinkets for non-stackable
@@ -272,11 +273,56 @@ const App = {
             });
         }
 
+        const machineCalculationModal = document.getElementById('machine-calculation-modal');
+        const openMachineCalculationBtn = document.getElementById('open-machine-calculation-modal');
+        const closeMachineCalculationBtn = document.getElementById('close-machine-calculation-modal');
+        const dismissMachineCalculationBtn = document.getElementById('dismiss-machine-calculation-modal');
+
+        if (openMachineCalculationBtn) {
+            openMachineCalculationBtn.addEventListener('click', () => this.showMachineCalculationModal());
+        }
+
+        if (closeMachineCalculationBtn) {
+            closeMachineCalculationBtn.addEventListener('click', () => this.hideMachineCalculationModal());
+        }
+
+        if (dismissMachineCalculationBtn) {
+            dismissMachineCalculationBtn.addEventListener('click', () => this.hideMachineCalculationModal());
+        }
+
+        if (machineCalculationModal) {
+            machineCalculationModal.addEventListener('click', (e) => {
+                if (e.target.id === 'machine-calculation-modal') {
+                    this.hideMachineCalculationModal();
+                }
+            });
+        }
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && tutorialModal && tutorialModal.style.display === 'flex') {
                 this.hideTutorialModal();
             }
+
+            if (e.key === 'Escape' && machineCalculationModal && machineCalculationModal.style.display === 'flex') {
+                this.hideMachineCalculationModal();
+            }
         });
+    },
+
+    showMachineCalculationModal() {
+        const modal = document.getElementById('machine-calculation-modal');
+        const output = document.getElementById('machine-calculation-output');
+        if (!modal || !output) return;
+
+        output.textContent = this.lastMachineCalculationDebug || 'No machine calculation has been run yet.';
+        modal.style.display = 'flex';
+    },
+
+    hideMachineCalculationModal() {
+        const modal = document.getElementById('machine-calculation-modal');
+        if (!modal) return;
+
+        modal.style.display = 'none';
     },
 
     maybeShowTutorial() {
@@ -1306,12 +1352,11 @@ const App = {
     updateDisplay() {
         const stats = this.getCalculatedStats();
         
-        // Sync trinket UI selections
         // Handle both old format (trinket) and new format ({trinket, count})
         const selectedTrinketIds = this.state.equippedTrinkets.map(t => 
             t.trinket ? t.trinket.id : t.id
         );
-        UI.updateSelectedTrinketsInGrid(selectedTrinketIds, this.state.equippedTrinkets);
+        let extraction = null;
         
         // Update item counters
         UI.updateItemCounters(this.state.activeItems);
@@ -1338,7 +1383,7 @@ const App = {
             }
             
             // Pass the modified trinkets array to machine stats calculation
-            const extraction = Calculator.calculateMachineStatsFromState({
+            extraction = this.calculateMachineStatsWithDebug({
                 ...this.state,
                 equippedTrinkets: trinketsForCalc
             });
@@ -1371,6 +1416,60 @@ const App = {
             }
             
             UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true);
+        }
+
+        // Sync trinket UI selections after machine calculation so Stress Ball can show max stacks.
+        UI.updateSelectedTrinketsInGrid(selectedTrinketIds, this.state.equippedTrinkets, extraction);
+    },
+
+    calculateMachineStatsWithDebug(machineState) {
+        const debugLines = [];
+        const originalConsole = {
+            log: console.log,
+            group: console.group,
+            groupEnd: console.groupEnd
+        };
+        let indent = 0;
+
+        const formatMessage = (args) => args.map(arg => {
+            if (typeof arg === 'string') {
+                return arg;
+            }
+
+            try {
+                return JSON.stringify(arg, null, 2);
+            } catch (error) {
+                return String(arg);
+            }
+        }).join(' ');
+
+        console.log = (...args) => {
+            debugLines.push(`${'  '.repeat(indent)}${formatMessage(args)}`);
+            originalConsole.log.apply(console, args);
+        };
+
+        console.group = (...args) => {
+            debugLines.push(`${'  '.repeat(indent)}${formatMessage(args)}`);
+            indent += 1;
+            originalConsole.group.apply(console, args);
+        };
+
+        console.groupEnd = (...args) => {
+            indent = Math.max(0, indent - 1);
+            originalConsole.groupEnd.apply(console, args);
+        };
+
+        try {
+            const result = Calculator.calculateMachineStatsFromState(machineState);
+            this.lastMachineCalculationDebug = debugLines.join('\n');
+            if (result) {
+                result.debugLog = this.lastMachineCalculationDebug;
+            }
+            return result;
+        } finally {
+            console.log = originalConsole.log;
+            console.group = originalConsole.group;
+            console.groupEnd = originalConsole.groupEnd;
         }
     },
 

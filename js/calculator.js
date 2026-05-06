@@ -1163,6 +1163,8 @@ const Calculator = {
                     default: instantResult,
                     firstMachine: instantResult,
                     hasWrench: hasWrench,
+                    hasStressBall: hasStressBall,
+                    maxStressBallStacks: 0,
                     cascadeBreakdown: []
                 };
                 console.groupEnd();
@@ -1252,6 +1254,11 @@ const Calculator = {
             default: defaultResult,
             firstMachine: wrenchResult || defaultResult,
             hasWrench: hasWrench,
+            hasStressBall: hasStressBall,
+            maxStressBallStacks: Math.max(
+                defaultResult.maxStressBallStacks || 0,
+                wrenchResult ? (wrenchResult.maxStressBallStacks || 0) : 0
+            ),
             cascadeBreakdown: defaultResult.cascadeBreakdown
         };
 
@@ -1283,6 +1290,7 @@ const Calculator = {
         let itemIndex = 0;
         let successProgress = 0;
         let stressExpirations = [];
+        let maxStressBallStacks = 0;
 
         console.log(`  📅 CASCADE TIMELINE (${timeline.length} item breakpoints${hasStressBall ? ' + Stress Ball events' : ''})`);
         console.log(`  🔄 Starting cascade with ${unitsRemaining.toFixed(2)} units`);
@@ -1297,6 +1305,7 @@ const Calculator = {
             const stepSkillCheckAmount = stepStats.final.skillCheckAmount;
             const stepSkillCheckChance = stepStats.final.skillCheckChance;
             const currentStressStacks = hasStressBall ? stressExpirations.length : 0;
+            maxStressBallStacks = Math.max(maxStressBallStacks, currentStressStacks);
             const metrics = this._getMachineProgressMetrics(
                 stepExtractionSpeed,
                 stepSkillCheckAmount,
@@ -1334,7 +1343,7 @@ const Calculator = {
             const segmentEnd = timeSoFar + segment.timeConsumed;
 
             console.log(`    ▶️ Step ${cascadeBreakdown.length + 1}: ${segmentStart.toFixed(2)}s → ${segmentEnd.toFixed(2)}s (${segmentDuration.toFixed(2)}s)`);
-            console.log(`       Stats: ${segment.adjustedExtractionSpeed.toFixed(3)} extraction (${stepExtractionSpeed}${currentStressStacks > 0 ? ` ×${(1 + (0.05 * currentStressStacks)).toFixed(3)} Stress Ball` : ''}), ${stepSkillCheckAmount} skill bonus`);
+            console.log(`       Stats: ${segment.adjustedExtractionSpeed.toFixed(3)} extraction (${stepExtractionSpeed}${currentStressStacks > 0 ? ` ×${(1 + (0.05 * currentStressStacks)).toFixed(3)} Stress Ball` : ''}), ${stepSkillCheckAmount} skill check amount`);
             console.log(`       Progress: ${segment.unitsCompleted.toFixed(2)} units, ${segment.expectedSkillChecks.toFixed(2)} checks`);
 
             unitsRemaining = segment.unitsRemaining;
@@ -1371,6 +1380,7 @@ const Calculator = {
                 successProgress = Math.max(0, successProgress - 1);
                 stressExpirations.push(timeSoFar + 15);
                 stressExpirations.sort((a, b) => a - b);
+                maxStressBallStacks = Math.max(maxStressBallStacks, stressExpirations.length);
             }
 
             cascadeBreakdown.push({
@@ -1408,6 +1418,7 @@ const Calculator = {
             expectedSkillChecks: Math.round(totalSkillChecks * 10) / 10,
             expectedSuccessfulChecks: Math.round(totalSuccessfulChecks * 10) / 10,
             effectiveProgressRate: initialExtractionSpeed,
+            maxStressBallStacks: maxStressBallStacks,
             cascadeBreakdown: cascadeBreakdown
         };
     },
