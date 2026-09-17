@@ -321,6 +321,16 @@
                                 <input type="range" id="skill-check-great-rate-slider" min="0" max="100" value="100" step="5" class="skill-slider">
                             </div>
 
+                            <!-- Completed-machine stack count for Finn/Shelly passive boosts -->
+                            <div class="machine-stats-slider-section">
+                                <div class="machine-stats-header">
+                                    <label class="machine-stats-label" for="machine-completion-count" title="Number of completed machines whose Finn Reel In or Shelly Problem Solver boosts are active">Completed Machine Boost Stacks</label>
+                                    <span id="machine-completion-count-value" class="machine-stats-value">1</span>
+                                </div>
+                                <input type="number" id="machine-completion-count" min="0" max="25" step="1" value="1" inputmode="numeric" aria-describedby="machine-completion-count-help">
+                                <small id="machine-completion-count-help" class="machine-stats-help">Set the completed-machine count to model one timed movement boost per completion (up to 25).</small>
+                            </div>
+
                             <!-- Default / Circle Machines Section -->
                             <div class="machine-type-section">
                                 <button

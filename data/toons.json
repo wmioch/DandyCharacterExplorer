@@ -550,18 +550,20 @@
       "ability": {
         "id": "finn_reel_in",
         "name": "Reel In",
-        "description": "(Passive) This Toon gains a 35% Movement Speed boost when any Machine is completed for 10 seconds.",
+        "description": "(Passive) This Toon gains a 35% Movement Speed boost for 10 seconds whenever a Machine is completed; boosts from multiple completions stack.",
         "effectType": "conditional",
         "targetStat": "movementSpeed",
         "value": 0.35,
         "applicationType": "multiplicative",
         "affectsSelf": true,
-        "stackable": false,
+        "stackable": true,
         "hasToggle": true,
         "playerEffect": {
           "movementSpeed": 0.35,
           "applicationType": "multiplicative"
-        }
+        },
+        "machineCompletionStackable": true,
+        "maxStacks": 25
       },
       "conditionalStats": null
     },
@@ -1239,18 +1241,20 @@
       "ability2": {
         "id": "shelly_problem_solver",
         "name": "Problem Solver",
-        "description": "(Passive) This Toon gains a 25% Movement Speed boost when any Machine is completed for 10 seconds.",
+        "description": "(Passive) This Toon gains a 25% Movement Speed boost for 10 seconds whenever a Machine is completed; boosts from multiple completions stack.",
         "effectType": "conditional",
         "targetStat": "movementSpeed",
         "value": 0.25,
         "applicationType": "multiplicative",
         "affectsSelf": true,
-        "stackable": false,
+        "stackable": true,
         "hasToggle": true,
         "playerEffect": {
           "movementSpeed": 0.25,
           "applicationType": "multiplicative"
-        }
+        },
+        "machineCompletionStackable": true,
+        "maxStacks": 25
       },
       "conditionalStats": null
     },

@@ -18,6 +18,7 @@ const App = {
         selectedConditionalStat: null,
         skillCheckSuccessRate: 1.0,
         teamSize: 1,  // ← ADD THIS: Calculate based on teamMembers
+        machineCompletionCount: 1, // Completed-machine count for Finn/Shelly passive stacks
         sortBy: 'speed',
         sortDirection: 'desc'
     },
@@ -207,6 +208,14 @@ const App = {
         if (skillCheckGreatRateSlider) {
             skillCheckGreatRateSlider.addEventListener('input', (e) => {
                 this.handleSkillCheckGreatRateChange(e.target.value);
+            });
+        }
+
+        // Completed-machine count for stackable Finn/Shelly passive boosts
+        const machineCompletionCountInput = document.getElementById('machine-completion-count');
+        if (machineCompletionCountInput) {
+            machineCompletionCountInput.addEventListener('input', (e) => {
+                this.handleMachineCompletionCountChange(e.target.value);
             });
         }
         
@@ -1232,6 +1241,28 @@ const App = {
     },
 
     /**
+     * Handle completed-machine count changes for stackable passive boosts
+     */
+    handleMachineCompletionCountChange(value) {
+        const parsedValue = Number.parseInt(value, 10);
+        const normalizedValue = Number.isFinite(parsedValue)
+            ? Math.min(Math.max(parsedValue, 0), 25)
+            : 1;
+        this.state.machineCompletionCount = normalizedValue;
+
+        const input = document.getElementById('machine-completion-count');
+        const display = document.getElementById('machine-completion-count-value');
+        if (input && input.value !== String(normalizedValue)) {
+            input.value = String(normalizedValue);
+        }
+        if (display) {
+            display.textContent = String(normalizedValue);
+        }
+
+        this.updateDisplay();
+    },
+
+    /**
      * Handle sort button clicks
      */
     handleSort(sortBy) {
@@ -1342,7 +1373,8 @@ const App = {
             this.state.activeAbilities,
             this.state.activeItems,
             this.state.selectedConditionalStat,
-            teamSize
+            teamSize,
+            this.state.machineCompletionCount
         );
     },
 

@@ -12,9 +12,10 @@ const Calculator = {
      * @param {Array} items - Array of {item, count} objects
      * @param {Object} conditionalStatSet - Optional conditional stat override
      * @param {number} teamSize - Number of toons on team (for Boxten's ability)
+     * @param {number} machineCompletionCount - Completed-machine count used by stackable passive boosts
      * @returns {Object} Final calculated stats
      */
-    calculateFinalStats(toon, trinkets, teamAbilities, items, conditionalStatSet, teamSize = 1) {
+    calculateFinalStats(toon, trinkets, teamAbilities, items, conditionalStatSet, teamSize = 1, machineCompletionCount = 1) {
         if (!toon) {
             return null;
         }
@@ -54,7 +55,7 @@ const Calculator = {
         };
 
         // Apply player toon abilities
-        this._applyPlayerAbilities(toon, modifiers, teamSize);
+        this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount);
 
         // Apply conditional modifier overrides (e.g., Looey's heart-based speed boost)
         if (conditionalStatSet && conditionalStatSet.modifierOverrides) {
@@ -333,15 +334,15 @@ const Calculator = {
     /**
      * Apply player toon abilities to modifiers
      */
-    _applyPlayerAbilities(toon, modifiers, teamSize) {
+    _applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount = 1) {
         // Check ability 1
         if (toon.ability && toon.ability.playerEffect) {
-            this._applyAbilityEffect(toon.ability, modifiers, teamSize);
+            this._applyAbilityEffect(toon.ability, modifiers, teamSize, machineCompletionCount);
         }
         
         // Check ability 2
         if (toon.ability2 && toon.ability2.playerEffect) {
-            this._applyAbilityEffect(toon.ability2, modifiers, teamSize);
+            this._applyAbilityEffect(toon.ability2, modifiers, teamSize, machineCompletionCount);
         }
     },
 
@@ -416,7 +417,7 @@ const Calculator = {
     /**
      * Apply a single ability effect
      */
-    _applyAbilityEffect(ability, modifiers, teamSize) {
+    _applyAbilityEffect(ability, modifiers, teamSize, machineCompletionCount = 1) {
         const effect = ability.playerEffect;
         
         if (!this._isAbilityEnabled(ability)) {
@@ -448,12 +449,22 @@ const Calculator = {
             return;
         }
 
-        // Apply movement speed effects
+        // Apply movement speed effects. Finn Reel In and Shelly Problem Solver
+        // grant one timed boost per completed machine; model each stack as its own
+        // multiplicative modifier so the existing modifier pipeline compounds them.
+        const completionStackCount = ability.machineCompletionStackable
+            ? Math.max(0, Math.min(
+                Math.floor(Number(machineCompletionCount) || 0),
+                ability.maxStacks || 25
+            ))
+            : 1;
         if (effect.movementSpeed !== undefined) {
             if (effect.applicationType === 'multiplicative') {
-                modifiers.movementSpeed.multiplicative.push({ value: effect.movementSpeed, cap: null });
+                for (let stack = 0; stack < completionStackCount; stack++) {
+                    modifiers.movementSpeed.multiplicative.push({ value: effect.movementSpeed, cap: null });
+                }
             } else if (effect.applicationType === 'additive') {
-                modifiers.movementSpeed.additive += effect.movementSpeed;
+                modifiers.movementSpeed.additive += effect.movementSpeed * completionStackCount;
             }
         }
 
@@ -909,7 +920,8 @@ const Calculator = {
             activeAbilities: state.activeAbilities ? [...state.activeAbilities] : [],
             selectedConditionalStat: state.selectedConditionalStat,
             teamSize: state.teamSize || 1,
-            skillCheckSuccessRate: state.skillCheckSuccessRate || 1.0
+            skillCheckSuccessRate: state.skillCheckSuccessRate || 1.0,
+            machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1
         };
     },
 
@@ -934,7 +946,8 @@ const Calculator = {
             state.activeAbilities || [],
             state.activeItems || [],
             state.selectedConditionalStat,
-            state.teamSize || 1
+            state.teamSize || 1,
+            Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1
         );
     },
 
@@ -1101,6 +1114,7 @@ const Calculator = {
         console.log(`  Trinkets: ${state.equippedTrinkets ? state.equippedTrinkets.length : 0}`);
         console.log(`  Items: ${state.activeItems ? state.activeItems.length : 0}`);
         console.log(`  Team Size: ${state.teamSize || 1}`);
+        console.log(`  Completed Machine Boost Stacks: ${Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1}`);
         console.log(`  Team Members: ${state.teamMembers ? state.teamMembers.filter(t => t).length : 0} active`);
         console.log(`  Skill Check Success Rate: ${(state.skillCheckSuccessRate * 100).toFixed(1)}%`);
         const machineState = this._createMachineCalculationState(state);
