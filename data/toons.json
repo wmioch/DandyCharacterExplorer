@@ -550,10 +550,10 @@
       "ability": {
         "id": "finn_reel_in",
         "name": "Reel In",
-        "description": "(Passive) This Toon gains a 33% Movement Speed boost when any Machine is completed for 10 seconds.",
+        "description": "(Passive) This Toon gains a 35% Movement Speed boost when any Machine is completed for 10 seconds.",
         "effectType": "conditional",
         "targetStat": "movementSpeed",
-        "value": 0.33,
+        "value": 0.35,
         "applicationType": "multiplicative",
         "affectsSelf": true,
         "stackable": false,

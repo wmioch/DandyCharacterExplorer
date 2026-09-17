@@ -424,7 +424,7 @@
     },
     {
       "name": "Paint Bucket",
-      "effect": "Increases Skill Check size and chance by 5%.",
+      "effect": "Increases Skill Check size and chance by 10%.",
       "image": "trinket_paint_bucket.png",
       "category": "skill_check",
       "rarity": "common",
@@ -433,12 +433,12 @@
       "effects": [
         {
           "targetStat": "skillCheckSize",
-          "value": 0.05,
+          "value": 0.10,
           "applicationType": "multiplicative"
         },
         {
           "targetStat": "skillCheckChance",
-          "value": 0.05,
+          "value": 0.10,
           "applicationType": "baseStatIncrease"
         }
       ]
