@@ -216,7 +216,7 @@
         "stackable": true,
         "playerEffect": {
           "extractionSpeed": 0.06,
-          "applicationType": "additive",
+          "applicationType": "multiplicative",
           "perTeamMember": true
         }
       },

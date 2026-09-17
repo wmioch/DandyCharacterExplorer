@@ -437,9 +437,14 @@ const Calculator = {
             return;
         }
 
-        // Handle per-team-member bonuses (Boxten's Wind-Up)
+        // Handle per-team-member bonuses (Boxten's Wind-Up).
+        // Since v0.15.17 Wind-Up compounds the Extraction Speed multiplier
+        // once per living Toon (1.06^8 = 1.5938 in a full lobby), rather than
+        // adding 6% directly to the base stat.
         if (effect.perTeamMember && effect.extractionSpeed) {
-            modifiers.extractionSpeed.additive += effect.extractionSpeed * teamSize;
+            const aliveToonCount = Math.max(0, Math.min(Math.floor(teamSize || 0), 8));
+            const compoundedBonus = Math.pow(1 + effect.extractionSpeed, aliveToonCount) - 1;
+            modifiers.extractionSpeed.multiplicative.push({ value: compoundedBonus, cap: null });
             return;
         }
 
