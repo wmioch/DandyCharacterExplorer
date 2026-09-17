@@ -559,7 +559,7 @@
         "stackable": false,
         "hasToggle": true,
         "playerEffect": {
-          "movementSpeed": 0.33,
+          "movementSpeed": 0.35,
           "applicationType": "multiplicative"
         }
       },
