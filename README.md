@@ -2,6 +2,10 @@
 
 Static character calculator for **Dandy's World** with a lightweight Azure Functions feedback backend.
 
+## Video Production
+
+The [video style guide](docs/video-style-guide.md) documents the approved TikTok walkthrough format: real website interactions, clear narration, readable captions and verified calculator results. It includes the reference video's visual settings, production workflow and a reusable brief for future agents.
+
 ## Frontend
 
 - Real-time stat calculations for toons, trinkets, items, and team abilities

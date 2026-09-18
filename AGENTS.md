@@ -2,6 +2,10 @@
 
 This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
+## Character Explorer Videos
+
+For video creation or revision, read [docs/video-style-guide.md](docs/video-style-guide.md) before production. It records the user's approved website walkthrough style and links the reference video, renderer and visual examples. Keep the actual website as the main visual, demonstrate real controls and results, and use narration/captions/highlights to support the walkthrough. Save production artifacts outside the application repository by default. Video creation does not authorize uploading or scheduling.
+
 ## Running the App
 
 This is a static site that requires a local web server due to CORS restrictions — **never open `index.html` directly via `file://`**.
