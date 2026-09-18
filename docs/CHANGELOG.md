@@ -4,8 +4,11 @@
 
 - Updated Gigi's Surprise! description with the improved rare-item odds and Lucky Coin's exclusion of common items.
 - Updated Lucky Coin's effect description with its Gigi interaction and clarified its existing per-floor reroll.
+- Corrected Fishing Rod's stored description to the machine-highlighting rework announced in the official 0.22.1 changelog on June 13, 2026 (Australia/Sydney). Its existing hidden status is preserved.
 
 Source: [official 0.28.1 changelog](https://discord.com/channels/969934252844138496/969959279626960926/1550582380631429211), posted September 19, 2026 at 05:00 Australia/Sydney and read that day. The release does not specify exact item probabilities or a cooldown change; the existing cooldown remains unchanged. These are description updates only. Item-generation simulation and Twisted Gigi's new stash/inventory behavior remain outside the current calculator.
+
+Fishing Rod source: [official changelog channel](https://discord.com/channels/969934252844138496/969959279626960926), 0.22.1 entry, read September 19. The community page still carried the old starting-item effect; the explicit developer rework takes precedence.
 
 Validation: parsed both changed JSON files, reviewed the diff and ran `git diff --check`. No build, tests, lint or app-browser checks were run.
 

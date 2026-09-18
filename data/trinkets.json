@@ -275,7 +275,7 @@
     },
     {
       "name": "Fishing Rod",
-      "effect": "Start with 3 random items from the Common to Rare tiers. Dandy's Shop exclusive items not included.",
+      "effect": "At the start of each Floor, highlights all machines for 5 seconds, revealing their locations.",
       "image": "trinket_fishing_rod.png",
       "category": "other",
       "rarity": "uncommon",
