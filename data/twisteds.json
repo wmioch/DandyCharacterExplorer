@@ -10,12 +10,12 @@
           "run": 19.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 23.75
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 22.8
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 21.85
         }
       },
       "image": "twisteds/astro.png"
@@ -30,12 +30,12 @@
           "run": 19.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 23.75
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 22.8
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 21.85
         }
       },
       "image": "twisteds/bassie.png"
@@ -71,12 +71,12 @@
           "run": 25.0
         },
         "panic": {
-          "walk": 10.625,
-          "run": 31.25
-        },
-        "panicSuppressed": {
           "walk": 10.2,
           "run": 30.0
+        },
+        "panicSuppressed": {
+          "walk": 9.775,
+          "run": 28.75
         }
       },
       "image": "twisteds/bobette.png"
@@ -91,12 +91,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/boxten.png"
@@ -111,12 +111,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 15.0,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 14.4,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 13.8,
+          "run": 20.7
         }
       },
       "image": "twisteds/brightney.png"
@@ -131,12 +131,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/brusha.png"
@@ -151,12 +151,12 @@
           "run": 16.0
         },
         "panic": {
-          "walk": 10.0,
-          "run": 20.0
-        },
-        "panicSuppressed": {
           "walk": 9.6,
           "run": 19.2
+        },
+        "panicSuppressed": {
+          "walk": 9.2,
+          "run": 18.4
         }
       },
       "image": "twisteds/coal.png"
@@ -171,12 +171,12 @@
           "run": 25.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 31.25
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 30.0
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 28.75
         }
       },
       "image": "twisteds/coal.png"
@@ -191,12 +191,12 @@
           "run": 21.0
         },
         "panic": {
-          "walk": 10.0,
-          "run": 26.25
-        },
-        "panicSuppressed": {
           "walk": 9.6,
           "run": 25.2
+        },
+        "panicSuppressed": {
+          "walk": 9.2,
+          "run": 24.15
         }
       },
       "image": "twisteds/cocoa.png"
@@ -232,12 +232,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/cosmo.png"
@@ -252,12 +252,12 @@
           "run": 19.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 23.75
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 22.8
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 21.85
         }
       },
       "image": "twisteds/eclipse.png"
@@ -272,12 +272,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/eggson.png"
@@ -289,15 +289,15 @@
       "speeds": {
         "normal": {
           "walk": 8.5,
-          "run": 15.5
+          "run": 16.0
         },
         "panic": {
-          "walk": 10.63,
-          "run": 19.38
+          "walk": 10.2,
+          "run": 19.2
         },
         "panicSuppressed": {
-          "walk": 10.2,
-          "run": 18.6
+          "walk": 9.775,
+          "run": 18.4
         }
       },
       "image": "twisteds/finn.png"
@@ -312,12 +312,12 @@
           "run": 18.5
         },
         "panic": {
-          "walk": 22.5,
-          "run": 23.12
-        },
-        "panicSuppressed": {
           "walk": 21.6,
           "run": 22.2
+        },
+        "panicSuppressed": {
+          "walk": 20.7,
+          "run": 21.275
         }
       },
       "image": "twisteds/flutter.png"
@@ -332,12 +332,12 @@
           "run": 17.5
         },
         "panic": {
-          "walk": 21.25,
-          "run": 21.875
-        },
-        "panicSuppressed": {
           "walk": 20.4,
           "run": 21.0
+        },
+        "panicSuppressed": {
+          "walk": 19.55,
+          "run": 20.125
         }
       },
       "image": "twisteds/flyte.png"
@@ -352,12 +352,12 @@
           "run": 19.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 23.75
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 22.8
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 21.85
         }
       },
       "image": "twisteds/gigi.png"
@@ -412,12 +412,12 @@
           "run": 16.0
         },
         "panic": {
-          "walk": 10.0,
-          "run": 20.0
-        },
-        "panicSuppressed": {
           "walk": 9.6,
           "run": 19.2
+        },
+        "panicSuppressed": {
+          "walk": 9.2,
+          "run": 18.4
         }
       },
       "image": "twisteds/goob.png"
@@ -453,12 +453,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/looey.png"
@@ -493,12 +493,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/poppy.png"
@@ -534,12 +534,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/ribecca.png"
@@ -575,12 +575,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/rudie.png"
@@ -595,12 +595,12 @@
           "run": 16.0
         },
         "panic": {
-          "walk": 10.0,
-          "run": 20.0
-        },
-        "panicSuppressed": {
           "walk": 9.6,
           "run": 19.2
+        },
+        "panicSuppressed": {
+          "walk": 9.2,
+          "run": 18.4
         }
       },
       "image": "twisteds/scraps.png"
@@ -615,12 +615,12 @@
           "run": 20.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 25.0
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 24.0
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 23.0
         }
       },
       "image": "twisteds/shelly.png"
@@ -635,12 +635,12 @@
           "run": 16.5
         },
         "panic": {
-          "walk": 11.87,
-          "run": 20.62
-        },
-        "panicSuppressed": {
           "walk": 11.4,
           "run": 19.8
+        },
+        "panicSuppressed": {
+          "walk": 10.925,
+          "run": 18.975
         }
       },
       "image": "twisteds/shrimpo.png"
@@ -675,12 +675,12 @@
           "run": 17.0
         },
         "panic": {
-          "walk": 10.62,
-          "run": 21.25
+          "walk": 10.2,
+          "run": 20.4
         },
         "panicSuppressed": {
-          "walk": 10.1952,
-          "run": 20.4
+          "walk": 9.775,
+          "run": 19.55
         }
       },
       "image": "twisteds/sprout.png"
@@ -695,12 +695,12 @@
           "run": 18.5
         },
         "panic": {
-          "walk": 12.5,
-          "run": 23.12
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 22.2
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 21.275
         }
       },
       "image": "twisteds/teagan.png"
@@ -715,12 +715,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/tisha.png"
@@ -735,12 +735,12 @@
           "run": 20.0
         },
         "panic": {
-          "walk": 15.0,
-          "run": 25.0
-        },
-        "panicSuppressed": {
           "walk": 14.4,
           "run": 24.0
+        },
+        "panicSuppressed": {
+          "walk": 13.8,
+          "run": 23.0
         }
       },
       "image": "twisteds/toodles.png"
@@ -755,12 +755,12 @@
           "run": 18.0
         },
         "panic": {
-          "walk": 12.5,
-          "run": 22.5
-        },
-        "panicSuppressed": {
           "walk": 12.0,
           "run": 21.6
+        },
+        "panicSuppressed": {
+          "walk": 11.5,
+          "run": 20.7
         }
       },
       "image": "twisteds/vee.png"
@@ -775,12 +775,12 @@
           "run": 19.0
         },
         "panic": {
-          "walk": 8.75,
-          "run": 23.75
-        },
-        "panicSuppressed": {
           "walk": 8.4,
           "run": 22.8
+        },
+        "panicSuppressed": {
+          "walk": 8.05,
+          "run": 21.85
         }
       },
       "image": "twisteds/yatta.png"
@@ -795,12 +795,12 @@
           "run": 16.0
         },
         "panic": {
-          "walk": 11.25,
-          "run": 20.0
-        },
-        "panicSuppressed": {
           "walk": 10.8,
           "run": 19.2
+        },
+        "panicSuppressed": {
+          "walk": 10.35,
+          "run": 18.4
         }
       },
       "image": "twisteds/dandy.png"

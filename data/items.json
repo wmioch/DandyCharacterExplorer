@@ -226,7 +226,7 @@
     },
     {
       "name": "Ichor",
-      "effect": "Premium currency earned from Research Capsules. Obtain 2 Ichor and 1% research progress on a random Twisted",
+      "effect": "Main currency used to purchase Toons, Trinkets and other shop content. Earned through gameplay, including collecting Research Capsules; research progress belongs to the capsule pickup, not the currency itself.",
       "duration": null,
       "category": "currency",
       "rarity": "uncommon",

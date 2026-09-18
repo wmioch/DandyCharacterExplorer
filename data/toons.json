@@ -207,7 +207,7 @@
       "ability": {
         "id": "boxten_wind_up",
         "name": "Wind-Up",
-        "description": "(Passive) This Toon gains 6% more Extraction Speed for every alive Toon in the round. Maxes at 48%.",
+        "description": "(Passive) Each alive Toon in the round multiplies this Toon's Extraction Speed by 1.06, for approximately 59.4% more Extraction Speed with eight alive Toons.",
         "effectType": "self",
         "targetStat": "extractionSpeed",
         "value": 0.06,
