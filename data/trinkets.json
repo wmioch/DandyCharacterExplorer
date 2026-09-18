@@ -321,7 +321,7 @@
     },
     {
       "name": "Lucky Coin",
-      "effect": "Boosts a random Stat by 12% once every Floor, effect wears off at the start of each Floor.",
+      "effect": "Boosts a random Stat by 12%, rerolling at the start of each Floor. When equipped by Gigi, her Surprise! ability no longer grants common items.",
       "image": "trinket_lucky_coin.png",
       "category": "other",
       "rarity": "rare",

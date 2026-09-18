@@ -681,7 +681,7 @@
       "ability": {
         "id": "gigi_surprise",
         "name": "Surprise!",
-        "description": "(Active) This Toon can grant herself a random item from any Tier (Dandy's Shop items included). Has a Cooldown of 80.",
+        "description": "(Active) This Toon can grant herself a random item from any Tier, with slightly better odds of rarer items than Dandy's Shop. Equipping Lucky Coin prevents common items from being rolled. Has a Cooldown of 80.",
         "effectType": "itemGeneration",
         "targetStat": "randomItem",
         "value": 1.0,

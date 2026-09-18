@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-19 — Gigi release descriptions
+
+- Updated Gigi's Surprise! description with the improved rare-item odds and Lucky Coin's exclusion of common items.
+- Updated Lucky Coin's effect description with its Gigi interaction and clarified its existing per-floor reroll.
+
+Source: [official 0.28.1 changelog](https://discord.com/channels/969934252844138496/969959279626960926/1550582380631429211), posted September 19, 2026 at 05:00 Australia/Sydney and read that day. The release does not specify exact item probabilities or a cooldown change; the existing cooldown remains unchanged. These are description updates only. Item-generation simulation and Twisted Gigi's new stash/inventory behavior remain outside the current calculator.
+
+Validation: parsed both changed JSON files, reviewed the diff and ran `git diff --check`. No build, tests, lint or app-browser checks were run.
+
 ## 2026-09-18 — routine data corrections
 
 - Corrected Boxten's Wind-Up description to match the existing compounded calculation: `1.06` per alive Toon, approximately `59.4%` more Extraction Speed with eight Toons. No calculation change.
