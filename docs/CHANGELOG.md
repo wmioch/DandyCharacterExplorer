@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-20 — applied debuff scenarios (local preview)
+
+- Added None/I/II/III selectors for Slow, Confused, Tired and Illness. Their reductions multiply existing stat modifiers; state-based machine estimates retain the selected snapshot throughout the calculation. Triggers and expiry are not simulated.
+- Ribecca's applied-debuff immunity disables these controls and ignores their effects; trinket penalties remain active.
+- Sources: [status effect tables](https://dandys-world-robloxhorror.fandom.com/wiki/Status_Effects), [Ribecca](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca), indexed wiki content checked September 20, 2026.
+- Manual acceptance: unmodified Poppy with Slow II has walk/run 11.25/18.75; Confused I extraction is 0.75; Tired II regeneration is 1.2/s; Illness III skill size is 75. Clear statuses to restore defaults. Ribecca ignores them; changing back restores selections. Buff/debuff combinations multiply (a 10% movement buff with Slow II gives 0.825 times base movement).
+- Validation: manual diff review and `git diff --check`; no automated tests, builds, lint or browser checks. Not released.
+
 ## 2026-09-20 — floor and Panic Mode scenarios (local preview)
 
 - Added odd/even-floor and Panic Mode controls in Machine Stats. Clown Horn and Ribbon Spool apply on their respective floors; Vanity Mirror applies only during Panic Mode.

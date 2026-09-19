@@ -21,6 +21,7 @@ const App = {
         machineCompletionCount: 1, // Completed-machine count for Finn/Shelly passive stacks
         floorParity: 'odd',
         panicMode: false,
+        debuffs: { slow: 0, confused: 0, tired: 0, illness: 0 },
         sortBy: 'speed',
         sortDirection: 'desc'
     },
@@ -232,6 +233,13 @@ const App = {
         });
 
         // Tab navigation
+        document.querySelectorAll('[data-debuff]').forEach(input => {
+            input.addEventListener('change', () => {
+                this.state.debuffs[input.dataset.debuff] = Number(input.value);
+                this.updateDisplay();
+            });
+        });
+
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.handleTabSwitch(e.target.dataset.tab);
@@ -1401,7 +1409,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode: this.state.panicMode }
+            { floorParity: this.state.floorParity, panicMode: this.state.panicMode, debuffs: this.state.debuffs }
         );
     },
 
@@ -1410,6 +1418,9 @@ const App = {
      */
     updateDisplay() {
         const stats = this.getCalculatedStats();
+        const immune = this.state.selectedToon?.ability?.targetStat === 'debuffImmunity';
+        document.getElementById('debuff-immunity-note').hidden = !immune;
+        document.querySelectorAll('[data-debuff]').forEach(input => { input.disabled = immune; });
         
         // Handle both old format (trinket) and new format ({trinket, count})
         const selectedTrinketIds = this.state.equippedTrinkets.map(t => 

@@ -68,6 +68,22 @@ const Calculator = {
         // Apply player toon abilities
         this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount);
 
+        // One selected level represents the currently applied status, not its source count.
+        if (scenario?.debuffs && toon.ability?.targetStat !== 'debuffImmunity') {
+            const statusRules = {
+                slow: ['movementSpeed', [0, 0.15, 0.25, 0.5]],
+                confused: ['extractionSpeed', [0, 0.25, 0.5, 0.75]],
+                tired: ['staminaRegen', [0, 0.25, 0.5, 0.75]],
+                illness: ['skillCheckSize', [0, 0.15, 0.25, 0.5]]
+            };
+            Object.entries(statusRules).forEach(([status, [stat, reductions]]) => {
+                const level = Number(scenario.debuffs[status]);
+                if (Number.isInteger(level) && level > 0 && level <= 3) {
+                    modifiers[stat].multiplicative.push({ value: -reductions[level], cap: null });
+                }
+            });
+        }
+
         // Apply conditional modifier overrides (e.g., Looey's heart-based speed boost)
         if (conditionalStatSet && conditionalStatSet.modifierOverrides) {
             Object.entries(conditionalStatSet.modifierOverrides).forEach(([stat, value]) => {
@@ -934,7 +950,8 @@ const Calculator = {
             skillCheckSuccessRate: state.skillCheckSuccessRate || 1.0,
             machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
             floorParity: state.floorParity,
-            panicMode: state.panicMode
+            panicMode: state.panicMode,
+            debuffs: { ...state.debuffs }
         };
     },
 
@@ -961,7 +978,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode } : null
+            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode, debuffs: state.debuffs } : null
         );
     },
 

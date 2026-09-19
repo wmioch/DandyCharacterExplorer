@@ -332,6 +332,20 @@
                                 <p class="machine-stats-help">Clown Horn applies on odd floors; Ribbon Spool on even floors. Vanity Mirror applies only in Panic Mode. Razzle &amp; Dazzle uses the same floor selection.</p>
                             </fieldset>
 
+                            <fieldset class="machine-stats-slider-section">
+                                <legend>Applied debuffs</legend>
+                                <label for="debuff-slow">Slow — movement speed</label>
+                                <select id="debuff-slow" data-debuff="slow"><option value="0">None</option><option value="1">I (-15%)</option><option value="2">II (-25%)</option><option value="3">III (-50%)</option></select>
+                                <label for="debuff-confused">Confused — extraction speed</label>
+                                <select id="debuff-confused" data-debuff="confused"><option value="0">None</option><option value="1">I (-25%)</option><option value="2">II (-50%)</option><option value="3">III (-75%)</option></select>
+                                <label for="debuff-tired">Tired — stamina regeneration</label>
+                                <select id="debuff-tired" data-debuff="tired"><option value="0">None</option><option value="1">I (-25%)</option><option value="2">II (-50%)</option><option value="3">III (-75%)</option></select>
+                                <label for="debuff-illness">Illness — skill check size</label>
+                                <select id="debuff-illness" data-debuff="illness"><option value="0">None</option><option value="1">I (-15%)</option><option value="2">II (-25%)</option><option value="3">III (-50%)</option></select>
+                                <p id="debuff-immunity-note" class="machine-stats-help" hidden>This Toon is immune to applied debuffs. Trinket drawbacks still apply.</p>
+                                <p class="machine-stats-help">Select the levels currently affecting your Toon. Each applies once, multiplying existing buffs. Machine estimates assume these levels remain active throughout; automatic triggers and expiry are not simulated.</p>
+                            </fieldset>
+
                             <!-- Completed-machine stack count for Finn/Shelly passive boosts -->
                             <div class="machine-stats-slider-section">
                                 <div class="machine-stats-header">

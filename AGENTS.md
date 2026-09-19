@@ -89,6 +89,8 @@ App.init()
 
 ### Floor scenario
 
+`App.state.debuffs` stores selected Slow, Confused, Tired and Illness levels (0–3). Calculator applies one multiplicative reduction per selected status; applied-debuff immunity skips these, not trinket penalties. Machine snapshots preserve selections and assume constant duration. Source triggers and expiry are not inferred.
+
 `App.state.floorParity` (default `odd`) and `panicMode` (default `false`) are controlled in Machine Stats. The floor selector and Razzle & Dazzle's conditional-stat radios synchronize in both directions. `Calculator.calculateFinalStats` accepts an optional final scenario argument and gates Clown Horn, Ribbon Spool and Vanity Mirror before applying modifiers. State-based machine calculations preserve the same scenario. Callers without a scenario retain their existing snapshot behavior.
 
 - The frontend feedback button is always present, but submission stays unconfigured until `js/feedback-config.js` contains the deployed Azure Function URL.
