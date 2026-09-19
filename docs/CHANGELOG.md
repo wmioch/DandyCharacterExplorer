@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-20 — Yatta text encoding
+
+- Corrected the corrupted spelling of piñata in Yatta’s description and Piñata Party ability name. No stat or calculation changes.
+- Source: [Yatta reference](https://dandys-world-robloxhorror.fandom.com/wiki/Yatta), checked September 20, 2026.
+- Validation: JSON parsing, manual diff review and `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-09-19 — Gigi release descriptions
 
 - Updated Gigi's Surprise! description with the improved rare-item odds and Lucky Coin's exclusion of common items.
