@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-20 — Bandage price
+
+- Corrected Bandage’s normal shop price from 25 to 60 Tapes. Its healing effect is unchanged.
+- Sources: [wiki item price table](https://dandys-world-robloxhorror.fandom.com/wiki/Items) and [health reference](https://dandysworld.org/mechanics/health), checked September 20, 2026; both specify 60 Tapes before discounts.
+- Validation: parsed the changed JSON, reviewed the diff and ran `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-20 — Yatta text encoding
 
 - Corrected the corrupted spelling of piñata in Yatta’s description and Piñata Party ability name. No stat or calculation changes.
