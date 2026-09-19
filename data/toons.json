@@ -1572,7 +1572,7 @@
     {
       "id": "yatta",
       "name": "Yatta",
-      "description": "Yatta is a pi\u00c3\u00b1ata Toon who drops candy items to help her team. She's festive and fun, bringing joy wherever she goes!",
+      "description": "Yatta is a pi\u00f1ata Toon who drops candy items to help her team. She's festive and fun, bringing joy wherever she goes!",
       "baseStats": {
         "walkSpeed": 17.5,
         "runSpeed": 27.5,
@@ -1593,7 +1593,7 @@
       },
       "ability": {
         "id": "yatta_pinata_party",
-        "name": "Pi\u00c3\u00b1ata Party",
+        "name": "Pi\u00f1ata Party",
         "description": "(Passive) This Toon drops 2 random candy items after completing a machine, and 4 random candy items when injured.",
         "effectType": "itemGeneration",
         "targetStat": "itemDrop",
