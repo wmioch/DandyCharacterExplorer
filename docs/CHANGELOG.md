@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-20 — Rudie ability timing text
+
+- Added Antler Charge’s omitted 0.4-second duration and 23-second cooldown to Rudie’s description. The existing dash calculation and active-state toggle are unchanged.
+- Sources: [Rudie](https://dandysworld.org/toons/rudie), [ability reference](https://dandys-world-robloxhorror.fandom.com/wiki/Abilities), and [multiplier durations](https://dandys-world-robloxhorror.fandom.com/wiki/Multipliers), checked September 20, 2026.
+- Validation: JSON parsing, manual diff review and `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-09-20 — Bandage price
 
 - Corrected Bandage’s normal shop price from 25 to 60 Tapes. Its healing effect is unchanged.
