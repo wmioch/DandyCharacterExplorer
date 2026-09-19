@@ -30,6 +30,12 @@
 - Manual acceptance: with Boxten and only Clown Horn/Ribbon Spool equipped, either floor gives 16.5 walk / 27.5 run (one 10% boost, never two). With only Vanity Mirror, Panic Mode off gives 15/25; on gives 15/32.5. Switching Razzle & Dazzle's floor by either control must update both controls and calculated stats.
 - Validation: manual diff review and `git diff --check`; no build, tests, lint or browser checks. Not released to production.
 
+## 2026-09-20 — Bandage price
+
+- Corrected Bandage’s normal shop price from 25 to 60 Tapes. Its healing effect is unchanged.
+- Sources: [wiki item price table](https://dandys-world-robloxhorror.fandom.com/wiki/Items) and [health reference](https://dandysworld.org/mechanics/health), checked September 20, 2026; both specify 60 Tapes before discounts.
+- Validation: parsed the changed JSON, reviewed the diff and ran `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-20 — Yatta text encoding
 
 - Corrected the corrupted spelling of piñata in Yatta’s description and Piñata Party ability name. No stat or calculation changes.

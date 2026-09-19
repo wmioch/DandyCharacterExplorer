@@ -25,7 +25,7 @@
       "category": "healing",
       "rarity": "rare",
       "dandy_shop_only": false,
-      "cost": 25,
+      "cost": 60,
       "image_name": "bandage.png",
       "id": "bandage"
     },
