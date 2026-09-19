@@ -30,6 +30,12 @@
 - Manual acceptance: with Boxten and only Clown Horn/Ribbon Spool equipped, either floor gives 16.5 walk / 27.5 run (one 10% boost, never two). With only Vanity Mirror, Panic Mode off gives 15/25; on gives 15/32.5. Switching Razzle & Dazzle's floor by either control must update both controls and calculated stats.
 - Validation: manual diff review and `git diff --check`; no build, tests, lint or browser checks. Not released to production.
 
+## 2026-09-20 — Rudie ability timing text
+
+- Added Antler Charge’s omitted 0.4-second duration and 23-second cooldown to Rudie’s description. The existing dash calculation and active-state toggle are unchanged.
+- Sources: [Rudie](https://dandysworld.org/toons/rudie), [ability reference](https://dandys-world-robloxhorror.fandom.com/wiki/Abilities), and [multiplier durations](https://dandys-world-robloxhorror.fandom.com/wiki/Multipliers), checked September 20, 2026.
+- Validation: JSON parsing, manual diff review and `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-09-20 — Bandage price
 
 - Corrected Bandage’s normal shop price from 25 to 60 Tapes. Its healing effect is unchanged.
