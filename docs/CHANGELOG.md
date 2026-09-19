@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-20 — floor and Panic Mode scenarios (local preview)
+
+- Added odd/even-floor and Panic Mode controls in Machine Stats. Clown Horn and Ribbon Spool apply on their respective floors; Vanity Mirror applies only during Panic Mode.
+- Razzle & Dazzle's existing floor radios and the new selector stay synchronized. Other conditional Toon states are unchanged.
+- Sources checked September 20: [Clown Horn](https://dandys-world-robloxhorror.fandom.com/wiki/Clown_Horn), [Ribbon Spool](https://dandys-world-robloxhorror.fandom.com/wiki/Ribbon_Spool), [Vanity Mirror](https://dandys-world-robloxhorror.fandom.com/wiki/Vanity_Mirror). Indexed wiki descriptions agree with the stored values; this change implements their conditions.
+- Manual acceptance: with Boxten and only Clown Horn/Ribbon Spool equipped, either floor gives 16.5 walk / 27.5 run (one 10% boost, never two). With only Vanity Mirror, Panic Mode off gives 15/25; on gives 15/32.5. Switching Razzle & Dazzle's floor by either control must update both controls and calculated stats.
+- Validation: manual diff review and `git diff --check`; no build, tests, lint or browser checks. Not released to production.
+
 ## 2026-09-19 — Gigi release descriptions
 
 - Updated Gigi's Surprise! description with the improved rare-item odds and Lucky Coin's exclusion of common items.

@@ -19,6 +19,8 @@ const App = {
         skillCheckSuccessRate: 1.0,
         teamSize: 1,  // ← ADD THIS: Calculate based on teamMembers
         machineCompletionCount: 1, // Completed-machine count for Finn/Shelly passive stacks
+        floorParity: 'odd',
+        panicMode: false,
         sortBy: 'speed',
         sortDirection: 'desc'
     },
@@ -219,6 +221,16 @@ const App = {
             });
         }
         
+        document.getElementById('floor-parity').addEventListener('change', (event) => {
+            this.state.floorParity = event.target.value;
+            this.syncFloorConditionalStats();
+            this.updateDisplay();
+        });
+        document.getElementById('panic-mode').addEventListener('change', (event) => {
+            this.state.panicMode = event.target.checked;
+            this.updateDisplay();
+        });
+
         // Tab navigation
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -1200,8 +1212,21 @@ const App = {
         if (this.state.selectedToon && this.state.selectedToon.conditionalStats) {
             this.state.selectedConditionalStat = this.state.selectedToon.conditionalStats
                 .find(s => s.id === statSetId);
+            if (this.state.selectedToon.id === 'razzle_dazzle') {
+                this.state.floorParity = statSetId === 'razzle_dazzle_even' ? 'even' : 'odd';
+                document.getElementById('floor-parity').value = this.state.floorParity;
+            }
             this.updateDisplay();
         }
+    },
+
+    syncFloorConditionalStats() {
+        if (this.state.selectedToon?.id !== 'razzle_dazzle') return;
+        const id = `razzle_dazzle_${this.state.floorParity}`;
+        this.state.selectedConditionalStat = this.state.selectedToon.conditionalStats.find(set => set.id === id);
+        document.querySelectorAll('input[name="stat-set"]').forEach(input => {
+            input.checked = input.value === id;
+        });
     },
 
     /**
@@ -1347,6 +1372,7 @@ const App = {
      * Get calculated stats for current state
      */
     getCalculatedStats() {
+        this.syncFloorConditionalStats();
         if (!this.state.selectedToon) {
             return null;
         }
@@ -1374,7 +1400,8 @@ const App = {
             this.state.activeItems,
             this.state.selectedConditionalStat,
             teamSize,
-            this.state.machineCompletionCount
+            this.state.machineCompletionCount,
+            { floorParity: this.state.floorParity, panicMode: this.state.panicMode }
         );
     },
 

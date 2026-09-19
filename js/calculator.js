@@ -15,9 +15,20 @@ const Calculator = {
      * @param {number} machineCompletionCount - Completed-machine count used by stackable passive boosts
      * @returns {Object} Final calculated stats
      */
-    calculateFinalStats(toon, trinkets, teamAbilities, items, conditionalStatSet, teamSize = 1, machineCompletionCount = 1) {
+    calculateFinalStats(toon, trinkets, teamAbilities, items, conditionalStatSet, teamSize = 1, machineCompletionCount = 1, scenario = null) {
         if (!toon) {
             return null;
+        }
+
+        // Keep legacy callers unchanged; the explorer supplies an explicit scenario.
+        if (scenario) {
+            trinkets = trinkets.filter(entry => {
+                const trinket = entry.trinket || entry;
+                if (trinket.id === 'clown_horn') return scenario.floorParity === 'odd';
+                if (trinket.id === 'ribbon_spool') return scenario.floorParity === 'even';
+                if (trinket.id === 'vanity_mirror') return scenario.panicMode === true;
+                return true;
+            });
         }
 
         // Start with base stats
@@ -921,7 +932,9 @@ const Calculator = {
             selectedConditionalStat: state.selectedConditionalStat,
             teamSize: state.teamSize || 1,
             skillCheckSuccessRate: state.skillCheckSuccessRate || 1.0,
-            machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1
+            machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
+            floorParity: state.floorParity,
+            panicMode: state.panicMode
         };
     },
 
@@ -947,7 +960,8 @@ const Calculator = {
             state.activeItems || [],
             state.selectedConditionalStat,
             state.teamSize || 1,
-            Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1
+            Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
+            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode } : null
         );
     },
 

@@ -87,6 +87,10 @@ App.init()
 
 ### Feedback Notes
 
+### Floor scenario
+
+`App.state.floorParity` (default `odd`) and `panicMode` (default `false`) are controlled in Machine Stats. The floor selector and Razzle & Dazzle's conditional-stat radios synchronize in both directions. `Calculator.calculateFinalStats` accepts an optional final scenario argument and gates Clown Horn, Ribbon Spool and Vanity Mirror before applying modifiers. State-based machine calculations preserve the same scenario. Callers without a scenario retain their existing snapshot behavior.
+
 - The frontend feedback button is always present, but submission stays unconfigured until `js/feedback-config.js` contains the deployed Azure Function URL.
 - Dandy-specific context stays embedded inside `feedback.message`; `ecg_case` remains `null`.
 - The live site still runs as a static GitHub Pages site; only the feedback backend deploys through GitHub Actions.
