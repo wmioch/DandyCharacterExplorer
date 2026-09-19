@@ -346,6 +346,26 @@
                                 <p class="machine-stats-help">Select the levels currently affecting your Toon. Each applies once, multiplying existing buffs. Machine estimates assume these levels remain active throughout; automatic triggers and expiry are not simulated.</p>
                             </fieldset>
 
+                            <details class="machine-stats-slider-section">
+                                <summary>Custom base stats</summary>
+                                <p class="machine-stats-help">Override this Toon's base values before buffs and trinkets. Overrides replace conditional and ability base values; leave a field blank to use normal values. These are temporary and reset when changing Toon or refreshing.</p>
+                                <div class="custom-stat-inputs">
+                                    <label>Walk speed <input type="number" data-custom-stat="walkSpeed" min="0.01" max="10000" step="any"></label>
+                                    <label>Run speed <input type="number" data-custom-stat="runSpeed" min="0.01" max="10000" step="any"></label>
+                                    <label>Stamina <input type="number" data-custom-stat="stamina" min="1" max="10000" step="any"></label>
+                                    <label>Stamina regeneration /s <input type="number" data-custom-stat="staminaRegen" min="0.01" max="10000" step="any"></label>
+                                    <label>Stealth <input type="number" data-custom-stat="stealth" min="-10000" max="10000" step="any"></label>
+                                    <label>Extraction speed <input type="number" data-custom-stat="extractionSpeed" min="0.01" max="10000" step="any"></label>
+                                    <label>Skill check amount <input type="number" data-custom-stat="skillCheckAmount" min="0" max="10000" step="any"></label>
+                                    <label>Skill check size <input type="number" data-custom-stat="skillCheckSize" min="1" max="10000" step="any"></label>
+                                    <label>Skill check chance % <input type="number" data-custom-stat="skillCheckChance" min="0" max="100" step="any"></label>
+                                    <label>Hearts <input type="number" data-custom-stat="hearts" min="1" max="20" step="1"></label>
+                                </div>
+                                <button type="button" id="apply-custom-stats">Apply overrides</button>
+                                <button type="button" id="reset-custom-stats">Reset overrides</button>
+                                <p id="custom-stats-status" class="machine-stats-help" role="status">Using the selected Toon's normal values.</p>
+                            </details>
+
                             <!-- Completed-machine stack count for Finn/Shelly passive boosts -->
                             <div class="machine-stats-slider-section">
                                 <div class="machine-stats-header">

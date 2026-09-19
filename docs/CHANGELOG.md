@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-20 — custom base stats (local preview)
+
+- Added temporary custom base-stat inputs in Machine Stats with Apply and Reset controls. Blank values keep normal stats; changing Toon or refreshing clears overrides. Stored Toon records are never mutated.
+- Overrides apply after conditional/ability base replacements and before trinket/item increases and modifiers. Skill Check Size and Stamina Regeneration have separate overrides. Custom values are labelled in the stat table and carried into machine estimates.
+- Manual acceptance: select Poppy, set Walk Speed to 18, Apply, and check Base/Final 18 with no movement buffs. Equip Dog Plush: final walk becomes 19.8. Set extraction to 2: a default 45-unit machine's base time is 22.5 seconds with no extraction buffs. Reset or change Toon: normal values return. Invalid negative stamina, fractional hearts, or chance above 100 must prevent Apply.
+- Validation: diff review and `git diff --check` only. No builds, tests, lint or browser checks; awaiting user testing/release.
+
 ## 2026-09-20 — applied debuff scenarios (local preview)
 
 - Added None/I/II/III selectors for Slow, Confused, Tired and Illness. Their reductions multiply existing stat modifiers; state-based machine estimates retain the selected snapshot throughout the calculation. Triggers and expiry are not simulated.

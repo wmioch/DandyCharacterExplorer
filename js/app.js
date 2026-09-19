@@ -22,6 +22,7 @@ const App = {
         floorParity: 'odd',
         panicMode: false,
         debuffs: { slow: 0, confused: 0, tired: 0, illness: 0 },
+        customStats: {},
         sortBy: 'speed',
         sortDirection: 'desc'
     },
@@ -232,7 +233,24 @@ const App = {
             this.updateDisplay();
         });
 
-        // Tab navigation
+        document.getElementById('apply-custom-stats').addEventListener('click', () => {
+            const inputs = [...document.querySelectorAll('[data-custom-stat]')];
+            if (!inputs.every(input => input.reportValidity())) return;
+            this.state.customStats = {};
+            inputs.forEach(input => {
+                if (input.value !== '') {
+                    const value = Number(input.value);
+                    this.state.customStats[input.dataset.customStat] = input.dataset.customStat === 'skillCheckChance' ? value / 100 : value;
+                }
+            });
+            this.updateDisplay();
+        });
+        document.getElementById('reset-custom-stats').addEventListener('click', () => {
+            this.resetCustomStats();
+            this.updateDisplay();
+        });
+
+        // Applied status controls
         document.querySelectorAll('[data-debuff]').forEach(input => {
             input.addEventListener('change', () => {
                 this.state.debuffs[input.dataset.debuff] = Number(input.value);
@@ -435,6 +453,7 @@ const App = {
      * Handle toon selection change
      */
     handleToonChange(toonId) {
+        this.resetCustomStats();
         // Clear player ability states for the previous toon
         if (this.state.selectedToon) {
             this._clearPlayerAbilityStates(this.state.selectedToon);
@@ -1237,6 +1256,11 @@ const App = {
         });
     },
 
+    resetCustomStats() {
+        this.state.customStats = {};
+        document.querySelectorAll('[data-custom-stat]').forEach(input => { input.value = ''; });
+    },
+
     /**
      * Handle skill check slider change
      */
@@ -1409,7 +1433,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode: this.state.panicMode, debuffs: this.state.debuffs }
+            { floorParity: this.state.floorParity, panicMode: this.state.panicMode, debuffs: this.state.debuffs, customStats: this.state.customStats }
         );
     },
 
@@ -1418,6 +1442,9 @@ const App = {
      */
     updateDisplay() {
         const stats = this.getCalculatedStats();
+        document.getElementById('custom-stats-status').textContent = Object.keys(this.state.customStats).length
+            ? 'Custom base stats are active. Blank fields use the selected Toon’s normal values.'
+            : 'Using the selected Toon’s normal values.';
         const immune = this.state.selectedToon?.ability?.targetStat === 'debuffImmunity';
         document.getElementById('debuff-immunity-note').hidden = !immune;
         document.querySelectorAll('[data-debuff]').forEach(input => { input.disabled = immune; });

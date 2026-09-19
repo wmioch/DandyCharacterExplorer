@@ -44,6 +44,21 @@ const Calculator = {
 
         // Apply base stat overrides from toggled player abilities (Flutter, Rudie, Eclipse)
         this._applyBaseStatOverrides(toon, baseStats);
+
+        const customOverrides = {};
+        const customLimits = {
+            walkSpeed: [0.01, 10000], runSpeed: [0.01, 10000], stealth: [-10000, 10000],
+            extractionSpeed: [0.01, 10000], stamina: [1, 10000], skillCheckAmount: [0, 10000],
+            skillCheckChance: [0, 1], hearts: [1, 20], skillCheckSize: [1, 10000], staminaRegen: [0.01, 10000]
+        };
+        Object.entries(scenario?.customStats || {}).forEach(([key, value]) => {
+            const limits = customLimits[key];
+            if (limits && Number.isFinite(value) && value >= limits[0] && value <= limits[1]
+                && (key !== 'hearts' || Number.isInteger(value))) {
+                customOverrides[key] = value;
+                if (key in baseStats) baseStats[key] = value;
+            }
+        });
         
         // Update originalBase if base stat overrides were applied
         originalBase = { ...baseStats };
@@ -180,11 +195,11 @@ const Calculator = {
         });
 
         // Calculate final stats
-        const STAMINA_REGEN_BASE = 2.4;
+        const STAMINA_REGEN_BASE = customOverrides.staminaRegen ?? 2.4;
         
         // Get skill check size base value from star rating
         const skillCheckAmountStars = toon.starRatings.skillCheckAmount;
-        const skillCheckSizeBase_original = DataLoader.getStatValue('skillCheckSize', skillCheckAmountStars);
+        const skillCheckSizeBase_original = customOverrides.skillCheckSize ?? DataLoader.getStatValue('skillCheckSize', skillCheckAmountStars);
         let skillCheckSizeBase = skillCheckSizeBase_original;
         
         // Apply any base stat increases to skillCheckSize (e.g., Thinking Cap's +40 units)
@@ -255,6 +270,7 @@ const Calculator = {
 
         return {
             base: baseStats,
+            customOverrides,
             final: finalStats,
             percentages: percentages,
             originalBase: originalBase,
@@ -951,7 +967,8 @@ const Calculator = {
             machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
             floorParity: state.floorParity,
             panicMode: state.panicMode,
-            debuffs: { ...state.debuffs }
+            debuffs: { ...state.debuffs },
+            customStats: { ...state.customStats }
         };
     },
 
@@ -978,7 +995,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode, debuffs: state.debuffs } : null
+            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode, debuffs: state.debuffs, customStats: state.customStats } : null
         );
     },
 

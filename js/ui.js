@@ -509,7 +509,7 @@ const UI = {
         // Get hearts for the Health row
         let heartsHTML = '';
         if (toon && toon.baseStats && toon.baseStats.hearts) {
-            heartsHTML = '♥'.repeat(toon.baseStats.hearts);
+            heartsHTML = '♥'.repeat(statsResult.final.hearts);
         }
         
         const stats = [
@@ -543,7 +543,7 @@ const UI = {
             
             // Handle stats with a fixed base value (like Stamina Regeneration)
             if (stat.baseValue !== undefined) {
-                base = stat.baseValue;
+                base = statsResult.customOverrides?.[stat.key] ?? stat.baseValue;
                 // Check if there's a calculated final value, otherwise use base
                 final = statsResult.final[stat.key] !== undefined ? statsResult.final[stat.key] : base;
                 percent = statsResult.percentages && statsResult.percentages[stat.key] !== undefined ? statsResult.percentages[stat.key] : 0;
@@ -659,6 +659,8 @@ const UI = {
                 }
             }
             
+            if (statsResult.customOverrides?.[stat.key] !== undefined) stars = 'Custom';
+
             // Format values for percentage stats
             const suffix = stat.suffix || '';
             const decimals = stat.key === 'extractionSpeed' ? 2 : 1;

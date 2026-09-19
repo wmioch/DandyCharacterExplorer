@@ -89,6 +89,8 @@ App.init()
 
 ### Floor scenario
 
+`App.state.customStats` holds temporary numeric base overrides, applied after conditional/ability base replacements and before buffs. The selected data record is not mutated. Apply validates all entered values; blank fields use normal values; Reset, Toon changes and reload clear overrides. Calculator independently validates allowed keys/ranges. Machine-state cloning preserves overrides. `statsResult.customOverrides` supports honest display labels, including separate Skill Check Size and Stamina Regeneration values.
+
 `App.state.debuffs` stores selected Slow, Confused, Tired and Illness levels (0–3). Calculator applies one multiplicative reduction per selected status; applied-debuff immunity skips these, not trinket penalties. Machine snapshots preserve selections and assume constant duration. Source triggers and expiry are not inferred.
 
 `App.state.floorParity` (default `odd`) and `panicMode` (default `false`) are controlled in Machine Stats. The floor selector and Razzle & Dazzle's conditional-stat radios synchronize in both directions. `Calculator.calculateFinalStats` accepts an optional final scenario argument and gates Clown Horn, Ribbon Spool and Vanity Mirror before applying modifiers. State-based machine calculations preserve the same scenario. Callers without a scenario retain their existing snapshot behavior.

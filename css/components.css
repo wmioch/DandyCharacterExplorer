@@ -1073,3 +1073,28 @@
     color: var(--text-muted);
     margin-left: auto;
 }
+
+.custom-stat-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+}
+
+.custom-stat-inputs label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.custom-stat-inputs input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+fieldset.machine-stats-slider-section > select {
+    display: block;
+    width: 100%;
+    margin: 0.25rem 0 0.75rem;
+}
