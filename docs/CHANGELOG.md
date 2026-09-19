@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-20 — requested gameplay cards (local preview)
+
+- Added Tech Savvy, Well-Paced and Endurance controls. Tech Savvy reduces the machine work target from 45 to 40 units before existing progress reductions. Each stamina card adds 10 capacity before percentage modifiers; each can be selected once.
+- [Cards source](https://dandys-world-robloxhorror.fandom.com/wiki/Cards), indexed content checked September 20: Tech Savvy removes five units, despite the displayed five-second wording. Broader voting and other card effects are separate unfinished work.
+- Manual acceptance: unmodified Poppy with Tech Savvy has base machine time 40s instead of45s; with custom extraction2 it is20s instead of22.5s. Both stamina cards give170 maximum stamina before other modifiers. Turning cards off restores defaults.
+- Validation: manual diff review and `git diff --check`; no tests, build, lint or browser checks. Local preview only.
+
 ## 2026-09-20 — custom base stats (local preview)
 
 - Added temporary custom base-stat inputs in Machine Stats with Apply and Reset controls. Blank values keep normal stats; changing Toon or refreshing clears overrides. Stored Toon records are never mutated.

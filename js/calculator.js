@@ -63,6 +63,10 @@ const Calculator = {
         // Update originalBase if base stat overrides were applied
         originalBase = { ...baseStats };
 
+        // Run-long card gains increase capacity before percentage modifiers.
+        if (scenario?.cards?.wellPaced) baseStats.stamina += 10;
+        if (scenario?.cards?.endurance) baseStats.stamina += 10;
+
         // Apply direct base stat increases from trinkets/items (e.g., Cooler's +50 stamina)
         this._applyBaseStatIncreases(trinkets, items, baseStats, teamSize);
 
@@ -968,7 +972,8 @@ const Calculator = {
             floorParity: state.floorParity,
             panicMode: state.panicMode,
             debuffs: { ...state.debuffs },
-            customStats: { ...state.customStats }
+            customStats: { ...state.customStats },
+            cards: { ...state.cards }
         };
     },
 
@@ -995,7 +1000,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode, debuffs: state.debuffs, customStats: state.customStats } : null
+            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
         );
     },
 
@@ -1184,7 +1189,8 @@ const Calculator = {
         console.log(`  Skill Check Amount: ${initialSkillCheckAmount}`);
         console.log(`  Skill Check Chance: ${(initialSkillCheckChance * 100).toFixed(1)}%`);
 
-        let machineUnits = 45;
+        // Tech Savvy reduces work by five units, not five seconds at every extraction speed.
+        let machineUnits = state.cards?.techSavvy ? 40 : 45;
 
         // Check for special items and trinkets
         const activeItems = machineState.activeItems || [];

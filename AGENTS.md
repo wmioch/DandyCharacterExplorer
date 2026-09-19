@@ -89,6 +89,8 @@ App.init()
 
 ### Floor scenario
 
+`App.state.cards` tracks Tech Savvy, Well-Paced and Endurance selections. Stamina cards add capacity before percentage modifiers; Tech Savvy changes the cascading machine work target to40 rather than45 units. State clones preserve card selections. This is selected-card modeling, not voting simulation.
+
 `App.state.customStats` holds temporary numeric base overrides, applied after conditional/ability base replacements and before buffs. The selected data record is not mutated. Apply validates all entered values; blank fields use normal values; Reset, Toon changes and reload clear overrides. Calculator independently validates allowed keys/ranges. Machine-state cloning preserves overrides. `statsResult.customOverrides` supports honest display labels, including separate Skill Check Size and Stamina Regeneration values.
 
 `App.state.debuffs` stores selected Slow, Confused, Tired and Illness levels (0–3). Calculator applies one multiplicative reduction per selected status; applied-debuff immunity skips these, not trinket penalties. Machine snapshots preserve selections and assume constant duration. Source triggers and expiry are not inferred.

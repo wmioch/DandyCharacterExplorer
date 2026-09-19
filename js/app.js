@@ -23,6 +23,7 @@ const App = {
         panicMode: false,
         debuffs: { slow: 0, confused: 0, tired: 0, illness: 0 },
         customStats: {},
+        cards: { techSavvy: false, wellPaced: false, endurance: false },
         sortBy: 'speed',
         sortDirection: 'desc'
     },
@@ -248,6 +249,13 @@ const App = {
         document.getElementById('reset-custom-stats').addEventListener('click', () => {
             this.resetCustomStats();
             this.updateDisplay();
+        });
+
+        document.querySelectorAll('[data-card]').forEach(input => {
+            input.addEventListener('change', () => {
+                this.state.cards[input.dataset.card] = input.checked;
+                this.updateDisplay();
+            });
         });
 
         // Applied status controls
@@ -1433,7 +1441,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode: this.state.panicMode, debuffs: this.state.debuffs, customStats: this.state.customStats }
+            { floorParity: this.state.floorParity, panicMode: this.state.panicMode, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards }
         );
     },
 
