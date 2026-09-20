@@ -102,3 +102,7 @@ Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red port
 - The frontend feedback button is always present, but submission stays unconfigured until `js/feedback-config.js` contains the deployed Azure Function URL.
 - Dandy-specific context stays embedded inside `feedback.message`; `ecg_case` remains `null`.
 - The live site still runs as a static GitHub Pages site; only the feedback backend deploys through GitHub Actions.
+
+### Waxwell preview scenario
+
+`waxwellElapsed` is null before activation, then a manually selected0–60 seconds. Calculator removes his intrinsic Tired II only below10 seconds. This is preserved in machine-state clones as a stat snapshot. A separate single-contact cooldown calculator applies2× recovery for5 seconds to a non-Waxwell player with a Waxwell teammate; current remaining cooldown is supplied by the user. It does not infer modifier order or repeated-contact refresh. Additional Tired sources on Waxwell are intentionally unavailable pending evidence; the Debuffs icon shows his intrinsic state. See the preview guide for boundaries and manual checks.

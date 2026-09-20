@@ -21,6 +21,7 @@ const App = {
         machineCompletionCount: 0, // Legacy calculation fallback; each passive now has its own counter
         abilityStacks: {},
         advancedMode: false,
+        waxwellElapsed: null,
         floorParity: 'odd',
         panicMode: false,
         debuffs: { slow: 0, confused: 0, tired: 0, illness: 0 },
@@ -242,6 +243,23 @@ const App = {
             this.updateDisplay();
         });
         UI.populateScenarioIcons(this.state, () => this.updateDisplay());
+        document.getElementById('waxwell-start').addEventListener('click', () => {
+            this.state.waxwellElapsed = 0;
+            document.getElementById('waxwell-elapsed').value = 0;
+            this.updateDisplay();
+        });
+        document.getElementById('waxwell-reset').addEventListener('click', () => {
+            this.state.waxwellElapsed = null;
+            document.getElementById('waxwell-elapsed').value = 0;
+            this.updateDisplay();
+        });
+        document.getElementById('waxwell-elapsed').addEventListener('input', event => {
+            if (this.state.waxwellElapsed !== null) this.state.waxwellElapsed = Number(event.target.value);
+            this.updateDisplay();
+        });
+        ['waxwell-cooldown', 'waxwell-trail-elapsed'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => this.updateWaxwellScenario());
+        });
 
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -438,6 +456,10 @@ const App = {
      * Handle toon selection change
      */
     handleToonChange(toonId) {
+        this.state.waxwellElapsed = null;
+        document.getElementById('waxwell-elapsed').value = 0;
+        document.getElementById('waxwell-cooldown').value = 0;
+        document.getElementById('waxwell-trail-elapsed').value = 0;
         this.resetCustomStats();
         // Clear player ability states for the previous toon
         if (this.state.selectedToon) {
@@ -1390,7 +1412,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards }
+            { floorParity: this.state.floorParity, panicMode, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards, waxwellIgniteActive: this.state.waxwellElapsed !== null && this.state.waxwellElapsed < 10 }
         );
     },
 
@@ -1398,6 +1420,7 @@ const App = {
      * Update all displays
      */
     updateDisplay() {
+        this.updateWaxwellScenario();
         const stats = this.getCalculatedStats();
         const advanced = document.getElementById('advanced-mode');
         advanced.classList.toggle('enabled', this.state.advancedMode);
@@ -1407,7 +1430,9 @@ const App = {
         const panicStats = hasMirror ? this.getCalculatedStats(true) : stats;
         const immune = this.state.selectedToon?.ability?.targetStat === 'debuffImmunity';
         document.getElementById('debuff-immunity-note').hidden = !immune;
-        document.querySelectorAll('[data-debuff]').forEach(input => { input.disabled = immune; });
+        document.querySelectorAll('[data-debuff]').forEach(input => {
+            input.disabled = immune || (input.dataset.debuff === 'tired' && this.state.selectedToon?.id === 'waxwell');
+        });
         
         // Handle both old format (trinket) and new format ({trinket, count})
         const selectedTrinketIds = this.state.equippedTrinkets.map(t => 
@@ -1477,6 +1502,30 @@ const App = {
 
         // Sync trinket UI selections after machine calculation so Stress Ball can show max stacks.
         UI.updateSelectedTrinketsInGrid(selectedTrinketIds, this.state.equippedTrinkets, extraction);
+    },
+
+    updateWaxwellScenario() {
+        const isWaxwell = this.state.selectedToon?.id === 'waxwell';
+        const teammateWaxwell = this.state.teamMembers.some(toon => toon?.id === 'waxwell');
+        document.getElementById('waxwell-scenario').hidden = !isWaxwell && !teammateWaxwell;
+        document.getElementById('waxwell-self-controls').hidden = !isWaxwell;
+        document.getElementById('waxwell-teammate-controls').hidden = isWaxwell || !teammateWaxwell;
+        const elapsed = this.state.waxwellElapsed;
+        document.getElementById('waxwell-elapsed').disabled = elapsed === null;
+        document.getElementById('waxwell-start').disabled = elapsed !== null && elapsed < 60;
+        document.getElementById('waxwell-self-result').textContent = elapsed === null
+            ? 'Tired II active: base stamina regeneration is halved. Ignite is ready.'
+            : `${elapsed}s elapsed: ${elapsed < 10 ? 'Ignite active; intrinsic Tired II removed' : 'Tired II restored'}. Base cooldown remaining: ${Math.max(0, 60 - elapsed)}s. His own trail never accelerates this cooldown.`;
+        const input = document.getElementById('waxwell-cooldown');
+        const remaining = Number(input.value);
+        const trailElapsed = Number(document.getElementById('waxwell-trail-elapsed').value);
+        const result = document.getElementById('waxwell-trail-result');
+        if (input.value === '' || !input.checkValidity()) {
+            result.textContent = 'Enter a valid remaining cooldown from 0 to 10000 seconds.';
+            return;
+        }
+        const after = Calculator.cooldownAfterIgnited(remaining, trailElapsed);
+        result.textContent = `${trailElapsed}s since contact: cooldown remaining ${after.toFixed(1)}s (${Math.max(0, remaining - trailElapsed).toFixed(1)}s without Ignited). ${trailElapsed < 5 ? 'Recovery is 2×.' : 'Ignited has expired; recovery is normal.'}`;
     },
 
     calculateMachineStatsWithDebug(machineState) {

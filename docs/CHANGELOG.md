@@ -1,3 +1,10 @@
+## 2026-09-21 — Waxwell core bundle (local preview only)
+
+- Added Waxwell's portrait and verified base stats, intrinsic Tired II and10-second Ignite fatigue removal with a60-second base cooldown scenario.
+- Added non-stacking5-second teammate Ignited recovery calculation with caster exclusion. Manual elapsed controls show expiration and cooldown progress; no unsupported repeated-contact or modifier-order assumptions.
+- Related Twisted speeds and Cherished Blanket remain separate evidence investigations. Manual checks and source/asset details are in [preview controls](preview-controls.md).
+- ChangedJSON parsed; diff reviewed and whitespace checks passed. No tests, builds, lint, browser checks or publication.
+
 ## 2026-09-21 — requested preview revisions and developer Toons (unreleased)
 
 - Replaced the shared machine-stack input with independent0–25 Reel In/Problem Solver counters. Removed standalone floor and Panic selectors; implemented Razzle & Dazzle conditional floor logic, a single combined floor-trinket bonus for other Toons, bracketed Vanity Mirror Panic speeds and appropriate Twisted comparisons.

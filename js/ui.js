@@ -19,6 +19,7 @@ const UI = {
             button.className = `scenario-icon debuff-${id}`;
             button.dataset.debuff = id;
             button.title = `${name}: ${stat} -${levels.join('/-')}%. Left click or + to increase; right click or - to decrease (0–3).`;
+            button.dataset.defaultTitle = button.title;
             button.innerHTML = `<span class="scenario-symbol" aria-hidden="true">${symbol}</span><span>${name}</span><span class="scenario-count">0</span>`;
             const change = delta => {
                 if (button.disabled) return;
@@ -50,9 +51,11 @@ const UI = {
 
     updateScenarioIcons(state) {
         document.querySelectorAll('[data-debuff]').forEach(button => {
-            const level = state.debuffs[button.dataset.debuff];
+            const intrinsicTired = state.selectedToon?.id === 'waxwell' && button.dataset.debuff === 'tired';
+            const level = intrinsicTired ? (state.waxwellElapsed !== null && state.waxwellElapsed < 10 ? 0 : 2) : state.debuffs[button.dataset.debuff];
+            button.title = intrinsicTired ? 'Waxwell’s intrinsic Tired II is controlled by Ignite. Additional Tired sources are not modeled.' : button.dataset.defaultTitle;
             button.classList.toggle('selected', level > 0);
-            button.setAttribute('aria-label', `${button.dataset.debuff}: ${level === 0 ? 'off' : 'level ' + level}. Increase with left click, decrease with right click.`);
+            button.setAttribute('aria-label', `${button.dataset.debuff}: ${level === 0 ? 'off' : 'level ' + level}. ${intrinsicTired ? 'Controlled by Ignite.' : 'Increase with left click, decrease with right click.'}`);
             button.querySelector('.scenario-count').textContent = level;
         });
         document.querySelectorAll('[data-card]').forEach(button => {

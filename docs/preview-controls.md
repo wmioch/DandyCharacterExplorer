@@ -35,3 +35,17 @@ Checked 2026-09-21; publication dates are not established:
 - https://dandys-world-robloxhorror.fandom.com/wiki/Abilities — passive names and description.
 - https://dandysworld.org/toons/dandy and https://dandysworld.org/toons/dyle — individual numeric stat tables. The three-heart summary is a display value, not the internal health value established above.
 - Portraits: https://dandysworld.org/wiki/images/toons/dandy-render.webp and https://dandysworld.org/wiki/images/toons/dyle-render.webp. Downloaded unchanged and visually identified; original artwork belongs to its rights holders, including BlushCrunch Studio, and is not CC0.
+
+## Waxwell — APP-SRC-WAXWELL-IGNITED-TRAIL
+
+The core Toon bundle includes the sourced portrait and stats, permanent Tired II, a manual elapsed-time Ignite scenario, and a teammate trail cooldown calculator. These are scenario controls, not a running game or automatic clock.
+
+- Select Waxwell:20/30 movement,100 stamina,5 stealth,0.85 extraction,3 skill-check amount,250 size,3 hearts. Unbuffed regeneration is1.2/s due to intrinsic Tired II.
+- Use Ignite: at0–9 seconds regeneration is2.4/s; at10 seconds it returns to1.2/s. Base cooldown is60 minus elapsed seconds. Use is disabled until60 seconds; Reset restarts the scenario. The caster never receives trail cooldown acceleration.
+- Select a different Toon and add Waxwell to the team. Enter60 seconds remaining cooldown at contact. At5 seconds the calculator shows50 seconds remaining, versus55 without Ignited; at6 seconds it shows49 versus54. Adding another Waxwell does not multiply this effect. Removing all teammate Waxwells hides the contact scenario.
+- Cooldown input means the actual remaining cooldown after other modifiers, avoiding assumptions about modifier order. Only a single contact is represented; repeated-contact refresh and another Waxwell as recipient are not simulated. Additional Tired sources are disabled for Waxwell pending evidence. His Debuffs icon instead shows the intrinsic state.
+- Machine estimates retain the selected stat snapshot; the elapsed-time slider does not turn machine estimates into a full event timeline. His intrinsic regeneration does not itself change extraction.
+
+Sources rechecked2026-09-21: https://wikiwiki.jp/dandys-world/Waxwell and https://bloxodes.com/articles/dandys-world-waxwell-toon-guide (updated2026-08-19). Portrait: https://mudae.net/uploads/5471456/JWtfiov~P2Mrj8TIf.png, matched visually to the in-game license screenshot linked by the latter guide. Original artwork belongs to its rights holders; not CC0.
+
+Related Twisted Waxwell exact movement data and Cherished Blanket effects/assets remain unresolved and are not included. Do not describe those related records as implemented.

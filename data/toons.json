@@ -1677,6 +1677,47 @@
         "stackable": false,
         "hasToggle": false
       }
+    },
+    {
+      "id": "waxwell",
+      "name": "Waxwell",
+      "description": "A candle Toon whose permanent Tired II halves stamina regeneration. Ignite temporarily removes that fatigue and leaves a supportive trail for teammates.",
+      "baseStats": {
+        "walkSpeed": 20,
+        "runSpeed": 30,
+        "stealth": 5,
+        "extractionSpeed": 0.85,
+        "stamina": 100,
+        "skillCheckAmount": 3,
+        "skillCheckChance": 0.25,
+        "hearts": 3
+      },
+      "starRatings": {
+        "walkSpeed": 5,
+        "runSpeed": 5,
+        "stealth": 2,
+        "extractionSpeed": 2,
+        "stamina": 1,
+        "skillCheckAmount": 5
+      },
+      "ability": {
+        "id": "waxwell_ignite",
+        "name": "Ignite",
+        "description": "(Active) Removes this Toon’s permanent Tired II for 10 seconds. His trail gives teammates Ignited for 5 seconds, doubling cooldown recovery. It does not stack or affect the caster. Cooldown: 60 seconds.",
+        "effectType": "special",
+        "targetStat": "cooldownRecovery",
+        "value": 2,
+        "applicationType": "special",
+        "affectsSelf": true,
+        "hasToggle": false,
+        "stackable": false,
+        "cooldownSeconds": 60,
+        "durationSeconds": 10,
+        "trailDurationSeconds": 5
+      },
+      "permanentStatus": {
+        "tired": 2
+      }
     }
   ]
 }

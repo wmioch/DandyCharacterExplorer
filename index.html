@@ -219,6 +219,25 @@
                     </div>
 
                     <!-- Team Abilities -->
+                    <fieldset id="waxwell-scenario" class="machine-stats-slider-section" hidden>
+                        <legend>Waxwell's Ignite</legend>
+                        <div id="waxwell-self-controls">
+                            <button type="button" id="waxwell-start">Use Ignite</button>
+                            <button type="button" id="waxwell-reset">Reset scenario</button>
+                            <label for="waxwell-elapsed">Seconds since activation</label>
+                            <input type="range" id="waxwell-elapsed" min="0" max="60" value="0" step="1" class="skill-slider">
+                            <p id="waxwell-self-result" class="machine-stats-help" role="status"></p>
+                            <p class="machine-stats-help">Move the time slider to inspect his 10-second fatigue removal and 60-second base cooldown. External cooldown modifiers and additional Tired sources are not included.</p>
+                        </div>
+                        <div id="waxwell-teammate-controls" hidden>
+                            <label for="waxwell-cooldown">Your ability cooldown remaining at trail contact (seconds)</label>
+                            <input type="number" id="waxwell-cooldown" min="0" max="10000" value="0" step="any">
+                            <label for="waxwell-trail-elapsed">Seconds since one trail contact</label>
+                            <input type="range" id="waxwell-trail-elapsed" min="0" max="60" value="0" step="1" class="skill-slider">
+                            <p id="waxwell-trail-result" class="machine-stats-help" role="status"></p>
+                            <p class="machine-stats-help">A single contact doubles recovery for 5 seconds, then normal recovery resumes. Multiple Waxwells do not multiply it. Enter the cooldown remaining after any other modifiers; repeated contacts and their refresh timing are not simulated.</p>
+                        </div>
+                    </fieldset>
                     <h3 class="section-heading">Team Abilities</h3>
                     <div class="team-slots-compact" style="display: none;">
                         <select id="team-1" class="team-dropdown-compact">

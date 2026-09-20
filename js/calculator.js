@@ -4,6 +4,10 @@
  */
 
 const Calculator = {
+    // One non-stacking trail contact: two seconds of cooldown per second for five seconds.
+    cooldownAfterIgnited(remaining, elapsed) {
+        return Math.max(0, remaining - elapsed - Math.min(elapsed, 5));
+    },
     /**
      * Calculate final stats for a toon with all modifiers applied
      * @param {Object} toon - The selected toon
@@ -95,6 +99,9 @@ const Calculator = {
         this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount, scenario?.abilityStacks);
 
         // One selected level represents the currently applied status, not its source count.
+        if (toon.id === 'waxwell' && !scenario?.waxwellIgniteActive) {
+            modifiers.staminaRegen.multiplicative.push({ value: -0.5, cap: null });
+        }
         if (scenario?.debuffs && toon.ability?.targetStat !== 'debuffImmunity') {
             const statusRules = {
                 slow: ['movementSpeed', [0, 0.15, 0.25, 0.5]],
@@ -103,6 +110,8 @@ const Calculator = {
                 illness: ['skillCheckSize', [0, 0.15, 0.25, 0.5]]
             };
             Object.entries(statusRules).forEach(([status, [stat, reductions]]) => {
+                // Additional Tired sources on Waxwell are not yet sourced; use his intrinsic state only.
+                if (toon.id === 'waxwell' && status === 'tired') return;
                 const level = Number(scenario.debuffs[status]);
                 if (Number.isInteger(level) && level > 0 && level <= 3) {
                     modifiers[stat].multiplicative.push({ value: -reductions[level], cap: null });
@@ -983,7 +992,8 @@ const Calculator = {
             debuffs: { ...state.debuffs },
             customStats: { ...state.customStats },
             cards: { ...state.cards },
-            abilityStacks: { ...state.abilityStacks }
+            abilityStacks: { ...state.abilityStacks },
+            waxwellElapsed: state.waxwellElapsed
         };
     },
 
@@ -1010,7 +1020,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
+            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards, waxwellIgniteActive: state.waxwellElapsed != null && state.waxwellElapsed < 10 } : null
         );
     },
 
