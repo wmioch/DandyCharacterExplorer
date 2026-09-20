@@ -646,6 +646,10 @@
     padding-bottom: var(--spacing-lg);
 }
 
+#waxwell-scenario[hidden] {
+    display: none;
+}
+
 .machine-stats-header {
     display: flex;
     justify-content: space-between;

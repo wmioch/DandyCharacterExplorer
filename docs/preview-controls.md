@@ -43,6 +43,7 @@ The core Toon bundle includes the sourced portrait and stats, permanent Tired II
 - Select Waxwell:20/30 movement,100 stamina,5 stealth,0.85 extraction,3 skill-check amount,250 size,3 hearts. Unbuffed regeneration is1.2/s due to intrinsic Tired II.
 - Use Ignite: at0–9 seconds regeneration is2.4/s; at10 seconds it returns to1.2/s. Base cooldown is60 minus elapsed seconds. Use is disabled until60 seconds; Reset restarts the scenario. The caster never receives trail cooldown acceleration.
 - Select a different Toon and add Waxwell to the team. Enter60 seconds remaining cooldown at contact. At5 seconds the calculator shows50 seconds remaining, versus55 without Ignited; at6 seconds it shows49 versus54. Adding another Waxwell does not multiply this effect. Removing all teammate Waxwells hides the contact scenario.
+- With neither player nor teammate Waxwell selected, the entire Ignite section stays hidden; its layout styles must not override that state.
 - Cooldown input means the actual remaining cooldown after other modifiers, avoiding assumptions about modifier order. Only a single contact is represented; repeated-contact refresh and another Waxwell as recipient are not simulated. Additional Tired sources are disabled for Waxwell pending evidence. His Debuffs icon instead shows the intrinsic state.
 - Machine estimates retain the selected stat snapshot; the elapsed-time slider does not turn machine estimates into a full event timeline. His intrinsic regeneration does not itself change extraction.
 
