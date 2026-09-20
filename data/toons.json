@@ -1603,6 +1603,80 @@
         "stackable": false
       },
       "conditionalStats": null
+    },
+    {
+      "id": "dandy",
+      "name": "Dandy",
+      "description": "Developer-only Toon and Gardenview shopkeeper. Has 99 health internally; the game shows only three hearts.",
+      "developerOnly": true,
+      "image_name": "dandy.webp",
+      "baseStats": {
+        "walkSpeed": 20,
+        "runSpeed": 30,
+        "stealth": 20,
+        "extractionSpeed": 1.5,
+        "stamina": 200,
+        "skillCheckAmount": 3,
+        "skillCheckChance": 0.25,
+        "hearts": 99
+      },
+      "starRatings": {
+        "walkSpeed": 5,
+        "runSpeed": 5,
+        "stealth": 5,
+        "extractionSpeed": 5,
+        "stamina": 5,
+        "skillCheckAmount": 5
+      },
+      "ability": {
+        "id": "dandy_world",
+        "name": "Dandy's World",
+        "description": "(Passive) The star of the show.",
+        "effectType": "special",
+        "targetStat": "none",
+        "value": 0,
+        "applicationType": "none",
+        "affectsSelf": false,
+        "stackable": false,
+        "hasToggle": false
+      }
+    },
+    {
+      "id": "dyle",
+      "name": "Dyle",
+      "description": "Developer-only Toon and Gardenview train master. Has 99 health internally; the game shows only three hearts.",
+      "developerOnly": true,
+      "image_name": "dyle.webp",
+      "baseStats": {
+        "walkSpeed": 20,
+        "runSpeed": 30,
+        "stealth": 20,
+        "extractionSpeed": 1.5,
+        "stamina": 200,
+        "skillCheckAmount": 3,
+        "skillCheckChance": 0.25,
+        "hearts": 99
+      },
+      "starRatings": {
+        "walkSpeed": 5,
+        "runSpeed": 5,
+        "stealth": 5,
+        "extractionSpeed": 5,
+        "stamina": 5,
+        "skillCheckAmount": 5
+      },
+      "ability": {
+        "id": "dyle_world",
+        "name": "Dyle's World",
+        "description": "(Passive) The star of the show.",
+        "effectType": "special",
+        "targetStat": "none",
+        "value": 0,
+        "applicationType": "none",
+        "affectsSelf": false,
+        "stackable": false,
+        "hasToggle": false
+      }
     }
   ]
 }

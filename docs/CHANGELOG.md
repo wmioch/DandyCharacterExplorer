@@ -1,3 +1,10 @@
+## 2026-09-21 — requested preview revisions and developer Toons (unreleased)
+
+- Replaced the shared machine-stack input with independent0–25 Reel In/Problem Solver counters. Removed standalone floor and Panic selectors; implemented Razzle & Dazzle conditional floor logic, a single combined floor-trinket bonus for other Toons, bracketed Vanity Mirror Panic speeds and appropriate Twisted comparisons.
+- Moved debuffs and cards into tabs with clickable controls; card faces use sourced artwork. Added green-enabled Advanced mode for inline BASE editing and a one-time tutorial explanation before Feedback.
+- Added Dandy and Dyle with developer-only pale red portraits, sourced stats and99 internal health. See [preview controls and evidence](preview-controls.md) for manual checks, scope and limitations.
+- Validation: source/diff review, changedJSON parsing and `git diff --check`. No tests, builds, lint or app-browser checks; no publication.
+
 # Changelog
 
 ## 2026-09-20 — requested gameplay cards (local preview)

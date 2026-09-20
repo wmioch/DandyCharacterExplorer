@@ -22,10 +22,17 @@ const Calculator = {
 
         // Keep legacy callers unchanged; the explorer supplies an explicit scenario.
         if (scenario) {
+            let floorBonusApplied = false;
             trinkets = trinkets.filter(entry => {
                 const trinket = entry.trinket || entry;
-                if (trinket.id === 'clown_horn') return scenario.floorParity === 'odd';
-                if (trinket.id === 'ribbon_spool') return scenario.floorParity === 'even';
+                if (['clown_horn', 'ribbon_spool'].includes(trinket.id)) {
+                    if (toon.id === 'razzle_dazzle') {
+                        const even = conditionalStatSet?.id === 'razzle_dazzle_even';
+                        return trinket.id === (even ? 'ribbon_spool' : 'clown_horn');
+                    }
+                    if (floorBonusApplied) return false;
+                    floorBonusApplied = true;
+                }
                 if (trinket.id === 'vanity_mirror') return scenario.panicMode === true;
                 return true;
             });
@@ -49,7 +56,7 @@ const Calculator = {
         const customLimits = {
             walkSpeed: [0.01, 10000], runSpeed: [0.01, 10000], stealth: [-10000, 10000],
             extractionSpeed: [0.01, 10000], stamina: [1, 10000], skillCheckAmount: [0, 10000],
-            skillCheckChance: [0, 1], hearts: [1, 20], skillCheckSize: [1, 10000], staminaRegen: [0.01, 10000]
+            skillCheckChance: [0, 1], hearts: [1, 99], skillCheckSize: [1, 10000], staminaRegen: [0.01, 10000]
         };
         Object.entries(scenario?.customStats || {}).forEach(([key, value]) => {
             const limits = customLimits[key];
@@ -85,7 +92,7 @@ const Calculator = {
         };
 
         // Apply player toon abilities
-        this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount);
+        this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount, scenario?.abilityStacks);
 
         // One selected level represents the currently applied status, not its source count.
         if (scenario?.debuffs && toon.ability?.targetStat !== 'debuffImmunity') {
@@ -381,15 +388,15 @@ const Calculator = {
     /**
      * Apply player toon abilities to modifiers
      */
-    _applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount = 1) {
+    _applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount = 1, abilityStacks = null) {
         // Check ability 1
         if (toon.ability && toon.ability.playerEffect) {
-            this._applyAbilityEffect(toon.ability, modifiers, teamSize, machineCompletionCount);
+            this._applyAbilityEffect(toon.ability, modifiers, teamSize, abilityStacks?.[toon.ability.id] ?? machineCompletionCount, abilityStacks);
         }
         
         // Check ability 2
         if (toon.ability2 && toon.ability2.playerEffect) {
-            this._applyAbilityEffect(toon.ability2, modifiers, teamSize, machineCompletionCount);
+            this._applyAbilityEffect(toon.ability2, modifiers, teamSize, abilityStacks?.[toon.ability2.id] ?? machineCompletionCount, abilityStacks);
         }
     },
 
@@ -464,10 +471,12 @@ const Calculator = {
     /**
      * Apply a single ability effect
      */
-    _applyAbilityEffect(ability, modifiers, teamSize, machineCompletionCount = 1) {
+    _applyAbilityEffect(ability, modifiers, teamSize, machineCompletionCount = 1, abilityStacks = null) {
         const effect = ability.playerEffect;
         
-        if (!this._isAbilityEnabled(ability)) {
+        if (ability.machineCompletionStackable && abilityStacks
+            ? !(abilityStacks[ability.id] > 0)
+            : !this._isAbilityEnabled(ability)) {
             return; // Ability is toggled off
         }
 
@@ -973,7 +982,8 @@ const Calculator = {
             panicMode: state.panicMode,
             debuffs: { ...state.debuffs },
             customStats: { ...state.customStats },
-            cards: { ...state.cards }
+            cards: { ...state.cards },
+            abilityStacks: { ...state.abilityStacks }
         };
     },
 
@@ -1000,7 +1010,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: state.panicMode, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
+            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
         );
     },
 

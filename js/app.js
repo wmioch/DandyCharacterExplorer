@@ -6,7 +6,7 @@
 const App = {
     tutorialStorageKey: 'tutorialSeen:v3',
     tutorialCurrentPage: 1,
-    tutorialTotalPages: 6,
+    tutorialTotalPages: 7,
     lastMachineCalculationDebug: '',
     state: {
         selectedToon: null,
@@ -18,7 +18,9 @@ const App = {
         selectedConditionalStat: null,
         skillCheckSuccessRate: 1.0,
         teamSize: 1,  // ← ADD THIS: Calculate based on teamMembers
-        machineCompletionCount: 1, // Completed-machine count for Finn/Shelly passive stacks
+        machineCompletionCount: 0, // Legacy calculation fallback; each passive now has its own counter
+        abilityStacks: {},
+        advancedMode: false,
         floorParity: 'odd',
         panicMode: false,
         debuffs: { slow: 0, confused: 0, tired: 0, illness: 0 },
@@ -216,55 +218,30 @@ const App = {
             });
         }
 
-        // Completed-machine count for stackable Finn/Shelly passive boosts
-        const machineCompletionCountInput = document.getElementById('machine-completion-count');
-        if (machineCompletionCountInput) {
-            machineCompletionCountInput.addEventListener('input', (e) => {
-                this.handleMachineCompletionCountChange(e.target.value);
-            });
-        }
-        
-        document.getElementById('floor-parity').addEventListener('change', (event) => {
-            this.state.floorParity = event.target.value;
-            this.syncFloorConditionalStats();
+        document.getElementById('advanced-mode').addEventListener('click', () => {
+            this.state.advancedMode = !this.state.advancedMode;
+            if (!this.state.advancedMode) this.resetCustomStats();
             this.updateDisplay();
-        });
-        document.getElementById('panic-mode').addEventListener('change', (event) => {
-            this.state.panicMode = event.target.checked;
-            this.updateDisplay();
-        });
-
-        document.getElementById('apply-custom-stats').addEventListener('click', () => {
-            const inputs = [...document.querySelectorAll('[data-custom-stat]')];
-            if (!inputs.every(input => input.reportValidity())) return;
-            this.state.customStats = {};
-            inputs.forEach(input => {
-                if (input.value !== '') {
-                    const value = Number(input.value);
-                    this.state.customStats[input.dataset.customStat] = input.dataset.customStat === 'skillCheckChance' ? value / 100 : value;
+            if (this.state.advancedMode) {
+                let seen = this.advancedTutorialShown;
+                try { seen ||= localStorage.getItem('advancedTutorialSeen:v1') === 'true'; } catch (_) {}
+                if (!seen) {
+                    this.advancedTutorialShown = true;
+                    this.showTutorialModal();
+                    this.goToTutorialPage(6);
+                    try { localStorage.setItem('advancedTutorialSeen:v1', 'true'); } catch (_) {}
                 }
-            });
+            }
+        });
+        document.querySelector('.stats-table tbody').addEventListener('change', event => {
+            const input = event.target.closest('[data-custom-stat]');
+            if (!input || !this.state.advancedMode || !input.reportValidity()) return;
+            const key = input.dataset.customStat;
+            if (input.value === '') delete this.state.customStats[key];
+            else this.state.customStats[key] = Number(input.value) / (key === 'skillCheckChance' ? 100 : 1);
             this.updateDisplay();
         });
-        document.getElementById('reset-custom-stats').addEventListener('click', () => {
-            this.resetCustomStats();
-            this.updateDisplay();
-        });
-
-        document.querySelectorAll('[data-card]').forEach(input => {
-            input.addEventListener('change', () => {
-                this.state.cards[input.dataset.card] = input.checked;
-                this.updateDisplay();
-            });
-        });
-
-        // Applied status controls
-        document.querySelectorAll('[data-debuff]').forEach(input => {
-            input.addEventListener('change', () => {
-                this.state.debuffs[input.dataset.debuff] = Number(input.value);
-                this.updateDisplay();
-            });
-        });
+        UI.populateScenarioIcons(this.state, () => this.updateDisplay());
 
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -495,6 +472,9 @@ const App = {
      * Clear player ability states from localStorage
      */
     _clearPlayerAbilityStates(toon) {
+        [toon.ability, toon.ability2].filter(Boolean).forEach(ability => {
+            if (ability.machineCompletionStackable) delete this.state.abilityStacks[ability.id];
+        });
         if (toon.ability && toon.ability.hasToggle && toon.ability.playerEffect) {
             localStorage.removeItem(`ability-${toon.ability.id}-state`);
         }
@@ -1249,19 +1229,10 @@ const App = {
                 .find(s => s.id === statSetId);
             if (this.state.selectedToon.id === 'razzle_dazzle') {
                 this.state.floorParity = statSetId === 'razzle_dazzle_even' ? 'even' : 'odd';
-                document.getElementById('floor-parity').value = this.state.floorParity;
+
             }
             this.updateDisplay();
         }
-    },
-
-    syncFloorConditionalStats() {
-        if (this.state.selectedToon?.id !== 'razzle_dazzle') return;
-        const id = `razzle_dazzle_${this.state.floorParity}`;
-        this.state.selectedConditionalStat = this.state.selectedToon.conditionalStats.find(set => set.id === id);
-        document.querySelectorAll('input[name="stat-set"]').forEach(input => {
-            input.checked = input.value === id;
-        });
     },
 
     resetCustomStats() {
@@ -1302,28 +1273,6 @@ const App = {
             greatRateValue.textContent = `${value}%`;
         }
         
-        this.updateDisplay();
-    },
-
-    /**
-     * Handle completed-machine count changes for stackable passive boosts
-     */
-    handleMachineCompletionCountChange(value) {
-        const parsedValue = Number.parseInt(value, 10);
-        const normalizedValue = Number.isFinite(parsedValue)
-            ? Math.min(Math.max(parsedValue, 0), 25)
-            : 1;
-        this.state.machineCompletionCount = normalizedValue;
-
-        const input = document.getElementById('machine-completion-count');
-        const display = document.getElementById('machine-completion-count-value');
-        if (input && input.value !== String(normalizedValue)) {
-            input.value = String(normalizedValue);
-        }
-        if (display) {
-            display.textContent = String(normalizedValue);
-        }
-
         this.updateDisplay();
     },
 
@@ -1381,8 +1330,9 @@ const App = {
         
         // Update table (pass pre-sorted array)
         const stats = this.getCalculatedStats();
+        const panicStats = this.getCalculatedStats(true);
         if (stats) {
-            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true);
+            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true, panicStats?.final);
         } else {
             UI.updateTwistedTable(twisteds, 0, 0, true);
         }
@@ -1411,8 +1361,7 @@ const App = {
     /**
      * Get calculated stats for current state
      */
-    getCalculatedStats() {
-        this.syncFloorConditionalStats();
+    getCalculatedStats(panicMode = false) {
         if (!this.state.selectedToon) {
             return null;
         }
@@ -1441,7 +1390,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode: this.state.panicMode, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards }
+            { floorParity: this.state.floorParity, panicMode, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards }
         );
     },
 
@@ -1450,9 +1399,12 @@ const App = {
      */
     updateDisplay() {
         const stats = this.getCalculatedStats();
-        document.getElementById('custom-stats-status').textContent = Object.keys(this.state.customStats).length
-            ? 'Custom base stats are active. Blank fields use the selected Toon’s normal values.'
-            : 'Using the selected Toon’s normal values.';
+        const advanced = document.getElementById('advanced-mode');
+        advanced.classList.toggle('enabled', this.state.advancedMode);
+        advanced.setAttribute('aria-pressed', String(this.state.advancedMode));
+        UI.updateScenarioIcons(this.state);
+        const hasMirror = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'vanity_mirror');
+        const panicStats = hasMirror ? this.getCalculatedStats(true) : stats;
         const immune = this.state.selectedToon?.ability?.targetStat === 'debuffImmunity';
         document.getElementById('debuff-immunity-note').hidden = !immune;
         document.querySelectorAll('[data-debuff]').forEach(input => { input.disabled = immune; });
@@ -1471,7 +1423,7 @@ const App = {
         
         if (stats) {
             // Update stats table (pass the selected toon for star ratings and conditional stat set)
-            UI.updateStatsDisplay(stats, this.state.selectedToon, this.state.selectedConditionalStat);
+            UI.updateStatsDisplay(stats, this.state.selectedToon, this.state.selectedConditionalStat, this.state.advancedMode, hasMirror ? panicStats?.final : null);
             console.log('🔍 TOON STATS - Extraction Speed:', stats.final.extractionSpeed);
             console.log('   Full stats object:', stats);
             
@@ -1520,7 +1472,7 @@ const App = {
                 }
             }
             
-            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true);
+            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true, panicStats?.final);
         }
 
         // Sync trinket UI selections after machine calculation so Stress Ball can show max stacks.
