@@ -803,6 +803,7 @@ const UI = {
             existingRows.forEach((row, index) => {
                 const twisted = sortedTwisteds[index];
                 const speeds = twisted.speeds;
+                const stationary = Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
                 
                 // Calculate colors for each speed
                 const colors = {
@@ -821,9 +822,10 @@ const UI = {
                 
                 speedCells.forEach((cell, i) => {
                     const { value, color } = speedData[i];
-                    cell.textContent = value.toFixed(1);
+                    cell.textContent = stationary ? 'N/A' : value.toFixed(1);
+                    cell.title = stationary ? 'Stationary; no chase speed.' : '';
                     // Remove all color classes and add the new one
-                    cell.className = `speed-value ${color}`;
+                    cell.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 });
             });
             return; // Early exit - we're done
@@ -834,6 +836,7 @@ const UI = {
         
         sortedTwisteds.forEach(twisted => {
             const speeds = twisted.speeds;
+            const stationary = Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
             const imagePath = `assets/images/${twisted.image}`;
             
             // Calculate colors for each speed
@@ -889,8 +892,9 @@ const UI = {
             
             speedValues.forEach(({ value, color }) => {
                 const td = document.createElement('td');
-                td.className = `speed-value ${color}`;
-                td.textContent = value.toFixed(1);
+                td.className = stationary ? 'speed-value' : `speed-value ${color}`;
+                td.textContent = stationary ? 'N/A' : value.toFixed(1);
+                td.title = stationary ? 'Stationary; no chase speed.' : '';
                 row.appendChild(td);
             });
             

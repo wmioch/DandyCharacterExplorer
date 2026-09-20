@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-21 — stationary Twisted display
+
+- Twisted Blot, Razzle & Dazzle, and Rodger now show neutral N/A chase-speed cells with a stationary tooltip, instead of green 0.0 comparisons. Numeric storage and sorting are unchanged; both initial rendering and subsequent updates use the label.
+- Source: [Movement Speed](https://dandys-world-robloxhorror.fandom.com/wiki/Movement_Speed), checked September 21, 2026, identifies these Twisteds as stationary.
+- Validation: manual review of both rendering paths and `git diff --check`. No builds, tests, lint or browser checks. Manual check: switch Toons and sort the table; stationary rows should remain neutral N/A while moving rows keep numeric comparisons.
+
 ## 2026-09-21 — Toon descriptions
 
 - Corrected Blot to an ink blob, Coal to a dog-like rock, and Cocoa to a chocolate bunny. Stats and abilities are unchanged.
