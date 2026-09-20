@@ -5,6 +5,7 @@ These features remain on `codex/local-preview` until explicitly approved for rel
 ## September 21 revisions
 
 - Reel In and Problem Solver use independent white, checkbox-sized counters. Left click increments, right click decrements; keyboard +/Up and -/Down are also supported. Zero is off, maximum 25. Changing Toon resets player ability counters. The shared completed-machine input is removed.
+- Finn retains the existing 35% per-stack movement modifier. The public Toon guide says 35%, while the wiki Multipliers table says 33%; that source conflict remains unresolved. The new counter does not settle or change the stored value.
 - Razzle & Dazzle's existing floor choice gates Clown Horn/Ribbon Spool. For other Toons either or both gives one 10% movement modifier. There is no separate floor selector.
 - Vanity Mirror leaves normal FINAL speeds unchanged and adds bracketed Panic values. Normal Twisted comparisons use normal player speeds; both Panic columns use Panic player speeds. Sorting preserves this behavior.
 - Debuffs has its own tab after Twisted Speed and Machine Stats. Left/right click increases/decreases the selected level, 0–3. Symbols are typographic interface icons, not copied game debuff artwork. Applied levels are constant scenario snapshots; automatic expiry and simultaneous-source stacking are not simulated.
