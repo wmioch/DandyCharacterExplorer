@@ -14,6 +14,11 @@
 
 # Changelog
 
+## 2026-09-21 — Toon descriptions
+
+- Corrected Blot to an ink blob, Coal to a dog-like rock, and Cocoa to a chocolate bunny. Stats and abilities are unchanged.
+- Sources: [Blot](https://dandys-world-robloxhorror.fandom.com/wiki/Blot), [Coal](https://dandys-world-robloxhorror.fandom.com/wiki/Coal), and [Cocoa](https://dandys-world-robloxhorror.fandom.com/wiki/Cocoa), checked September 21, 2026.
+- Validation: JSON parsing, manual diff review and `git diff --check`; no builds, tests, lint or app-browser checks.
 ## 2026-09-20 — requested gameplay cards (local preview)
 
 - Added Tech Savvy, Well-Paced and Endurance controls. Tech Savvy reduces the machine work target from 45 to 40 units before existing progress reductions. Each stamina card adds 10 capacity before percentage modifiers; each can be selected once.
