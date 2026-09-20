@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-21 — Toon descriptions
+
+- Corrected Blot to an ink blob, Coal to a dog-like rock, and Cocoa to a chocolate bunny. Stats and abilities are unchanged.
+- Sources: [Blot](https://dandys-world-robloxhorror.fandom.com/wiki/Blot), [Coal](https://dandys-world-robloxhorror.fandom.com/wiki/Coal), and [Cocoa](https://dandys-world-robloxhorror.fandom.com/wiki/Cocoa), checked September 21, 2026.
+- Validation: JSON parsing, manual diff review and `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-09-20 — Rudie ability timing text
 
 - Added Antler Charge’s omitted 0.4-second duration and 23-second cooldown to Rudie’s description. The existing dash calculation and active-state toggle are unchanged.

@@ -99,7 +99,7 @@
     {
       "id": "blot",
       "name": "Blot",
-      "description": "Blot is an ink bottle Toon who can place decoys to distract Twisteds. He's strategic and clever!",
+      "description": "Blot is an ink blob Toon who can place decoys to distract Twisteds. He's strategic and clever!",
       "baseStats": {
         "walkSpeed": 17.5,
         "runSpeed": 27.5,
@@ -306,7 +306,7 @@
     {
       "id": "coal",
       "name": "Coal",
-      "description": "Coal is a reindeer Toon who can sniff out and highlight items for the entire team.",
+      "description": "Coal is a dog-like rock Toon who can sniff out and highlight items for the entire team.",
       "baseStats": {
         "walkSpeed": 17.5,
         "runSpeed": 27.5,
@@ -341,7 +341,7 @@
     {
       "id": "cocoa",
       "name": "Cocoa",
-      "description": "Cocoa is a hot chocolate Toon who can place bonbon candies that boost extraction and movement speed.",
+      "description": "Cocoa is a chocolate bunny Toon who can place bonbon candies that boost extraction and movement speed.",
       "baseStats": {
         "walkSpeed": 17.5,
         "runSpeed": 27.5,
