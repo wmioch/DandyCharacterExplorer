@@ -9,7 +9,7 @@
     gap: var(--spacing-sm);
     padding: var(--spacing-sm);
 }
-#card-icons { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+#card-icons { grid-template-columns: repeat(auto-fit, minmax(116px, 1fr)); }
 .scenario-icon {
     position: relative;
     display: flex;
@@ -33,8 +33,8 @@
 .debuff-tired .scenario-symbol { color: #65cc83; }
 .debuff-illness .scenario-symbol { color: #eeab68; }
 .scenario-count { position: absolute; top: 3px; right: 5px; font-weight: bold; }
-/* Crop inside the source borders consistently; preserve the complete card text. */
-.card-art { display: block; width: 82px; height: 138px; flex-shrink: 0; background-image: url('../assets/images/cards/card-reference.png'); background-repeat: no-repeat; }
+/* Crop source frames and provide one complete, consistent white frame for every card. */
+.card-art { display: block; width: 82px; height: 138px; box-sizing: content-box; border: 3px solid #fff; border-radius: 6px; flex-shrink: 0; background-image: url('../assets/images/cards/card-reference.png'); background-repeat: no-repeat; background-origin: content-box; background-clip: content-box; }
 .card-art-techSavvy { background-position: -223px 0; }
 .card-art-wellPaced { background-position: -131px 0; }
 .card-art-suppression { background-position: -313px -276px; }

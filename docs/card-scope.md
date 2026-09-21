@@ -30,4 +30,4 @@ Reviewed the 21 regular and two seasonal card names against the [wiki Cards tabl
 
 Suppression does not multiply normal speed by 0.95. The existing table already distinguishes normal, Panic and suppressed Panic states. Selecting the card uses the suppressed state in the Panic column and hides the duplicate reference column. Deselecting restores the original comparison columns. Vanity Mirror's player Panic value remains independent.
 
-No card artwork was invented. See [artwork sources](../assets/images/cards/SOURCES.md). All five card crops omit the white border consistently. UI inspection in a browser remains for the user under repository policy.
+No card artwork was invented. See [artwork sources](../assets/images/cards/SOURCES.md). All five card crops omit the source border and use a complete, consistent white CSS frame. UI inspection in a browser remains for the user under repository policy.
