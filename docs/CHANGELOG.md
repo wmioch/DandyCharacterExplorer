@@ -110,7 +110,7 @@ Validation: JSON parsing and Git whitespace checks only, in accordance with repo
 - Merge Cards & Debuffs, display debuffs as I/II/III, and confirm before Advanced mode clears custom values.
 - Add TIME’S UP and selectable Suppression; crop all five card faces with complete, consistent white frames.
 - Replace Waxwell timeline and cooldown scenarios with the standard Ignite checkbox; no teammate cooldown control.
-- Add non-chasing Twisted Waxwell with neutral N/A values. His portrait remains unavailable; the existing letter placeholder is used.
+- Add non-chasing Twisted Waxwell with neutral N/A values. His sourced portrait is included; inconsistent secondary roaming values remain unverified.
 - Keep Cherished Blanket out of visible trinkets and ability cooldown statistics deferred.
 - Confirm Finn's existing35% modifier against the June12,2026 (0.22.1) wiki change history; remove the outdated preview multiplier warning. No numeric change.
 - Validation: manual source/diff review, JSON parsing and git diff --check only. User browser testing remains pending.

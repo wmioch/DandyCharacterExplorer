@@ -107,4 +107,4 @@ Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red port
 
 Ignite uses the standard player ability checkbox and saved-state mechanism. Off applies intrinsic Tired II; on removes it. Changing Toon resets it. No Waxwell timers or teammate cooldown controls remain; cooldown statistics are deferred. Additional Tired sources remain unsupported.
 
-Twisteds may specify `noChase: true` with null speeds and no image. The table displays neutral N/A and the existing letter placeholder, without treating null as comparable speed. Twisted Waxwell uses this representation; his portrait remains unavailable. Cherished Blanket is intentionally not visible.
+Twisteds may specify `noChase: true` with null speeds and no image. The table displays neutral N/A and the existing letter placeholder, without treating null as comparable speed. Twisted Waxwell uses non-chasing N/A values with a sourced portrait; numeric roaming states await verification. Cherished Blanket is intentionally not visible.

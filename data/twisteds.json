@@ -845,8 +845,8 @@
           "run": null
         }
       },
-      "image": null,
-      "description": "Avoids Toons rather than chasing them. His trail supports other Twisteds. Roaming speed is not documented."
+      "image": "twisteds/waxwell.webp",
+      "description": "Avoids Toons rather than chasing them. His trail supports other Twisteds. Roaming speeds await source verification."
     }
   ],
   "metadata": {

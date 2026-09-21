@@ -909,7 +909,7 @@ const UI = {
                     const { value, color } = speedData[i];
                     cell.hidden = suppression && i === 2;
                     cell.textContent = stationary ? 'N/A' : value.toFixed(1);
-                    cell.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speed is not documented.' : 'Stationary; no chase speed.') : '';
+                    cell.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : '';
                     // Remove all color classes and add the new one
                     cell.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 });
@@ -982,7 +982,7 @@ const UI = {
                 td.hidden = suppression && i === 2;
                 td.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 td.textContent = stationary ? 'N/A' : value.toFixed(1);
-                td.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speed is not documented.' : 'Stationary; no chase speed.') : '';
+                td.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : '';
                 row.appendChild(td);
             });
             
