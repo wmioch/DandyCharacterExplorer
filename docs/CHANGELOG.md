@@ -112,4 +112,5 @@ Validation: JSON parsing and Git whitespace checks only, in accordance with repo
 - Replace Waxwell timeline and cooldown scenarios with the standard Ignite checkbox; no teammate cooldown control.
 - Add non-chasing Twisted Waxwell with neutral N/A values. His portrait remains unavailable; the existing letter placeholder is used.
 - Keep Cherished Blanket out of visible trinkets and ability cooldown statistics deferred.
+- Confirm Finn's existing35% modifier against the June12,2026 (0.22.1) wiki change history; remove the outdated preview multiplier warning. No numeric change.
 - Validation: manual source/diff review, JSON parsing and git diff --check only. User browser testing remains pending.
