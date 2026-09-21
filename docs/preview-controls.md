@@ -2,15 +2,15 @@
 
 These features remain on `codex/local-preview` until explicitly approved for release.
 
-## September 21 revisions
+## Current preview controls (September 22)
 
 - Reel In and Problem Solver use independent white, checkbox-sized counters. Left click increments, right click decrements; keyboard +/Up and -/Down are also supported. Zero is off, maximum 25. Changing Toon resets player ability counters. The shared completed-machine input is removed.
 - Finn retains the existing 35% per-stack movement modifier. The public Toon guide says 35%, while the wiki Multipliers table says 33%; that source conflict remains unresolved. The new counter does not settle or change the stored value.
 - Razzle & Dazzle's existing floor choice gates Clown Horn/Ribbon Spool. For other Toons either or both gives one 10% movement modifier. There is no separate floor selector.
 - Vanity Mirror leaves normal FINAL speeds unchanged and adds bracketed Panic values. Normal Twisted comparisons use normal player speeds; both Panic columns use Panic player speeds. Sorting preserves this behavior.
-- Debuffs has its own tab after Twisted Speed and Machine Stats. Left/right click increases/decreases the selected level, 0–3. Symbols are typographic interface icons, not copied game debuff artwork. Applied levels are constant scenario snapshots; automatic expiry and simultaneous-source stacking are not simulated.
-- Cards has its own tab with actual card faces for Tech Savvy, Well-Paced and Endurance. Click to toggle each once. Artwork provenance is in `assets/images/cards/SOURCES.md`. The older Tech Savvy card image says seconds; calculation correctly reduces work by five units. Other cards remain separate work.
-- The footer Advanced button turns green when enabled and makes the player table's BASE values editable. Values commit on change/blur; invalid values are rejected. Emptying a field restores its normal value. Turning Advanced off, changing Toon or reloading clears overrides. The one-time Advanced explanation uses a separate local-storage flag and is also slide six in the seven-slide tutorial, immediately before Feedback.
+- Cards & Debuffs share one tab after Twisted Speed and Machine Stats. Left/right click increases/decreases debuff levels, displayed as 0/I/II/III. Symbols are typographic interface icons. Applied levels are constant snapshots; automatic expiry and simultaneous-source stacking are not simulated.
+- Cards show actual faces for Tech Savvy, Well-Paced, Endurance, TIME’S UP and Suppression. Click to toggle each once. All white borders are cropped out consistently. Artwork provenance is in `assets/images/cards/SOURCES.md`. Tech Savvy reduces machine work by five units. TIME’S UP adds 50 stamina after earning its floor reward. Suppression selects existing suppressed Panic speeds. See [card-scope.md](card-scope.md) for all 23 reviewed card names.
+- Advanced turns green and enables in-place BASE editing. Invalid values are rejected; empty fields restore defaults. Disabling asks for confirmation: Cancel preserves mode and custom numbers; OK clears them. Changing Toon or reloading clears overrides. The first activation shows tutorial slide six, immediately before Feedback.
 - Dandy and Dyle have pale red portraits, a DEV badge and developer-only descriptions. They have five stars in every stat and 99 internal health (displayed compactly as heart × 99). Sources distinguish this from the game's three visible hearts. Their passives have no invented stat effect.
 
 ## Manual review
@@ -19,8 +19,8 @@ These features remain on `codex/local-preview` until explicitly approved for rel
 2. Boxten + only Vanity Mirror: normal run 25.0 with (32.5) Panic. Normal Twisted colors should remain unchanged; Panic columns should reflect the faster player. Sort both ways and verify again.
 3. Finn/Shelly: counter starts 0; left clicks apply successive existing passive multipliers, right clicks remove them. Verify clamping at both 0 and 25 and unchanged control dimensions.
 4. Poppy: Slow II gives displayed 11.3/18.8; Tired II gives 1.2/s; Confused I gives extraction 0.75; Illness III gives skill-check size 75. Right click down to zero. Ribecca disables and ignores applied debuffs while retaining trinket drawbacks.
-5. Enable Advanced: first activation opens its slide, subsequent activations do not. Change Poppy's base walk to18; Dog Plush gives19.8. Clear the field or disable Advanced to restore defaults. Reject fractional hearts and chance over100. Other tutorial slides, including Feedback, remain reachable.
-6. Poppy: Tech Savvy changes base machine time45→40s. Both stamina cards give170 stamina. Deselect to restore defaults; all three show their own card face.
+5. Enable Advanced: first activation opens its slide, subsequent activations do not. Change Poppy's base walk to18; Dog Plush gives19.8. Click Advanced then Cancel: edited values and green mode remain. Click again then OK: defaults return. Reject fractional hearts and chance over100. Other tutorial slides remain reachable.
+6. Poppy: Tech Savvy changes base machine time45→40s. Well-Paced plus Endurance gives170 stamina; TIME’S UP alone gives200 and all three stamina cards give220. Suppression changes Twisted Poppy Panic21.6 to20.7 and hides the duplicate reference column; deselect to restore the three original columns. Repeat after sorting and with Vanity Mirror. All five cards show their own artwork without white borders.
 7. Dandy/Dyle: correct portraits, pale red background, DEV label, 20/30 speed,200 stamina,20 stealth,1.5 extraction,3 skill-check amount and250 size. Health shows99 without overflowing the table.
 
 Validation is limited to manual source/diff inspection, JSON parsing and `git diff --check`, per repository instructions. No builds, tests, lint or automated browser checks.
@@ -39,15 +39,15 @@ Checked 2026-09-21; publication dates are not established:
 
 ## Waxwell — APP-SRC-WAXWELL-IGNITED-TRAIL
 
-The core Toon bundle includes the sourced portrait and stats, permanent Tired II, a manual elapsed-time Ignite scenario, and a teammate trail cooldown calculator. These are scenario controls, not a running game or automatic clock.
+The core Toon bundle includes the sourced portrait and stats, permanent Tired II and the standard Ignite checkbox. The user controls activation manually.
 
 - Select Waxwell:20/30 movement,100 stamina,5 stealth,0.85 extraction,3 skill-check amount,250 size,3 hearts. Unbuffed regeneration is1.2/s due to intrinsic Tired II.
-- Use Ignite: at0–9 seconds regeneration is2.4/s; at10 seconds it returns to1.2/s. Base cooldown is60 minus elapsed seconds. Use is disabled until60 seconds; Reset restarts the scenario. The caster never receives trail cooldown acceleration.
-- Select a different Toon and add Waxwell to the team. Enter60 seconds remaining cooldown at contact. At5 seconds the calculator shows50 seconds remaining, versus55 without Ignited; at6 seconds it shows49 versus54. Adding another Waxwell does not multiply this effect. Removing all teammate Waxwells hides the contact scenario.
-- With neither player nor teammate Waxwell selected, the entire Ignite section stays hidden; its layout styles must not override that state.
-- Cooldown input means the actual remaining cooldown after other modifiers, avoiding assumptions about modifier order. Only a single contact is represented; repeated-contact refresh and another Waxwell as recipient are not simulated. Additional Tired sources are disabled for Waxwell pending evidence. His Debuffs icon instead shows the intrinsic state.
-- Machine estimates retain the selected stat snapshot; the elapsed-time slider does not turn machine estimates into a full event timeline. His intrinsic regeneration does not itself change extraction.
+- Toggle Ignite on: regeneration becomes2.4/s and intrinsic Tired II becomes0. Toggle off:1.2/s and Tired II return. Change Toon and return: Ignite starts off.
+- Add teammate Waxwell to another Toon: no Team Abilities checkbox or cooldown control appears. Cooldown statistics are explicitly deferred by the user. All previous Waxwell time and cooldown controls are removed.
+- Additional Tired sources remain unsupported; his debuff icon reflects the checkbox-controlled intrinsic state. Machine estimates use the same selected stat snapshot.
 
 Sources rechecked2026-09-21: https://wikiwiki.jp/dandys-world/Waxwell and https://bloxodes.com/articles/dandys-world-waxwell-toon-guide (updated2026-08-19). Portrait: https://mudae.net/uploads/5471456/JWtfiov~P2Mrj8TIf.png, matched visually to the in-game license screenshot linked by the latter guide. Original artwork belongs to its rights holders; not CC0.
 
-Related Twisted Waxwell exact movement data and Cherished Blanket effects/assets remain unresolved and are not included. Do not describe those related records as implemented.
+Twisted Waxwell is listed with neutral N/A chase values because his research description says he avoids Toons. Unknown roaming speed is null, not zero. Speed sorting places him after numeric rows; name sorting remains available. His portrait is unavailable from accessible sources, so the existing letter placeholder is shown; that asset remains unfinished. Research description checked September22 at https://wikiwiki.jp/dandys-world/ツイステッド, corroborated by https://bloxguidesgg.com/games/dandys-world/toons/waxwell (synced August14).
+
+Cherished Blanket is intentionally absent from visible trinkets because it affects no currently displayed stat.

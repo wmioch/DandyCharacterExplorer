@@ -4,10 +4,6 @@
  */
 
 const Calculator = {
-    // One non-stacking trail contact: two seconds of cooldown per second for five seconds.
-    cooldownAfterIgnited(remaining, elapsed) {
-        return Math.max(0, remaining - elapsed - Math.min(elapsed, 5));
-    },
     /**
      * Calculate final stats for a toon with all modifiers applied
      * @param {Object} toon - The selected toon
@@ -77,6 +73,7 @@ const Calculator = {
         // Run-long card gains increase capacity before percentage modifiers.
         if (scenario?.cards?.wellPaced) baseStats.stamina += 10;
         if (scenario?.cards?.endurance) baseStats.stamina += 10;
+        if (scenario?.cards?.timesUp) baseStats.stamina += 50;
 
         // Apply direct base stat increases from trinkets/items (e.g., Cooler's +50 stamina)
         this._applyBaseStatIncreases(trinkets, items, baseStats, teamSize);
@@ -99,7 +96,7 @@ const Calculator = {
         this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount, scenario?.abilityStacks);
 
         // One selected level represents the currently applied status, not its source count.
-        if (toon.id === 'waxwell' && !scenario?.waxwellIgniteActive) {
+        if (toon.id === 'waxwell' && !this._isAbilityEnabled(toon.ability)) {
             modifiers.staminaRegen.multiplicative.push({ value: -0.5, cap: null });
         }
         if (scenario?.debuffs && toon.ability?.targetStat !== 'debuffImmunity') {
@@ -960,6 +957,7 @@ const Calculator = {
      * @returns {string} Color code: 'green', 'yellow', or 'red'
      */
     compareTwistedSpeed(playerWalk, playerRun, twistedSpeed) {
+        if (!Number.isFinite(twistedSpeed)) return '';
         if (playerWalk >= twistedSpeed) {
             return 'green';
         } else if (playerRun > twistedSpeed) {
@@ -992,8 +990,7 @@ const Calculator = {
             debuffs: { ...state.debuffs },
             customStats: { ...state.customStats },
             cards: { ...state.cards },
-            abilityStacks: { ...state.abilityStacks },
-            waxwellElapsed: state.waxwellElapsed
+            abilityStacks: { ...state.abilityStacks }
         };
     },
 
@@ -1020,7 +1017,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards, waxwellIgniteActive: state.waxwellElapsed != null && state.waxwellElapsed < 10 } : null
+            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
         );
     },
 

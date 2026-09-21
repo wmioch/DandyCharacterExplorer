@@ -91,9 +91,9 @@ App.init()
 
 See [preview-controls.md](docs/preview-controls.md) for the current controls and manual acceptance steps. The preview is separate and unreleased.
 
-`App.state.abilityStacks` holds independent 0–25 player-passive counters. `advancedMode` enables inline BASE editors backed by validated, temporary `customStats`; disabling it or changing Toon clears overrides. The tutorial has seven slides, with Advanced before Feedback and a separate first-use flag.
+`App.state.abilityStacks` holds independent 0–25 player-passive counters. `advancedMode` enables inline BASE editors backed by validated, temporary `customStats`; confirmed disabling or changing Toon clears overrides. Cancel preserves mode and values. The tutorial has seven slides, with Advanced before Feedback and a separate first-use flag.
 
-`debuffs` holds applied levels 0–3 in the Debuffs tab; `cards` holds the three supported selections in Cards. State clones preserve both and ability counters for machine estimates. Debuffs remain constant snapshots. Stamina cards add before percentage modifiers; Tech Savvy changes work45→40 units.
+`debuffs` holds levels 0–3, displayed as Roman numerals in Cards & Debuffs; `cards` holds five selections. State clones preserve both and ability counters for machine estimates. Debuffs remain constant snapshots. Stamina cards add before percentage modifiers; Tech Savvy changes work45→40 units. TIME’S UP adds50 stamina after its reward is earned. Suppression selects the existing suppressed Panic comparison and hides the duplicate column.
 
 Razzle & Dazzle uses its own conditional floor selector. Other Toons receive one floor-trinket bonus even with both equipped. Normal and Panic results are calculated separately for Vanity Mirror; Panic comparison columns receive the Panic result, including after sorting.
 
@@ -103,6 +103,8 @@ Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red port
 - Dandy-specific context stays embedded inside `feedback.message`; `ecg_case` remains `null`.
 - The live site still runs as a static GitHub Pages site; only the feedback backend deploys through GitHub Actions.
 
-### Waxwell preview scenario
+### Waxwell preview controls
 
-`waxwellElapsed` is null before activation, then a manually selected0–60 seconds. Calculator removes his intrinsic Tired II only below10 seconds. This is preserved in machine-state clones as a stat snapshot. A separate single-contact cooldown calculator applies2× recovery for5 seconds to a non-Waxwell player with a Waxwell teammate; current remaining cooldown is supplied by the user. It does not infer modifier order or repeated-contact refresh. Additional Tired sources on Waxwell are intentionally unavailable pending evidence; the Debuffs icon shows his intrinsic state. See the preview guide for boundaries and manual checks.
+Ignite uses the standard player ability checkbox and saved-state mechanism. Off applies intrinsic Tired II; on removes it. Changing Toon resets it. No Waxwell timers or teammate cooldown controls remain; cooldown statistics are deferred. Additional Tired sources remain unsupported.
+
+Twisteds may specify `noChase: true` with null speeds and no image. The table displays neutral N/A and the existing letter placeholder, without treating null as comparable speed. Twisted Waxwell uses this representation; his portrait remains unavailable. Cherished Blanket is intentionally not visible.

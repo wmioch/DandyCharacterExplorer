@@ -37,7 +37,7 @@ const UI = {
         });
         const cards = document.getElementById('card-icons');
         cards.replaceChildren();
-        [['techSavvy', 'Tech Savvy', 'Machines require 5 fewer units'], ['wellPaced', 'Well-Paced', '+10 maximum stamina'], ['endurance', 'Endurance', '+10 maximum stamina']].forEach(([id, name, effect]) => {
+        [['techSavvy', 'Tech Savvy', 'Machines require 5 fewer units'], ['wellPaced', 'Well-Paced', '+10 maximum stamina'], ['endurance', 'Endurance', '+10 maximum stamina'], ['timesUp', "TIME’S UP", '+50 maximum stamina after completing Dyle’s floor (select only after earning the reward)'], ['suppression', 'Suppression', 'Use the reduced Panic speed for Twisted comparisons']].forEach(([id, name, effect]) => {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'scenario-icon card-icon';
@@ -52,11 +52,11 @@ const UI = {
     updateScenarioIcons(state) {
         document.querySelectorAll('[data-debuff]').forEach(button => {
             const intrinsicTired = state.selectedToon?.id === 'waxwell' && button.dataset.debuff === 'tired';
-            const level = intrinsicTired ? (state.waxwellElapsed !== null && state.waxwellElapsed < 10 ? 0 : 2) : state.debuffs[button.dataset.debuff];
+            const level = intrinsicTired ? (Calculator._isAbilityEnabled(state.selectedToon.ability) ? 0 : 2) : state.debuffs[button.dataset.debuff];
             button.title = intrinsicTired ? 'Waxwell’s intrinsic Tired II is controlled by Ignite. Additional Tired sources are not modeled.' : button.dataset.defaultTitle;
             button.classList.toggle('selected', level > 0);
             button.setAttribute('aria-label', `${button.dataset.debuff}: ${level === 0 ? 'off' : 'level ' + level}. ${intrinsicTired ? 'Controlled by Ignite.' : 'Increase with left click, decrease with right click.'}`);
-            button.querySelector('.scenario-count').textContent = level;
+            button.querySelector('.scenario-count').textContent = ['0', 'I', 'II', 'III'][level];
         });
         document.querySelectorAll('[data-card]').forEach(button => {
             const selected = !!state.cards[button.dataset.card];
@@ -845,15 +845,19 @@ const UI = {
     /**
      * Update twisted comparison table with images
      */
-    updateTwistedTable(twisteds, playerWalkSpeed, playerRunSpeed, preSorted = false, panicStats = null) {
+    updateTwistedTable(twisteds, playerWalkSpeed, playerRunSpeed, preSorted = false, panicStats = null, suppression = false) {
         const panicWalk = panicStats?.walkSpeed ?? playerWalkSpeed;
         const panicRun = panicStats?.runSpeed ?? playerRunSpeed;
         const tbody = document.querySelector('.twisted-table-compact tbody');
         if (!tbody) return;
+        const headers = document.querySelectorAll('.twisted-table-compact thead th');
+        headers[2].textContent = suppression ? 'Panic + Sup' : 'Panic';
+        headers[3].hidden = suppression;
         
         // Use provided array if already sorted, otherwise sort by Normal Run speed
         const sortedTwisteds = preSorted ? twisteds : [...twisteds].sort((a, b) => {
             // Primary sort: Normal Run speed (fastest first)
+            if (!!a.noChase !== !!b.noChase) return a.noChase ? 1 : -1;
             const runDiff = b.speeds.normal.run - a.speeds.normal.run;
             if (runDiff !== 0) return runDiff;
             
@@ -883,12 +887,13 @@ const UI = {
             existingRows.forEach((row, index) => {
                 const twisted = sortedTwisteds[index];
                 const speeds = twisted.speeds;
-                const stationary = Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+                const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+                const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
                 
                 // Calculate colors for each speed
                 const colors = {
                     normalRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.normal.run),
-                    panicRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panic.run),
+                    panicRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, panicSpeeds.run),
                     panicSuppRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panicSuppressed.run)
                 };
                 
@@ -896,14 +901,15 @@ const UI = {
                 const speedCells = row.querySelectorAll('.speed-value');
                 const speedData = [
                     { value: speeds.normal.run, color: colors.normalRun },
-                    { value: speeds.panic.run, color: colors.panicRun },
+                    { value: panicSpeeds.run, color: colors.panicRun },
                     { value: speeds.panicSuppressed.run, color: colors.panicSuppRun }
                 ];
                 
                 speedCells.forEach((cell, i) => {
                     const { value, color } = speedData[i];
+                    cell.hidden = suppression && i === 2;
                     cell.textContent = stationary ? 'N/A' : value.toFixed(1);
-                    cell.title = stationary ? 'Stationary; no chase speed.' : '';
+                    cell.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speed is not documented.' : 'Stationary; no chase speed.') : '';
                     // Remove all color classes and add the new one
                     cell.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 });
@@ -916,15 +922,16 @@ const UI = {
         
         sortedTwisteds.forEach(twisted => {
             const speeds = twisted.speeds;
-            const stationary = Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+            const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+            const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
             const imagePath = `assets/images/${twisted.image}`;
             
             // Calculate colors for each speed
             const colors = {
                 normalWalk: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.normal.walk),
                 normalRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.normal.run),
-                panicWalk: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panic.walk),
-                panicRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panic.run),
+                panicWalk: Calculator.compareTwistedSpeed(panicWalk, panicRun, panicSpeeds.walk),
+                panicRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, panicSpeeds.run),
                 panicSuppWalk: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panicSuppressed.walk),
                 panicSuppRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panicSuppressed.run)
             };
@@ -953,7 +960,7 @@ const UI = {
                 imgContainer.style.backgroundSize = 'cover';
                 imgContainer.style.backgroundPosition = 'center';
             };
-            img.src = imagePath;
+            if (twisted.image) img.src = imagePath;
             
             const nameSpan = document.createElement('span');
             nameSpan.textContent = twisted.name;
@@ -966,15 +973,16 @@ const UI = {
             // Speed cells (Run speeds only)
             const speedValues = [
                 { value: speeds.normal.run, color: colors.normalRun },
-                { value: speeds.panic.run, color: colors.panicRun },
+                { value: panicSpeeds.run, color: colors.panicRun },
                 { value: speeds.panicSuppressed.run, color: colors.panicSuppRun }
             ];
             
-            speedValues.forEach(({ value, color }) => {
+            speedValues.forEach(({ value, color }, i) => {
                 const td = document.createElement('td');
+                td.hidden = suppression && i === 2;
                 td.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 td.textContent = stationary ? 'N/A' : value.toFixed(1);
-                td.title = stationary ? 'Stationary; no chase speed.' : '';
+                td.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speed is not documented.' : 'Stationary; no chase speed.') : '';
                 row.appendChild(td);
             });
             

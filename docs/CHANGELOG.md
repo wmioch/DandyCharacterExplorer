@@ -105,3 +105,11 @@ Sources rechecked September 18, 2026:
 Fandom evidence was available through indexed page text; direct page access was blocked. The exact developer-announced date of the Panic modifier change remains unverified. No new mechanics, assets or feedback-backend changes are included.
 
 Validation: JSON parsing and Git whitespace checks only, in accordance with repository instructions.
+## 2026-09-22 — Local preview corrections (unreleased)
+
+- Merge Cards & Debuffs, display debuffs as I/II/III, and confirm before Advanced mode clears custom values.
+- Add TIME’S UP and selectable Suppression; crop all five card faces without white borders.
+- Replace Waxwell timeline and cooldown scenarios with the standard Ignite checkbox; no teammate cooldown control.
+- Add non-chasing Twisted Waxwell with neutral N/A values. His portrait remains unavailable; the existing letter placeholder is used.
+- Keep Cherished Blanket out of visible trinkets and ability cooldown statistics deferred.
+- Validation: manual source/diff review, JSON parsing and git diff --check only. User browser testing remains pending.

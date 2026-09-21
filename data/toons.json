@@ -1709,7 +1709,7 @@
         "value": 2,
         "applicationType": "special",
         "affectsSelf": true,
-        "hasToggle": false,
+        "hasToggle": true,
         "stackable": false,
         "cooldownSeconds": 60,
         "durationSeconds": 10,

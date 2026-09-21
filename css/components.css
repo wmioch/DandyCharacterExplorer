@@ -9,6 +9,7 @@
     gap: var(--spacing-sm);
     padding: var(--spacing-sm);
 }
+#card-icons { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
 .scenario-icon {
     position: relative;
     display: flex;
@@ -32,10 +33,13 @@
 .debuff-tired .scenario-symbol { color: #65cc83; }
 .debuff-illness .scenario-symbol { color: #eeab68; }
 .scenario-count { position: absolute; top: 3px; right: 5px; font-weight: bold; }
-.card-art { display: block; width: 90px; height: 138px; flex-shrink: 0; background-image: url('../assets/images/cards/card-reference.png'); background-repeat: no-repeat; }
-.card-art-techSavvy { background-position: -218px 0; }
-.card-art-wellPaced { background-position: -126px 0; }
-.card-art-endurance { width: 84px; background-image: url('../assets/images/cards/endurance-reference.webp'); background-size: 652px 363px; background-position: -198.6px -214.5px; }
+/* Crop inside the source borders consistently; preserve the complete card text. */
+.card-art { display: block; width: 82px; height: 138px; flex-shrink: 0; background-image: url('../assets/images/cards/card-reference.png'); background-repeat: no-repeat; }
+.card-art-techSavvy { background-position: -223px 0; }
+.card-art-wellPaced { background-position: -131px 0; }
+.card-art-suppression { background-position: -313px -276px; }
+.card-art-endurance { background-image: url('../assets/images/cards/endurance-reference.webp'); background-size: 708px 394.4px; background-position: -220px -239px; }
+.card-art-timesUp { background-image: url('../assets/images/cards/times-up-reference.jpg'); background-size: 353.1px 198.6px; background-position: -146px -46px; }
 .inline-base-stat { width: 72px; max-width: 100%; padding: 3px; color: var(--text-primary); background: var(--bg-secondary); border: 1px solid #65cc83; border-radius: 3px; font: inherit; }
 #advanced-mode.enabled { background: #287342; border-color: #65cc83; color: #fff; }
 .advanced-tutorial-example { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 36px 12px; }
@@ -644,10 +648,6 @@
     padding: var(--spacing-md) 0;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: var(--spacing-lg);
-}
-
-#waxwell-scenario[hidden] {
-    display: none;
 }
 
 .machine-stats-header {

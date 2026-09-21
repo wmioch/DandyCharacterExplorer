@@ -825,12 +825,34 @@
       },
       "image": "twisteds/dyle.png",
       "notes": "Variable speed - these are highest speeds"
+    },
+    {
+      "id": "twisted_waxwell",
+      "name": "Twisted Waxwell",
+      "rarity": "Rare",
+      "noChase": true,
+      "speeds": {
+        "normal": {
+          "walk": null,
+          "run": null
+        },
+        "panic": {
+          "walk": null,
+          "run": null
+        },
+        "panicSuppressed": {
+          "walk": null,
+          "run": null
+        }
+      },
+      "image": null,
+      "description": "Avoids Toons rather than chasing them. His trail supports other Twisteds. Roaming speed is not documented."
     }
   ],
   "metadata": {
     "source": "Dandy's World Wiki",
     "url": "https://dandys-world-robloxhorror.fandom.com/wiki/Twisteds",
     "scraped_at": "2025-10-28 16:30:42",
-    "total_count": 40
+    "total_count": 42
   }
 }
