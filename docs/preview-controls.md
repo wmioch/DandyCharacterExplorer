@@ -1,6 +1,6 @@
 # Local preview controls
 
-These features remain on `codex/local-preview` until explicitly approved for release.
+The user approved this complete feature set on September 22 for release after the Waxwell portrait correction. The reusable local preview remains isolated from production feedback.
 
 ## Current preview controls (September 22)
 
@@ -46,7 +46,7 @@ The core Toon bundle includes the sourced portrait and stats, permanent Tired II
 - Add teammate Waxwell to another Toon: no Team Abilities checkbox or cooldown control appears. Cooldown statistics are explicitly deferred by the user. All previous Waxwell time and cooldown controls are removed.
 - Additional Tired sources remain unsupported; his debuff icon reflects the checkbox-controlled intrinsic state. Machine estimates use the same selected stat snapshot.
 
-Sources rechecked2026-09-21: https://wikiwiki.jp/dandys-world/Waxwell and https://bloxodes.com/articles/dandys-world-waxwell-toon-guide (updated2026-08-19). Portrait: https://mudae.net/uploads/5471456/JWtfiov~P2Mrj8TIf.png, matched visually to the in-game license screenshot linked by the latter guide. Original artwork belongs to its rights holders; not CC0.
+Sources rechecked2026-09-21: https://wikiwiki.jp/dandys-world/Waxwell and https://bloxodes.com/articles/dandys-world-waxwell-toon-guide (updated2026-08-19). Portrait updated September 23: https://media.bloxodes.com/wiki/5569032992/toons/waxwell-9b8f2561ea5d2304.webp, labelled at https://bloxodes.com/wiki/dandys-world/toons. Downloaded unchanged and visually inspected: square transparent head portrait matches the other Toon render portraits, replacing the full-body screenshot. Original artwork belongs to its rights holders; not CC0.
 
 Twisted Waxwell is listed with neutral N/A chase values because his research description says he avoids Toons. Unverified roaming values remain null, not zero. Speed sorting places him after numeric rows; name sorting remains available. Check that his sourced portrait appears. Research description checked September 22 at https://wikiwiki.jp/dandys-world/ツイステッド, corroborated by https://bloxguidesgg.com/games/dandys-world/toons/waxwell (synced August 14). The portrait was downloaded unchanged from the labelled September 2 reference at https://bloxodes.com/wiki/dandys-world/twisteds via https://media.bloxodes.com/wiki/5569032992/twisteds/twisted-waxwell-d4de6f68c264d531.webp and visually inspected. Original game artwork belongs to its rights holders; not CC0. That guide lists roaming states, but its lit Suppression value is inconsistent; those numeric values are not implemented without verification.
 

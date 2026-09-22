@@ -114,3 +114,9 @@ Validation: JSON parsing and Git whitespace checks only, in accordance with repo
 - Keep Cherished Blanket out of visible trinkets and ability cooldown statistics deferred.
 - Confirm Finn's existing35% modifier against the June12,2026 (0.22.1) wiki change history; remove the outdated preview multiplier warning. No numeric change.
 - Validation: manual source/diff review, JSON parsing and git diff --check only. User browser testing remains pending.
+
+## 2026-09-23 — Approved feature release
+
+- Replace Waxwell’s full-body screenshot with the unchanged, sourced square transparent Toon portrait; use the existing image_name field.
+- Release the user-approved Cards & Debuffs, Advanced stat editing, ability counters, floor-trinket/Panic comparisons, developer Toons and Waxwell bundle after focused source/diff/JSON checks.
+- Production feedback configuration is preserved; local-only feedback overrides remain outside release commits. Cooldown statistics remain deferred.

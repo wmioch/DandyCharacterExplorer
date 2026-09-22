@@ -1681,6 +1681,7 @@
     {
       "id": "waxwell",
       "name": "Waxwell",
+      "image_name": "waxwell.webp",
       "description": "A candle Toon whose permanent Tired II halves stamina regeneration. Ignite temporarily removes that fatigue and leaves a supportive trail for teammates.",
       "baseStats": {
         "walkSpeed": 20,

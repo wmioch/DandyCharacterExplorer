@@ -89,7 +89,7 @@ App.init()
 
 ### Preview scenarios
 
-See [preview-controls.md](docs/preview-controls.md) for the current controls and manual acceptance steps. The preview is separate and unreleased.
+See [preview-controls.md](docs/preview-controls.md) for the current controls and manual acceptance steps. The September 22 feature set is approved for release; the reusable local preview stays separate with production feedback disabled.
 
 `App.state.abilityStacks` holds independent 0–25 player-passive counters. `advancedMode` enables inline BASE editors backed by validated, temporary `customStats`; confirmed disabling or changing Toon clears overrides. Cancel preserves mode and values. The tutorial has seven slides, with Advanced before Feedback and a separate first-use flag.
 
