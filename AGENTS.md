@@ -87,6 +87,24 @@ App.init()
 
 ### Feedback Notes
 
+### Preview scenarios
+
+See [preview-controls.md](docs/preview-controls.md) for the current controls and manual acceptance steps. The September 22 feature set is approved for release; the reusable local preview stays separate with production feedback disabled.
+
+`App.state.abilityStacks` holds independent 0–25 player-passive counters. `advancedMode` enables inline BASE editors backed by validated, temporary `customStats`; confirmed disabling or changing Toon clears overrides. Cancel preserves mode and values. The tutorial has seven slides, with Advanced before Feedback and a separate first-use flag.
+
+`debuffs` holds levels 0–3, displayed as Roman numerals in Cards & Debuffs; `cards` holds five selections. State clones preserve both and ability counters for machine estimates. Debuffs remain constant snapshots. Stamina cards add before percentage modifiers; Tech Savvy changes work45→40 units. TIME’S UP adds50 stamina after its reward is earned. Suppression selects the existing suppressed Panic comparison and hides the duplicate column.
+
+Razzle & Dazzle uses its own conditional floor selector. Other Toons receive one floor-trinket bonus even with both equipped. Normal and Panic results are calculated separately for Vanity Mirror; Panic comparison columns receive the Panic result, including after sorting.
+
+Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red portraits with DEV labels and compact99-health display. Custom health edits support1–99 integer hearts.
+
 - The frontend feedback button is always present, but submission stays unconfigured until `js/feedback-config.js` contains the deployed Azure Function URL.
 - Dandy-specific context stays embedded inside `feedback.message`; `ecg_case` remains `null`.
 - The live site still runs as a static GitHub Pages site; only the feedback backend deploys through GitHub Actions.
+
+### Waxwell preview controls
+
+Ignite uses the standard player ability checkbox and saved-state mechanism. Off applies intrinsic Tired II; on removes it. Changing Toon resets it. No Waxwell timers or teammate cooldown controls remain; cooldown statistics are deferred. Additional Tired sources remain unsupported.
+
+Twisteds may specify `noChase: true` with null speeds and no image. The table displays neutral N/A and the existing letter placeholder, without treating null as comparable speed. Twisted Waxwell uses non-chasing N/A values with a sourced portrait; numeric roaming states await verification. Cherished Blanket is intentionally not visible.

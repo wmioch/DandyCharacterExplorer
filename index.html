@@ -256,6 +256,7 @@
                     <div class="tab-navigation">
                         <button class="tab-btn active" data-tab="twisted-speed">Twisted Speed</button>
                         <button class="tab-btn" data-tab="machine-stats">Machine Stats</button>
+                        <button class="tab-btn" data-tab="cards-debuffs">Cards &amp; Debuffs</button>
                     </div>
 
                     <!-- Tab Content: Twisted Speed -->
@@ -309,6 +310,16 @@
                         </div>
                     </div>
 
+                    <div id="tab-cards-debuffs" class="tab-content">
+                        <h3 class="section-heading">Debuffs</h3>
+                        <p class="machine-stats-help">Left click to increase a debuff; right click to decrease. Levels stay active for this calculation.</p>
+                        <div class="scenario-icon-grid" id="debuff-icons"></div>
+                        <p id="debuff-immunity-note" class="machine-stats-help" hidden>This Toon is immune to applied debuffs. Trinket drawbacks still apply.</p>
+                        <h3 class="section-heading">Cards</h3>
+                        <p class="machine-stats-help">Select cards already chosen during your run. Each card applies once. Select TIME’S UP only after completing Dyle’s floor and earning its stamina reward.</p>
+                        <div class="scenario-icon-grid" id="card-icons"></div>
+                    </div>
+
                     <!-- Tab Content: Machine Stats -->
                     <div id="tab-machine-stats" class="tab-content">
                         <div class="machine-stats-container">
@@ -319,16 +330,6 @@
                                     <span id="skill-check-great-rate-value" class="machine-stats-value">100%</span>
                                 </div>
                                 <input type="range" id="skill-check-great-rate-slider" min="0" max="100" value="100" step="5" class="skill-slider">
-                            </div>
-
-                            <!-- Completed-machine stack count for Finn/Shelly passive boosts -->
-                            <div class="machine-stats-slider-section">
-                                <div class="machine-stats-header">
-                                    <label class="machine-stats-label" for="machine-completion-count" title="Number of completed machines whose Finn Reel In or Shelly Problem Solver boosts are active">Completed Machine Boost Stacks</label>
-                                    <span id="machine-completion-count-value" class="machine-stats-value">1</span>
-                                </div>
-                                <input type="number" id="machine-completion-count" min="0" max="25" step="1" value="1" inputmode="numeric" aria-describedby="machine-completion-count-help">
-                                <small id="machine-completion-count-help" class="machine-stats-help">Set the completed-machine count to model one timed movement boost per completion (up to 25).</small>
                             </div>
 
                             <!-- Default / Circle Machines Section -->
@@ -386,6 +387,7 @@
     <footer class="app-footer">
         <div class="container">
             <div class="footer-actions">
+                <button id="advanced-mode" type="button" class="tutorial-open-btn" aria-pressed="false" title="Enable Advanced mode to edit temporary base stats directly in the player Toon table. Turn off to restore normal values.">Advanced</button>
                 <button id="open-tutorial-modal" class="tutorial-open-btn">Open Tutorial</button>
                 <button id="open-feedback-modal" class="feedback-btn">Send Feedback</button>
             </div>
@@ -495,7 +497,15 @@
                         <span class="tutorial-line">Machine Stats: see how quickly you will finish machines on average.</span>
                     </p>
                 </div>
-                <div class="tutorial-page" data-page="6" data-title="Feedback" style="display: none;">
+                <div class="tutorial-page" data-page="6" data-title="Advanced Mode" style="display: none;">
+                    <div class="tutorial-visual advanced-tutorial-example"><span>Advanced</span><strong>BASE <span aria-hidden="true">→</span> <span class="tutorial-base-example">18.0</span></strong></div>
+                    <p class="tutorial-message">
+                        <span class="tutorial-line">Click Advanced at the bottom of the screen. Green means it is enabled.</span>
+                        <span class="tutorial-line">Edit the BASE values directly in your Toon's stats table to explore custom stats. Trinkets, abilities and items still apply afterward.</span>
+                        <span class="tutorial-line">Clear a value to restore its normal base. Turning Advanced off, changing Toon or refreshing clears your edits.</span>
+                    </p>
+                </div>
+                <div class="tutorial-page" data-page="7" data-title="Feedback" style="display: none;">
                     <div class="tutorial-visual">
                         <img class="tutorial-image" src="tutorialimages/page 6.png" alt="Send Feedback button at the bottom of the screen">
                     </div>
@@ -505,7 +515,7 @@
                 </div>
             </div>
             <div class="modal-footer tutorial-modal-footer">
-                <span id="tutorial-progress" class="tutorial-progress">1 / 6</span>
+                <span id="tutorial-progress" class="tutorial-progress">1 / 7</span>
                 <div class="tutorial-actions">
                     <button id="tutorial-prev-btn" class="modal-reset-btn" style="display: none;">Previous</button>
                     <button id="tutorial-next-btn" class="modal-apply-btn">Next</button>

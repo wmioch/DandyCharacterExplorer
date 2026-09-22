@@ -1,3 +1,17 @@
+## 2026-09-21 — Waxwell core bundle (local preview only)
+
+- Added Waxwell's portrait and verified base stats, intrinsic Tired II and10-second Ignite fatigue removal with a60-second base cooldown scenario.
+- Added non-stacking5-second teammate Ignited recovery calculation with caster exclusion. Manual elapsed controls show expiration and cooldown progress; no unsupported repeated-contact or modifier-order assumptions.
+- Related Twisted speeds and Cherished Blanket remain separate evidence investigations. Manual checks and source/asset details are in [preview controls](preview-controls.md).
+- ChangedJSON parsed; diff reviewed and whitespace checks passed. No tests, builds, lint, browser checks or publication.
+
+## 2026-09-21 — requested preview revisions and developer Toons (unreleased)
+
+- Replaced the shared machine-stack input with independent0–25 Reel In/Problem Solver counters. Removed standalone floor and Panic selectors; implemented Razzle & Dazzle conditional floor logic, a single combined floor-trinket bonus for other Toons, bracketed Vanity Mirror Panic speeds and appropriate Twisted comparisons.
+- Moved debuffs and cards into tabs with clickable controls; card faces use sourced artwork. Added green-enabled Advanced mode for inline BASE editing and a one-time tutorial explanation before Feedback.
+- Added Dandy and Dyle with developer-only pale red portraits, sourced stats and99 internal health. See [preview controls and evidence](preview-controls.md) for manual checks, scope and limitations.
+- Validation: source/diff review, changedJSON parsing and `git diff --check`. No tests, builds, lint or app-browser checks; no publication.
+
 # Changelog
 
 ## 2026-09-21 — stationary Twisted display
@@ -11,6 +25,35 @@
 - Corrected Blot to an ink blob, Coal to a dog-like rock, and Cocoa to a chocolate bunny. Stats and abilities are unchanged.
 - Sources: [Blot](https://dandys-world-robloxhorror.fandom.com/wiki/Blot), [Coal](https://dandys-world-robloxhorror.fandom.com/wiki/Coal), and [Cocoa](https://dandys-world-robloxhorror.fandom.com/wiki/Cocoa), checked September 21, 2026.
 - Validation: JSON parsing, manual diff review and `git diff --check`; no builds, tests, lint or app-browser checks.
+## 2026-09-20 — requested gameplay cards (local preview)
+
+- Added Tech Savvy, Well-Paced and Endurance controls. Tech Savvy reduces the machine work target from 45 to 40 units before existing progress reductions. Each stamina card adds 10 capacity before percentage modifiers; each can be selected once.
+- [Cards source](https://dandys-world-robloxhorror.fandom.com/wiki/Cards), indexed content checked September 20: Tech Savvy removes five units, despite the displayed five-second wording. Broader voting and other card effects are separate unfinished work.
+- Manual acceptance: unmodified Poppy with Tech Savvy has base machine time 40s instead of45s; with custom extraction2 it is20s instead of22.5s. Both stamina cards give170 maximum stamina before other modifiers. Turning cards off restores defaults.
+- Validation: manual diff review and `git diff --check`; no tests, build, lint or browser checks. Local preview only.
+
+## 2026-09-20 — custom base stats (local preview)
+
+- Added temporary custom base-stat inputs in Machine Stats with Apply and Reset controls. Blank values keep normal stats; changing Toon or refreshing clears overrides. Stored Toon records are never mutated.
+- Overrides apply after conditional/ability base replacements and before trinket/item increases and modifiers. Skill Check Size and Stamina Regeneration have separate overrides. Custom values are labelled in the stat table and carried into machine estimates.
+- Manual acceptance: select Poppy, set Walk Speed to 18, Apply, and check Base/Final 18 with no movement buffs. Equip Dog Plush: final walk becomes 19.8. Set extraction to 2: a default 45-unit machine's base time is 22.5 seconds with no extraction buffs. Reset or change Toon: normal values return. Invalid negative stamina, fractional hearts, or chance above 100 must prevent Apply.
+- Validation: diff review and `git diff --check` only. No builds, tests, lint or browser checks; awaiting user testing/release.
+
+## 2026-09-20 — applied debuff scenarios (local preview)
+
+- Added None/I/II/III selectors for Slow, Confused, Tired and Illness. Their reductions multiply existing stat modifiers; state-based machine estimates retain the selected snapshot throughout the calculation. Triggers and expiry are not simulated.
+- Ribecca's applied-debuff immunity disables these controls and ignores their effects; trinket penalties remain active.
+- Sources: [status effect tables](https://dandys-world-robloxhorror.fandom.com/wiki/Status_Effects), [Ribecca](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca), indexed wiki content checked September 20, 2026.
+- Manual acceptance: unmodified Poppy with Slow II has walk/run 11.25/18.75 (displayed 11.3/18.8); Confused I extraction is 0.75; Tired II regeneration is 1.2/s; Illness III skill size is 75. Clear statuses to restore defaults. Ribecca ignores them; changing back restores selections. Buff/debuff combinations multiply (a 10% movement buff with Slow II gives 0.825 times base movement).
+- Validation: manual diff review and `git diff --check`; no automated tests, builds, lint or browser checks. Not released.
+
+## 2026-09-20 — floor and Panic Mode scenarios (local preview)
+
+- Added odd/even-floor and Panic Mode controls in Machine Stats. Clown Horn and Ribbon Spool apply on their respective floors; Vanity Mirror applies only during Panic Mode.
+- Razzle & Dazzle's existing floor radios and the new selector stay synchronized. Other conditional Toon states are unchanged.
+- Sources checked September 20: [Clown Horn](https://dandys-world-robloxhorror.fandom.com/wiki/Clown_Horn), [Ribbon Spool](https://dandys-world-robloxhorror.fandom.com/wiki/Ribbon_Spool), [Vanity Mirror](https://dandys-world-robloxhorror.fandom.com/wiki/Vanity_Mirror). Indexed wiki descriptions agree with the stored values; this change implements their conditions.
+- Manual acceptance: with Boxten and only Clown Horn/Ribbon Spool equipped, either floor gives 16.5 walk / 27.5 run (one 10% boost, never two). With only Vanity Mirror, Panic Mode off gives 15/25; on gives 15/32.5. Switching Razzle & Dazzle's floor by either control must update both controls and calculated stats.
+- Validation: manual diff review and `git diff --check`; no build, tests, lint or browser checks. Not released to production.
 
 ## 2026-09-20 — Rudie ability timing text
 
@@ -62,3 +105,18 @@ Sources rechecked September 18, 2026:
 Fandom evidence was available through indexed page text; direct page access was blocked. The exact developer-announced date of the Panic modifier change remains unverified. No new mechanics, assets or feedback-backend changes are included.
 
 Validation: JSON parsing and Git whitespace checks only, in accordance with repository instructions.
+## 2026-09-22 — Local preview corrections (unreleased)
+
+- Merge Cards & Debuffs, display debuffs as I/II/III, and confirm before Advanced mode clears custom values.
+- Add TIME’S UP and selectable Suppression; crop all five card faces with complete, consistent white frames.
+- Replace Waxwell timeline and cooldown scenarios with the standard Ignite checkbox; no teammate cooldown control.
+- Add non-chasing Twisted Waxwell with neutral N/A values. His sourced portrait is included; inconsistent secondary roaming values remain unverified.
+- Keep Cherished Blanket out of visible trinkets and ability cooldown statistics deferred.
+- Confirm Finn's existing35% modifier against the June12,2026 (0.22.1) wiki change history; remove the outdated preview multiplier warning. No numeric change.
+- Validation: manual source/diff review, JSON parsing and git diff --check only. User browser testing remains pending.
+
+## 2026-09-23 — Approved feature release
+
+- Replace Waxwell’s full-body screenshot with the unchanged, sourced square transparent Toon portrait; use the existing image_name field.
+- Release the user-approved Cards & Debuffs, Advanced stat editing, ability counters, floor-trinket/Panic comparisons, developer Toons and Waxwell bundle after focused source/diff/JSON checks.
+- Production feedback configuration is preserved; local-only feedback overrides remain outside release commits. Cooldown statistics remain deferred.

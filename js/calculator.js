@@ -15,9 +15,27 @@ const Calculator = {
      * @param {number} machineCompletionCount - Completed-machine count used by stackable passive boosts
      * @returns {Object} Final calculated stats
      */
-    calculateFinalStats(toon, trinkets, teamAbilities, items, conditionalStatSet, teamSize = 1, machineCompletionCount = 1) {
+    calculateFinalStats(toon, trinkets, teamAbilities, items, conditionalStatSet, teamSize = 1, machineCompletionCount = 1, scenario = null) {
         if (!toon) {
             return null;
+        }
+
+        // Keep legacy callers unchanged; the explorer supplies an explicit scenario.
+        if (scenario) {
+            let floorBonusApplied = false;
+            trinkets = trinkets.filter(entry => {
+                const trinket = entry.trinket || entry;
+                if (['clown_horn', 'ribbon_spool'].includes(trinket.id)) {
+                    if (toon.id === 'razzle_dazzle') {
+                        const even = conditionalStatSet?.id === 'razzle_dazzle_even';
+                        return trinket.id === (even ? 'ribbon_spool' : 'clown_horn');
+                    }
+                    if (floorBonusApplied) return false;
+                    floorBonusApplied = true;
+                }
+                if (trinket.id === 'vanity_mirror') return scenario.panicMode === true;
+                return true;
+            });
         }
 
         // Start with base stats
@@ -33,9 +51,29 @@ const Calculator = {
 
         // Apply base stat overrides from toggled player abilities (Flutter, Rudie, Eclipse)
         this._applyBaseStatOverrides(toon, baseStats);
+
+        const customOverrides = {};
+        const customLimits = {
+            walkSpeed: [0.01, 10000], runSpeed: [0.01, 10000], stealth: [-10000, 10000],
+            extractionSpeed: [0.01, 10000], stamina: [1, 10000], skillCheckAmount: [0, 10000],
+            skillCheckChance: [0, 1], hearts: [1, 99], skillCheckSize: [1, 10000], staminaRegen: [0.01, 10000]
+        };
+        Object.entries(scenario?.customStats || {}).forEach(([key, value]) => {
+            const limits = customLimits[key];
+            if (limits && Number.isFinite(value) && value >= limits[0] && value <= limits[1]
+                && (key !== 'hearts' || Number.isInteger(value))) {
+                customOverrides[key] = value;
+                if (key in baseStats) baseStats[key] = value;
+            }
+        });
         
         // Update originalBase if base stat overrides were applied
         originalBase = { ...baseStats };
+
+        // Run-long card gains increase capacity before percentage modifiers.
+        if (scenario?.cards?.wellPaced) baseStats.stamina += 10;
+        if (scenario?.cards?.endurance) baseStats.stamina += 10;
+        if (scenario?.cards?.timesUp) baseStats.stamina += 50;
 
         // Apply direct base stat increases from trinkets/items (e.g., Cooler's +50 stamina)
         this._applyBaseStatIncreases(trinkets, items, baseStats, teamSize);
@@ -55,7 +93,28 @@ const Calculator = {
         };
 
         // Apply player toon abilities
-        this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount);
+        this._applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount, scenario?.abilityStacks);
+
+        // One selected level represents the currently applied status, not its source count.
+        if (toon.id === 'waxwell' && !this._isAbilityEnabled(toon.ability)) {
+            modifiers.staminaRegen.multiplicative.push({ value: -0.5, cap: null });
+        }
+        if (scenario?.debuffs && toon.ability?.targetStat !== 'debuffImmunity') {
+            const statusRules = {
+                slow: ['movementSpeed', [0, 0.15, 0.25, 0.5]],
+                confused: ['extractionSpeed', [0, 0.25, 0.5, 0.75]],
+                tired: ['staminaRegen', [0, 0.25, 0.5, 0.75]],
+                illness: ['skillCheckSize', [0, 0.15, 0.25, 0.5]]
+            };
+            Object.entries(statusRules).forEach(([status, [stat, reductions]]) => {
+                // Additional Tired sources on Waxwell are not yet sourced; use his intrinsic state only.
+                if (toon.id === 'waxwell' && status === 'tired') return;
+                const level = Number(scenario.debuffs[status]);
+                if (Number.isInteger(level) && level > 0 && level <= 3) {
+                    modifiers[stat].multiplicative.push({ value: -reductions[level], cap: null });
+                }
+            });
+        }
 
         // Apply conditional modifier overrides (e.g., Looey's heart-based speed boost)
         if (conditionalStatSet && conditionalStatSet.modifierOverrides) {
@@ -153,11 +212,11 @@ const Calculator = {
         });
 
         // Calculate final stats
-        const STAMINA_REGEN_BASE = 2.4;
+        const STAMINA_REGEN_BASE = customOverrides.staminaRegen ?? 2.4;
         
         // Get skill check size base value from star rating
         const skillCheckAmountStars = toon.starRatings.skillCheckAmount;
-        const skillCheckSizeBase_original = DataLoader.getStatValue('skillCheckSize', skillCheckAmountStars);
+        const skillCheckSizeBase_original = customOverrides.skillCheckSize ?? DataLoader.getStatValue('skillCheckSize', skillCheckAmountStars);
         let skillCheckSizeBase = skillCheckSizeBase_original;
         
         // Apply any base stat increases to skillCheckSize (e.g., Thinking Cap's +40 units)
@@ -228,6 +287,7 @@ const Calculator = {
 
         return {
             base: baseStats,
+            customOverrides,
             final: finalStats,
             percentages: percentages,
             originalBase: originalBase,
@@ -334,15 +394,15 @@ const Calculator = {
     /**
      * Apply player toon abilities to modifiers
      */
-    _applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount = 1) {
+    _applyPlayerAbilities(toon, modifiers, teamSize, machineCompletionCount = 1, abilityStacks = null) {
         // Check ability 1
         if (toon.ability && toon.ability.playerEffect) {
-            this._applyAbilityEffect(toon.ability, modifiers, teamSize, machineCompletionCount);
+            this._applyAbilityEffect(toon.ability, modifiers, teamSize, abilityStacks?.[toon.ability.id] ?? machineCompletionCount, abilityStacks);
         }
         
         // Check ability 2
         if (toon.ability2 && toon.ability2.playerEffect) {
-            this._applyAbilityEffect(toon.ability2, modifiers, teamSize, machineCompletionCount);
+            this._applyAbilityEffect(toon.ability2, modifiers, teamSize, abilityStacks?.[toon.ability2.id] ?? machineCompletionCount, abilityStacks);
         }
     },
 
@@ -417,10 +477,12 @@ const Calculator = {
     /**
      * Apply a single ability effect
      */
-    _applyAbilityEffect(ability, modifiers, teamSize, machineCompletionCount = 1) {
+    _applyAbilityEffect(ability, modifiers, teamSize, machineCompletionCount = 1, abilityStacks = null) {
         const effect = ability.playerEffect;
         
-        if (!this._isAbilityEnabled(ability)) {
+        if (ability.machineCompletionStackable && abilityStacks
+            ? !(abilityStacks[ability.id] > 0)
+            : !this._isAbilityEnabled(ability)) {
             return; // Ability is toggled off
         }
 
@@ -895,6 +957,7 @@ const Calculator = {
      * @returns {string} Color code: 'green', 'yellow', or 'red'
      */
     compareTwistedSpeed(playerWalk, playerRun, twistedSpeed) {
+        if (!Number.isFinite(twistedSpeed)) return '';
         if (playerWalk >= twistedSpeed) {
             return 'green';
         } else if (playerRun > twistedSpeed) {
@@ -921,7 +984,13 @@ const Calculator = {
             selectedConditionalStat: state.selectedConditionalStat,
             teamSize: state.teamSize || 1,
             skillCheckSuccessRate: state.skillCheckSuccessRate || 1.0,
-            machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1
+            machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
+            floorParity: state.floorParity,
+            panicMode: state.panicMode,
+            debuffs: { ...state.debuffs },
+            customStats: { ...state.customStats },
+            cards: { ...state.cards },
+            abilityStacks: { ...state.abilityStacks }
         };
     },
 
@@ -947,7 +1016,8 @@ const Calculator = {
             state.activeItems || [],
             state.selectedConditionalStat,
             state.teamSize || 1,
-            Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1
+            Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
+            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
         );
     },
 
@@ -1136,7 +1206,8 @@ const Calculator = {
         console.log(`  Skill Check Amount: ${initialSkillCheckAmount}`);
         console.log(`  Skill Check Chance: ${(initialSkillCheckChance * 100).toFixed(1)}%`);
 
-        let machineUnits = 45;
+        // Tech Savvy reduces work by five units, not five seconds at every extraction speed.
+        let machineUnits = state.cards?.techSavvy ? 40 : 45;
 
         // Check for special items and trinkets
         const activeItems = machineState.activeItems || [];

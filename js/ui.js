@@ -4,6 +4,77 @@
  */
 
 const UI = {
+    populateScenarioIcons(state, onChange) {
+        const debuffs = [
+            ['slow', 'Slow', '↘', 'Movement speed', [15, 25, 50]],
+            ['confused', 'Confused', '?', 'Extraction speed', [25, 50, 75]],
+            ['tired', 'Tired', 'Zz', 'Stamina regeneration', [25, 50, 75]],
+            ['illness', 'Illness', '✚', 'Skill check size', [15, 25, 50]]
+        ];
+        const grid = document.getElementById('debuff-icons');
+        grid.replaceChildren();
+        debuffs.forEach(([id, name, symbol, stat, levels]) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `scenario-icon debuff-${id}`;
+            button.dataset.debuff = id;
+            button.title = `${name}: ${stat} -${levels.join('/-')}%. Left click or + to increase; right click or - to decrease (0–3).`;
+            button.dataset.defaultTitle = button.title;
+            button.innerHTML = `<span class="scenario-symbol" aria-hidden="true">${symbol}</span><span>${name}</span><span class="scenario-count">0</span>`;
+            const change = delta => {
+                if (button.disabled) return;
+                state.debuffs[id] = Math.max(0, Math.min(3, state.debuffs[id] + delta));
+                onChange();
+            };
+            button.addEventListener('click', () => change(1));
+            button.addEventListener('contextmenu', event => { event.preventDefault(); change(-1); });
+            button.addEventListener('keydown', event => {
+                if (['-', 'ArrowDown', '+', 'ArrowUp'].includes(event.key)) {
+                    event.preventDefault(); change(['-', 'ArrowDown'].includes(event.key) ? -1 : 1);
+                }
+            });
+            grid.appendChild(button);
+        });
+        const cards = document.getElementById('card-icons');
+        cards.replaceChildren();
+        [['techSavvy', 'Tech Savvy', 'Machines require 5 fewer units'], ['wellPaced', 'Well-Paced', '+10 maximum stamina'], ['endurance', 'Endurance', '+10 maximum stamina'], ['timesUp', "TIME’S UP", '+50 maximum stamina after completing Dyle’s floor (select only after earning the reward)'], ['suppression', 'Suppression', 'Use the reduced Panic speed for Twisted comparisons']].forEach(([id, name, effect]) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'scenario-icon card-icon';
+            button.dataset.card = id;
+            button.title = `${name}: ${effect}. Click to select or remove.`;
+            button.innerHTML = `<span class="card-art card-art-${id}" role="img" aria-label="${name} card artwork"></span><span>${name}</span>`;
+            button.addEventListener('click', () => { state.cards[id] = !state.cards[id]; onChange(); });
+            cards.appendChild(button);
+        });
+    },
+
+    updateScenarioIcons(state) {
+        document.querySelectorAll('[data-debuff]').forEach(button => {
+            const intrinsicTired = state.selectedToon?.id === 'waxwell' && button.dataset.debuff === 'tired';
+            const level = intrinsicTired ? (Calculator._isAbilityEnabled(state.selectedToon.ability) ? 0 : 2) : state.debuffs[button.dataset.debuff];
+            button.title = intrinsicTired ? 'Waxwell’s intrinsic Tired II is controlled by Ignite. Additional Tired sources are not modeled.' : button.dataset.defaultTitle;
+            button.classList.toggle('selected', level > 0);
+            button.setAttribute('aria-label', `${button.dataset.debuff}: ${level === 0 ? 'off' : 'level ' + level}. ${intrinsicTired ? 'Controlled by Ignite.' : 'Increase with left click, decrease with right click.'}`);
+            button.querySelector('.scenario-count').textContent = ['0', 'I', 'II', 'III'][level];
+        });
+        document.querySelectorAll('[data-card]').forEach(button => {
+            const selected = !!state.cards[button.dataset.card];
+            button.classList.toggle('selected', selected);
+            button.setAttribute('aria-pressed', String(selected));
+        });
+    },
+
+    baseStatEditor(key, value, name) {
+        const limits = {
+            walkSpeed: [0.01, 10000], runSpeed: [0.01, 10000], stealth: [-10000, 10000],
+            extractionSpeed: [0.01, 10000], stamina: [1, 10000], skillCheckAmount: [0, 10000],
+            skillCheckChance: [0, 100], hearts: [1, 99], skillCheckSize: [1, 10000], staminaRegen: [0.01, 10000]
+        };
+        const [min, max] = limits[key];
+        const display = Number((value * (key === 'skillCheckChance' ? 100 : 1)).toFixed(4));
+        return `<input class="inline-base-stat" type="number" data-custom-stat="${key}" value="${display}" min="${min}" max="${max}" step="${key === 'hearts' ? 1 : 'any'}" aria-label="${name} base${key === 'skillCheckChance' ? ' percent' : ''}" title="Edit the base value; clear to restore normal">`;
+    },
     /**
      * Populate toon grid with clickable images (sorted alphabetically)
      */
@@ -23,9 +94,10 @@ const UI = {
             const toonItem = document.createElement('div');
             toonItem.className = 'toon-grid-item';
             toonItem.dataset.toonId = toon.id;
-            toonItem.title = toon.name;
+            toonItem.title = toon.name + (toon.developerOnly ? ' — Developer only' : '');
+            toonItem.classList.toggle('developer-only', !!toon.developerOnly);
             
-            const imagePath = `assets/images/toons/${toon.id}.png`;
+            const imagePath = `assets/images/toons/${toon.image_name || toon.id + '.png'}`;
             
             // Create image/placeholder container
             const imgContainer = document.createElement('div');
@@ -501,7 +573,7 @@ const UI = {
     /**
      * Update stats display
      */
-    updateStatsDisplay(statsResult, toon = null, conditionalStatSet = null) {
+    updateStatsDisplay(statsResult, toon = null, conditionalStatSet = null, advancedMode = false, panicStats = null) {
         if (!statsResult) return;
 
         const tbody = document.querySelector('.stats-table tbody');
@@ -509,7 +581,8 @@ const UI = {
         // Get hearts for the Health row
         let heartsHTML = '';
         if (toon && toon.baseStats && toon.baseStats.hearts) {
-            heartsHTML = '♥'.repeat(toon.baseStats.hearts);
+            const hearts = statsResult.final.hearts;
+            heartsHTML = hearts > 6 ? `♥ × ${hearts}` : '♥'.repeat(hearts);
         }
         
         const stats = [
@@ -532,7 +605,7 @@ const UI = {
                     <tr class="stat-group-${stat.group}">
                         <td class="stat-name">${stat.name}</td>
                         <td class="stat-stars stat-hearts">${stat.heartsHTML}</td>
-                        <td class="stat-base">-</td>
+                        <td class="stat-base">${advancedMode ? this.baseStatEditor('hearts', statsResult.final.hearts, 'Health') : '-'}</td>
                         <td class="stat-modifier">-</td>
                         <td class="stat-final">-</td>
                     </tr>
@@ -543,7 +616,7 @@ const UI = {
             
             // Handle stats with a fixed base value (like Stamina Regeneration)
             if (stat.baseValue !== undefined) {
-                base = stat.baseValue;
+                base = statsResult.customOverrides?.[stat.key] ?? stat.baseValue;
                 // Check if there's a calculated final value, otherwise use base
                 final = statsResult.final[stat.key] !== undefined ? statsResult.final[stat.key] : base;
                 percent = statsResult.percentages && statsResult.percentages[stat.key] !== undefined ? statsResult.percentages[stat.key] : 0;
@@ -659,17 +732,22 @@ const UI = {
                 }
             }
             
+            if (statsResult.customOverrides?.[stat.key] !== undefined) stars = 'Custom';
+
             // Format values for percentage stats
             const suffix = stat.suffix || '';
             const decimals = stat.key === 'extractionSpeed' ? 2 : 1;
             const baseDisplay = stat.isPercentage ? `${(base * 100).toFixed(0)}%` : `${base.toFixed(decimals)}${suffix}`;
-            const finalDisplay = stat.isPercentage ? `${(final * 100).toFixed(0)}%` : `${final.toFixed(decimals)}${suffix}`;
+            let finalDisplay = stat.isPercentage ? `${(final * 100).toFixed(0)}%` : `${final.toFixed(decimals)}${suffix}`;
+            if (panicStats && ['walkSpeed', 'runSpeed'].includes(stat.key)) {
+                finalDisplay += ` <span class="panic-speed" title="Panic speed with Vanity Mirror">(${panicStats[stat.key].toFixed(decimals)})</span>`;
+            }
             
             return `
                 <tr class="stat-group-${stat.group}">
                     <td class="stat-name">${stat.name}</td>
                     <td class="stat-stars">${stars}</td>
-                    <td class="stat-base ${baseClass}">${baseDisplay}</td>
+                    <td class="stat-base ${baseClass}">${advancedMode ? this.baseStatEditor(stat.key, originalBase, stat.name) : baseDisplay}</td>
                     <td class="stat-modifier ${modifierClass}">${modifierDisplay}</td>
                     <td class="stat-final">${finalDisplay}</td>
                 </tr>
@@ -767,13 +845,19 @@ const UI = {
     /**
      * Update twisted comparison table with images
      */
-    updateTwistedTable(twisteds, playerWalkSpeed, playerRunSpeed, preSorted = false) {
+    updateTwistedTable(twisteds, playerWalkSpeed, playerRunSpeed, preSorted = false, panicStats = null, suppression = false) {
+        const panicWalk = panicStats?.walkSpeed ?? playerWalkSpeed;
+        const panicRun = panicStats?.runSpeed ?? playerRunSpeed;
         const tbody = document.querySelector('.twisted-table-compact tbody');
         if (!tbody) return;
+        const headers = document.querySelectorAll('.twisted-table-compact thead th');
+        headers[2].textContent = suppression ? 'Panic + Sup' : 'Panic';
+        headers[3].hidden = suppression;
         
         // Use provided array if already sorted, otherwise sort by Normal Run speed
         const sortedTwisteds = preSorted ? twisteds : [...twisteds].sort((a, b) => {
             // Primary sort: Normal Run speed (fastest first)
+            if (!!a.noChase !== !!b.noChase) return a.noChase ? 1 : -1;
             const runDiff = b.speeds.normal.run - a.speeds.normal.run;
             if (runDiff !== 0) return runDiff;
             
@@ -803,27 +887,29 @@ const UI = {
             existingRows.forEach((row, index) => {
                 const twisted = sortedTwisteds[index];
                 const speeds = twisted.speeds;
-                const stationary = Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+                const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+                const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
                 
                 // Calculate colors for each speed
                 const colors = {
                     normalRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.normal.run),
-                    panicRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.panic.run),
-                    panicSuppRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.panicSuppressed.run)
+                    panicRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, panicSpeeds.run),
+                    panicSuppRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panicSuppressed.run)
                 };
                 
                 // Update speed cells (skip first cell which is the name)
                 const speedCells = row.querySelectorAll('.speed-value');
                 const speedData = [
                     { value: speeds.normal.run, color: colors.normalRun },
-                    { value: speeds.panic.run, color: colors.panicRun },
+                    { value: panicSpeeds.run, color: colors.panicRun },
                     { value: speeds.panicSuppressed.run, color: colors.panicSuppRun }
                 ];
                 
                 speedCells.forEach((cell, i) => {
                     const { value, color } = speedData[i];
+                    cell.hidden = suppression && i === 2;
                     cell.textContent = stationary ? 'N/A' : value.toFixed(1);
-                    cell.title = stationary ? 'Stationary; no chase speed.' : '';
+                    cell.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : '';
                     // Remove all color classes and add the new one
                     cell.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 });
@@ -836,17 +922,18 @@ const UI = {
         
         sortedTwisteds.forEach(twisted => {
             const speeds = twisted.speeds;
-            const stationary = Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+            const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
+            const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
             const imagePath = `assets/images/${twisted.image}`;
             
             // Calculate colors for each speed
             const colors = {
                 normalWalk: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.normal.walk),
                 normalRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.normal.run),
-                panicWalk: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.panic.walk),
-                panicRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.panic.run),
-                panicSuppWalk: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.panicSuppressed.walk),
-                panicSuppRun: Calculator.compareTwistedSpeed(playerWalkSpeed, playerRunSpeed, speeds.panicSuppressed.run)
+                panicWalk: Calculator.compareTwistedSpeed(panicWalk, panicRun, panicSpeeds.walk),
+                panicRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, panicSpeeds.run),
+                panicSuppWalk: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panicSuppressed.walk),
+                panicSuppRun: Calculator.compareTwistedSpeed(panicWalk, panicRun, speeds.panicSuppressed.run)
             };
             
             const firstLetter = twisted.name.replace('Twisted ', '').charAt(0).toUpperCase();
@@ -873,7 +960,7 @@ const UI = {
                 imgContainer.style.backgroundSize = 'cover';
                 imgContainer.style.backgroundPosition = 'center';
             };
-            img.src = imagePath;
+            if (twisted.image) img.src = imagePath;
             
             const nameSpan = document.createElement('span');
             nameSpan.textContent = twisted.name;
@@ -886,15 +973,16 @@ const UI = {
             // Speed cells (Run speeds only)
             const speedValues = [
                 { value: speeds.normal.run, color: colors.normalRun },
-                { value: speeds.panic.run, color: colors.panicRun },
+                { value: panicSpeeds.run, color: colors.panicRun },
                 { value: speeds.panicSuppressed.run, color: colors.panicSuppRun }
             ];
             
-            speedValues.forEach(({ value, color }) => {
+            speedValues.forEach(({ value, color }, i) => {
                 const td = document.createElement('td');
+                td.hidden = suppression && i === 2;
                 td.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 td.textContent = stationary ? 'N/A' : value.toFixed(1);
-                td.title = stationary ? 'Stationary; no chase speed.' : '';
+                td.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : '';
                 row.appendChild(td);
             });
             
@@ -985,12 +1073,13 @@ const UI = {
             const toon = DataLoader.getToon(toonId);
             if (!toon) return;
             
-            const imagePath = `assets/images/toons/${toonId}.png`;
+            const imagePath = `assets/images/toons/${toon.image_name || toonId + '.png'}`;
             
             // Create image/placeholder container
             const imgContainer = document.createElement('div');
             imgContainer.id = 'selected-toon-image';
             imgContainer.className = 'selected-toon-image';
+            imgContainer.classList.toggle('developer-only', !!toon.developerOnly);
             imgContainer.textContent = toon.name.charAt(0).toUpperCase();
             imgContainer.title = toon.name;
             
@@ -1042,7 +1131,34 @@ const UI = {
                 const cleanDescription = ability.description.replace(/^\((Active|Passive|Toggle)\)\s*/, '');
                 
                 // Add checkbox if ability has toggle
-                if (ability.hasToggle) {
+                if (ability.machineCompletionStackable) {
+                    const toggleContainer = document.createElement('div');
+                    toggleContainer.className = 'ability-toggle';
+                    const counter = document.createElement('button');
+                    counter.type = 'button';
+                    counter.className = 'ability-stack-counter';
+                    counter.title = `${ability.name}: left click or + adds a stack; right click or - removes one. 0 is off; maximum 25.`;
+                    const refresh = () => {
+                        const count = App.state.abilityStacks[ability.id] || 0;
+                        counter.textContent = count;
+                        counter.setAttribute('aria-label', `${ability.name}: ${count} stacks${count === 0 ? ', off' : ''}`);
+                    };
+                    const change = delta => {
+                        App.state.abilityStacks[ability.id] = Math.max(0, Math.min(25, (App.state.abilityStacks[ability.id] || 0) + delta));
+                        refresh();
+                        App.updateDisplay();
+                    };
+                    counter.addEventListener('click', () => change(1));
+                    counter.addEventListener('contextmenu', event => { event.preventDefault(); change(-1); });
+                    counter.addEventListener('keydown', event => {
+                        if (['-', 'ArrowDown', '+', 'ArrowUp'].includes(event.key)) {
+                            event.preventDefault(); change(['-', 'ArrowDown'].includes(event.key) ? -1 : 1);
+                        }
+                    });
+                    refresh();
+                    toggleContainer.appendChild(counter);
+                    abilityBox.appendChild(toggleContainer);
+                } else if (ability.hasToggle) {
                     const toggleContainer = document.createElement('div');
                     toggleContainer.className = 'ability-toggle';
                     

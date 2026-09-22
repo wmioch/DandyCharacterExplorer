@@ -3,6 +3,62 @@
    =================================== */
 
 /* Stats Table */
+.scenario-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+}
+#card-icons { grid-template-columns: repeat(auto-fit, minmax(116px, 1fr)); }
+.scenario-icon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font: inherit;
+}
+.scenario-icon.selected { border-color: #65cc83; background: #244331; }
+.scenario-icon:disabled { opacity: .45; cursor: not-allowed; }
+.scenario-icon:focus-visible, .ability-stack-counter:focus-visible { outline: 2px solid #b19cd9; outline-offset: 3px; }
+.scenario-symbol { font-size: 2rem; font-weight: bold; line-height: 1.5; }
+.debuff-slow .scenario-symbol { color: #e1ce61; }
+.debuff-confused .scenario-symbol { color: #b19cd9; }
+.debuff-tired .scenario-symbol { color: #65cc83; }
+.debuff-illness .scenario-symbol { color: #eeab68; }
+.scenario-count { position: absolute; top: 3px; right: 5px; font-weight: bold; }
+/* Crop source frames and provide one complete, consistent white frame for every card. */
+.card-art { display: block; width: 82px; height: 138px; box-sizing: content-box; border: 3px solid #fff; border-radius: 6px; flex-shrink: 0; background-image: url('../assets/images/cards/card-reference.png'); background-repeat: no-repeat; background-origin: content-box; background-clip: content-box; }
+.card-art-techSavvy { background-position: -223px 0; }
+.card-art-wellPaced { background-position: -131px 0; }
+.card-art-suppression { background-position: -313px -276px; }
+.card-art-endurance { background-image: url('../assets/images/cards/endurance-reference.webp'); background-size: 708px 394.4px; background-position: -220px -239px; }
+.card-art-timesUp { background-image: url('../assets/images/cards/times-up-reference.jpg'); background-size: 353.1px 198.6px; background-position: -146px -46px; }
+.inline-base-stat { width: 72px; max-width: 100%; padding: 3px; color: var(--text-primary); background: var(--bg-secondary); border: 1px solid #65cc83; border-radius: 3px; font: inherit; }
+#advanced-mode.enabled { background: #287342; border-color: #65cc83; color: #fff; }
+.advanced-tutorial-example { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 36px 12px; }
+.advanced-tutorial-example > span { background: #287342; padding: 12px; border-radius: 8px; }
+.tutorial-base-example { border: 1px solid #65cc83; padding: 6px; }
+.panic-speed { white-space: nowrap; color: #e1ce61; }
+.developer-only .toon-grid-image, .selected-toon-image.developer-only { background-color: #efb0b0; }
+.developer-only .toon-grid-image::after { content: 'DEV'; position: absolute; bottom: 1px; left: 2px; padding: 1px 3px; border-radius: 2px; background: #732a36; color: #fff; font: bold 9px sans-serif; }
+.developer-only .toon-grid-image { position: relative; }
+.ability-toggle input.ability-checkbox, .ability-toggle .ability-stack-counter {
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    padding: 0;
+    margin: 0;
+}
+.ability-toggle .ability-stack-counter { background: #fff; color: #111; border: 1px solid #888; border-radius: 2px; font: bold 10px/16px sans-serif; text-align: center; cursor: pointer; }
+
 .stats-display {
     margin-bottom: var(--spacing-xl);
     overflow-x: auto;
@@ -1072,4 +1128,29 @@
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-left: auto;
+}
+
+.custom-stat-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+}
+
+.custom-stat-inputs label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.custom-stat-inputs input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+fieldset.machine-stats-slider-section > select {
+    display: block;
+    width: 100%;
+    margin: 0.25rem 0 0.75rem;
 }
