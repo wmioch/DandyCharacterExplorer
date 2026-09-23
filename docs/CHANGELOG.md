@@ -138,3 +138,10 @@ Validation: JSON parsing and Git whitespace checks only, in accordance with repo
 - Replace Waxwell’s full-body screenshot with the unchanged, sourced square transparent Toon portrait; use the existing image_name field.
 - Release the user-approved Cards & Debuffs, Advanced stat editing, ability counters, floor-trinket/Panic comparisons, developer Toons and Waxwell bundle after focused source/diff/JSON checks.
 - Production feedback configuration is preserved; local-only feedback overrides remain outside release commits. Cooldown statistics remain deferred.
+
+## 2026-09-24 — Lucky Coin Skill Check roll
+
+- Correct the visible Lucky Coin Skill Check choice to boost both window size and chance. At the usual 25% base chance, the sourced 12-percentage-point bonus displays as 37%; window size receives a 12% multiplier.
+- The user still selects the observed floor roll manually. Gigi's Common-item exclusion is not simulated because the explorer has no item-generation pool.
+- Source: [Lucky Coin](https://dandys-world-robloxhorror.fandom.com/wiki/Lucky_Coin) and [Multipliers](https://dandys-world-robloxhorror.fandom.com/wiki/Multipliers), checked September 24, 2026. Review the diff and run `git diff --check`; no builds, tests, lint or automated browser checks.
+- Manual check: select a Toon with 25% base Skill Check chance, equip Lucky Coin, choose Skill Check and confirm 37% chance and 12% larger window. Choose Movement Speed to confirm chance returns to 25%.

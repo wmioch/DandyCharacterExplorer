@@ -728,14 +728,19 @@ const App = {
         });
     },
 
-    getLuckyCoinEffect() {
+    getLuckyCoinEffects() {
         const select = document.getElementById('lucky-coin-stat');
         const stat = select ? select.value : 'movementSpeed';
-        return {
+        const effect = {
             targetStat: stat,
             value: 0.12,
             applicationType: 'multiplicative'
         };
+        // The Skill Check roll boosts window size and chance. Its chance boost is
+        // 12 percentage points (25% to 37%), rather than 12% of the base chance.
+        return stat === 'skillCheckSize'
+            ? [effect, { targetStat: 'skillCheckChance', value: 0.12, applicationType: 'additive' }]
+            : [effect];
     },
 
     /**
@@ -1396,7 +1401,7 @@ const App = {
         const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
         if (luckyCoinEntry) {
             const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
-            const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
+            const luckyCoinForCalc = { ...baseLuckyCoin, effects: this.getLuckyCoinEffects() };
             trinketsForCalc = trinketsForCalc.map(t =>
                 (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
             );
@@ -1456,7 +1461,7 @@ const App = {
             const luckyCoinEntry = trinketsForCalc.find(t => (t.trinket ? t.trinket.id : t.id) === 'lucky_coin');
             if (luckyCoinEntry) {
                 const baseLuckyCoin = DataLoader.getTrinket('lucky_coin');
-                const luckyCoinForCalc = { ...baseLuckyCoin, effects: [this.getLuckyCoinEffect()] };
+                const luckyCoinForCalc = { ...baseLuckyCoin, effects: this.getLuckyCoinEffects() };
                 trinketsForCalc = trinketsForCalc.map(t =>
                     (t.trinket ? t.trinket.id : t.id) === 'lucky_coin' ? luckyCoinForCalc : t
                 );
