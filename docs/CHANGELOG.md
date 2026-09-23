@@ -14,6 +14,12 @@
 
 # Changelog
 
+## 2026-09-24 — Train Whistle Slow immunity
+
+- Exposed the existing Train Whistle trinket and made it block the applied Slow debuff without blocking Confused, Tired, Illness or trinket drawbacks. The Cards & Debuffs tab explains the interaction while it is equipped.
+- Source: [Train Whistle](https://dandys-world-robloxhorror.fandom.com/wiki/Train_Whistle), latest wiki revision August 31, 2026, checked September 24. Reviewed the diff, parsed changed JSON and ran `git diff --check`; no builds, tests, lint or automated browser checks.
+- Manual check: select Poppy, apply Slow II and note reduced movement; equip Train Whistle and movement returns to the unslowed value. Confused still lowers extraction. Remove Train Whistle and the selected Slow II again applies.
+
 ## 2026-09-21 — stationary Twisted display
 
 - Twisted Blot, Razzle & Dazzle, and Rodger now show neutral N/A chase-speed cells with a stationary tooltip, instead of green 0.0 comparisons. Numeric storage and sorting are unchanged; both initial rendering and subsequent updates use the label.

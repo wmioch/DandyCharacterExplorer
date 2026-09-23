@@ -95,6 +95,8 @@ See [preview-controls.md](docs/preview-controls.md) for the current controls and
 
 `debuffs` holds levels 0–3, displayed as Roman numerals in Cards & Debuffs; `cards` holds five selections. State clones preserve both and ability counters for machine estimates. Debuffs remain constant snapshots. Stamina cards add before percentage modifiers; Tech Savvy changes work45→40 units. TIME’S UP adds50 stamina after its reward is earned. Suppression selects the existing suppressed Panic comparison and hides the duplicate column.
 
+Train Whistle is visible among trinkets. When equipped, it blocks only the applied Slow debuff in Cards & Debuffs. Other debuffs and trinket drawbacks still apply; the selected Slow scenario takes effect again if the trinket is removed.
+
 Razzle & Dazzle uses its own conditional floor selector. Other Toons receive one floor-trinket bonus even with both equipped. Normal and Panic results are calculated separately for Vanity Mirror; Panic comparison columns receive the Panic result, including after sorting.
 
 Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red portraits with DEV labels and compact99-health display. Custom health edits support1–99 integer hearts.

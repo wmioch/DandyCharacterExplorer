@@ -1409,6 +1409,7 @@ const App = {
         const panicStats = hasMirror ? this.getCalculatedStats(true) : stats;
         const immune = this.state.selectedToon?.ability?.targetStat === 'debuffImmunity';
         document.getElementById('debuff-immunity-note').hidden = !immune;
+        document.getElementById('train-whistle-immunity-note').hidden = !this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'train_whistle');
         document.querySelectorAll('[data-debuff]').forEach(input => {
             input.disabled = immune || (input.dataset.debuff === 'tired' && this.state.selectedToon?.id === 'waxwell');
         });

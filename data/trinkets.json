@@ -734,7 +734,7 @@
       "rarity": "lethal",
       "id": "train_whistle",
       "filterCategory": "other",
-      "hidden": true,
+      "hidden": false,
       "conditional": true
     },
     {

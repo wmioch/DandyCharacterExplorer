@@ -100,6 +100,7 @@ const Calculator = {
             modifiers.staminaRegen.multiplicative.push({ value: -0.5, cap: null });
         }
         if (scenario?.debuffs && toon.ability?.targetStat !== 'debuffImmunity') {
+            const slowBlockedByTrainWhistle = trinkets.some(entry => (entry.trinket || entry).id === 'train_whistle');
             const statusRules = {
                 slow: ['movementSpeed', [0, 0.15, 0.25, 0.5]],
                 confused: ['extractionSpeed', [0, 0.25, 0.5, 0.75]],
@@ -107,6 +108,7 @@ const Calculator = {
                 illness: ['skillCheckSize', [0, 0.15, 0.25, 0.5]]
             };
             Object.entries(statusRules).forEach(([status, [stat, reductions]]) => {
+                if (status === 'slow' && slowBlockedByTrainWhistle) return;
                 // Additional Tired sources on Waxwell are not yet sourced; use his intrinsic state only.
                 if (toon.id === 'waxwell' && status === 'tired') return;
                 const level = Number(scenario.debuffs[status]);
