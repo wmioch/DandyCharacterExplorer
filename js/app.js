@@ -91,8 +91,19 @@ const App = {
      * Attach all event listeners
      */
     attachEventListeners() {
+        const toonGrid = document.getElementById('toon-grid');
+        // Some touch browsers dispatch a click after a long-press contextmenu.
+        // Keep that compatibility click from replacing the player Toon.
+        toonGrid.addEventListener('pointerdown', (e) => {
+            const toonItem = e.target.closest('.toon-grid-item');
+            this._lastToonPointer = toonItem ? {
+                id: toonItem.dataset.toonId,
+                type: e.pointerType
+            } : null;
+            if (e.pointerType === 'touch') this._suppressToonClick = null;
+        });
         // Toon selection (grid) - left click for player
-        document.getElementById('toon-grid').addEventListener('click', (e) => {
+        toonGrid.addEventListener('click', (e) => {
             const toonItem = e.target.closest('.toon-grid-item');
             if (toonItem) {
                 // Check if this is the clear team button
@@ -103,18 +114,25 @@ const App = {
                 
                 const toonId = toonItem.dataset.toonId;
                 if (toonId) {
+                    if (this._suppressToonClick?.id === toonId && performance.now() < this._suppressToonClick.until) {
+                        this._suppressToonClick = null;
+                        return;
+                    }
                     this.handleToonChange(toonId);
                 }
             }
         });
         
         // Toon selection (grid) - right click for team
-        document.getElementById('toon-grid').addEventListener('contextmenu', (e) => {
+        toonGrid.addEventListener('contextmenu', (e) => {
             const toonItem = e.target.closest('.toon-grid-item');
             if (toonItem && !toonItem.classList.contains('clear-team-btn') && !toonItem.classList.contains('filter-toons-btn')) {
                 e.preventDefault(); // Prevent context menu
                 const toonId = toonItem.dataset.toonId;
                 if (toonId) {
+                    if (this._lastToonPointer?.type === 'touch' && this._lastToonPointer.id === toonId) {
+                        this._suppressToonClick = { id: toonId, until: performance.now() + 1500 };
+                    }
                     this.handleTeamToonToggle(toonId);
                 }
             }

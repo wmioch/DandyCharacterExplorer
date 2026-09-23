@@ -14,6 +14,12 @@
 
 # Changelog
 
+## 2026-09-24 — Toon grid long press on mobile
+
+- Suppressed the follow-up synthetic click that can occur after a touch long press on a Toon grid entry. The long press still selects a teammate; a fresh tap still selects the player Toon.
+- Trigger: older Dandy feedback ID 40 and the existing grid handlers, which handled `contextmenu` and `click` independently. Reviewed the diff and ran `git diff --check`; no builds, tests, lint or automated browser checks.
+- Manual check on a touch device: select one player Toon, long press another to add it to the team, and confirm the player selection does not change. Then tap a Toon normally and confirm the player selection changes.
+
 ## 2026-09-24 — Train Whistle Slow immunity
 
 - Exposed the existing Train Whistle trinket and made it block the applied Slow debuff without blocking Confused, Tired, Illness or trinket drawbacks. The Cards & Debuffs tab explains the interaction while it is equipped.
