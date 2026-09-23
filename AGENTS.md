@@ -73,6 +73,7 @@ App.init()
 - `trinkets.json` — each trinket has `effects[]` with `applicationType`: `multiplicative | additive | baseStatIncrease`. `hidden: true` trinkets are excluded from the visible list.
 - Location-only Moon Pack Heirloom and Party Popper are categorized as `other` but remain hidden; the explorer does not simulate their highlighting effects.
 - `items.json` — consumable items with stackable counts
+- Christmas Cookie remains in item data but is hidden from the player-only Item controls: its nearby-teammate pulse does not buff the user, and the explorer has no teammate-targeted item pulse state.
 - `twisteds.json` — enemy speed data for the comparison table
 - `stat-mappings.json` — maps star ratings (1–5) to numeric stat values
 

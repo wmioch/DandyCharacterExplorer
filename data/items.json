@@ -73,6 +73,7 @@
       "cost": 0,
       "image_name": "christmas_cookie.png",
       "id": "christmas_cookie",
+      "hidden": true,
       "effects": [
         {
           "targetStat": "movementSpeed",
