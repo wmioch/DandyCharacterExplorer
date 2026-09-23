@@ -14,6 +14,12 @@
 
 # Changelog
 
+## 2026-09-24 — Preserve movement-speed hundredths in the stat table
+
+- Display a second decimal for walking, running and bracketed Panic speed when needed. A four-star 17.5 walk with Dog Plush now shows 19.25 instead of rounding to 19.3; values without hundredths retain one decimal.
+- Source: [Dog Plush](https://dandys-world-robloxhorror.fandom.com/wiki/Dog_Plush), latest wiki revision August 25, 2026, confirms +10% walk speed; older feedback ID 33 identified the expected value. Reviewed the diff and ran `git diff --check`; no builds, tests, lint or automated browser checks.
+- Manual check: select a Toon with 17.5 base walk and Dog Plush, then inspect FINAL Walk Speed; it should read 19.25. Remove Dog Plush and confirm 17.5. Other ordinary speeds should retain one decimal.
+
 ## 2026-09-24 — Toon grid long press on mobile
 
 - Suppressed the follow-up synthetic click that can occur after a touch long press on a Toon grid entry. The long press still selects a teammate; a fresh tap still selects the player Toon.

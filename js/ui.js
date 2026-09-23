@@ -737,10 +737,17 @@ const UI = {
             // Format values for percentage stats
             const suffix = stat.suffix || '';
             const decimals = stat.key === 'extractionSpeed' ? 2 : 1;
-            const baseDisplay = stat.isPercentage ? `${(base * 100).toFixed(0)}%` : `${base.toFixed(decimals)}${suffix}`;
-            let finalDisplay = stat.isPercentage ? `${(final * 100).toFixed(0)}%` : `${final.toFixed(decimals)}${suffix}`;
+            const formatValue = value => {
+                if (['walkSpeed', 'runSpeed'].includes(stat.key)) {
+                    const hundredths = value.toFixed(2);
+                    return hundredths.endsWith('0') ? value.toFixed(1) : hundredths;
+                }
+                return value.toFixed(decimals);
+            };
+            const baseDisplay = stat.isPercentage ? `${(base * 100).toFixed(0)}%` : `${formatValue(base)}${suffix}`;
+            let finalDisplay = stat.isPercentage ? `${(final * 100).toFixed(0)}%` : `${formatValue(final)}${suffix}`;
             if (panicStats && ['walkSpeed', 'runSpeed'].includes(stat.key)) {
-                finalDisplay += ` <span class="panic-speed" title="Panic speed with Vanity Mirror">(${panicStats[stat.key].toFixed(decimals)})</span>`;
+                finalDisplay += ` <span class="panic-speed" title="Panic speed with Vanity Mirror">(${formatValue(panicStats[stat.key])})</span>`;
             }
             
             return `

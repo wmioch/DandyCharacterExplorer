@@ -99,6 +99,8 @@ Train Whistle is visible among trinkets. When equipped, it blocks only the appli
 
 On touch screens, a long press on a Toon selects a teammate through the context menu event. The grid suppresses the compatibility click that some browsers send after that gesture, so the player Toon is not replaced. A new deliberate tap can still select the player Toon.
 
+Movement speeds in the player stat table and bracketed Vanity Mirror Panic values show a second decimal only when needed; for example, 17.5 with Dog Plush appears as 19.25 while 15 remains 15.0. The calculation precision is unchanged.
+
 Razzle & Dazzle uses its own conditional floor selector. Other Toons receive one floor-trinket bonus even with both equipped. Normal and Panic results are calculated separately for Vanity Mirror; Panic comparison columns receive the Panic result, including after sorting.
 
 Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red portraits with DEV labels and compact99-health display. Custom health edits support1–99 integer hearts.
