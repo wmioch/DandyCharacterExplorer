@@ -431,7 +431,7 @@
     },
     {
       "name": "Tapes",
-      "effect": "In-game currency used in Dandy's Shop during runs",
+      "effect": "Picking up floor Tapes adds 5 to your in-run balance, used in Dandy's Shop and for some Toon abilities.",
       "duration": null,
       "category": "currency",
       "rarity": "common",

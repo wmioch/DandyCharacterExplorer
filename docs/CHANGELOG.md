@@ -156,3 +156,8 @@ Validation: JSON parsing and Git whitespace checks only, in accordance with repo
 - Hide Christmas Cookie from the player-only Item controls. Its 15% speed pulse targets nearby teammates, not the user who activates it; the previous control incorrectly increased the selected Toon's speed.
 - Retain the item record for a later teammate-targeted item model. Dandy Easter Egg's recipient rule remains under investigation rather than being inferred from Christmas Cookie.
 - Sources checked September 24: [Items](https://dandys-world-robloxhorror.fandom.com/wiki/Items) (latest revision September 3, 2026) and the [Japanese item wiki](https://wikiwiki.jp/dandys-world/%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0), which specifies that the activating user does not receive the Cookie effect. Parsed changed JSON and ran `git diff --check`; no builds, tests, lint or automated browser checks.
+
+## 2026-09-24 — Tape pickup reference
+
+- Clarify the retained, hidden Tape record: a floor pickup grants 5 Tapes to the in-run balance, which is spent at Dandy's Shop and by some Toon abilities. The explorer still does not simulate a currency balance.
+- Sources checked September 24: [Tapes](https://dandys-world-robloxhorror.fandom.com/wiki/Tapes) (latest revision June 18, 2026) and the [current item guide](https://dandysworld.org/items). Parsed changed JSON and ran `git diff --check`; no builds, tests, lint or automated browser checks.
