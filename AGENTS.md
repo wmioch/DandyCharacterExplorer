@@ -71,6 +71,7 @@ App.init()
 
 - `toons.json` — character definitions: `baseStats`, `starRatings`, `ability`, `ability2`, optional `conditionalStats`
 - `trinkets.json` — each trinket has `effects[]` with `applicationType`: `multiplicative | additive | baseStatIncrease`. `hidden: true` trinkets are excluded from the visible list.
+- Location-only Moon Pack Heirloom and Party Popper are categorized as `other` but remain hidden; the explorer does not simulate their highlighting effects.
 - `items.json` — consumable items with stackable counts
 - `twisteds.json` — enemy speed data for the comparison table
 - `stat-mappings.json` — maps star ratings (1–5) to numeric stat values

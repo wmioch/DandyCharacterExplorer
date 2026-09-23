@@ -145,3 +145,8 @@ Validation: JSON parsing and Git whitespace checks only, in accordance with repo
 - The user still selects the observed floor roll manually. Gigi's Common-item exclusion is not simulated because the explorer has no item-generation pool.
 - Source: [Lucky Coin](https://dandys-world-robloxhorror.fandom.com/wiki/Lucky_Coin) and [Multipliers](https://dandys-world-robloxhorror.fandom.com/wiki/Multipliers), checked September 24, 2026. Review the diff and run `git diff --check`; no builds, tests, lint or automated browser checks.
 - Manual check: select a Toon with 25% base Skill Check chance, equip Lucky Coin, choose Skill Check and confirm 37% chance and 12% larger window. Choose Movement Speed to confirm chance returns to 25%.
+
+## 2026-09-24 — Hidden trinket categories
+
+- Classify Moon Pack Heirloom and Party Popper as Other rather than Extraction. Their effects reveal teammate or Twisted locations; neither changes Extraction Speed. Both remain hidden because the explorer does not simulate location highlighting.
+- Sources: [Moon Pack Heirloom](https://dandys-world-robloxhorror.fandom.com/wiki/Moon_Pack_Heirloom) (revision August 26, 2026) and [Party Popper](https://dandys-world-robloxhorror.fandom.com/wiki/Party_Popper) (revision September 6, 2026), checked September 24. Parsed changed JSON and ran `git diff --check`; no builds, tests, lint or automated browser checks.
