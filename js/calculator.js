@@ -176,7 +176,12 @@ const Calculator = {
 
         // Add team ability modifiers
         // Note: Team abilities are already filtered by the app - if they're in this array, they're enabled
+        const appliedNonStackingTeamAbilities = new Set();
         teamAbilities.forEach(ability => {
+            if (ability.id === 'bobette_festive_aura') {
+                if (appliedNonStackingTeamAbilities.has(ability.id)) return;
+                appliedNonStackingTeamAbilities.add(ability.id);
+            }
             // Apply teamEffect if present
             if (ability.teamEffect) {
                 this._applyTeamEffect(ability.teamEffect, modifiers);

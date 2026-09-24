@@ -99,6 +99,8 @@ See [preview-controls.md](docs/preview-controls.md) for the current controls and
 
 Train Whistle is visible among trinkets. When equipped, it blocks only the applied Slow debuff in Cards & Debuffs. Other debuffs and trinket drawbacks still apply; the selected Slow scenario takes effect again if the trinket is removed.
 
+Multiple selected Bobette Festive Auras apply their team speed and stamina-regeneration modifiers only once. The checked ability remains a static scenario; proximity and its five-second persistence are not timed automatically. Bobette's hearts remain unchanged while current public sources conflict.
+
 On touch screens, a long press on a Toon selects a teammate through the context menu event. The grid suppresses the compatibility click that some browsers send after that gesture, so the player Toon is not replaced. A new deliberate tap can still select the player Toon.
 
 Movement speeds in the player stat table and bracketed Vanity Mirror Panic values show a second decimal only when needed; for example, 17.5 with Dog Plush appears as 19.25 while 15 remains 15.0. The calculation precision is unchanged.

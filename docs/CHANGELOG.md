@@ -1,3 +1,9 @@
+## 2026-09-25 — Bobette Festive Aura non-stacking
+
+- Apply Festive Aura's selected team modifiers once even when more than one Bobette teammate has the ability enabled. The existing data already marks it non-stackable; the team calculation now respects that specific behavior.
+- Current sources disagree on Bobette's heart count, so no health value changes. The aura remains a manually selected snapshot without a proximity or expiry timer. Source and manual checks: [preview controls](preview-controls.md).
+- Reviewed the diff and ran `git diff --check`; no build, tests, lint or automated app-browser checks.
+
 ## 2026-09-21 — Waxwell core bundle (local preview only)
 
 - Added Waxwell's portrait and verified base stats, intrinsic Tired II and10-second Ignite fatigue removal with a60-second base cooldown scenario.
