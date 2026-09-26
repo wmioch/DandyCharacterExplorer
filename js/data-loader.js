@@ -30,6 +30,7 @@ const DataLoader = {
             this.data.trinkets = trinkets.trinkets;
             this.data.items = items.items;
             this.data.twisteds = twisteds.twisteds;
+            CustomContent.apply(this.data);
 
             console.log('✅ All game data loaded successfully');
             return true;

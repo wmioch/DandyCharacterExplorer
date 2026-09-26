@@ -32,6 +32,7 @@ Pure HTML/CSS/Vanilla JS for the frontend. The feedback backend lives in `api/` 
 | File | Role |
 |------|------|
 | `js/data-loader.js` | `DataLoader` — fetches all JSON data at startup via `Promise.all`, exposes typed accessors |
+| `js/custom-content.js` | `CustomContent` — validates and overlays local user-authored definitions, provides the preview editor and buff selections |
 | `js/calculator.js` | `Calculator` — pure stat calculation engine; applies base stats → conditional overrides → multiplicative/additive modifiers → final values |
 | `js/ui.js` | `UI` — DOM manipulation; renders toon grid, trinket list, stat displays, Twisted speed table |
 | `js/app.js` | `App` — central controller; owns all state, wires DOM events to Calculator + UI updates |
@@ -103,6 +104,8 @@ See [preview-controls.md](docs/preview-controls.md) for the current controls and
 `debuffs` holds levels 0–3, displayed as Roman numerals in Cards & Debuffs; `cards` holds five selections. State clones preserve both and ability counters for machine estimates. Debuffs remain constant snapshots. Stamina cards add before percentage modifiers; Tech Savvy changes work45→40 units. TIME’S UP adds50 stamina after its reward is earned. Suppression selects the existing suppressed Panic comparison and hides the duplicate column.
 
 Train Whistle is visible among trinkets. When equipped, it blocks only the applied Slow debuff in Cards & Debuffs. Other debuffs and trinket drawbacks still apply; the selected Slow scenario takes effect again if the trinket is removed.
+
+The Custom Content editor stores versioned definitions in localStorage only. Supported types are Toons, Trinkets, percentage buffs and numeric-speed Twisteds. Validation normalizes fields and assigns independent custom IDs; built-in records are never overwritten. Saves/edits/deletes reload the page. Buff selections are session-only and included in player and machine calculations. Custom art, arbitrary scripts/mechanics and teammate ability effects are outside this editor's scope.
 
 Multiple selected Bobette Festive Auras apply their team speed and stamina-regeneration modifiers only once. The checked ability remains a static scenario; proximity and its five-second persistence are not timed automatically. Bobette's hearts remain unchanged while current public sources conflict.
 

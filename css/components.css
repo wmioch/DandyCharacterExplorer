@@ -3,6 +3,17 @@
    =================================== */
 
 /* Stats Table */
+.modal-content.custom-content-modal-content { width: min(720px, calc(100vw - 32px)); max-width: 720px; max-height: 88vh; overflow-y: auto; }
+.custom-content-modal-content .modal-body { display: grid; gap: var(--spacing-sm); }
+.feedback-textarea.custom-content-json { min-height: 260px; font-family: Consolas, monospace; line-height: 1.4; resize: vertical; }
+.custom-content-list { display: grid; gap: var(--spacing-xs); }
+.custom-content-row { display: flex; align-items: center; gap: var(--spacing-sm); padding: 6px 0; border-bottom: 1px solid var(--border-color); }
+.custom-content-row span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.custom-content-row button { color: var(--text-primary); background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 9px; cursor: pointer; }
+.custom-content-row button:focus-visible { outline: 2px solid #b19cd9; outline-offset: 2px; }
+.custom-buff-option { display: flex; gap: 8px; align-items: center; padding: 4px 0; }
+#custom-content-status.error { color: #ffb1b1; }
+
 .scenario-icon-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));

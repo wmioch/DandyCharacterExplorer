@@ -90,6 +90,22 @@ Twisted Waxwell is listed with neutral N/A chase values because his research des
 
 Cherished Blanket is intentionally absent from visible trinkets because it affects no currently displayed stat.
 
+## Local custom content — PREVIEW-FB75-CUSTOM-CONTENT
+
+The footer's Custom Content button opens a local JSON-template editor for Toons, Trinkets, percentage buffs and numeric-speed Twisteds. Definitions persist in this browser only; no data is sent to a service or shared with other visitors. Saves/edits/deletes refresh the explorer and clear the current scenario. Built-in game records remain intact. Custom records use letter placeholders and independent IDs.
+
+Toons accept bounded numeric base stats, separate 1–5 star ratings and up to two simple active/passive percentage abilities. Supported ability targets are Movement Speed, Extraction Speed, Skill Check Chance and Stamina Regeneration; skill-check size follows the authored skill-check star rating. Trinkets accept up to three supported stat effects and optional stacking; flat decreases are limited to Stealth. Buffs are independently toggled percentage modifiers, included in both player and machine snapshots. Twisteds accept Normal, Panic and Panic + Suppression walk/run values. Images, arbitrary mechanic scripting, teammate effects, imported external files and cloud sharing are outside this initial editor scope.
+
+Manual checks:
+
+1. Open Custom Content, choose Toons and save the template. Select My Toon in the grid: base values match the template; its active ability changes 15/25 speeds to 16.5/27.5 when checked. Refresh and confirm the definition persists. Built-in Boxten remains available.
+2. Create the default My Trinket, select Poppy and equip it: movement rises by 10%. Edit its name/value, save and confirm the updated local definition appears. Deleting it removes only that custom record.
+3. Create My Buff and check its new Custom Buffs checkbox: movement rises by 10%. Uncheck to restore. For a custom Extraction Speed buff, verify Machine Stats also changes; refreshing retains the definition but resets its selection.
+4. Create the default custom Twisted: its row shows 20/24/23 Run values and a letter placeholder. Sort by name and speed. Edit/delete it and confirm game Twisteds remain unchanged.
+5. Enter malformed JSON, a chance above 1, a fractional heart value, an unsupported effect target or a negative flat stamina effect: saving reports a useful error and does not refresh or replace the last saved definition. Existing local definitions remain intact.
+
+This bundle implements the sanitized requests FB-75-1 through FB-75-4; PollingStation feedback remains pending until an approved production release. No gameplay values were inferred for these user-authored templates.
+
 ## September 25 production correction: Bobette Festive Aura
 
 When two Bobette teammates have Festive Aura selected, its 50% Stamina Regeneration and 25% Movement Speed team modifiers apply once. The explorer still represents a manually selected aura snapshot; it does not track proximity or the five-second lingering speed effect. Bobette's local two-heart value remains unchanged because public sources disagree about whether she now has three hearts.

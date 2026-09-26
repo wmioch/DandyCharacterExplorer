@@ -15,6 +15,7 @@ const App = {
         teamToons: {}, // Map of toonId to count for team selection
         activeAbilities: [],
         activeItems: [],
+        customBuffIds: [], // Session-only selections from local custom definitions.
         extractingFromMachine: false, // Manual Star Pillow scenario.
         heldItemCount: 0, // Manual inventory snapshot, independent of consumed Item buffs.
         selectedConditionalStat: null,
@@ -64,6 +65,7 @@ const App = {
 
         // Attach event listeners
         this.attachEventListeners();
+        CustomContent.initUI(this);
         
         // Show Twisted table immediately with default speeds
         const twisteds = DataLoader.getAllTwisteds();
@@ -1431,7 +1433,7 @@ const App = {
         return Calculator.calculateFinalStats(
             this.state.selectedToon,
             trinketsForCalc,
-            this.state.activeAbilities,
+            [...this.state.activeAbilities, ...CustomContent.activeBuffs(this.state.customBuffIds)],
             this.state.activeItems,
             this.state.selectedConditionalStat,
             teamSize,
@@ -1514,6 +1516,7 @@ const App = {
             // Pass the modified trinkets array to machine stats calculation
             extraction = this.calculateMachineStatsWithDebug({
                 ...this.state,
+                activeAbilities: [...this.state.activeAbilities, ...CustomContent.activeBuffs(this.state.customBuffIds)],
                 equippedTrinkets: trinketsForCalc
             });
             UI.updateMachineExtraction(extraction);

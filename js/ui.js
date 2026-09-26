@@ -121,7 +121,7 @@ const UI = {
             img.onerror = function() {
                 console.warn(`Failed to load toon image: ${imagePath}`);
             };
-            img.src = imagePath;
+            if (!toon.custom) img.src = imagePath;
             
             toonItem.appendChild(imgContainer);
             toonItem.appendChild(counterOverlay);
@@ -222,7 +222,7 @@ const UI = {
             img.onerror = function() {
                 console.warn(`Failed to load image: ${imagePath}`);
             };
-            img.src = imagePath;
+            if (trinket.image) img.src = imagePath;
             
             trinketItem.appendChild(imgContainer);
             container.appendChild(trinketItem);
@@ -1112,7 +1112,7 @@ const UI = {
                 imgContainer.style.backgroundSize = 'cover';
                 imgContainer.style.backgroundPosition = 'center';
             };
-            img.src = imagePath;
+            if (!toon.custom) img.src = imagePath;
             
             const dropdown = wrapper.querySelector('.toon-dropdown');
             wrapper.insertBefore(imgContainer, dropdown);
