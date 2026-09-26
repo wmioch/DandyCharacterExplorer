@@ -94,6 +94,8 @@ Cherished Blanket is intentionally absent from visible trinkets because it affec
 
 The footer's Custom Content button opens a local JSON-template editor for Toons, Trinkets, percentage buffs and numeric-speed Twisteds. Definitions persist in this browser only; no data is sent to a service or shared with other visitors. Saves/edits/deletes refresh the explorer and clear the current scenario. Built-in game records remain intact. Custom records use letter placeholders and independent IDs.
 
+Unreadable saved JSON or a malformed saved collection blocks new saves, preserving the stored content until it is repaired. Individual invalid definitions remain stored but are excluded from the loaded list.
+
 Toons accept bounded numeric base stats, separate 1–5 star ratings and up to two simple active/passive percentage abilities. Supported ability targets are Movement Speed, Extraction Speed, Skill Check Chance and Stamina Regeneration; skill-check size follows the authored skill-check star rating. Trinkets accept up to three supported stat effects and optional stacking; flat decreases are limited to Stealth. Buffs are independently toggled percentage modifiers, included in both player and machine snapshots. Twisteds accept Normal, Panic and Panic + Suppression walk/run values. Images, arbitrary mechanic scripting, teammate effects, imported external files and cloud sharing are outside this initial editor scope.
 
 Manual checks:

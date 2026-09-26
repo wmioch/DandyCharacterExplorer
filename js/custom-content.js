@@ -112,6 +112,8 @@ const CustomContent = {
         if (!saved || typeof saved !== 'object' || Array.isArray(saved)) { saved = {}; this.storageUnreadable = true; }
         this.invalidCount = 0;
         for (const type of this.types) {
+            // A malformed collection must not be silently replaced by an empty one on save.
+            if (saved[type] !== undefined && !Array.isArray(saved[type])) this.storageUnreadable = true;
             this.definitions[type] = Array.isArray(saved[type]) ? saved[type] : [];
             this.current[type] = [];
             for (const entry of this.definitions[type]) {
