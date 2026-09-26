@@ -105,7 +105,7 @@ See [preview-controls.md](docs/preview-controls.md) for the current controls and
 
 Train Whistle is visible among trinkets. When equipped, it blocks only the applied Slow debuff in Cards & Debuffs. Other debuffs and trinket drawbacks still apply; the selected Slow scenario takes effect again if the trinket is removed.
 
-The Custom Content editor stores versioned definitions in localStorage only. Supported types are Toons, Trinkets, percentage buffs and numeric-speed Twisteds. Validation normalizes fields and assigns independent custom IDs; built-in records are never overwritten. Saves/edits/deletes reload the page. Buff selections are session-only and included in player and machine calculations. Custom art, arbitrary scripts/mechanics and teammate ability effects are outside this editor's scope.
+The Custom Content editor stores versioned definitions in localStorage only. Supported types are Toons, Trinkets, percentage buffs and numeric-speed Twisteds. Validation normalizes fields and assigns independent custom IDs; built-in records are never overwritten. Saves/edits/deletes reload the page. Unreadable saved JSON or malformed collections block both saves and deletion to preserve the original storage. Buff selections are session-only and included in player and machine calculations. Custom art, arbitrary scripts/mechanics and teammate ability effects are outside this editor's scope.
 
 Multiple selected Bobette Festive Auras apply their team speed and stamina-regeneration modifiers only once. The checked ability remains a static scenario; proximity and its five-second persistence are not timed automatically. Bobette's hearts remain unchanged while current public sources conflict.
 

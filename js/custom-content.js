@@ -199,7 +199,12 @@ const CustomContent = {
                 this.editingId = entry.id;
                 document.getElementById('custom-content-json').value = JSON.stringify(entry.input, null, 2);
                 this.showStatus('Editing this local definition. Save to refresh the explorer.');
-            } else if (window.confirm(`Delete your local ${type.slice(0, -1)} “${entry.input.name}”?`)) {
+            } else {
+                if (this.storageUnreadable) {
+                    this.showStatus('Cannot modify unreadable saved data. Preserve or repair that browser storage first.', true);
+                    return;
+                }
+                if (!window.confirm(`Delete your local ${type.slice(0, -1)} “${entry.input.name}”?`)) return;
                 try {
                     const next = structuredClone(this.definitions);
                     next[type] = next[type].filter(item => item?.id !== entry.id);

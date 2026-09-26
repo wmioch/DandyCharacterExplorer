@@ -94,7 +94,7 @@ Cherished Blanket is intentionally absent from visible trinkets because it affec
 
 The footer's Custom Content button opens a local JSON-template editor for Toons, Trinkets, percentage buffs and numeric-speed Twisteds. Definitions persist in this browser only; no data is sent to a service or shared with other visitors. Saves/edits/deletes refresh the explorer and clear the current scenario. Built-in game records remain intact. Custom records use letter placeholders and independent IDs.
 
-Unreadable saved JSON or a malformed saved collection blocks new saves, preserving the stored content until it is repaired. Individual invalid definitions remain stored but are excluded from the loaded list.
+Unreadable saved JSON or a malformed saved collection blocks saves and deletion, preserving the stored content until it is repaired. Individual invalid definitions remain stored but are excluded from the loaded list.
 
 Toons accept bounded numeric base stats, separate 1–5 star ratings and up to two simple active/passive percentage abilities. Supported ability targets are Movement Speed, Extraction Speed, Skill Check Chance and Stamina Regeneration; skill-check size follows the authored skill-check star rating. Trinkets accept up to three supported stat effects and optional stacking; flat decreases are limited to Stealth. Buffs are independently toggled percentage modifiers, included in both player and machine snapshots. Twisteds accept Normal, Panic and Panic + Suppression walk/run values. Images, arbitrary mechanic scripting, teammate effects, imported external files and cloud sharing are outside this initial editor scope.
 
@@ -105,6 +105,7 @@ Manual checks:
 3. Create My Buff and check its new Custom Buffs checkbox: movement rises by 10%. Uncheck to restore. For a custom Extraction Speed buff, verify Machine Stats also changes; refreshing retains the definition but resets its selection.
 4. Create the default custom Twisted: its row shows 20/24/23 Run values and a letter placeholder. Sort by name and speed. Edit/delete it and confirm game Twisteds remain unchanged.
 5. Enter malformed JSON, a chance above 1, a fractional heart value, an unsupported effect target or a negative flat stamina effect: saving reports a useful error and does not refresh or replace the last saved definition. Existing local definitions remain intact.
+6. If a saved collection is unreadable while another valid definition is listed, trying to save or delete reports the preservation error. Neither action rewrites the stored content.
 
 This bundle implements the sanitized requests FB-75-1 through FB-75-4; PollingStation feedback remains pending until an approved production release. No gameplay values were inferred for these user-authored templates.
 
