@@ -66,7 +66,7 @@ Manual checks: Poppy with SlowII and ConfusedI uses Eject Button: Slow clears, C
 
 Poppy with no other effects at0% Great Rate: Average Time equals Base Time52.9s and successful checks0. Stress Ball receives no successful-check stacks;100% restores the expected-value improvement.
 
-Eclipse Blackout off/on:150/240 capacity and17.5/27.5 versus21/33 speeds. Cooler gives320 capacity; all stamina cards without Cooler give352; Cooler plus full-team Friendship Bracelet gives496. Advanced base100 gives160 with Blackout on.
+Eclipse Blackout off/on:150/240 capacity and17.5/27.5 versus21/33 speeds. With Blackout on, Cooler alone gives320 capacity. Well-Paced, Endurance and an earned TIME'S UP reward, without trinkets, give352. Cooler plus Friendship Bracelet with eight living Toons and no cards gives384; adding all three stamina cards gives496. Clear the preceding effects before editing the Advanced base to100, which gives160 with Blackout on.
 
 Twisted Soulvester Normal/Panic/Suppression Walk/Run:8/16,9.6/19.2,9.2/18.4. Twisted Dyle maximum values:22.5/40,27/48,25.88/46. Check sorting and Suppression columns. No new acceleration, roaming-state or live timer model is introduced.
 

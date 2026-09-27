@@ -1,3 +1,8 @@
+## 2026-09-27 - Eclipse manual-check setup
+
+- Clarified that the496-capacity example requires all three stamina cards as well as Cooler and a full-team Friendship Bracelet. The two trinkets without cards give384; no calculation or game value changed.
+- Reviewed the setup against the card/trinket definitions and capacity formula, then checked the documentation diff. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Scraps grapple-protection description
 
 - Added invincibility frames while grappling to Crafty Grapple's description, supported by the [Scraps wiki revision 264163](https://dandys-world-robloxhorror.fandom.com/wiki/Scraps?oldid=264163) (September 25) and [Scraps guide](https://www.dandysworld.org/toons/scraps), checked September 27. Targeting, direct line of sight and the 25-second cooldown are unchanged; the explorer does not simulate the grapple or protection.
