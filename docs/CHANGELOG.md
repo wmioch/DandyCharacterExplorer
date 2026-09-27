@@ -1,3 +1,8 @@
+## 2026-09-28 - Gigi Surprise! item-pool wording
+
+- Clarified that event-exclusive Items and BonBons cannot appear in Gigi's Surprise! roll, as the current [Gigi revision 264220](https://dandys-world-robloxhorror.fandom.com/wiki/Gigi?oldid=264220) (September 26) states. This is descriptive only; the explorer does not roll or simulate generated Items.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Party Popper machine-buff trigger wording
 
 - Added applying a Machine buff to hidden Party Popper's trigger description. [Party Popper revision 260718](https://dandys-world-robloxhorror.fandom.com/wiki/Party_Popper?oldid=260718) (September 6) and the [August 14 v0.26.1 changelog, revision 264154](https://dandys-world-robloxhorror.fandom.com/wiki/Changelog/2026?oldid=264154), checked September 28, explicitly include this trigger. Its five-second nearby highlighting effect and hidden status are unchanged; no highlighting or machine-buff simulation was added.
