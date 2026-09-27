@@ -433,7 +433,7 @@
       "ability": {
         "id": "cosmo_sharing_is_caring",
         "name": "Sharing is Caring",
-        "description": "(Active) This Toon can give one of his own Hearts to heal a targeted Toon. Cannot be used when at 1 Heart. Has a Cooldown of 60.",
+        "description": "(Active) This Toon can give one of his own Hearts to heal a targeted Toon. Targeting a teammate also highlights their silhouette through walls and shows their current animation. Cannot be used when at 1 Heart. Has a Cooldown of 60.",
         "effectType": "healing",
         "targetStat": "hearts",
         "value": 1.0,

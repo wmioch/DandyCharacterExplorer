@@ -1,3 +1,8 @@
+## 2026-09-27 - Cosmo targeting description
+
+- Added Sharing is Caring's teammate silhouette and animation highlighting to its description. [Cosmo revision 263931](https://dandys-world-robloxhorror.fandom.com/wiki/Cosmo?oldid=263931) (September 24) and the [Cosmo guide](https://www.dandysworld.org/toons/cosmo), checked September 27, agree on this secondary targeting effect. Heart transfer, cooldown, base values and star ratings are unchanged; the explorer does not simulate targeting or through-wall vision.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Gigi current cooldown description
 
 - Corrected Surprise!'s description from 80 to 60 seconds. The [September 18 change history, revision 264154](https://dandys-world-robloxhorror.fandom.com/wiki/Changelog/2026?oldid=264154), [obsolete mechanics history, revision 262851](https://dandys-world-robloxhorror.fandom.com/wiki/Unused_Content/Game_Mechanics?oldid=262851), and [current Gigi definition, revision 264220](https://dandys-world-robloxhorror.fandom.com/wiki/Gigi?oldid=264220), checked September 27, explicitly distinguish the old 80-second ability from the 60-second v0.28.1 rework. September 25 removed the weekly event without reverting this ability. The conflicting independent guide still describes the old cooldown; its publication date is unknown. No cooldown statistic, item-generation model or ability controls were added.
