@@ -64,7 +64,7 @@ App.init()
 3. Apply base stat overrides from player abilities (Flutter, Rudie)
 4. Apply `baseStatIncrease` effects from trinkets/items (e.g., +50 stamina flat)
 5. Collect multiplicative and additive modifiers from: player abilities → conditional modifier overrides → trinket effects → team abilities → item effects
-6. Apply Bone trinket with special 40-unit stealth cap logic
+6. Apply Bone trinket with special 40-unit movement-speed cap logic
 7. Apply all modifiers and compute final display stats
 
 ### Data Files (`data/`)

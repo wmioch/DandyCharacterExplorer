@@ -1,3 +1,8 @@
+## 2026-09-27 - Bone architecture documentation
+
+- Corrected the architecture note to identify Bone's 40-unit cap as a movement-speed cap. The source and current stack-selection code cap Walk and Run Speed, not Stealth. No calculation or game data changed.
+- Reviewed the documentation diff with `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Tisha puddle-clearing description
 
 - Added Tidy Up!'s Ichor-puddle removal to its description, supported by the ability text and Toon of the Week quest in [Tisha wiki revision 262950](https://dandys-world-robloxhorror.fandom.com/wiki/Tisha?oldid=262950) (September 20), checked September 27. The older [Tisha guide](https://www.dandysworld.org/toons/tisha) omits this detail. Speed, duration and cooldown are unchanged; the explorer does not simulate puddle clearing.
