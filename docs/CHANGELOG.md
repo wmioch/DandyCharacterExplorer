@@ -1,3 +1,8 @@
+## 2026-09-27 - Twisted Glisten conditional speeds
+
+- Corrected the existing enraged profile's Panic speeds to 18/28.8 and suppressed Panic speeds to 17.25/27.6. Normal 15/24 remains unchanged. The rendered [Twisted Glisten infobox, revision 263080](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Glisten?oldid=263080), the specific [Panic Mode table, revision 247683](https://dandys-world-robloxhorror.fandom.com/wiki/Panic_Mode?oldid=247683), and the [independent Panic guide](https://dandysworld.org/mechanics/panic-mode), checked September 27, agree on these tuples. The existing row compares the enraged profile; it does not simulate Glisten's passive 6-speed state or proximity meter.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. Manual check: inspect Twisted Glisten's run-speed row: normal 24, Panic 28.8, suppressed 27.6. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Protein Bar effect grouping
 
 - Corrected Protein Bar's internal category from extraction to stamina, consistent with its existing Stamina Regeneration effect and the local category definitions. The [Items wiki revision 264293](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264293) (September 26), checked September 27, confirms the effect. Item categories currently have no interface or calculation consumer; values and behavior are unchanged.

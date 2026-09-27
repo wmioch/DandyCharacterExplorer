@@ -392,12 +392,12 @@
           "run": 24.0
         },
         "panic": {
-          "walk": 18.75,
-          "run": 30.0
-        },
-        "panicSuppressed": {
           "walk": 18.0,
           "run": 28.8
+        },
+        "panicSuppressed": {
+          "walk": 17.25,
+          "run": 27.6
         }
       },
       "image": "twisteds/glisten.png"
