@@ -1000,7 +1000,7 @@
         "walkSpeed": 20,
         "runSpeed": 30,
         "stealth": 10,
-        "extractionSpeed": 1.6,
+        "extractionSpeed": 1.5,
         "stamina": 150,
         "skillCheckAmount": 2.0,
         "skillCheckChance": 0.25,
@@ -1010,7 +1010,7 @@
         "walkSpeed": 5,
         "runSpeed": 5,
         "stealth": 3,
-        "extractionSpeed": 6,
+        "extractionSpeed": 5,
         "stamina": 3,
         "skillCheckAmount": 3
       },

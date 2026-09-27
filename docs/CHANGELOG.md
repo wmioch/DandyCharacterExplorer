@@ -1,3 +1,8 @@
+## 2026-09-28 - Razzle & Dazzle extraction rating
+
+- Corrected the stored extraction baseline from an impossible 1.6/six-star value to the sourced even-floor peak 1.5/five stars. Odd-floor 0.75/one star and even-floor 1.5/five stars remain in the existing conditional fields. The grid's maximum-star count now includes this Toon in a valid one-to-five bucket; the selected floor still controls the player stat display. [Razzle & Dazzle revision 260329](https://dandys-world-robloxhorror.fandom.com/wiki/Razzle_%26_Dazzle?oldid=260329) (September 4), checked September 28, states both floor ratings.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Gigi Surprise! item-pool wording
 
 - Clarified that event-exclusive Items and BonBons cannot appear in Gigi's Surprise! roll, as the current [Gigi revision 264220](https://dandys-world-robloxhorror.fandom.com/wiki/Gigi?oldid=264220) (September 26) states. This is descriptive only; the explorer does not roll or simulate generated Items.
