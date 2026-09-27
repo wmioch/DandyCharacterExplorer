@@ -1,3 +1,8 @@
+## 2026-09-27 - Protein Bar effect grouping
+
+- Corrected Protein Bar's internal category from extraction to stamina, consistent with its existing Stamina Regeneration effect and the local category definitions. The [Items wiki revision 264293](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264293) (September 26), checked September 27, confirms the effect. Item categories currently have no interface or calculation consumer; values and behavior are unchanged.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Wrench completion description
 
 - Made Wrench's description specify its source-supported 15-unit completion bonus, retaining first-Machine and once-per-Floor limits. The [Wrench wiki revision 263296](https://dandys-world-robloxhorror.fandom.com/wiki/Wrench?oldid=263296) (September 21) and [Wrench guide](https://www.dandysworld.org/trinkets/wrench), checked September 27, agree. The existing calculation already subtracts 15 units; no calculation changed.

@@ -303,7 +303,7 @@
       "name": "Protein Bar",
       "effect": "Upon use, increases Stamina Regeneration by 150% for 15 seconds, equivalent to +6 stamina per second for most Toons.",
       "duration": 15,
-      "category": "extraction",
+      "category": "stamina",
       "rarity": "uncommon",
       "dandy_shop_only": false,
       "cost": 45,
