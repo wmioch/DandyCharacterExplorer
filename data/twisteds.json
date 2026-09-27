@@ -428,20 +428,20 @@
       "rarity": "Main Character",
       "speeds": {
         "normal": {
-          "walk": 0,
+          "walk": 18.0,
           "run": 26.0
         },
         "panic": {
-          "walk": 0,
-          "run": 32.5
+          "walk": 21.6,
+          "run": 31.2
         },
         "panicSuppressed": {
-          "walk": 0,
-          "run": 31.2
+          "walk": 20.7,
+          "run": 29.9
         }
       },
       "image": "twisteds/gourdy.png",
-      "notes": "Static when passive, enraged speeds shown"
+      "notes": "Enraged speed profile; stationary while passive. The rage meter and state transitions are not simulated."
     },
     {
       "id": "twisted_looey",

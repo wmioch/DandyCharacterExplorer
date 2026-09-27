@@ -1,3 +1,8 @@
+## 2026-09-27 - Twisted Gourdy enraged profile
+
+- Made the existing enraged speed row internally consistent: normal 18/26, Panic 21.6/31.2 and suppressed Panic 20.7/29.9. Its normal run speed remains 26. The rendered [Twisted Gourdy infobox, revision 262328](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Gourdy?oldid=262328), the specific [Panic Mode table, revision 247683](https://dandys-world-robloxhorror.fandom.com/wiki/Panic_Mode?oldid=247683), and the [independent Panic guide](https://dandysworld.org/mechanics/panic-mode), checked September 27, agree on the complete profile. The data note distinguishes the stationary passive state from these enraged speeds; the table does not simulate the rage meter or item gifts.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. Manual check: Twisted Gourdy's run-speed row shows normal 26, Panic 31.2 and suppressed 29.9. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Twisted Glisten conditional speeds
 
 - Corrected the existing enraged profile's Panic speeds to 18/28.8 and suppressed Panic speeds to 17.25/27.6. Normal 15/24 remains unchanged. The rendered [Twisted Glisten infobox, revision 263080](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Glisten?oldid=263080), the specific [Panic Mode table, revision 247683](https://dandys-world-robloxhorror.fandom.com/wiki/Panic_Mode?oldid=247683), and the [independent Panic guide](https://dandysworld.org/mechanics/panic-mode), checked September 27, agree on these tuples. The existing row compares the enraged profile; it does not simulate Glisten's passive 6-speed state or proximity meter.
