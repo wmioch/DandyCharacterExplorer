@@ -31,7 +31,7 @@
     },
     {
       "name": "Basket",
-      "effect": "Adds 5 Baskets to the baskets counter, which could be used to purchase Easter Event Toons, Skins, or Stickers from Bassie's Store, which was found in the lobby. Two Baskets would spawn on each Floor.",
+      "effect": "Adds 5 Baskets normally, or 10 while the Easter Event's 2x Baskets bonus is active. Baskets can be used to purchase Easter Event Toons, Skins, or Stickers from Bassie's Store in the lobby. Two Basket pickups spawn on each Floor during the event.",
       "duration": null,
       "category": "currency",
       "rarity": "event",

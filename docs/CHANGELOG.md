@@ -1,3 +1,8 @@
+## 2026-09-28 - Basket pickup bonus wording
+
+- Clarified Basket pickups as normally 5, or 10 during the Easter Event's active 2x Baskets bonus. [Baskets revision 264159](https://dandys-world-robloxhorror.fandom.com/wiki/Baskets?oldid=264159) (September 25), checked September 28, documents 5 per pickup, two pickups per Floor and the 2x bonus, currently inactive. The description does not infer an active event or bonus from the calendar. Basket remains hidden from player stat controls; no currency-counter mechanic was added.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Waxwell Ignite recipient description
 
 - Clarified that Ignite's trail does not affect any Waxwell, replacing the narrower caster-only wording. [Waxwell revision 263511](https://dandys-world-robloxhorror.fandom.com/wiki/Waxwell?oldid=263511) (September 23), checked September 28 during the September 27 maintenance cycle, explicitly excludes all Waxwells. The existing player checkbox and intrinsic Tired II behavior are unchanged; no teammate cooldown controls or cooldown statistics were added.
