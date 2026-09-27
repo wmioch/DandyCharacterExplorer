@@ -1,3 +1,8 @@
+## 2026-09-27 - Wrench completion description
+
+- Made Wrench's description specify its source-supported 15-unit completion bonus, retaining first-Machine and once-per-Floor limits. The [Wrench wiki revision 263296](https://dandys-world-robloxhorror.fandom.com/wiki/Wrench?oldid=263296) (September 21) and [Wrench guide](https://www.dandysworld.org/trinkets/wrench), checked September 27, agree. The existing calculation already subtracts 15 units; no calculation changed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Bone architecture documentation
 
 - Corrected the architecture note to identify Bone's 40-unit cap as a movement-speed cap. The source and current stack-selection code cap Walk and Run Speed, not Stealth. No calculation or game data changed.

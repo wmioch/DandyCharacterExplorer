@@ -803,7 +803,7 @@
     },
     {
       "name": "Wrench",
-      "effect": "Instantly adds a large amount of completion to the first Machine you extract from on any Floor. Has a limit of 1 activation per Floor.",
+      "effect": "Instantly adds 15 units of completion to the first Machine you extract from on any Floor. Has a limit of 1 activation per Floor.",
       "image": "trinket_wrench.png",
       "category": "extraction",
       "rarity": "store",
