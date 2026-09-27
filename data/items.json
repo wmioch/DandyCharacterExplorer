@@ -278,7 +278,7 @@
     },
     {
       "name": "Ornament",
-      "effect": "Adds 5 Ornaments to the ornaments counter, which could be used to purchase Christmas Event Toons, Skins, or Stickers from Bobette's Store, which was found in the lobby. Two Ornaments would spawn on each Floor.",
+      "effect": "Adds 5 Ornaments normally, or 10 while the Christmas Event's 2x Ornaments bonus is active. Ornaments can be used to purchase Christmas Event Toons, Skins, or Stickers from Bobette's Store in the lobby. Two Ornament pickups spawn on each Floor during the event.",
       "duration": null,
       "category": "currency",
       "rarity": "event",
@@ -319,7 +319,7 @@
     },
     {
       "name": "Pumpkin",
-      "effect": "Adds 5 Pumpkins to the pumpkins counter, which will be used to purchase Halloween Event Toons, Skins, or Stickers from Gourdy's Store, which will be found in the lobby. Two Pumpkins will spawn on each Floor.",
+      "effect": "Adds 5 Pumpkins normally, or 10 while the Halloween Event's 2x Pumpkins bonus is active. Pumpkins can be used to purchase Halloween Event Toons, Skins, or Stickers from Gourdy's Store in the lobby. Two Pumpkin pickups spawn on each Floor during the event.",
       "duration": null,
       "category": "currency",
       "rarity": "event",

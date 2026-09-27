@@ -1207,6 +1207,10 @@ const App = {
         
         // Increment (max 10)
         const newCount = Math.min(currentCount + 1, 10);
+        // Selecting another use clears the current Slow snapshot, not future Slow sources.
+        if (itemId === 'eject_button' && newCount > currentCount) {
+            this.state.debuffs.slow = 0;
+        }
         
         this.updateItemState(itemId, newCount);
         this.updateDisplay();

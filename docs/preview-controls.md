@@ -59,3 +59,19 @@ When two Bobette teammates have Festive Aura selected, its 50% Stamina Regenerat
 Manual check: select Boxten as the player and add two Bobettes as teammates. Check one Festive Aura: Walk/Run becomes 18.75/31.25 and Stamina Regeneration becomes 3.6/s. Check the second: the values remain the same. Uncheck one: the remaining selected aura still applies. Uncheck both: values return to 15/25 and 2.4/s. Other team ability selections continue to apply normally.
 
 Sources checked September 25: [Bobette Fandom revision 263138](https://dandys-world-robloxhorror.fandom.com/wiki/Bobette?oldid=263138) (revised September 20, 2026) explicitly says the effects cannot stack across multiple Bobettes. [Bobette's guide](https://www.dandysworld.org/toons/bobette) supports the individual 50% and 25% effects. The guide claims three hearts, while current [Fandom Health](https://dandys-world-robloxhorror.fandom.com/wiki/Health) and [Statistics](https://dandys-world-robloxhorror.fandom.com/wiki/Statistics) say Main Toons have two, so no health edit was made.
+
+## Bounded corrections — September27
+
+Manual checks: Poppy with SlowII and ConfusedI uses Eject Button: Slow clears, Confused remains, speed40/50. Removing the item gives15/25 without restoring Slow; later Slow selections still apply. At the item cap, an unaccepted extra click does not clear Slow.
+
+Poppy with no other effects at0% Great Rate: Average Time equals Base Time52.9s and successful checks0. Stress Ball receives no successful-check stacks;100% restores the expected-value improvement.
+
+Eclipse Blackout off/on:150/240 capacity and17.5/27.5 versus21/33 speeds. Cooler gives320 capacity; all stamina cards without Cooler give352; Cooler plus full-team Friendship Bracelet gives496. Advanced base100 gives160 with Blackout on.
+
+Twisted Soulvester Normal/Panic/Suppression Walk/Run:8/16,9.6/19.2,9.2/18.4. Twisted Dyle maximum values:22.5/40,27/48,25.88/46. Check sorting and Suppression columns. No new acceleration, roaming-state or live timer model is introduced.
+
+Currency descriptions retain base5, with10 only during the respective event's active2x bonus. These pickups remain outside player-stat effects; the data does not assert an active event today.
+
+Select Goob and inspect Hug!: it now states that the pulled Toon is protected during the pull, while retaining direct line of sight and the 30-second cooldown. This is description-only behavior; the explorer does not simulate the pull or protection. The [Goob wiki revision 263078](https://dandys-world-robloxhorror.fandom.com/wiki/Goob?oldid=263078) (September 20) and [Goob guide](https://www.dandysworld.org/toons/goob), checked September 27, both support this detail.
+
+Sources checked September27: [Eclipse revision263654](https://dandys-world-robloxhorror.fandom.com/wiki/Eclipse?oldid=263654) (September24); [Twisted Soulvester revision250928](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Soulvester?oldid=250928) (July16); [Twisted Dyle revision264128](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Dyle?oldid=264128) (September25); [Items revision264293](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264293) (September26). Ornament/Pumpkin descriptions additionally follow their dedicated currency pages checked September27. The0% correction follows the valid slider input through the existing state clone; it changes no game value.

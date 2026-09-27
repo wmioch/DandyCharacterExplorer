@@ -61,7 +61,7 @@ App.init()
 
 1. Start with `toon.baseStats`
 2. Apply conditional stat set overrides (e.g., Looey's hearts, Razzle & Dazzle floors)
-3. Apply base stat overrides from player abilities (Flutter, Rudie, Eclipse)
+3. Apply base stat overrides from player abilities (Flutter, Rudie)
 4. Apply `baseStatIncrease` effects from trinkets/items (e.g., +50 stamina flat)
 5. Collect multiplicative and additive modifiers from: player abilities → conditional modifier overrides → trinket effects → team abilities → item effects
 6. Apply Bone trinket with special 40-unit stealth cap logic
@@ -119,3 +119,5 @@ Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red port
 Ignite uses the standard player ability checkbox and saved-state mechanism. Off applies intrinsic Tired II; on removes it. Changing Toon resets it. No Waxwell timers or teammate cooldown controls remain; cooldown statistics are deferred. Additional Tired sources remain unsupported.
 
 Twisteds may specify `noChase: true` with null speeds and no image. The table displays neutral N/A and the existing letter placeholder, without treating null as comparable speed. Twisted Waxwell uses non-chasing N/A values with a sourced portrait; numeric roaming states await verification. Cherished Blanket is intentionally not visible.
+
+Eclipse Blackout uses a60% capacity modifier after flat gains, so base150 becomes240. Accepted Eject Button uses clear the currently selected Slow snapshot without immunity to later Slow sources. Machine state cloning preserves the valid0% Great Rate. Event-currency descriptions distinguish normal5 pickups from10 only while the corresponding2x bonus is active; they do not infer an active event from the calendar.

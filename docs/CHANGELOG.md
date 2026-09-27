@@ -1,3 +1,11 @@
+## 2026-09-27 — Bounded stat and scenario corrections
+
+- Eject Button clears the currently selected Slow snapshot on an accepted use without granting continuing immunity. Machine state cloning preserves0% Great Rate.
+- Eclipse uses a60% stamina-capacity modifier after flat gains; base150 becomes240. Corrected existing Twisted Soulvester and maximum Dyle Panic/Suppression values.
+- Ornament and Pumpkin descriptions distinguish normal5 pickups from10 only during an active2x event bonus. No event or bonus is inferred from the calendar.
+- Added the source-supported protection during Goob's pull to Hug!'s description; no pull/protection simulation is implied.
+- Source/code/diff review and changed JSON parsing only; no builds, tests, lint or app-browser checks. Larger preview features are excluded from this batch.
+
 ## 2026-09-25 — Bobette Festive Aura non-stacking
 
 - Apply Festive Aura's selected team modifiers once even when more than one Bobette teammate has the ability enabled. The existing data already marks it non-stackable; the team calculation now respects that specific behavior.

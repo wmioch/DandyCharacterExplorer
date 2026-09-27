@@ -468,7 +468,7 @@
       "ability": {
         "id": "eclipse_total_eclipse",
         "name": "Total Eclipse",
-        "description": "(Passive) This Toon transforms into a werewolf in blackouts, giving off a glow, gaining 2 Stamina Stars, and a 20% Movement Speed boost.",
+        "description": "(Passive) This Toon transforms into a werewolf in blackouts, giving off a glow, gaining 60% Stamina Capacity (described in-game as 2 Stamina Stars), and a 20% Movement Speed boost.",
         "effectType": "conditional",
         "targetStat": "blackoutTransform",
         "value": 0.2,
@@ -478,11 +478,8 @@
         "hasToggle": true,
         "playerEffect": {
           "movementSpeed": 0.2,
-          "stamina": 200,
-          "applicationType": "multiplicative",
-          "baseStatOverrides": {
-            "stamina": 200
-          }
+          "stamina": 0.6,
+          "applicationType": "multiplicative"
         }
       }
     },
@@ -786,7 +783,7 @@
       "ability": {
         "id": "goob_hug",
         "name": "Hug!",
-        "description": "(Active) This Toon can pull other Toons towards his position. Needs direct line of sight. 30 second cooldown.",
+        "description": "(Active) This Toon can pull other Toons towards his position. The pulled Toon is protected during the pull. Needs direct line of sight. 30 second cooldown.",
         "effectType": "pull",
         "targetStat": "position",
         "value": 1.0,

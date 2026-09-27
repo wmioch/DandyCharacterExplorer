@@ -651,16 +651,16 @@
       "rarity": "Event",
       "speeds": {
         "normal": {
-          "walk": 16.0,
+          "walk": 8.0,
           "run": 16.0
         },
         "panic": {
-          "walk": 20.0,
-          "run": 20.0
+          "walk": 9.6,
+          "run": 19.2
         },
         "panicSuppressed": {
-          "walk": 19.2,
-          "run": 19.2
+          "walk": 9.2,
+          "run": 18.4
         }
       },
       "image": "twisteds/soulvester.png"
@@ -815,12 +815,12 @@
           "run": 40.0
         },
         "panic": {
-          "walk": 28.1,
-          "run": 50.0
-        },
-        "panicSuppressed": {
           "walk": 27.0,
           "run": 48.0
+        },
+        "panicSuppressed": {
+          "walk": 25.88,
+          "run": 46.0
         }
       },
       "image": "twisteds/dyle.png",

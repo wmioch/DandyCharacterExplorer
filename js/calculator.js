@@ -49,7 +49,7 @@ const Calculator = {
         // Keep track of the base stats BEFORE applying base stat increases
         let originalBase = { ...baseStats };
 
-        // Apply base stat overrides from toggled player abilities (Flutter, Rudie, Eclipse)
+        // Apply base stat overrides from toggled player abilities (Flutter, Rudie)
         this._applyBaseStatOverrides(toon, baseStats);
 
         const customOverrides = {};
@@ -500,7 +500,7 @@ const Calculator = {
         
         // Skip if baseStatOverrides exists - those are handled in _applyBaseStatOverrides
         if (effect.baseStatOverrides) {
-            // Still need to apply non-base-stat modifiers like movement speed for Eclipse
+            // Keep any non-base-stat movement modifier alongside an absolute override.
             if (effect.movementSpeed !== undefined && effect.applicationType === 'multiplicative') {
                 modifiers.movementSpeed.multiplicative.push({ value: effect.movementSpeed, cap: null });
             }
@@ -552,6 +552,15 @@ const Calculator = {
         }
         if (effect.skillCheckChance !== undefined) {
             modifiers.skillCheckChance.multiplicative.push({ value: effect.skillCheckChance, cap: null });
+        }
+
+        // Capacity modifiers apply after flat gains, including stamina cards/trinkets.
+        if (effect.stamina !== undefined) {
+            if (effect.applicationType === 'multiplicative') {
+                modifiers.stamina.multiplicative.push({ value: effect.stamina, cap: null });
+            } else if (effect.applicationType === 'additive') {
+                modifiers.stamina.additive += effect.stamina;
+            }
         }
 
         // Apply stamina regen effects
@@ -990,7 +999,7 @@ const Calculator = {
             activeAbilities: state.activeAbilities ? [...state.activeAbilities] : [],
             selectedConditionalStat: state.selectedConditionalStat,
             teamSize: state.teamSize || 1,
-            skillCheckSuccessRate: state.skillCheckSuccessRate || 1.0,
+            skillCheckSuccessRate: state.skillCheckSuccessRate ?? 1.0,
             machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
             floorParity: state.floorParity,
             panicMode: state.panicMode,
