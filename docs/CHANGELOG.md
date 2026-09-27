@@ -1,3 +1,8 @@
+## 2026-09-27 - Gigi current cooldown description
+
+- Corrected Surprise!'s description from 80 to 60 seconds. The [September 18 change history, revision 264154](https://dandys-world-robloxhorror.fandom.com/wiki/Changelog/2026?oldid=264154), [obsolete mechanics history, revision 262851](https://dandys-world-robloxhorror.fandom.com/wiki/Unused_Content/Game_Mechanics?oldid=262851), and [current Gigi definition, revision 264220](https://dandys-world-robloxhorror.fandom.com/wiki/Gigi?oldid=264220), checked September 27, explicitly distinguish the old 80-second ability from the 60-second v0.28.1 rework. September 25 removed the weekly event without reverting this ability. The conflicting independent guide still describes the old cooldown; its publication date is unknown. No cooldown statistic, item-generation model or ability controls were added.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Twisted Gourdy enraged profile
 
 - Made the existing enraged speed row internally consistent: normal 18/26, Panic 21.6/31.2 and suppressed Panic 20.7/29.9. Its normal run speed remains 26. The rendered [Twisted Gourdy infobox, revision 262328](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Gourdy?oldid=262328), the specific [Panic Mode table, revision 247683](https://dandys-world-robloxhorror.fandom.com/wiki/Panic_Mode?oldid=247683), and the [independent Panic guide](https://dandysworld.org/mechanics/panic-mode), checked September 27, agree on the complete profile. The data note distinguishes the stationary passive state from these enraged speeds; the table does not simulate the rage meter or item gifts.
