@@ -1,3 +1,8 @@
+## 2026-09-27 - Ginger overview matches reworked healing
+
+- Updated Ginger's short overview to describe spending Tapes to fully heal nearby teammates, replacing the obsolete heart-sacrifice claim. The existing ability record already describes the current mechanic. [Ginger revision 263142](https://dandys-world-robloxhorror.fandom.com/wiki/Ginger?oldid=263142) (September 20) and [obsolete mechanics history, revision 262851](https://dandys-world-robloxhorror.fandom.com/wiki/Unused_Content/Game_Mechanics?oldid=262851) (September 19), checked September 27, distinguish the old ability from its rework. No stats, healing simulation or Twisted Ginger speeds changed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Cosmo targeting description
 
 - Added Sharing is Caring's teammate silhouette and animation highlighting to its description. [Cosmo revision 263931](https://dandys-world-robloxhorror.fandom.com/wiki/Cosmo?oldid=263931) (September 24) and the [Cosmo guide](https://www.dandysworld.org/toons/cosmo), checked September 27, agree on this secondary targeting effect. Heart transfer, cooldown, base values and star ratings are unchanged; the explorer does not simulate targeting or through-wall vision.

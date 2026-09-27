@@ -691,7 +691,7 @@
     {
       "id": "ginger",
       "name": "Ginger",
-      "description": "Ginger is a gingerbread Toon who can give her own hearts to heal teammates.",
+      "description": "Ginger is a gingerbread Toon who can spend Tapes to fully heal nearby teammates.",
       "baseStats": {
         "walkSpeed": 12.5,
         "runSpeed": 22.5,
