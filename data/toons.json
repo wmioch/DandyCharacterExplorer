@@ -1701,7 +1701,7 @@
       "ability": {
         "id": "waxwell_ignite",
         "name": "Ignite",
-        "description": "(Active) Removes this Toon’s permanent Tired II for 10 seconds. His trail gives teammates Ignited for 5 seconds, doubling cooldown recovery. It does not stack or affect the caster. Cooldown: 60 seconds.",
+        "description": "(Active) Removes this Toon’s permanent Tired II for 10 seconds. His trail gives teammates Ignited for 5 seconds, doubling cooldown recovery. It does not stack or affect any Waxwell. Cooldown: 60 seconds.",
         "effectType": "special",
         "targetStat": "cooldownRecovery",
         "value": 2,

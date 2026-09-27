@@ -1,3 +1,8 @@
+## 2026-09-28 - Waxwell Ignite recipient description
+
+- Clarified that Ignite's trail does not affect any Waxwell, replacing the narrower caster-only wording. [Waxwell revision 263511](https://dandys-world-robloxhorror.fandom.com/wiki/Waxwell?oldid=263511) (September 23), checked September 28 during the September 27 maintenance cycle, explicitly excludes all Waxwells. The existing player checkbox and intrinsic Tired II behavior are unchanged; no teammate cooldown controls or cooldown statistics were added.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Peppermint Icing exception wording
 
 - Added the confirmed Bassie exception to hidden Peppermint Icing's description and removed the exception-free wording. [Peppermint Icing revision 256749](https://dandys-world-robloxhorror.fandom.com/wiki/Peppermint_Icing?oldid=256749) (August 16), checked September 27, explicitly says it does not work with Bassie. The +30 amount and hidden status are unchanged. Brusha's trigger interaction remains unresolved; no cooldown-trigger or current-stamina model was added.
