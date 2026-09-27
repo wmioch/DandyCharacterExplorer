@@ -1188,7 +1188,7 @@
       "ability": {
         "id": "scraps_crafty_grapple",
         "name": "Crafty Grapple",
-        "description": "(Active) This Toon can pull herself towards another Toon or Machine's targeted position. Needs direct line of sight. 25 second cooldown.",
+        "description": "(Active) This Toon can pull herself towards another Toon or Machine's targeted position. Grants invincibility frames while grappling. Needs direct line of sight. 25 second cooldown.",
         "effectType": "grapple",
         "targetStat": "position",
         "value": 1.0,

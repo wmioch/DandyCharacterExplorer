@@ -1,3 +1,8 @@
+## 2026-09-27 - Scraps grapple-protection description
+
+- Added invincibility frames while grappling to Crafty Grapple's description, supported by the [Scraps wiki revision 264163](https://dandys-world-robloxhorror.fandom.com/wiki/Scraps?oldid=264163) (September 25) and [Scraps guide](https://www.dandysworld.org/toons/scraps), checked September 27. Targeting, direct line of sight and the 25-second cooldown are unchanged; the explorer does not simulate the grapple or protection.
+- Manual check: select Scraps and inspect the ability description. Changed JSON parsed and diff checked; no builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 — Bounded stat and scenario corrections
 
 - Eject Button clears the currently selected Slow snapshot on an accepted use without granting continuing immunity. Machine state cloning preserves0% Great Rate.
