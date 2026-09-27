@@ -1,3 +1,8 @@
+## 2026-09-27 - Twisted Ginger speed correction
+
+- Corrected Twisted Ginger's complete movement profile to the values in the [rendered wiki infobox, revision 255611](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Ginger?oldid=255611) (August 11), checked September 27: normal walk/chase 7.5/14, Panic 9/16.8 and Suppression 8.63/16.1. The previous record stored 6/14, 7.5/17.5 and 7.2/16.8. No other Twisted or mechanic changed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. Manual check: Twisted Ginger's comparison row should show 14.0, 16.8 and 16.1 for Normal, Panic and Suppression. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Protein Bar effect grouping
 
 - Corrected Protein Bar's internal category from extraction to stamina, consistent with its existing Stamina Regeneration effect and the local category definitions. The [Items wiki revision 264293](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264293) (September 26), checked September 27, confirms the effect. Item categories currently have no interface or calculation consumer; values and behavior are unchanged.

@@ -368,16 +368,16 @@
       "rarity": "Event",
       "speeds": {
         "normal": {
-          "walk": 6.0,
+          "walk": 7.5,
           "run": 14.0
         },
         "panic": {
-          "walk": 7.5,
-          "run": 17.5
+          "walk": 9.0,
+          "run": 16.8
         },
         "panicSuppressed": {
-          "walk": 7.2,
-          "run": 16.8
+          "walk": 8.63,
+          "run": 16.1
         }
       },
       "image": "twisteds/ginger.png"
