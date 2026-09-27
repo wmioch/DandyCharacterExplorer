@@ -1,3 +1,8 @@
+## 2026-09-28 - Party Popper machine-buff trigger wording
+
+- Added applying a Machine buff to hidden Party Popper's trigger description. [Party Popper revision 260718](https://dandys-world-robloxhorror.fandom.com/wiki/Party_Popper?oldid=260718) (September 6) and the [August 14 v0.26.1 changelog, revision 264154](https://dandys-world-robloxhorror.fandom.com/wiki/Changelog/2026?oldid=264154), checked September 28, explicitly include this trigger. Its five-second nearby highlighting effect and hidden status are unchanged; no highlighting or machine-buff simulation was added.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Basket pickup bonus wording
 
 - Clarified Basket pickups as normally 5, or 10 during the Easter Event's active 2x Baskets bonus. [Baskets revision 264159](https://dandys-world-robloxhorror.fandom.com/wiki/Baskets?oldid=264159) (September 25), checked September 28, documents 5 per pickup, two pickups per Floor and the 2x bonus, currently inactive. The description does not infer an active event or bonus from the calendar. Basket remains hidden from player stat controls; no currency-counter mechanic was added.

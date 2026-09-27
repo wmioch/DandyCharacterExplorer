@@ -466,7 +466,7 @@
     },
     {
       "name": "Party Popper",
-      "effect": "When starting to work on a machine, Twisteds in the initial nearby radius are highlighted for 5 seconds.",
+      "effect": "When starting to work on a Machine or applying a buff to one, Twisteds in the initial nearby radius are highlighted for 5 seconds.",
       "image": "trinket_party_popper.png",
       "category": "other",
       "rarity": "common",
