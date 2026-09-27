@@ -1,3 +1,8 @@
+## 2026-09-27 - Tisha puddle-clearing description
+
+- Added Tidy Up!'s Ichor-puddle removal to its description, supported by the ability text and Toon of the Week quest in [Tisha wiki revision 262950](https://dandys-world-robloxhorror.fandom.com/wiki/Tisha?oldid=262950) (September 20), checked September 27. The older [Tisha guide](https://www.dandysworld.org/toons/tisha) omits this detail. Speed, duration and cooldown are unchanged; the explorer does not simulate puddle clearing.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Eclipse manual-check setup
 
 - Clarified that the496-capacity example requires all three stamina cards as well as Cooler and a full-team Friendship Bracelet. The two trinkets without cards give384; no calculation or game value changed.

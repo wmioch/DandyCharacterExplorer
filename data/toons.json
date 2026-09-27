@@ -1471,7 +1471,7 @@
       "ability": {
         "id": "tisha_tidy_up",
         "name": "Tidy Up!",
-        "description": "(Active) This Toon can create a pulse that increases the Movement Speed of Toons around her by 25% for 5 seconds. Has a Cooldown of 50.",
+        "description": "(Active) This Toon can create a pulse that increases the Movement Speed of Toons around her by 25% for 5 seconds. The pulse also removes Ichor puddles within its radius. Has a Cooldown of 50.",
         "effectType": "teamBuff",
         "targetStat": "movementSpeed",
         "value": 0.25,
