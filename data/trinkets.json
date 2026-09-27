@@ -477,7 +477,7 @@
     },
     {
       "name": "Peppermint Icing",
-      "effect": "Grants 30 stamina after using any active ability.",
+      "effect": "Grants 30 stamina after using an active ability. Does not work with Bassie.",
       "image": "trinket_peppermint_icing.png",
       "category": "stamina",
       "rarity": "event",

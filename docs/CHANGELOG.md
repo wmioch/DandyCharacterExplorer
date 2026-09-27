@@ -1,3 +1,8 @@
+## 2026-09-27 - Peppermint Icing exception wording
+
+- Added the confirmed Bassie exception to hidden Peppermint Icing's description and removed the exception-free wording. [Peppermint Icing revision 256749](https://dandys-world-robloxhorror.fandom.com/wiki/Peppermint_Icing?oldid=256749) (August 16), checked September 27, explicitly says it does not work with Bassie. The +30 amount and hidden status are unchanged. Brusha's trigger interaction remains unresolved; no cooldown-trigger or current-stamina model was added.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-27 - Ginger overview matches reworked healing
 
 - Updated Ginger's short overview to describe spending Tapes to fully heal nearby teammates, replacing the obsolete heart-sacrifice claim. The existing ability record already describes the current mechanic. [Ginger revision 263142](https://dandys-world-robloxhorror.fandom.com/wiki/Ginger?oldid=263142) (September 20) and [obsolete mechanics history, revision 262851](https://dandys-world-robloxhorror.fandom.com/wiki/Unused_Content/Game_Mechanics?oldid=262851) (September 19), checked September 27, distinguish the old ability from its rework. No stats, healing simulation or Twisted Ginger speeds changed.
