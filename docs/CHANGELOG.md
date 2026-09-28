@@ -1,3 +1,8 @@
+## 2026-09-28 - Water Cooler legacy stamina effect
+
+- Matched hidden Water Cooler's +50 Stamina calculation stage to current Cooler. [Cooler revision 256903](https://dandys-world-robloxhorror.fandom.com/wiki/Cooler?oldid=256903) (August 16), checked September 28, says the former Water Cooler changed only its name and appearance, not its effect. The legacy entry remains hidden; its description and movement penalty are unchanged.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Health Kit description
 
 - Restored the missing word “Health” in hidden Health Kit’s description, matching the [current Items revision 264293](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264293) (September 26) and [independent item guide](https://www.dandysworld.org/items), checked September 28. The explorer does not model current health or a healing action, so the item remains hidden and no calculation changed.
