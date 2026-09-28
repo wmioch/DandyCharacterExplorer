@@ -1,3 +1,8 @@
+## 2026-09-28 - Health Kit description
+
+- Restored the missing word “Health” in hidden Health Kit’s description, matching the [current Items revision 264293](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264293) (September 26) and [independent item guide](https://www.dandysworld.org/items), checked September 28. The explorer does not model current health or a healing action, so the item remains hidden and no calculation changed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Pop Pack category metadata
 
 - Classified hidden Pop Pack as a Stamina trinket in both stored category fields, matching [Pop Pack revision 260938](https://dandys-world-robloxhorror.fandom.com/wiki/Pop_Pack?oldid=260938) (September 7), checked September 28. Its floor-entry Pop grant remains hidden and unsimulated; no player control or calculation changed.

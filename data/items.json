@@ -216,7 +216,7 @@
     },
     {
       "name": "Health Kit",
-      "effect": "Upon use, restores to the maximum.",
+      "effect": "Upon use, restores Health to the maximum.",
       "duration": null,
       "category": "healing",
       "rarity": "very_rare",
