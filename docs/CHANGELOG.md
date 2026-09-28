@@ -1,3 +1,8 @@
+## 2026-09-28 - Pop Pack category metadata
+
+- Classified hidden Pop Pack as a Stamina trinket in both stored category fields, matching [Pop Pack revision 260938](https://dandys-world-robloxhorror.fandom.com/wiki/Pop_Pack?oldid=260938) (September 7), checked September 28. Its floor-entry Pop grant remains hidden and unsimulated; no player control or calculation changed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Razzle & Dazzle extraction rating
 
 - Corrected the stored extraction baseline from an impossible 1.6/six-star value to the sourced even-floor peak 1.5/five stars. Odd-floor 0.75/one star and even-floor 1.5/five stars remain in the existing conditional fields. The grid's maximum-star count now includes this Toon in a valid one-to-five bucket; the selected floor still controls the player stat display. [Razzle & Dazzle revision 260329](https://dandys-world-robloxhorror.fandom.com/wiki/Razzle_%26_Dazzle?oldid=260329) (September 4), checked September 28, states both floor ratings.

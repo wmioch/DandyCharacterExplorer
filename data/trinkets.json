@@ -506,10 +506,10 @@
       "name": "Pop Pack",
       "effect": "Grants the 'Pop' Item every new Floor (if user's inventory has a slot open).",
       "image": "trinket_pop_pack.png",
-      "category": "other",
+      "category": "stamina",
       "rarity": "store",
       "id": "pop_pack",
-      "filterCategory": "other",
+      "filterCategory": "stamina",
       "hidden": true,
       "conditional": true
     },
