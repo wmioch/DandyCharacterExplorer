@@ -713,7 +713,7 @@
       "ability": {
         "id": "ginger_baked_with_care",
         "name": "Baked with Care!",
-        "description": "(Active) This Toon can heal a nearby targeted Toon to full Hearts for 100 Tapes with a cooldown of 100. For every extra Ginger, the cost increases by 50 Tapes and the Cooldown increases by 30.",
+        "description": "(Active) After a wind-up, this Toon can heal a nearby targeted Toon to full Hearts for 100 Tapes with a cooldown of 100. For every extra Ginger, the cost increases by 50 Tapes and the Cooldown increases by 30.",
         "effectType": "healing",
         "targetStat": "hearts",
         "value": 1.0,

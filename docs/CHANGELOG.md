@@ -1,3 +1,8 @@
+## 2026-10-02 - Ginger healing description
+
+- Added the wind-up to Baked with Care!'s displayed description. [Ginger revision 263142](https://dandys-world-robloxhorror.fandom.com/wiki/Ginger?oldid=263142) (September 20) and the [current Ginger guide's strategy](https://dandysworld.org/toons/ginger), checked October 2, both describe the wind-up before the Tapes-based full heal. The current page does not quantify the duration, so the text does not add a number or a healing simulation.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Gumballs description
 
 - Removed unsupported advice to consume all three Gumballs uses at once. [Items revision 264825](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264825) (September 28) and the [independent item guide](https://www.dandysworld.org/items), checked October 2, support a random 10% stat boost for five seconds and three uses. Gumballs remains hidden from production controls; its separate preview outcome selector still awaits release approval.
