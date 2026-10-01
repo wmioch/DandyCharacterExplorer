@@ -1,3 +1,8 @@
+## 2026-10-02 - Squirm ability description
+
+- Clarified that Distressed Delicacy's extraction boost follows a wind-up. [Squirm revision 264717](https://dandys-world-robloxhorror.fandom.com/wiki/Squirm?oldid=264717) (September 28) and the [Squirm guide](https://www.dandysworld.org/toons/squirm), checked October 2, both describe that sequence. The wind-up duration is not established by these sources; the existing ability checkbox and Machine estimate continue to represent the active boost, without a pre-activation timing or slowdown scenario.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Gourdy random-boost description
 
 - Included Trick or Treat's Stealth exclusion and 50% Skill Check chance exception from the tooltip in [Gourdy revision 264712](https://dandys-world-robloxhorror.fandom.com/wiki/Gourdy?oldid=264712) (September 28), checked October 2. The [Gourdy guide's trivia](https://dandysworld.org/toons/gourdy) also confirms the Stealth exclusion. This remains a description of the ability; no random outcomes, probabilities or chance arithmetic are simulated.

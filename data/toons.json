@@ -1315,7 +1315,7 @@
       "ability": {
         "id": "squirm_distressed_delicacy",
         "name": "Distressed Delicacy",
-        "description": "(Active) Hold down your ability to eat books, gaining 100% Extraction Speed for 10 seconds. Proximity to a bookshelf makes this Toon's cooldown recover twice as fast. Cooldown of 80.",
+        "description": "(Active) Hold down your ability to eat books. After a wind-up, gain 100% Extraction Speed for 10 seconds. Proximity to a bookshelf makes this Toon's cooldown recover twice as fast. Cooldown of 80.",
         "effectType": "self",
         "targetStat": "extractionSpeed",
         "value": 1.0,
