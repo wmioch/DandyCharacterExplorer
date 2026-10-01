@@ -69,7 +69,7 @@
     },
     {
       "name": "Bone Needle and Thread",
-      "effect": "Highlights Pumpkins in your vicinity every 10 seconds during matches, making them easier to spot during Events.",
+      "effect": "Highlights Pumpkins in your vicinity every 10 seconds during matches in the Halloween Event.",
       "image": "trinket_bone_needle_and_thread.png",
       "category": "other",
       "rarity": "event",
@@ -80,7 +80,7 @@
     },
     {
       "name": "Brick",
-      "effect": "Lowers both Walk and Run Speed by 10%. ''It's a brick, what did you expect?''",
+      "effect": "Lowers both Walk and Run Speed by 10%. It's a brick, what did you expect?",
       "image": "trinket_brick.png",
       "category": "movement_speed",
       "rarity": "common",

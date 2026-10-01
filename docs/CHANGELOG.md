@@ -1,3 +1,9 @@
+## 2026-10-02 - Trinket description cleanup
+
+- Removed literal wiki italic delimiters from Brick's native tooltip; the effect is displayed as plain text, and its speed modifiers are unchanged. [Brick revision 262948](https://dandys-world-robloxhorror.fandom.com/wiki/Brick?oldid=262948) (September 20), checked October 2, states the same effect and flavor text without those delimiters.
+- Narrowed Bone Needle and Thread's description to the Halloween Event, matching the strategy in [revision 265285](https://dandys-world-robloxhorror.fandom.com/wiki/Bone_Needle_and_Thread?oldid=265285) (October 1) and the [current guide](https://dandysworld.org/trinkets/bone-needle-and-thread), checked October 2. It remains hidden and has no highlighting simulation; this does not claim the announced 2026 event has shipped.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Squirm ability description
 
 - Clarified that Distressed Delicacy's extraction boost follows a wind-up. [Squirm revision 264717](https://dandys-world-robloxhorror.fandom.com/wiki/Squirm?oldid=264717) (September 28) and the [Squirm guide](https://www.dandysworld.org/toons/squirm), checked October 2, both describe that sequence. The wind-up duration is not established by these sources; the existing ability checkbox and Machine estimate continue to represent the active boost, without a pre-activation timing or slowdown scenario.
