@@ -1,3 +1,8 @@
+## 2026-10-02 - Gumballs description
+
+- Removed unsupported advice to consume all three Gumballs uses at once. [Items revision 264825](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264825) (September 28) and the [independent item guide](https://www.dandysworld.org/items), checked October 2, support a random 10% stat boost for five seconds and three uses. Gumballs remains hidden from production controls; its separate preview outcome selector still awaits release approval.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-09-28 - Water Cooler legacy stamina effect
 
 - Matched hidden Water Cooler's +50 Stamina calculation stage to current Cooler. [Cooler revision 256903](https://dandys-world-robloxhorror.fandom.com/wiki/Cooler?oldid=256903) (August 16), checked September 28, says the former Water Cooler changed only its name and appearance, not its effect. The legacy entry remains hidden; its description and movement penalty are unchanged.

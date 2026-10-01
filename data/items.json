@@ -205,7 +205,7 @@
     },
     {
       "name": "Gumballs",
-      "effect": "Upon use, boosts a random stat by 10% for 5 seconds. 3 usages (It is highly recommended to eat them all at once.)",
+      "effect": "Upon use, boosts a random stat by 10% for 5 seconds. Can be used 3 times.",
       "duration": 5,
       "category": "random",
       "rarity": "common",
