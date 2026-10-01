@@ -1,3 +1,8 @@
+## 2026-10-02 - Gourdy random-boost description
+
+- Included Trick or Treat's Stealth exclusion and 50% Skill Check chance exception from the tooltip in [Gourdy revision 264712](https://dandys-world-robloxhorror.fandom.com/wiki/Gourdy?oldid=264712) (September 28), checked October 2. The [Gourdy guide's trivia](https://dandysworld.org/toons/gourdy) also confirms the Stealth exclusion. This remains a description of the ability; no random outcomes, probabilities or chance arithmetic are simulated.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Ginger healing description
 
 - Added the wind-up to Baked with Care!'s displayed description. [Ginger revision 263142](https://dandys-world-robloxhorror.fandom.com/wiki/Ginger?oldid=263142) (September 20) and the [current Ginger guide's strategy](https://dandysworld.org/toons/ginger), checked October 2, both describe the wind-up before the Tapes-based full heal. The current page does not quantify the duration, so the text does not add a number or a healing simulation.
