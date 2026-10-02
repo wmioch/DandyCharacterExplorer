@@ -1,3 +1,8 @@
+## 2026-10-03 - Ribecca ability description
+
+- Updated The Undead's text for the ten-second random replacement buff in [Ribecca revision 265620](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca?oldid=265620) (October 2), checked October 3. The preceding September 30 revision lacks this addition; the October 2 v0.29.1 changelog also records it. Applied-debuff immunity is unchanged. The displayed description explicitly identifies the unmodeled replacement buff; its unknown outcomes and values are not guessed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-10-03 - Halloween card inventory qualification
 
 - Record newly named Party Crashers in the card-scope review. The October2 v0.29.1 changelog names it, while the September25 Cards page still lists the older23 cards and the dedicated page is unavailable. Its stat effect and artwork remain evidence blockers; no guessed control, value or asset is added.

@@ -116,6 +116,10 @@ Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red port
 - Dandy-specific context stays embedded inside `feedback.message`; `ecg_case` remains `null`.
 - The live site still runs as a static GitHub Pages site; only the feedback backend deploys through GitHub Actions.
 
+### Ribecca replacement buff
+
+Ribecca's ability description includes the v0.29.1 ten-second replacement buff. Applied-debuff immunity remains modeled; the random replacement buff has no selectable outcome until its effects are verified.
+
 ### Waxwell preview controls
 
 Ignite uses the standard player ability checkbox and saved-state mechanism. Off applies intrinsic Tired II; on removes it. Changing Toon resets it. No Waxwell timers or teammate cooldown controls remain; cooldown statistics are deferred. Additional Tired sources remain unsupported.
