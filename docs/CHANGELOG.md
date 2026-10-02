@@ -1,3 +1,8 @@
+## 2026-10-03 - Halloween card inventory qualification
+
+- Record newly named Party Crashers in the card-scope review. The October2 v0.29.1 changelog names it, while the September25 Cards page still lists the older23 cards and the dedicated page is unavailable. Its stat effect and artwork remain evidence blockers; no guessed control, value or asset is added.
+- Reviewed the documentation diff with `git diff --check`; no builds, tests, lint or app-browser checks. Existing card controls and calculations are unchanged.
+
 ## 2026-10-03 - Item-gift card scope clarification
 
 - Clarified that Blind Grab and Lost and Found can affect Whispering Flower's Stamina Regeneration bonus by filling an open inventory slot. Item buffs remain distinct from pickups; no random Item outcome or automatic inventory transition is simulated. No card controls or calculations changed.
