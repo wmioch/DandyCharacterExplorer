@@ -1,3 +1,8 @@
+## 2026-10-03 - Item-gift card scope clarification
+
+- Clarified that Blind Grab and Lost and Found can affect Whispering Flower's Stamina Regeneration bonus by filling an open inventory slot. Item buffs remain distinct from pickups; no random Item outcome or automatic inventory transition is simulated. No card controls or calculations changed.
+- Reviewed the documentation diff with `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-10-03 - Healing card scope clarification
 
 - Rechecked all 23 current card names and clarified that First Aid and Medical Attention can reduce Looey's missing-heart movement bonus. Until healing-card/current-health controls exist, manually change his existing heart selector after a heal; the Health row remains maximum Hearts. Updated the source revision dates and the distinction between Tech Savvy's card text and five-work-unit calculation. No card controls or calculations changed.
