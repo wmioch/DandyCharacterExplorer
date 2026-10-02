@@ -1,21 +1,6 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('./isolation.cjs');
 
 test.beforeEach(async ({ page }) => {
-    page.testErrors = [];
-    page.on('pageerror', error => page.testErrors.push(error.message));
-    page.on('console', message => { if (message.type() === 'error') page.testErrors.push(message.text()); });
-    await page.route('**/*', route => {
-        const url = new URL(route.request().url());
-        // Replace optional Google Fonts CSS locally; never contact a font provider.
-        if (url.hostname === 'fonts.googleapis.com' && route.request().method() === 'GET') {
-            return route.fulfill({ status: 200, contentType: 'text/css', body: '' });
-        }
-        if (url.hostname !== '127.0.0.1' || route.request().method() !== 'GET') {
-            page.testErrors.push(`Unexpected external request or write: ${route.request().method()} ${url.origin}`);
-            return route.abort();
-        }
-        return route.continue();
-    });
     await page.addInitScript(() => {
         localStorage.setItem('tutorialSeen:v3', 'true');
         localStorage.setItem('advancedTutorialSeen:v1', 'true');
@@ -24,8 +9,6 @@ test.beforeEach(async ({ page }) => {
     await expect(page.locator('[data-toon-id="boxten"]')).toHaveClass(/selected/);
     expect(await page.evaluate(() => window.DandyFeedbackConfig.feedbackApiUrl)).toBe('');
 });
-
-test.afterEach(async ({ page }) => { expect(page.testErrors).toEqual([]); });
 
 const row = (page, label) => page.locator('.stats-table tbody tr').filter({ has: page.locator('td:first-child', { hasText: new RegExp(`^${label}$`) }) });
 const finalCell = (page, label) => row(page, label).locator('td').last();

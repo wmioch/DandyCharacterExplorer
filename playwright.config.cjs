@@ -11,7 +11,7 @@ module.exports = defineConfig({
     timeout: 30000,
     outputDir: 'output/playwright/results',
     reporter: [['list'], ['html', { outputFolder: 'output/playwright/report', open: 'never' }]],
-    use: { baseURL: `http://127.0.0.1:${port}`, headless: true, screenshot: 'only-on-failure', trace: 'retain-on-failure' },
+    use: { baseURL: `http://127.0.0.1:${port}`, headless: true, serviceWorkers: 'block', screenshot: 'only-on-failure', trace: 'retain-on-failure' },
     projects: [
         { name: 'desktop-chromium', use: { browserName: 'chromium', viewport: { width: 1280, height: 900 } } },
         { name: 'mobile-chromium', use: { browserName: 'chromium', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } }

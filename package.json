@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "node --test tests/data.test.cjs tests/calculator.test.cjs",
+    "test": "node --test tests/data.test.cjs tests/calculator.test.cjs tests/static-server.test.cjs",
     "test:browser": "playwright test",
     "validate": "npm test && npm run test:browser"
   },
