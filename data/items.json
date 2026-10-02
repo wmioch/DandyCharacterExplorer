@@ -301,7 +301,7 @@
     },
     {
       "name": "Protein Bar",
-      "effect": "Upon use, increases Stamina Regeneration by 150% for 15 seconds, equivalent to +6 stamina per second for most Toons.",
+      "effect": "Upon use, increases Stamina Regeneration by 150% for 15 seconds.",
       "duration": 15,
       "category": "stamina",
       "rarity": "uncommon",

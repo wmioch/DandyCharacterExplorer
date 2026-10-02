@@ -4,6 +4,11 @@
 - Narrowed Bone Needle and Thread's description to the Halloween Event, matching the strategy in [revision 265285](https://dandys-world-robloxhorror.fandom.com/wiki/Bone_Needle_and_Thread?oldid=265285) (October 1) and the [current guide](https://dandysworld.org/trinkets/bone-needle-and-thread), checked October 2. It remains hidden and has no highlighting simulation; this does not claim the announced 2026 event has shipped.
 - Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
 
+## 2026-10-02 - Protein Bar description
+
+- Removed the ambiguous "+6 stamina per second" example from Protein Bar's tooltip, retaining the supported 150% increase for 15 seconds. [Items revision 264825](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264825) (September 28) contains that example, while [Statistics revision 264887](https://dandys-world-robloxhorror.fandom.com/wiki/Statistics?oldid=264887) (September 29), both checked October 2, gives a usual 2.4/s base. The existing multiplier produces 6.0/s total on that base; its value, duration and calculation are unchanged. No repeat-use timing or regional regeneration rule was inferred.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Squirm ability description
 
 - Clarified that Distressed Delicacy's extraction boost follows a wind-up. [Squirm revision 264717](https://dandys-world-robloxhorror.fandom.com/wiki/Squirm?oldid=264717) (September 28) and the [Squirm guide](https://www.dandysworld.org/toons/squirm), checked October 2, both describe that sequence. The wind-up duration is not established by these sources; the existing ability checkbox and Machine estimate continue to represent the active boost, without a pre-activation timing or slowdown scenario.
