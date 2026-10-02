@@ -689,6 +689,9 @@ const UI = {
                 const absoluteChange = final - originalBase;
                 const absoluteChangePercent = Math.round(absoluteChange * 100);
                 modifierClass = absoluteChangePercent > 0 ? 'positive' : (absoluteChangePercent < 0 ? 'negative' : '');
+            } else if (stat.key === 'stealth' && base < 0 && percent !== 0) {
+                // A positive factor can lower negative Stealth; color the resulting direction.
+                modifierClass = final > base ? 'positive' : (final < base ? 'negative' : '');
             }
             
             // Determine color for BASE column based on whether base changed from original

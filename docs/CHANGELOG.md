@@ -1,3 +1,8 @@
+## 2026-10-02 - Negative Stealth modifier colors
+
+- Corrected the MOD color for negative-base Stealth. Shrimpo's +25% Stealth Candy multiplier makes his Stealth more negative, so it now appears red; a modifier that raises a negative value appears green. The percentage label and calculation are unchanged. [Items revision 264825](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264825) (September 28), checked October 2, explicitly describes the inverse Shrimpo outcome.
+- Reviewed the scoped diff with `git diff --check`; no builds, tests, lint or app-browser checks. Manual checks are in [preview-controls.md](preview-controls.md#negative-stealth-modifier-color).
+
 ## 2026-10-02 - Trinket description cleanup
 
 - Removed literal wiki italic delimiters from Brick's native tooltip; the effect is displayed as plain text, and its speed modifiers are unchanged. [Brick revision 262948](https://dandys-world-robloxhorror.fandom.com/wiki/Brick?oldid=262948) (September 20), checked October 2, states the same effect and flavor text without those delimiters.
