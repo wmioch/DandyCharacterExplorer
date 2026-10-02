@@ -264,7 +264,7 @@
     },
     {
       "name": "Festive Lights",
-      "effect": "Highlights Ornaments in your vicinity every 10 seconds during matches, making them easier to spot during events.",
+      "effect": "Highlights Ornaments in your vicinity every 10 seconds during matches.",
       "image": "trinket_festive_lights.png",
       "category": "other",
       "rarity": "event",
