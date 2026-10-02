@@ -122,4 +122,6 @@ Ignite uses the standard player ability checkbox and saved-state mechanism. Off 
 
 Twisteds may specify `noChase: true` with null speeds and no image. The table displays neutral N/A and the existing letter placeholder, without treating null as comparable speed. Twisted Waxwell uses non-chasing N/A values with a sourced portrait; numeric roaming states await verification. Cherished Blanket is intentionally not visible.
 
+Twisted Dyle's existing `notes` appears in native name, portrait and speed-cell tooltips to identify the displayed maximum-speed profile. Both table update paths preserve the speed-cell qualification. His accelerating meter and lower-speed states remain outside the current comparison model.
+
 Eclipse Blackout uses a60% capacity modifier after flat gains, so base150 becomes240. Accepted Eject Button uses clear the currently selected Slow snapshot without immunity to later Slow sources. Machine state cloning preserves the valid0% Great Rate. Event-currency descriptions distinguish normal5 pickups from10 only while the corresponding2x bonus is active; they do not infer an active event from the calendar.

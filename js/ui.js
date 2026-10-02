@@ -897,6 +897,7 @@ const UI = {
             existingRows.forEach((row, index) => {
                 const twisted = sortedTwisteds[index];
                 const speeds = twisted.speeds;
+                const speedProfileNote = twisted.id === 'twisted_dyle' ? (twisted.notes || '') : '';
                 const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
                 const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
                 
@@ -919,7 +920,7 @@ const UI = {
                     const { value, color } = speedData[i];
                     cell.hidden = suppression && i === 2;
                     cell.textContent = stationary ? 'N/A' : value.toFixed(1);
-                    cell.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : '';
+                    cell.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : speedProfileNote;
                     // Remove all color classes and add the new one
                     cell.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 });
@@ -932,6 +933,7 @@ const UI = {
         
         sortedTwisteds.forEach(twisted => {
             const speeds = twisted.speeds;
+            const speedProfileNote = twisted.id === 'twisted_dyle' ? (twisted.notes || '') : '';
             const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
             const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
             const imagePath = `assets/images/${twisted.image}`;
@@ -960,7 +962,7 @@ const UI = {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'twisted-image';
             imgContainer.textContent = firstLetter;
-            imgContainer.title = twisted.name;
+            imgContainer.title = speedProfileNote ? `${twisted.name}: ${speedProfileNote}` : twisted.name;
             
             // Try to load actual image
             const img = new Image();
@@ -974,6 +976,7 @@ const UI = {
             
             const nameSpan = document.createElement('span');
             nameSpan.textContent = twisted.name;
+            nameSpan.title = speedProfileNote;
             
             nameDiv.appendChild(imgContainer);
             nameDiv.appendChild(nameSpan);
@@ -992,7 +995,7 @@ const UI = {
                 td.hidden = suppression && i === 2;
                 td.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 td.textContent = stationary ? 'N/A' : value.toFixed(1);
-                td.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : '';
+                td.title = stationary ? (twisted.noChase ? 'Avoids Toons; does not chase. Roaming speeds await source verification.' : 'Stationary; no chase speed.') : speedProfileNote;
                 row.appendChild(td);
             });
             

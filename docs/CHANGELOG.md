@@ -1,3 +1,8 @@
+## 2026-10-02 - Twisted Dyle maximum-speed tooltip
+
+- Exposed Dyle's existing highest-speed note on his name, portrait and speed-cell tooltips, including fast table updates. [Twisted Dyle revision 264128](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Dyle?oldid=264128) (September 25), checked October 2, distinguishes starting and highest speeds. The stored maximum profile is unchanged; its suppressed walking precision remains disputed, and no accelerating meter is simulated.
+- Reviewed the scoped diff with `git diff --check`; no builds, tests, lint or app-browser checks. Manual checks are in [preview-controls.md](preview-controls.md#twisted-dyle-maximum-speed-tooltip).
+
 ## 2026-10-02 - Negative Stealth modifier colors
 
 - Corrected the MOD color for negative-base Stealth. Shrimpo's +25% Stealth Candy multiplier makes his Stealth more negative, so it now appears red; a modifier that raises a negative value appears green. The percentage label and calculation are unchanged. [Items revision 264825](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264825) (September 28), checked October 2, explicitly describes the inverse Shrimpo outcome.

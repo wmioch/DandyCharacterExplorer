@@ -13,6 +13,10 @@ The user approved this complete feature set on September 22 for release after th
 - Advanced turns green and enables in-place BASE editing. Invalid values are rejected; empty fields restore defaults. Disabling asks for confirmation: Cancel preserves mode and custom numbers; OK clears them. Changing Toon or reloading clears overrides. The first activation shows tutorial slide six, immediately before Feedback.
 - Dandy and Dyle have pale red portraits, a DEV badge and developer-only descriptions. They have five stars in every stat and 99 internal health (displayed compactly as heart × 99). Sources distinguish this from the game's three visible hearts. Their passives have no invented stat effect.
 
+## Twisted Dyle maximum-speed tooltip
+
+Hover Dyle's name, portrait and each visible speed cell: the tooltip identifies these as his highest speeds. The comparison remains 40.0 Normal, 48.0 Panic and 46.0 Panic + Suppression. Change Toon, toggle Suppression and sort the table in both directions; the qualification should remain on the visible cells. His lower-speed profile and accelerating meter are not simulated. The stored suppressed walking value remains unchanged while source precision is disputed.
+
 ## Negative Stealth modifier color
 
 Select Shrimpo with no effects, then select one Stealth Candy. MOD remains +25%, FINAL remains the existing -123.8 display, and MOD should be red because Stealth became more negative. Remove the candy: MOD returns to a neutral dash. Select Coal instead: the existing -10% modifier should be green because its result is less negative; Walk and Run penalties remain red. On Poppy, Stealth Candy's +25% should remain green. This changes color only, not the percentage or stat calculation.
