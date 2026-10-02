@@ -61,6 +61,10 @@ Select Shrimpo with no effects, then select one Stealth Candy. MOD remains +25%,
 
 Validation is limited to manual source/diff inspection, JSON parsing and `git diff --check`, per repository instructions. No builds, tests, lint or automated browser checks.
 
+### Custom zero-base modifier display
+
+In the separate Custom Content preview, save a Trinket whose single effect is `{"targetStat":"stealth","value":10,"applicationType":"additive"}`. Equip it on Brightney: BASE0, MOD dash and FINAL10, without an infinite percentage. Remove it and select Diary: FINAL remains0 and MOD is a dash. Switch to Poppy and equip the custom trinket: BASE10, MOD+100% and FINAL20. This is a display-only correction; no final calculation or game-source claim changes. Preview release approval remains required.
+
 The preview changes share calculation/UI plumbing with earlier preview commits. Release only explicitly approved features; isolate unapproved changes if the approved set is smaller than the complete preview.
 
 ## Developer Toon evidence and assets

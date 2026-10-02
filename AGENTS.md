@@ -118,6 +118,8 @@ The Star Pillow checkbox in State Toggles below Team Abilities applies its Stami
 Movement speeds in the player stat table and bracketed Vanity Mirror Panic values show a second decimal only when needed; for example, 17.5 with Dog Plush appears as 19.25 while 15 remains 15.0. The calculation precision is unchanged.
 Lucky Coin's selected Skill Check roll applies +12% window size and +12 percentage points Skill Check chance (25% to 37% at the usual base). The manual selector represents the observed floor roll; the app does not roll a random result itself.
 
+The percentage MOD display omits relative changes from a zero base. Custom flat bonuses still change FINAL; for example, zero Stealth plus an additive bonus of10 gives FINAL10 and a dash in MOD. Nonzero bases retain their existing percentage display.
+
 For negative-base Stealth, the MOD color follows the final value's direction: a more negative result is red and a less negative result is green. The displayed percentage remains the existing modifier factor; calculations are unchanged.
 
 Razzle & Dazzle uses its own conditional floor selector. Other Toons receive one floor-trinket bonus even with both equipped. Normal, Panic and floor-opening speeds are calculated separately. Alarm and Vanity Mirror apply to the opening Panic snapshot, and Pull Toy applies to the floor-opening snapshot. Normal values and the comparison after sorting use the same scenarios.

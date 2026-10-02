@@ -744,6 +744,10 @@ const Calculator = {
      * Calculate total percentage modifier including additive bonuses
      */
     _calculatePercentage(multiplicativeModifiers, additiveValue, baseStat) {
+        // A zero base has no defined relative percentage. The MOD column uses
+        // zero to show '-' while the final stat retains any additive change.
+        if (baseStat === 0) return 0;
+
         // Calculate the combined effect of additive and multiplicative
         const statAfterAdditive = baseStat + additiveValue;
         
