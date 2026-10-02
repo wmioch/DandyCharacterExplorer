@@ -1,3 +1,8 @@
+## 2026-10-02 - Bottle o' Pop category correction
+
+- Classified Bottle o' Pop as `stamina`, matching its refill-only effect and the app's existing category definitions. [Items revision 264825](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264825) (September 28), checked October 2, describes a full Stamina refill without a movement boost. Its player-item exclusion and lack of a current-stamina/refill simulation are unchanged.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Festive Lights description
 
 - Removed the ambiguous "during events" phrase from hidden Festive Lights. [Revision 265295](https://dandys-world-robloxhorror.fandom.com/wiki/Festive_Lights?oldid=265295) (October 1), checked October 2, supports nearby Ornaments and a ten-second cadence, but its infobox and detailed notes qualify seasonal scope differently. The supported target and cadence remain; no seasonal behavior is inferred or simulated and the trinket stays hidden.
