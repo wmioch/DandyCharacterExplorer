@@ -1,3 +1,8 @@
+## 2026-10-03 - Healing card scope clarification
+
+- Rechecked all 23 current card names and clarified that First Aid and Medical Attention can reduce Looey's missing-heart movement bonus. Until healing-card/current-health controls exist, manually change his existing heart selector after a heal; the Health row remains maximum Hearts. Updated the source revision dates and the distinction between Tech Savvy's card text and five-work-unit calculation. No card controls or calculations changed.
+- Reviewed the documentation diff with `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Architecture reference correction
 
 - Corrected the stat-display function name in the AGENTS.md data-flow example to `UI.updateStatsDisplay`, matching the current UI implementation and App caller. No application behavior changed.
