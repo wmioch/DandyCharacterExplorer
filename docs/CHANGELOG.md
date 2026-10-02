@@ -1,3 +1,8 @@
+## 2026-10-02 - Architecture reference correction
+
+- Corrected the stat-display function name in the AGENTS.md data-flow example to `UI.updateStatsDisplay`, matching the current UI implementation and App caller. No application behavior changed.
+- Reviewed the documentation diff with `git diff --check`; no builds, tests, lint or app-browser checks.
+
 ## 2026-10-02 - Bottle o' Pop category correction
 
 - Classified Bottle o' Pop as `stamina`, matching its refill-only effect and the app's existing category definitions. [Items revision 264825](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264825) (September 28), checked October 2, describes a full Stamina refill without a movement boost. Its player-item exclusion and lack of a current-stamina/refill simulation are unchanged.

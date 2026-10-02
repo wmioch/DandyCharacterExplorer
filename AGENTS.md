@@ -54,7 +54,7 @@ App.init()
   → user interaction
   → App.handleToonChange() etc.
       → Calculator.calculateFinalStats(toon, trinkets, teamAbilities, items, conditionalStat, teamSize)
-      → UI.updateStatDisplay(finalStats)
+      → UI.updateStatsDisplay(finalStats)
 ```
 
 ### Stat Calculation Order (in `calculator.js`)
