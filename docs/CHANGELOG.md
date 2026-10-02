@@ -1,3 +1,10 @@
+## 2026-10-03 - Maintenance validation overhaul
+
+- Added focused data/asset, frontend syntax and calculator regressions plus isolated desktop/mobile Chromium checks and a validation workflow for PRs and main pushes. Production feedback and analytics are disabled during browser tests.
+- Hardened the validation server against encoded traversal and private/symlink escapes with synthetic fixtures. Browser checks use exact-origin context routing, blocked service workers and WebSockets, and a served HTML copy without connection hints; popup and other-loopback-port isolation are verified.
+- Replaced the no-testing and full-audit-every-run policy with changed-source routine review and resumable monthly full audits. Larger preview releases still require Will's approval; the video workflow and its approved uploads remain independent.
+- Current game data, source updates, hosting and the Azure backend are unchanged by this infrastructure change. Validation results and remaining preview release decisions are reported separately.
+
 ## 2026-10-03 - Ribecca ability description
 
 - Updated The Undead's text for the ten-second random replacement buff in [Ribecca revision 265620](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca?oldid=265620) (October 2), checked October 3. The preceding September 30 revision lacks this addition; the October 2 v0.29.1 changelog also records it. Applied-debuff immunity is unchanged. The displayed description explicitly identifies the unmodeled replacement buff; its unknown outcomes and values are not guessed.
