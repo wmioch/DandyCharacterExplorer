@@ -1,3 +1,8 @@
+## 2026-10-03 - Party Crashers numeric source update
+
+- Rechecked [Cards revision 265850](https://dandys-world-robloxhorror.fandom.com/wiki/Cards?oldid=265850) (October 3) at 20:00 Australia/Sydney. Its table now lists 24 card names and explicitly gives Party Crashers' Haunted Gala chance reduction: per-floor increase 2 to 1.5 percentage points, maximum 30% to 25%. Updated the current card-scope review; the earlier qualitative-only check remains recorded below. No floor-event control or calculation is added, and the named artwork files have not been visually verified.
+- Reviewed the scoped documentation diff with `git diff --check`; no local builds, tests, lint or app-browser checks under this run's instructions.
+
 ## 2026-10-03 - Waxwell fatigue scope clarification
 
 - Clarified that Waxwell's Tired icon represents his intrinsic Ignite-controlled fatigue. Stamina Candy already applies separately and raises regeneration from1.2/s to1.8/s with Ignite off; the current source describes this effective rate as Tired I. Corrected the stale calculation comment claiming additional interactions were unsourced. Calculations and controls are unchanged.
