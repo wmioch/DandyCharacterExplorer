@@ -1,3 +1,8 @@
+## 2026-10-03 - Machine baseline explanation
+
+- Corrected the Machine Stats Base Time tooltip to describe the actual permanent-only reference. Average Time accounts for the selected Great Rate and timed boosts; the calculation values and duration handling are unchanged.
+- Inspected the exact permanent-state and timed-ability cascade paths and reviewed the scoped diff with `git diff --check`. No local builds, tests, lint or app-browser checks under this active run's instructions. Manual check: Squirm's ability changes FINAL Extraction from1.5 to3 while BASE stays30 seconds; Average Time accounts for the ten-second boost.
+
 ## 2026-10-03 - Team ability instance cleanup
 
 - Reconcile active team-ability counts against the current roster in both roster rebuilds and retained slot-change controls. Previously removing one of two Shellies through the slot-change path retained both Inspiration boosts because cleanup checked only whether the ability ID remained. Multiple present Shellies can still stack Inspiration as described in [Shelly revision 265274](https://dandys-world-robloxhorror.fandom.com/wiki/Shelly?oldid=265274) (October 1), checked October 3. The legacy slot dropdowns remain hidden; no new removal control is added.
