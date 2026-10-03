@@ -1143,7 +1143,7 @@
       "ability": {
         "id": "rudie_antler_charge",
         "name": "Antler Charge",
-        "description": "(Active) This Toon uses his antlers to quickly charge forward for 0.4 seconds, helping him escape tricky situations. Has a cooldown of 23 seconds.",
+        "description": "(Active) This Toon uses his antlers to quickly charge forward in a short burst, helping him escape tricky situations.",
         "effectType": "dash",
         "targetStat": "movementSpeed",
         "value": 50,

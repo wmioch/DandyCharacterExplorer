@@ -1,3 +1,8 @@
+## 2026-10-03 - Rudie ability description
+
+- Aligned Antler Charge's text with [Rudie revision 264926](https://dandys-world-robloxhorror.fandom.com/wiki/Rudie?oldid=264926) (September 29), checked October 3. The current ability description uses a qualitative short burst; its Trivia records removal of the old numeric duration and cooldown wording during the 2026 Easter Event. The existing +50 Walk/Run calculation and manual checkbox are unchanged. No new duration or cooldown value is assumed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`; no local builds, tests, lint or app-browser checks under the active run's instructions.
+
 ## 2026-10-03 - Eclipse highlight description
 
 - Added Total Eclipse's brief Twisted highlight from [Eclipse revision 265673](https://dandys-world-robloxhorror.fandom.com/wiki/Eclipse?oldid=265673) (October 3), checked October 3. The updated ability text agrees with the October 2 release changelog; the earlier individual-page omission is historical. The description identifies unmodeled highlighting and transformation timing. Existing speed and stamina calculations are unchanged.
