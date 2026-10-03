@@ -122,7 +122,7 @@ Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red port
 
 ### Ribecca replacement buff
 
-Ribecca's ability description includes the v0.29.1 ten-second replacement buff. Applied-debuff immunity remains modeled; the random replacement buff has no selectable outcome until its effects are verified.
+Ribecca's ability description includes the v0.29.1 ten-second replacement buff and non-trinket negative-modifier immunity. The four debuff controls remain blocked; negative machine modifiers and replacement outcomes are not simulated. Current source reward examples include an inconsistent Stealth value, so selectable replacement buffs await clear evidence.
 
 ### Gourdy random reward
 

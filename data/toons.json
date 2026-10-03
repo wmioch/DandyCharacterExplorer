@@ -1073,7 +1073,7 @@
       "ability": {
         "id": "ribecca_the_undead",
         "name": "The Undead",
-        "description": "(Passive) Ribecca is immune to applied debuffs, excluding trinket drawbacks. Blocking a debuff grants a random buff for 10 seconds. Replacement buffs are not simulated here.",
+        "description": "(Passive) Ribecca is immune to applied debuffs and non-trinket negative modifiers. Blocking one grants a random stat buff for 10 seconds. This explorer blocks selected debuffs; replacement buffs and machine modifiers are not simulated.",
         "effectType": "immunity",
         "targetStat": "debuffImmunity",
         "value": 1.0,
