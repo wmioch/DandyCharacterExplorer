@@ -1,3 +1,7 @@
+## 2026-10-03 - Waxwell fatigue scope clarification
+
+- Clarified that Waxwell's Tired icon represents his intrinsic Ignite-controlled fatigue. Stamina Candy already applies separately and raises regeneration from1.2/s to1.8/s with Ignite off; the current source describes this effective rate as Tired I. Corrected the stale calculation comment claiming additional interactions were unsourced. Calculations and controls are unchanged.
+
 ## 2026-10-03 - Sprout scaling source qualification
 
 - Qualified Baked Sweets' disputed Tape/cooldown scaling after inspecting [Abilities revision264022](https://dandys-world-robloxhorror.fandom.com/wiki/Abilities?oldid=264022) (September25) and [Sprout revision261036](https://dandys-world-robloxhorror.fandom.com/wiki/Sprout?oldid=261036) (September8), checked October3. The numerical per-extra-Sprout formula appears under Former Abilities, while current sections differ on healer-count scope and shared timing. The description retains the common one-Heart heal/base100 Tape cost/base100 cooldown and identifies the unresolved scope; no replacement formula is guessed.

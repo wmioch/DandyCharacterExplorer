@@ -109,7 +109,7 @@ const Calculator = {
             };
             Object.entries(statusRules).forEach(([status, [stat, reductions]]) => {
                 if (status === 'slow' && slowBlockedByTrainWhistle) return;
-                // Additional Tired sources on Waxwell are not yet sourced; use his intrinsic state only.
+                // Waxwell's Tired control represents intrinsic fatigue only; item modifiers still apply separately.
                 if (toon.id === 'waxwell' && status === 'tired') return;
                 const level = Number(scenario.debuffs[status]);
                 if (Number.isInteger(level) && level > 0 && level <= 3) {

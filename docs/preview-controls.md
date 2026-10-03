@@ -52,7 +52,9 @@ The core Toon bundle includes the sourced portrait and stats, permanent Tired II
 - Select Waxwell:20/30 movement,100 stamina,5 stealth,0.85 extraction,3 skill-check amount,250 size,3 hearts. Unbuffed regeneration is1.2/s due to intrinsic Tired II.
 - Toggle Ignite on: regeneration becomes2.4/s and intrinsic Tired II becomes0. Toggle off:1.2/s and Tired II return. Change Toon and return: Ignite starts off.
 - Add teammate Waxwell to another Toon: no Team Abilities checkbox or cooldown control appears. Cooldown statistics are explicitly deferred by the user. All previous Waxwell time and cooldown controls are removed.
-- Additional Tired sources remain unsupported; his debuff icon reflects the checkbox-controlled intrinsic state. Machine estimates use the same selected stat snapshot.
+- Additional selected Tired sources remain unsupported; his debuff icon reflects the checkbox-controlled intrinsic state rather than a combined effective level. Stamina Candy still applies its separate +50% regeneration modifier: with Ignite off,1.2/s becomes1.8/s, while the intrinsic icon stays II. Machine estimates use the same selected stat snapshot.
+
+The Candy interaction was rechecked October3 against [Status Effects revision265604](https://dandys-world-robloxhorror.fandom.com/wiki/Status_Effects?oldid=265604), dated October2,2026. Its Trivia describes Waxwell with Stamina Candy as Tired I; the app's rate agrees, while the icon intentionally reports intrinsic fatigue. This does not add other Tired sources or time the Candy's expiry.
 
 Sources rechecked2026-09-21: https://wikiwiki.jp/dandys-world/Waxwell and https://bloxodes.com/articles/dandys-world-waxwell-toon-guide (updated2026-08-19). Portrait updated September 23: https://media.bloxodes.com/wiki/5569032992/toons/waxwell-9b8f2561ea5d2304.webp, labelled at https://bloxodes.com/wiki/dandys-world/toons. Downloaded unchanged and visually inspected: square transparent head portrait matches the other Toon render portraits, replacing the full-body screenshot. Original artwork belongs to its rights holders; not CC0.
 
