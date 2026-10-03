@@ -124,6 +124,10 @@ Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red port
 
 Ribecca's ability description includes the v0.29.1 ten-second replacement buff. Applied-debuff immunity remains modeled; the random replacement buff has no selectable outcome until its effects are verified.
 
+### Gourdy random reward
+
+Trick or Treat remains descriptive. Its Skill Check chance reward has conflicting current source values, so the ability text identifies that uncertainty; no random outcome, probability, timer or calculation is added. Sugar Rush's existing manual movement scenario is unchanged.
+
 ### Waxwell preview controls
 
 Ignite uses the standard player ability checkbox and saved-state mechanism. Off applies intrinsic Tired II; on removes it. Changing Toon resets it. No Waxwell timers or teammate cooldown controls remain; cooldown statistics are deferred. Additional Tired sources remain unsupported.

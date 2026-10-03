@@ -818,7 +818,7 @@
       "ability": {
         "id": "gourdy_trick_or_treat",
         "name": "Trick or Treat",
-        "description": "(Active) This Toon applies a random 20% stat boost, excluding Stealth, for 15 seconds to all Toons within range. A Skill Check chance result grants a 50% boost instead. Has a cooldown of 35.",
+        "description": "(Active) This Toon applies a random 20% stat boost, excluding Stealth, for 15 seconds to all Toons within range, with a separate Skill Check chance reward whose value is unresolved in current sources. Has a cooldown of 35. Random rewards are not simulated here.",
         "effectType": "teamBuff",
         "targetStat": "randomStat",
         "value": 0.2,

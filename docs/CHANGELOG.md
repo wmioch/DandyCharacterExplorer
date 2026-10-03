@@ -1,3 +1,8 @@
+## 2026-10-03 - Gourdy reward qualification
+
+- Qualified Trick or Treat's displayed Skill Check chance reward after [Gourdy revision 265685](https://dandys-world-robloxhorror.fandom.com/wiki/Gourdy?oldid=265685) (October 3), checked October 3, gave incompatible 25% to 75% and 25% to 50% outcomes. The description now identifies the unresolved value and the absence of random-reward simulation. Sugar Rush and all calculations are unchanged.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`; no local builds, tests, lint or app-browser checks under the active run's instructions.
+
 ## 2026-10-03 - Party Crashers source qualification
 
 - Recorded the qualitative floor-event effect in [Floors revision265630](https://dandys-world-robloxhorror.fandom.com/wiki/Floors?oldid=265630) (October2), checked October3: voting for Party Crashers reduces Haunted Gala's spawning chance. The amount, Gala-mask interactions and authentic artwork remain under investigation. Floor-event probability is not displayed, and no card control or calculation is added.
