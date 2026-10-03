@@ -2,6 +2,10 @@
 
 Static character calculator for **Dandy's World** with a lightweight Azure Functions feedback backend.
 
+## Validation and maintenance
+
+Run `npm ci --ignore-scripts`, `npx playwright install chromium`, then `npm run validate` before publishing. See [testing](docs/testing.md) for isolated browser/data/calculator checks and [scheduled maintenance](docs/maintenance-workflow.md) for changed-source review, monthly audits and release boundaries. The frontend still has no build step.
+
 ## Video Production
 
 The [video style guide](docs/video-style-guide.md) documents the approved TikTok walkthrough format: real website interactions, clear narration, readable captions and verified calculator results. It includes the reference video's visual settings, production workflow and a reusable brief for future agents.

@@ -17,7 +17,11 @@ python -m http.server 8000
 
 Alternatively, `start_server.bat` handles server lifecycle (kills existing, auto-detects http-server / live-server / python).
 
-**Do NOT run `start index.html` or any command that opens a browser.** No build step, no tests, no linting — changes are visible immediately on page refresh.
+Do not run `start index.html` or launch the user's browser for unattended checks. The static frontend has no build step. Will has authorized focused regression tests and isolated headless browser checks before publishing; follow [testing.md](docs/testing.md). Tests use a loopback-only server with production feedback and analytics disabled and disposable browser storage.
+
+## Maintenance policy
+
+Follow [maintenance-workflow.md](docs/maintenance-workflow.md). Routine scheduled runs check changed sources and affected records; full item-by-item audits run monthly, resuming unfinished work. This replaces the earlier no-testing and full-audit-every-run requirements. Preserve current data/source updates and user edits. Larger preview releases still require explicit approval; the independent video workflow and its approvals are unchanged.
 
 ## Architecture
 
