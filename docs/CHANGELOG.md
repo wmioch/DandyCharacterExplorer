@@ -1,3 +1,8 @@
+## 2026-10-03 - Team ability instance cleanup
+
+- Reconcile active team-ability counts against the current roster in both roster rebuilds and retained slot-change controls. Previously removing one of two Shellies through the slot-change path retained both Inspiration boosts because cleanup checked only whether the ability ID remained. Multiple present Shellies can still stack Inspiration as described in [Shelly revision 265274](https://dandys-world-robloxhorror.fandom.com/wiki/Shelly?oldid=265274) (October 1), checked October 3. The legacy slot dropdowns remain hidden; no new removal control is added.
+- Reviewed exact caller, checkbox-instance and calculation paths plus the full scoped diff with `git diff --check`. No local builds, tests, lint or app-browser checks under this active run's instructions. Manual visible check: Poppy with two checked teammate Inspirations shows Extraction 3.06; unchecking one shows 1.75; Clear Team restores 1.00. The hidden slot-change cleanup was inspected in code rather than executed.
+
 ## 2026-10-03 - Rudie ability description
 
 - Aligned Antler Charge's text with [Rudie revision 264926](https://dandys-world-robloxhorror.fandom.com/wiki/Rudie?oldid=264926) (September 29), checked October 3. The current ability description uses a qualitative short burst; its Trivia records removal of the old numeric duration and cooldown wording during the 2026 Easter Event. The existing +50 Walk/Run calculation and manual checkbox are unchanged. No new duration or cooldown value is assumed.

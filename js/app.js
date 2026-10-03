@@ -899,21 +899,7 @@ const App = {
         // Update team size based on active team members (including player)
         this.state.teamSize = 1 + this.state.teamMembers.filter(t => t !== null).length;
         
-        // Get all available team ability IDs from current team
-        const availableAbilityIds = new Set();
-        this.state.teamMembers.forEach(toon => {
-            if (!toon) return;
-            [toon.ability, toon.ability2].forEach(ability => {
-                if (ability && ability.teamEffect) {
-                    availableAbilityIds.add(ability.id);
-                }
-            });
-        });
-        
-        // Keep only active abilities that are still available in the team
-        this.state.activeAbilities = this.state.activeAbilities.filter(
-            ability => availableAbilityIds.has(ability.id)
-        );
+        this._reconcileActiveTeamAbilities();
         
         // Update team abilities list
         UI.updateTeamAbilities(this.state.teamMembers.filter(t => t !== null), this.state.activeAbilities);
@@ -1140,24 +1126,32 @@ const App = {
         // Update team size based on active team members (including player)
         this.state.teamSize = 1 + this.state.teamMembers.filter(t => t !== null).length;
         
-        // Get all available team ability IDs from current team
-        const availableAbilityIds = new Set();
+        this._reconcileActiveTeamAbilities();
+
+        // Update team abilities list
+        UI.updateTeamAbilities(this.state.teamMembers.filter(t => t !== null), this.state.activeAbilities);
+    },
+
+    /**
+     * Retain no more active ability instances than the current team provides.
+     */
+    _reconcileActiveTeamAbilities() {
+        const availableAbilityCounts = new Map();
         this.state.teamMembers.forEach(toon => {
             if (!toon) return;
             [toon.ability, toon.ability2].forEach(ability => {
                 if (ability && ability.teamEffect) {
-                    availableAbilityIds.add(ability.id);
+                    availableAbilityCounts.set(ability.id, (availableAbilityCounts.get(ability.id) || 0) + 1);
                 }
             });
         });
-        
-        // Keep only active abilities that are still available in the team
-        this.state.activeAbilities = this.state.activeAbilities.filter(
-            ability => availableAbilityIds.has(ability.id)
-        );
-        
-        // Update team abilities list
-        UI.updateTeamAbilities(this.state.teamMembers.filter(t => t !== null), this.state.activeAbilities);
+
+        this.state.activeAbilities = this.state.activeAbilities.filter(ability => {
+            const remaining = availableAbilityCounts.get(ability.id) || 0;
+            if (remaining === 0) return false;
+            availableAbilityCounts.set(ability.id, remaining - 1);
+            return true;
+        });
     },
 
     /**

@@ -105,6 +105,8 @@ Train Whistle is visible among trinkets. When equipped, it blocks only the appli
 
 Multiple selected Bobette Festive Auras apply their team speed and stamina-regeneration modifiers only once. The checked ability remains a static scenario; proximity and its five-second persistence are not timed automatically. Bobette's hearts remain unchanged while current public sources conflict.
 
+Team roster rebuilds and retained slot-change controls reconcile active ability instances against the number of remaining teammates. Removing one of two Shellies retains at most one checked Inspiration; removing the last clears it. This preserves supported Inspiration stacking while preventing stale boosts. The legacy slot dropdowns remain hidden; the visible grid adds teammates and Clear Team removes all.
+
 On touch screens, a long press on a Toon selects a teammate through the context menu event. The grid suppresses the compatibility click that some browsers send after that gesture, so the player Toon is not replaced. A new deliberate tap can still select the player Toon.
 
 Movement speeds in the player stat table and bracketed Vanity Mirror Panic values show a second decimal only when needed; for example, 17.5 with Dog Plush appears as 19.25 while 15 remains 15.0. The calculation precision is unchanged.
