@@ -1,3 +1,8 @@
+## 2026-10-03 - Twisted speed profile tooltips
+
+- Show stored Twisted profile notes in the existing name, portrait and speed-cell tooltips instead of restricting them to Dyle. Glisten now identifies his displayed chase speeds as enraged, consistent with [Twisted Glisten revision263080](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Glisten?oldid=263080) (September20) and [Panic Mode revision247683](https://dandys-world-robloxhorror.fandom.com/wiki/Panic_Mode?oldid=247683) (June18), checked October3. Gourdy's existing enraged-profile qualification is also visible. Both table update paths retain the notes; speeds, comparison colors and state simulation are unchanged.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. No local builds, tests, lint or app-browser checks under this run's instructions. Manual check: hover Glisten and Gourdy before and after changing Toon, toggling Suppression and sorting; the profile note remains visible.
+
 ## 2026-10-03 - Party Crashers numeric source update
 
 - Rechecked [Cards revision 265850](https://dandys-world-robloxhorror.fandom.com/wiki/Cards?oldid=265850) (October 3) at 20:00 Australia/Sydney. Its table now lists 24 card names and explicitly gives Party Crashers' Haunted Gala chance reduction: per-floor increase 2 to 1.5 percentage points, maximum 30% to 25%. Updated the current card-scope review; the earlier qualitative-only check remains recorded below. No floor-event control or calculation is added, and the named artwork files have not been visually verified.

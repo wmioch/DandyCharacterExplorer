@@ -400,7 +400,8 @@
           "run": 27.6
         }
       },
-      "image": "twisteds/glisten.png"
+      "image": "twisteds/glisten.png",
+      "notes": "Enraged speed profile; cannot attack while passive."
     },
     {
       "id": "twisted_goob",

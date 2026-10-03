@@ -15,6 +15,8 @@ The user approved this complete feature set on September 22 for release after th
 
 ## Twisted Dyle maximum-speed tooltip
 
+Twisted profile notes also appear on other records. Hover Glisten's name, portrait and speed cells: his24.0 Normal,28.8 Panic and27.6 suppressed chase comparisons are qualified as enraged; he cannot attack while passive. Gourdy's existing notes qualify his enraged profile and stationary passive state. Change Toon, toggle Suppression and sort the table; the visible speed-cell qualification should persist. This does not add passive-state controls or change speeds.
+
 Hover Dyle's name, portrait and each visible speed cell: the tooltip identifies these as his highest speeds. The comparison remains 40.0 Normal, 48.0 Panic and 46.0 Panic + Suppression. Change Toon, toggle Suppression and sort the table in both directions; the qualification should remain on the visible cells. His lower-speed profile and accelerating meter are not simulated. The stored suppressed walking value remains unchanged while source precision is disputed.
 
 ## Negative Stealth modifier color

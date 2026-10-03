@@ -136,7 +136,7 @@ Ignite uses the standard player ability checkbox and saved-state mechanism. Off 
 
 Twisteds may specify `noChase: true` with null speeds and no image. The table displays neutral N/A and the existing letter placeholder, without treating null as comparable speed. Twisted Waxwell uses non-chasing N/A values with a sourced portrait; numeric roaming states await verification. Cherished Blanket is intentionally not visible.
 
-Twisted Dyle's existing `notes` appears in native name, portrait and speed-cell tooltips to identify the displayed maximum-speed profile. Both table update paths preserve the speed-cell qualification. His accelerating meter and lower-speed states remain outside the current comparison model.
+Twisted records' `notes` appear in native name, portrait and speed-cell tooltips. Glisten and Gourdy identify their enraged profiles, while Dyle identifies his highest speeds. Both table update paths preserve the speed-cell qualification. Their meters, passive or lower-speed states and transitions remain outside the current comparison model.
 
 Rudie's Antler Charge description follows the current qualitative ability text. Its existing checkbox selects the +50 Walk/Run snapshot (65/75 without other effects); dash timing and cooldown are not simulated.
 

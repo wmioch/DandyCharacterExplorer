@@ -897,7 +897,7 @@ const UI = {
             existingRows.forEach((row, index) => {
                 const twisted = sortedTwisteds[index];
                 const speeds = twisted.speeds;
-                const speedProfileNote = twisted.id === 'twisted_dyle' ? (twisted.notes || '') : '';
+                const speedProfileNote = twisted.notes || '';
                 const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
                 const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
                 
@@ -933,7 +933,7 @@ const UI = {
         
         sortedTwisteds.forEach(twisted => {
             const speeds = twisted.speeds;
-            const speedProfileNote = twisted.id === 'twisted_dyle' ? (twisted.notes || '') : '';
+            const speedProfileNote = twisted.notes || '';
             const stationary = twisted.noChase === true || Object.values(speeds).every(state => state.walk === 0 && state.run === 0);
             const panicSpeeds = suppression ? speeds.panicSuppressed : speeds.panic;
             const imagePath = `assets/images/${twisted.image}`;
