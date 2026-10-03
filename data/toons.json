@@ -468,7 +468,7 @@
       "ability": {
         "id": "eclipse_total_eclipse",
         "name": "Total Eclipse",
-        "description": "(Passive) This Toon transforms into a werewolf in blackouts, giving off a glow, gaining 60% Stamina Capacity (described in-game as 2 Stamina Stars), and a 20% Movement Speed boost.",
+        "description": "(Passive) This Toon transforms into a werewolf in blackouts, giving off a glow, gaining 60% Stamina Capacity (described in-game as 2 Stamina Stars), a 20% Movement Speed boost, and briefly highlighting all Twisteds on the floor. Highlighting and transformation timing are not simulated here.",
         "effectType": "conditional",
         "targetStat": "blackoutTransform",
         "value": 0.2,

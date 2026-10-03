@@ -1,3 +1,8 @@
+## 2026-10-03 - Eclipse highlight description
+
+- Added Total Eclipse's brief Twisted highlight from [Eclipse revision 265673](https://dandys-world-robloxhorror.fandom.com/wiki/Eclipse?oldid=265673) (October 3), checked October 3. The updated ability text agrees with the October 2 release changelog; the earlier individual-page omission is historical. The description identifies unmodeled highlighting and transformation timing. Existing speed and stamina calculations are unchanged.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`; no local builds, tests, lint or app-browser checks under the active run's instructions.
+
 ## 2026-10-03 - Ribecca immunity scope qualification
 
 - Updated The Undead's description after [Ribecca revision 265682](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca?oldid=265682) (October 3), checked October 3, explicitly extended immunity to non-trinket negative modifiers. The existing four debuff controls remain blocked; machine effects and random replacement rewards are explicitly unmodeled. Newly listed rewards include a Stealth example inconsistent with the stated 10% boost and base stat, so no outcome values are assumed.
