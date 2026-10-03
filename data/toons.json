@@ -1390,7 +1390,7 @@
       "ability": {
         "id": "sprout_baked_sweets",
         "name": "Baked Sweets",
-        "description": "(Active) This Toon can heal a targeted Toon by 1 Heart at the cost of 100 Tapes. For each extra Sprout, the cost increases by 50 Tapes and the Cooldown increases by 30. Has a cooldown of 100.",
+        "description": "(Active) Heal a targeted Toon by 1 Heart for a base cost of 100 Tapes. Tape cost scales with team composition; current sources differ on the exact scaling and shared healing cooldown. Base cooldown of 100. Healing, Tape costs and cooldowns are not simulated here.",
         "effectType": "healing",
         "targetStat": "hearts",
         "value": 1.0,

@@ -1,3 +1,8 @@
+## 2026-10-03 - Sprout scaling source qualification
+
+- Qualified Baked Sweets' disputed Tape/cooldown scaling after inspecting [Abilities revision264022](https://dandys-world-robloxhorror.fandom.com/wiki/Abilities?oldid=264022) (September25) and [Sprout revision261036](https://dandys-world-robloxhorror.fandom.com/wiki/Sprout?oldid=261036) (September8), checked October3. The numerical per-extra-Sprout formula appears under Former Abilities, while current sections differ on healer-count scope and shared timing. The description retains the common one-Heart heal/base100 Tape cost/base100 cooldown and identifies the unresolved scope; no replacement formula is guessed.
+- Parsed the changed JSON and reviewed the scoped diff with `git diff --check`. All stats and calculations are unchanged; healing/Tape/cooldown mechanics remain unmodeled. No local builds, tests, lint or app-browser checks under this active run's instructions.
+
 ## 2026-10-03 - Machine baseline explanation
 
 - Corrected the Machine Stats Base Time tooltip to describe the actual permanent-only reference. Average Time accounts for the selected Great Rate and timed boosts; the calculation values and duration handling are unchanged.
