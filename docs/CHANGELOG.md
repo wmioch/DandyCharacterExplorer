@@ -1,3 +1,8 @@
+## 2026-10-09 - Flyte description correction
+
+- Corrected Flyte's description to identify him as a butterfly and clarified Gust's 10-second zone, 15% Movement Speed while inside, and three-second linger after leaving, following [Flyte revision265794](https://dandys-world-robloxhorror.fandom.com/wiki/Flyte?oldid=265794) (October3,06:10UTC), checked October9. The player/team modifier and manual toggle are unchanged; location and timing remain unmodeled and are now explicitly qualified.
+- Release validation uses the committed main harness in an isolated checkout, including JSON/data integrity, calculator regressions and desktop/mobile Chromium controls with production feedback and analytics disabled. Exact commits, results and deployment receipts are retained in the private maintenance ledger.
+
 ## 2026-10-03 - Twisted speed profile tooltips
 
 - Show stored Twisted profile notes in the existing name, portrait and speed-cell tooltips instead of restricting them to Dyle. Glisten now identifies his displayed chase speeds as enraged, consistent with [Twisted Glisten revision263080](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Glisten?oldid=263080) (September20) and [Panic Mode revision247683](https://dandys-world-robloxhorror.fandom.com/wiki/Panic_Mode?oldid=247683) (June18), checked October3. Gourdy's existing enraged-profile qualification is also visible. Both table update paths retain the notes; speeds, comparison colors and state simulation are unchanged.

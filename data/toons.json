@@ -612,7 +612,7 @@
     {
       "id": "flyte",
       "name": "Flyte",
-      "description": "Flyte is a kite Toon who can place gusts that boost movement speed for teammates.",
+      "description": "Flyte is a butterfly Toon who can place gusts that boost movement speed for teammates.",
       "baseStats": {
         "walkSpeed": 17.5,
         "runSpeed": 27.5,
@@ -634,7 +634,7 @@
       "ability": {
         "id": "flyte_gust",
         "name": "Gust",
-        "description": "(Active) This Toon places a \"Gust\" at his location for 10 seconds. Any Toon that walks into the Gust receives a +15% Movement Speed boost for 3 seconds. Has a cooldown of 50.",
+        "description": "(Active) Places a Gust at his location for 10 seconds. Toons inside gain 15% Movement Speed, which lingers for 3 seconds after leaving. Cooldown: 50 seconds. The checkbox selects the buff snapshot; location and timing are not simulated.",
         "effectType": "zoneEffect",
         "targetStat": "movementSpeed",
         "value": 0.15,
