@@ -128,7 +128,7 @@ Ribecca's ability description includes the v0.29.1 ten-second replacement buff a
 
 ### Gourdy random reward
 
-Trick or Treat remains descriptive. Its Skill Check chance reward has conflicting current source values, so the ability text identifies that uncertainty; no random outcome, probability, timer or calculation is added. Sugar Rush's existing manual movement scenario is unchanged.
+Trick or Treat remains descriptive. The October 8 Gourdy revision corrects its old Skill Check chance example to +50 percentage points (25% becomes 75%), agreeing with the current Multipliers table. The ability text includes that reward; no random outcome, probability, timer or calculation is added. Sugar Rush's existing manual movement scenario is unchanged.
 
 ### Waxwell preview controls
 

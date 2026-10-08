@@ -1,3 +1,8 @@
+## 2026-10-09 - Gourdy reward description
+
+- Replaced the stale Skill Check chance uncertainty note with the now-consistent +50 percentage-point reward (25% becomes 75%). [Gourdy revision267173](https://dandys-world-robloxhorror.fandom.com/wiki/Gourdy?oldid=267173) (October8,17:38UTC), checked October9, corrects the old Trivia example and agrees with its Strategies example and the [Multipliers table](https://dandys-world-robloxhorror.fandom.com/wiki/Multipliers?oldid=266885). Random rewards remain descriptive; calculations, controls and Sugar Rush are unchanged.
+- Updated the matching repository guidance. Exact isolated validation commits, focused checks and delivery results are retained in the private maintenance ledger.
+
 ## 2026-10-09 - Flyte description correction
 
 - Corrected Flyte's description to identify him as a butterfly and clarified Gust's 10-second zone, 15% Movement Speed while inside, and three-second linger after leaving, following [Flyte revision265794](https://dandys-world-robloxhorror.fandom.com/wiki/Flyte?oldid=265794) (October3,06:10UTC), checked October9. The player/team modifier and manual toggle are unchanged; location and timing remain unmodeled and are now explicitly qualified.
