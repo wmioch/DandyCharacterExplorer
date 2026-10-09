@@ -39,7 +39,9 @@ test('Tech Savvy removes five work units at both normal and doubled extraction',
 test('Item buffs do not simulate pickups for Whispering Flower', () => {
     const e = loadEngine();
     const state = scenario(e.DataLoader.getToon('poppy'), {
-        equippedTrinkets: [{ trinket: e.DataLoader.getTrinket('whispering_flower'), count: 2 }]
+        // Main uses the tile count; the unreleased preview uses explicit inventory.
+        equippedTrinkets: [{ trinket: e.DataLoader.getTrinket('whispering_flower'), count: 2 }],
+        heldItemCount: 2
     });
     close(stats(e, state).staminaRegen, 3.12);
     state.activeItems = [{ item: e.DataLoader.getItem('speed_candy'), count: 3 }];

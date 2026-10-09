@@ -1,3 +1,8 @@
+## 2026-10-10 - Shared validation fixture
+
+- Give the Whispering Flower regression an explicit two-item inventory snapshot as well as main's legacy tile count, so the same harness can check the separate inventory preview. Consumed Item buffs still do not simulate pickups. Application data, calculations and preview release boundaries are unchanged.
+- Document the shared suite's preview limits in [testing.md](testing.md). Feature-specific checks and source verification remain separate from shared regression results.
+
 ## 2026-10-09 - Gourdy reward description
 
 - Replaced the stale Skill Check chance uncertainty note with the now-consistent +50 percentage-point reward (25% becomes 75%). [Gourdy revision267173](https://dandys-world-robloxhorror.fandom.com/wiki/Gourdy?oldid=267173) (October8,17:38UTC), checked October9, corrects the old Trivia example and agrees with its Strategies example and the [Multipliers table](https://dandys-world-robloxhorror.fandom.com/wiki/Multipliers?oldid=266885). Random rewards remain descriptive; calculations, controls and Sugar Rush are unchanged.
