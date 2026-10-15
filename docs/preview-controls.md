@@ -1,5 +1,7 @@
 # Local preview controls
 
+The September 22 controls below were approved for release after the Waxwell portrait correction. The reusable local preview remains isolated from production feedback. The October 16 Flower candidate has its own release boundary.
+
 ## Whispering Flower inventory
 
 `PREVIEW-SRC-WHISPERING-FLOWER-INVENTORY` has an isolated candidate on `codex/flower-inventory-review-20261016`, based on main without the unrelated Gumballs, Alarm/Pull Toy, random-outcome, custom-content or Soul Shield bundles. The reusable preview remains separate; publication still requires named-feature approval.
@@ -9,8 +11,6 @@ Equip Flower as Boxten. Items held starts at zero: select 0, 1 and 3 to see 2.4/
 The selector is a manual snapshot: gifts, drops, theft and consumption are not tracked automatically. The same per-held-item bonus applies once; duplicate Flower stacking is not established. Waxwell with three items retains intrinsic Tired II while Ignite is off (underlying1.74/s), and Ignite on gives3.48/s. Astro/Star Pillow/Flower compound stacking remains disputed and is not verified by these standalone checks.
 
 Source scopes checked October16: [Whispering Flower254343](https://dandys-world-robloxhorror.fandom.com/wiki/Whispering_Flower?oldid=254343), August8, states15% per held item and Bassie's60% four-item bonus; [Bassie269067](https://dandys-world-robloxhorror.fandom.com/wiki/Bassie?oldid=269067), October14, retains the extra-slot passive. Current unchanged source revisions do not imply fresh in-game measurement.
-
-The user approved this complete feature set on September 22 for release after the Waxwell portrait correction. The reusable local preview remains isolated from production feedback.
 
 ## Current preview controls (September 22)
 
