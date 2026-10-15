@@ -14,7 +14,7 @@ The loopback-only test server uses port 4399, disables production feedback and a
 
 For a separate committed app snapshot, set `DANDY_APP_ROOT` to its absolute path before running the harness. Both the engine tests and HTTP server then read that snapshot. Record the tested app commit and harness commit separately; passing against one does not validate another.
 
-The Whispering Flower regression fixture supplies two held items for the separate inventory preview and the equivalent legacy tile count for main. Consumed Item buffs stay independent of both inputs. Passing the shared suite against preview does not verify every unreleased feature, disputed source claim or real iOS behavior.
+The Whispering Flower regression fixture supplies two held items for the inventory feature and the equivalent legacy tile count for earlier production snapshots. Consumed Item buffs stay independent of both inputs. Passing the shared suite against preview does not verify every unreleased feature, disputed source claim or real iOS behavior.
 
 The isolated Flower candidate adds checks for 0/1/3 held items, Bassie's fourth slot, Toon-change clamping, no duplicate tile multiplier, removal/reselection, machine-state cloning, Waxwell fatigue and consumed-Item independence. Its desktop/mobile control checks save a Flower screenshot under ignored `output/playwright/`. These checks do not establish the disputed Astro/Star Pillow/Flower combination in game.
 
