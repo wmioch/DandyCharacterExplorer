@@ -88,6 +88,7 @@ App.init()
 - `teamMembers[7]` — team slots (null = empty)
 - `teamToons` — map of toonId → count for team selection UI
 - `activeAbilities` / `activeItems` — toggled buffs
+- `heldItemCount` — manual inventory snapshot for Whispering Flower, independent of active Items; acceptance steps and limits are in [preview-controls.md](docs/preview-controls.md#whispering-flower-inventory).
 - `currentStarFilters` — per-stat star rating filter active in the toon grid modal
 - `skillCheckSuccessRate` — slider value (0–1) for machine extraction time calculation
 

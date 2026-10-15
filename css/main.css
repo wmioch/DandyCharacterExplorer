@@ -717,6 +717,23 @@ button {
     font-size: 0.85rem;
 }
 
+.held-item-control {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+    font-size: 0.8rem;
+}
+
+.held-item-control[hidden] {
+    display: none;
+}
+
+.held-item-control small {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+}
+
 .trinket-list {
     display: grid;
     /* Dynamic grid: items scale from 23px to 60px based on width AND height */

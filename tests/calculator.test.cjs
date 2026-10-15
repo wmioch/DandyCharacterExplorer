@@ -48,6 +48,47 @@ test('Item buffs do not simulate pickups for Whispering Flower', () => {
     close(stats(e, state).staminaRegen, 3.12);
 });
 
+test('Flower uses held inventory once, ignores legacy tile copies and preserves it in machine snapshots', () => {
+    const e = loadEngine();
+    const state = scenario(e.DataLoader.getToon('boxten'), {
+        equippedTrinkets: [{ trinket: e.DataLoader.getTrinket('whispering_flower'), count: 25 }]
+    });
+    for (const [heldItemCount, expected] of [[0, 2.4], [1, 2.76], [3, 3.48]]) {
+        state.heldItemCount = heldItemCount;
+        close(stats(e, state).staminaRegen, expected);
+        const clone = e.Calculator._cloneCalculationState(state);
+        assert.equal(clone.heldItemCount, heldItemCount);
+        close(e.Calculator.calculateStatsFromState(clone).final.staminaRegen, expected);
+    }
+    state.equippedTrinkets = [];
+    close(stats(e, state).staminaRegen, 2.4);
+});
+
+test('Flower permits Bassie four held items, caps other Toons at three and rejects fractional snapshots', () => {
+    const e = loadEngine();
+    const state = scenario(e.DataLoader.getToon('bassie'), {
+        equippedTrinkets: [e.DataLoader.getTrinket('whispering_flower')], heldItemCount: 4
+    });
+    close(stats(e, state).staminaRegen, 3.84);
+    state.selectedToon = e.DataLoader.getToon('boxten');
+    close(stats(e, state).staminaRegen, 3.48);
+    for (const heldItemCount of [-1, 1.5, Infinity]) {
+        state.heldItemCount = heldItemCount;
+        close(stats(e, state).staminaRegen, 2.4);
+    }
+});
+
+test('Waxwell fatigue and Stamina Candy remain separate from the Flower inventory snapshot', () => {
+    const e = loadEngine(), toon = e.DataLoader.getToon('waxwell');
+    const state = scenario(toon, { equippedTrinkets: [e.DataLoader.getTrinket('whispering_flower')], heldItemCount: 3 });
+    close(stats(e, state).staminaRegen, 1.74);
+    e.localStorage.setItem(`ability-${toon.ability.id}-state`, 'true');
+    close(stats(e, state).staminaRegen, 3.48);
+    state.activeItems = [{ item: e.DataLoader.getItem('stamina_candy'), count: 1 }];
+    close(stats(e, state).staminaRegen, 5.22);
+    assert.equal(state.heldItemCount, 3);
+});
+
 test('Zero Great Rate survives machine snapshots and earns no Stress Ball stacks', () => {
     const e = loadEngine();
     const state = scenario(e.DataLoader.getToon('poppy'), { equippedTrinkets: [e.DataLoader.getTrinket('stress_ball')] });

@@ -1,3 +1,9 @@
+## 2026-11-07 - Whispering Flower held items
+
+- Add an explicit Items held selector while Flower is equipped, capped at three items or four for Bassie. Item effects remain independent of inventory, removal preserves the selected count and Toon changes clamp it. Flower toggles once without a redundant tile counter; machine snapshots retain held inventory.
+- This candidate isolates the existing inventory preview from Gumballs, Alarm, Pull Toy and other unreleased features. See [manual checks and evidence limits](preview-controls.md#whispering-flower-inventory).
+- Source scopes checked October 16: [Whispering Flower revision254343](https://dandys-world-robloxhorror.fandom.com/wiki/Whispering_Flower?oldid=254343) (August 8) states +15% regeneration per held item and +60% with Bassie's four slots; [Bassie revision269067](https://dandys-world-robloxhorror.fandom.com/wiki/Bassie?oldid=269067) (October 14) retains the extra-slot passive. Compound Astro/Star Pillow stacking remains unresolved.
+
 ## 2026-10-30 - Ribecca immunity qualification
 
 - Qualified The Undead's description to avoid claiming universal immunity and name the Bite-sized! exception. [Ribecca revision273039](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca?oldid=273039), dated October28 and checked October30, explicitly excludes that door effect and its team counterpart. The four supported debuff controls and calculations are unchanged; Bite-sized!, replacement rewards and machine modifiers are not simulated.
@@ -13,6 +19,7 @@
 ## 2026-10-23 - Bone Needle and Thread description
 
 - Corrected the retained hidden trinket description to include Halloween Decor highlighting and the exception for Pumpkins created by the Pumpkin Patch! treat. The [direct article revision270415](https://dandys-world-robloxhorror.fandom.com/wiki/Bone_Needle_and_Thread?oldid=270415) (October19,03:30UTC) supplies both details; the [Trinkets index revision270681](https://dandys-world-robloxhorror.fandom.com/wiki/Trinkets?oldid=270681) (October20,09:52UTC) also lists the Decor scope. Sources checked October23. The existing ten-second interval, hidden status, image and calculations are unchanged; highlighting is not simulated.
+
 
 ## 2026-10-10 - Shared validation fixture
 
