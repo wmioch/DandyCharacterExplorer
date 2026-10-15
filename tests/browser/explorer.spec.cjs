@@ -13,6 +13,41 @@ test.beforeEach(async ({ page }) => {
 const row = (page, label) => page.locator('.stats-table tbody tr').filter({ has: page.locator('td:first-child', { hasText: new RegExp(`^${label}$`) }) });
 const finalCell = (page, label) => row(page, label).locator('td').last();
 
+test('Flower inventory control keeps held items separate from consumed buffs and trinket selection', async ({ page }, testInfo) => {
+    await expect(page.locator('#held-items-container')).toBeHidden();
+    const flower = page.locator('[data-trinket-id="whispering_flower"]');
+    await flower.click();
+    const held = page.locator('#held-item-count');
+    await expect(held).toBeVisible();
+    for (const [count, regeneration] of [['0', '2.4/s'], ['1', '2.8/s'], ['3', '3.5/s']]) {
+        await held.selectOption(count);
+        await expect(finalCell(page, 'Stamina Regeneration')).toHaveText(regeneration);
+    }
+    await page.locator('[data-item-id="speed_candy"]').click();
+    await expect(held).toHaveValue('3');
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('3.5/s');
+    await flower.click();
+    await expect(page.locator('#held-items-container')).toBeHidden();
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('2.4/s');
+    await flower.click();
+    await expect(held).toHaveValue('3');
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('3.5/s');
+    await expect(flower.locator('.count-badge')).toHaveCount(0);
+    await page.screenshot({ path: testInfo.outputPath('flower-inventory.png'), fullPage: true });
+});
+
+test('Bassie fourth inventory slot clamps on Toon change', async ({ page }) => {
+    await page.locator('[data-toon-id="bassie"]').click();
+    await page.locator('[data-trinket-id="whispering_flower"]').click();
+    const held = page.locator('#held-item-count');
+    await held.selectOption('4');
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('3.8/s');
+    await page.locator('[data-toon-id="boxten"]').click();
+    await expect(held).toHaveValue('3');
+    await expect(held.locator('option[value="4"]')).toBeDisabled();
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('3.5/s');
+});
+
 test('Toon selection and Advanced confirmation preserve or clear a custom build', async ({ page }) => {
     await page.locator('[data-toon-id="poppy"]').click();
     await page.locator('#advanced-mode').click();

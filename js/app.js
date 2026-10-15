@@ -15,6 +15,7 @@ const App = {
         teamToons: {}, // Map of toonId to count for team selection
         activeAbilities: [],
         activeItems: [],
+        heldItemCount: 0, // Manual inventory snapshot, independent of consumed Item buffs.
         selectedConditionalStat: null,
         skillCheckSuccessRate: 1.0,
         teamSize: 1,  // ← ADD THIS: Calculate based on teamMembers
@@ -211,6 +212,13 @@ const App = {
                 const itemId = itemDiv.dataset.itemId;
                 this.handleItemDecrement(itemId);
             }
+        });
+
+        document.getElementById('held-item-count').addEventListener('change', (e) => {
+            const maxHeld = this.state.selectedToon?.id === 'bassie' ? 4 : 3;
+            const selected = Number(e.target.value);
+            this.state.heldItemCount = Number.isInteger(selected) ? Math.max(0, Math.min(maxHeld, selected)) : 0;
+            this.updateDisplay();
         });
 
         // Conditional stats
@@ -463,6 +471,7 @@ const App = {
         }
         
         this.state.selectedToon = DataLoader.getToon(toonId);
+        this.state.heldItemCount = Math.min(this.state.heldItemCount, toonId === 'bassie' ? 4 : 3);
         
         // Clear player ability states for the new toon (start fresh)
         if (this.state.selectedToon) {
@@ -1413,7 +1422,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards }
+            { floorParity: this.state.floorParity, panicMode, heldItemCount: this.state.heldItemCount, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards }
         );
     },
 
@@ -1426,6 +1435,13 @@ const App = {
         advanced.classList.toggle('enabled', this.state.advancedMode);
         advanced.setAttribute('aria-pressed', String(this.state.advancedMode));
         UI.updateScenarioIcons(this.state);
+        const hasWhisperingFlower = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'whispering_flower');
+        document.getElementById('held-items-container').hidden = !hasWhisperingFlower;
+        const heldItemSelect = document.getElementById('held-item-count');
+        const fourthSlot = heldItemSelect.querySelector('option[value="4"]');
+        fourthSlot.hidden = this.state.selectedToon?.id !== 'bassie';
+        fourthSlot.disabled = fourthSlot.hidden;
+        heldItemSelect.value = String(this.state.heldItemCount);
         const hasMirror = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'vanity_mirror');
         const panicStats = hasMirror ? this.getCalculatedStats(true) : stats;
         const immune = this.state.selectedToon?.ability?.targetStat === 'debuffImmunity';

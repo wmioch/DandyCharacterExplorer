@@ -795,7 +795,6 @@
       "rarity": "event",
       "id": "whispering_flower",
       "filterCategory": "stamina",
-      "stackable": true,
       "conditional": true,
       "dynamicItemBased": true,
       "dynamicTargetStat": "staminaRegen",

@@ -1,3 +1,9 @@
+## 2026-10-16 - Isolated Whispering Flower preview candidate
+
+- Add an explicit Items held selector while Flower is equipped, capped at three items or four for Bassie. Item effects remain independent of inventory, removal preserves the selected count and Toon changes clamp it. Flower toggles once without a redundant tile counter; machine snapshots retain held inventory.
+- This candidate isolates the existing inventory preview from Gumballs, Alarm, Pull Toy and other unreleased features. See [manual checks and evidence limits](preview-controls.md#whispering-flower-inventory). Release still requires explicit approval of `PREVIEW-SRC-WHISPERING-FLOWER-INVENTORY`.
+- Source scopes checked October 16: [Whispering Flower revision254343](https://dandys-world-robloxhorror.fandom.com/wiki/Whispering_Flower?oldid=254343) (August 8) states +15% regeneration per held item and +60% with Bassie's four slots; [Bassie revision269067](https://dandys-world-robloxhorror.fandom.com/wiki/Bassie?oldid=269067) (October 14) retains the extra-slot passive. Compound Astro/Star Pillow stacking remains unresolved.
+
 ## 2026-10-10 - Shared validation fixture
 
 - Give the Whispering Flower regression an explicit two-item inventory snapshot as well as main's legacy tile count, so the same harness can check the separate inventory preview. Consumed Item buffs still do not simulate pickups. Application data, calculations and preview release boundaries are unchanged.
