@@ -128,7 +128,7 @@ const Calculator = {
         }
 
         // Apply dynamic trinket effects that depend on the current item loadout
-        this._applyDynamicTrinketModifiers(trinkets, items, modifiers);
+        this._applyDynamicTrinketModifiers(trinkets, items, modifiers, scenario, toon);
 
         // Handle Bone trinket separately - it needs special logic for the 40 cap
         const boneModifiers = this._extractBoneModifiers(trinkets);
@@ -636,8 +636,12 @@ const Calculator = {
     /**
      * Apply dynamic trinket modifiers that depend on the current item loadout
      */
-    _applyDynamicTrinketModifiers(trinkets, items, modifiers) {
+    _applyDynamicTrinketModifiers(trinkets, items, modifiers, scenario, toon) {
         const totalItemCount = items.reduce((sum, itemObj) => sum + (itemObj.count || 0), 0);
+        const maxHeldItems = toon.id === 'bassie' ? 4 : 3;
+        const heldItemCount = Number.isInteger(scenario?.heldItemCount)
+            ? Math.max(0, Math.min(maxHeldItems, scenario.heldItemCount))
+            : 0;
 
         trinkets.forEach(trinketEntry => {
             const trinket = trinketEntry.trinket || trinketEntry;
@@ -652,7 +656,7 @@ const Calculator = {
 
             const valuePerItem = trinket.valuePerItem ?? trinket.value ?? 0;
             const dynamicCount = trinket.id === 'whispering_flower'
-                ? (trinketEntry.count || 1)
+                ? heldItemCount
                 : totalItemCount;
             const totalValue = valuePerItem * dynamicCount;
             if (totalValue === 0) {
@@ -1001,6 +1005,7 @@ const Calculator = {
             teamSize: state.teamSize || 1,
             skillCheckSuccessRate: state.skillCheckSuccessRate ?? 1.0,
             machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
+            heldItemCount: state.heldItemCount || 0,
             floorParity: state.floorParity,
             panicMode: state.panicMode,
             debuffs: { ...state.debuffs },
@@ -1033,7 +1038,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
+            state.floorParity ? { floorParity: state.floorParity, panicMode: false, heldItemCount: state.heldItemCount || 0, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
         );
     },
 
