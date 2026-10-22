@@ -69,7 +69,7 @@
     },
     {
       "name": "Bone Needle and Thread",
-      "effect": "Highlights Pumpkins in your vicinity every 10 seconds during matches in the Halloween Event.",
+      "effect": "Highlights nearby Pumpkins and Halloween Decor every 10 seconds during matches in the Halloween Event. Does not highlight Pumpkins created by the Pumpkin Patch! treat.",
       "image": "trinket_bone_needle_and_thread.png",
       "category": "other",
       "rarity": "event",

@@ -1,3 +1,7 @@
+## 2026-10-23 - Bone Needle and Thread description
+
+- Corrected the retained hidden trinket description to include Halloween Decor highlighting and the exception for Pumpkins created by the Pumpkin Patch! treat. The [direct article revision270415](https://dandys-world-robloxhorror.fandom.com/wiki/Bone_Needle_and_Thread?oldid=270415) (October19,03:30UTC) supplies both details; the [Trinkets index revision270681](https://dandys-world-robloxhorror.fandom.com/wiki/Trinkets?oldid=270681) (October20,09:52UTC) also lists the Decor scope. Sources checked October23. The existing ten-second interval, hidden status, image and calculations are unchanged; highlighting is not simulated.
+
 ## 2026-10-10 - Shared validation fixture
 
 - Give the Whispering Flower regression an explicit two-item inventory snapshot as well as main's legacy tile count, so the same harness can check the separate inventory preview. Consumed Item buffs still do not simulate pickups. Application data, calculations and preview release boundaries are unchanged.
