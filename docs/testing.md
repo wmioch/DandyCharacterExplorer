@@ -20,6 +20,8 @@ Before an automatic small release: review the scope and sources, run `npm run va
 
 Failure screenshots and traces are saved under ignored `output/playwright/`; CI retains them for seven days. Do not upload private feedback or user-session artifacts.
 
+The CI job allows 15 minutes for dependency/browser installation and the full validation suite. The October 23 run exhausted the former ten-minute limit during browser checks after slow package downloads; a timeout remains a failure, and every check must still pass.
+
 Regression boundaries retained:
 
 - Looey's selected missing-heart tier changes manually after healing; Health remains maximum capacity.

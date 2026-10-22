@@ -1,3 +1,7 @@
+## 2026-10-23 - CI installation time allowance
+
+- Raised the validation job limit from ten to fifteen minutes after [run39847129071](https://github.com/wmioch/DandyCharacterExplorer/actions/runs/39847129071) timed out during browser checks following slow dependency downloads. All validation checks, runner isolation and failure behavior remain required; repository permissions and deployment settings are unchanged.
+
 ## 2026-10-23 - Bone Needle and Thread description
 
 - Corrected the retained hidden trinket description to include Halloween Decor highlighting and the exception for Pumpkins created by the Pumpkin Patch! treat. The [direct article revision270415](https://dandys-world-robloxhorror.fandom.com/wiki/Bone_Needle_and_Thread?oldid=270415) (October19,03:30UTC) supplies both details; the [Trinkets index revision270681](https://dandys-world-robloxhorror.fandom.com/wiki/Trinkets?oldid=270681) (October20,09:52UTC) also lists the Decor scope. Sources checked October23. The existing ten-second interval, hidden status, image and calculations are unchanged; highlighting is not simulated.
