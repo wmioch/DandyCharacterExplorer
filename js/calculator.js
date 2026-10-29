@@ -128,7 +128,7 @@ const Calculator = {
         }
 
         // Apply dynamic trinket effects that depend on the current item loadout
-        this._applyDynamicTrinketModifiers(trinkets, items, modifiers);
+        this._applyDynamicTrinketModifiers(trinkets, items, modifiers, toon, scenario);
 
         // Handle Bone trinket separately - it needs special logic for the 40 cap
         const boneModifiers = this._extractBoneModifiers(trinkets);
@@ -177,8 +177,11 @@ const Calculator = {
         // Add team ability modifiers
         // Note: Team abilities are already filtered by the app - if they're in this array, they're enabled
         const appliedNonStackingTeamAbilities = new Set();
+        if (toon.ability?.id === 'brusha_artistic_inspiration' && this._isAbilityEnabled(toon.ability)) {
+            appliedNonStackingTeamAbilities.add(toon.ability.id);
+        }
         teamAbilities.forEach(ability => {
-            if (ability.id === 'bobette_festive_aura') {
+            if (['bobette_festive_aura', 'brusha_artistic_inspiration'].includes(ability.id)) {
                 if (appliedNonStackingTeamAbilities.has(ability.id)) return;
                 appliedNonStackingTeamAbilities.add(ability.id);
             }
@@ -636,11 +639,16 @@ const Calculator = {
     /**
      * Apply dynamic trinket modifiers that depend on the current item loadout
      */
-    _applyDynamicTrinketModifiers(trinkets, items, modifiers) {
+    _applyDynamicTrinketModifiers(trinkets, items, modifiers, toon, scenarioState) {
         const totalItemCount = items.reduce((sum, itemObj) => sum + (itemObj.count || 0), 0);
 
         trinkets.forEach(trinketEntry => {
             const trinket = trinketEntry.trinket || trinketEntry;
+            // A successful painting's short speed snapshot is independent of extracting from paint.
+            if (trinket?.id === 'paint_bucket' && toon?.id === 'brusha' && scenarioState?.paintBucketBoost
+                && trinket.afterMachineBuffEffect) {
+                this._applyTeamEffect(trinket.afterMachineBuffEffect, modifiers);
+            }
             if (!trinket || !trinket.dynamicItemBased) {
                 return;
             }
@@ -1006,7 +1014,8 @@ const Calculator = {
             debuffs: { ...state.debuffs },
             customStats: { ...state.customStats },
             cards: { ...state.cards },
-            abilityStacks: { ...state.abilityStacks }
+            abilityStacks: { ...state.abilityStacks },
+            paintBucketBoost: Boolean(state.paintBucketBoost)
         };
     },
 
@@ -1033,7 +1042,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            state.floorParity ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards } : null
+            (state.floorParity || state.paintBucketBoost) ? { floorParity: state.floorParity, panicMode: false, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards, paintBucketBoost: state.paintBucketBoost } : null
         );
     },
 

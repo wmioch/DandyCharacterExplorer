@@ -20,6 +20,7 @@ const App = {
         teamSize: 1,  // ← ADD THIS: Calculate based on teamMembers
         machineCompletionCount: 0, // Legacy calculation fallback; each passive now has its own counter
         abilityStacks: {},
+        paintBucketBoost: false,
         advancedMode: false,
         floorParity: 'odd',
         panicMode: false,
@@ -261,6 +262,10 @@ const App = {
             this.updateDisplay();
         });
         UI.populateScenarioIcons(this.state, () => this.updateDisplay());
+        document.getElementById('paint-bucket-boost').addEventListener('change', event => {
+            this.state.paintBucketBoost = event.target.checked;
+            this.updateDisplay();
+        });
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.handleTabSwitch(e.target.dataset.tab);
@@ -457,6 +462,7 @@ const App = {
      */
     handleToonChange(toonId) {
         this.resetCustomStats();
+        this.state.paintBucketBoost = false;
         // Clear player ability states for the previous toon
         if (this.state.selectedToon) {
             this._clearPlayerAbilityStates(this.state.selectedToon);
@@ -1413,7 +1419,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards }
+            { floorParity: this.state.floorParity, panicMode, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards, paintBucketBoost: this.state.paintBucketBoost }
         );
     },
 
@@ -1421,6 +1427,11 @@ const App = {
      * Update all displays
      */
     updateDisplay() {
+        const hasPaintBucketBoost = this.state.selectedToon?.id === 'brusha'
+            && this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'paint_bucket');
+        if (!hasPaintBucketBoost) this.state.paintBucketBoost = false;
+        document.getElementById('paint-bucket-container').hidden = !hasPaintBucketBoost;
+        document.getElementById('paint-bucket-boost').checked = hasPaintBucketBoost && this.state.paintBucketBoost;
         const stats = this.getCalculatedStats();
         const advanced = document.getElementById('advanced-mode');
         advanced.classList.toggle('enabled', this.state.advancedMode);

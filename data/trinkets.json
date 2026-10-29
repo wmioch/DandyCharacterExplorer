@@ -424,7 +424,7 @@
     },
     {
       "name": "Paint Bucket",
-      "effect": "Increases Skill Check size and chance by 10%.",
+      "effect": "Increases Skill Check size by 10% and chance by 10 percentage points. As Brusha, also grants 25% Movement Speed for 5 seconds after successfully buffing a Machine; use the separate manual speed checkbox.",
       "image": "trinket_paint_bucket.png",
       "category": "skill_check",
       "rarity": "common",
@@ -441,7 +441,12 @@
           "value": 0.10,
           "applicationType": "baseStatIncrease"
         }
-      ]
+      ],
+      "afterMachineBuffEffect": {
+        "movementSpeed": 0.25,
+        "applicationType": "multiplicative",
+        "duration": 5
+      }
     },
     {
       "name": "Participation Award",
