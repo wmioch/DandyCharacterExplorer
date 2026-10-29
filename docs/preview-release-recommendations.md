@@ -1,5 +1,7 @@
 # Preview release decisions — October 3, 2026
 
+October30 update: `PREVIEW-SRC-BRUSHA-PAINTED-MACHINE` has a dedicated candidate based on current main, separate from the full preview and Flower test target. Its disclosed scope/dependencies and manual acceptance steps are in [brusha-painted-machine.md](brusha-painted-machine.md). Exact tested commits/results and the release decision remain in the private ledger; this document grants no release approval.
+
 This is a read-only backlog review, not release approval. The active maintenance run continues to change the preview; re-read its ignored ledger and exact head before preparing a release. Main source updates remain authoritative. No whole-preview merge is recommended.
 
 | Priority | Feature IDs | Recommendation and boundary |

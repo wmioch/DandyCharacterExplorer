@@ -1,3 +1,9 @@
+## 2026-11-13 - Brusha painted-Machine and Paint Bucket
+
+- Replaced the old aura with a manual painted-Machine snapshot for player/team Extraction and relative Chance. Paint applies once across Brushas and leaves independent teammate effects intact.
+- Added Paint Bucket's independent Brusha speed snapshot with removal/Toon-change resets. Chance displays retain fractional percentage points. See [scope, sources and acceptance steps](brusha-painted-machine.md) for dependencies and unmodeled mechanics.
+- Added calculator and desktop/mobile control regressions, retaining the isolated validation server and disabled production feedback/analytics.
+
 ## 2026-11-07 - Whispering Flower held items
 
 - Add an explicit Items held selector while Flower is equipped, capped at three items or four for Bassie. Item effects remain independent of inventory, removal preserves the selected count and Toon changes clamp it. Flower toggles once without a redundant tile counter; machine snapshots retain held inventory.
