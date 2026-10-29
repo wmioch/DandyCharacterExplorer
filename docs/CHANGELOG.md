@@ -1,3 +1,7 @@
+## 2026-10-30 - Bobette ability wording
+
+- Updated Precious Packaging's displayed description to match the current ability text, removing its historical cooldown sentence. [Bobette revision273304](https://dandys-world-robloxhorror.fandom.com/wiki/Bobette?oldid=273304), dated October29 and checked October30, explicitly notes that the sentence was removed from the in-game description after the2024 Christmas Event. This is a wording correction, not a cooldown balance change; the eight-second defense, aura modifiers and calculations are unchanged.
+
 ## 2026-10-23 - CI installation time allowance
 
 - Raised the validation job limit from ten to fifteen minutes after [run39847129071](https://github.com/wmioch/DandyCharacterExplorer/actions/runs/39847129071) timed out during browser checks following slow dependency downloads. All validation checks, runner isolation and failure behavior remain required; repository permissions and deployment settings are unchanged.

@@ -156,7 +156,7 @@
       "ability": {
         "id": "bobette_precious_packaging",
         "name": "Precious Packaging",
-        "description": "(Active) This Toon can duck and cover herself into a gift box for 8 seconds, in which she is invincible yet unable to move. Has a Cooldown of 90.",
+        "description": "(Active) This Toon can duck and cover herself into a gift box for 8 seconds, in which she is invincible yet unable to move.",
         "effectType": "defense",
         "targetStat": "invincibility",
         "value": 8.0,
