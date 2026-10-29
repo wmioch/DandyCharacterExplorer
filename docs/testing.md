@@ -31,4 +31,6 @@ Regression boundaries retained:
 - Waxwell's Ignite checkbox controls intrinsic Tired II; no timer is introduced.
 - Party Crashers remains investigation-only until effects and authentic artwork are verified.
 
+The isolated [Brusha painted-Machine candidate](brusha-painted-machine.md) adds relative Chance/Extraction arithmetic, player/team deduplication, independent Shelly stacking, persistent machine snapshots and Paint Bucket speed/reset checks. Desktop/mobile Chromium exercises the actual controls. These checks do not authorize release or validate unrelated preview features.
+
 The separate Azure feedback backend is unaffected. There is no backend contract suite in this change; no live provider writes or credential-backed tests are allowed by frontend validation.

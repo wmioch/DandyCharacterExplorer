@@ -364,6 +364,9 @@ const UI = {
             teamAbilities.forEach(({ ability, toonName, uniqueId }) => {
                 const label = document.createElement('label');
                 label.className = 'ability-checkbox';
+                if (ability.id === 'brusha_artistic_inspiration') {
+                    label.title = 'Checked means extracting from a painted Machine. Multiple Brushas represent the same Machine buff once; Treadmill Machines are excluded.';
+                }
                 
                 const effectText = this._formatTeamAbilityEffect(ability);
                 const isChecked = activeAbilityIds.has(uniqueId) ? 'checked' : '';
@@ -667,7 +670,7 @@ const UI = {
                 // For Skill Check Chance, always show the absolute change (e.g., +25% or -5%)
                 // skillCheckChance values are in decimal form (0.25 = 25%), so we convert the difference to percentage
                 const absoluteChange = final - originalBase;
-                const absoluteChangePercent = Math.round(absoluteChange * 100);
+                const absoluteChangePercent = Number((absoluteChange * 100).toFixed(2));
                 if (absoluteChangePercent !== 0) {
                     modifierDisplay = absoluteChangePercent > 0 ? `+${absoluteChangePercent}%` : `${absoluteChangePercent}%`;
                 } else {
@@ -687,7 +690,7 @@ const UI = {
             // For Skill Check Chance, use the absolute change instead
             if (stat.key === 'skillCheckChance') {
                 const absoluteChange = final - originalBase;
-                const absoluteChangePercent = Math.round(absoluteChange * 100);
+                const absoluteChangePercent = Number((absoluteChange * 100).toFixed(2));
                 modifierClass = absoluteChangePercent > 0 ? 'positive' : (absoluteChangePercent < 0 ? 'negative' : '');
             } else if (stat.key === 'stealth' && base < 0 && percent !== 0) {
                 // A positive factor can lower negative Stealth; color the resulting direction.
@@ -747,8 +750,9 @@ const UI = {
                 }
                 return value.toFixed(decimals);
             };
-            const baseDisplay = stat.isPercentage ? `${(base * 100).toFixed(0)}%` : `${formatValue(base)}${suffix}`;
-            let finalDisplay = stat.isPercentage ? `${(final * 100).toFixed(0)}%` : `${formatValue(final)}${suffix}`;
+            const formatChance = value => `${Number((value * 100).toFixed(2))}%`;
+            const baseDisplay = stat.isPercentage ? formatChance(base) : `${formatValue(base)}${suffix}`;
+            let finalDisplay = stat.isPercentage ? formatChance(final) : `${formatValue(final)}${suffix}`;
             if (panicStats && ['walkSpeed', 'runSpeed'].includes(stat.key)) {
                 finalDisplay += ` <span class="panic-speed" title="Panic speed with Vanity Mirror">(${formatValue(panicStats[stat.key])})</span>`;
             }

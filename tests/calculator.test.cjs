@@ -85,3 +85,59 @@ test('Waxwell Ignite removes intrinsic Tired II without adding a timer', () => {
     e.localStorage.setItem(`ability-${toon.ability.id}-state`, 'true');
     close(stats(e, state).staminaRegen, 2.4);
 });
+
+test('Painted Machines give relative Chance and Extraction without the retired aura penalties', () => {
+    const e = loadEngine(), toon = e.DataLoader.getToon('brusha'), state = scenario(toon);
+    const off = stats(e, state);
+    e.localStorage.setItem(`ability-${toon.ability.id}-state`, 'true');
+    const painted = stats(e, state);
+    close(painted.extractionSpeed, 1.25);
+    close(painted.skillCheckChance, 0.2875);
+    close(painted.skillCheckSize, off.skillCheckSize);
+    close(painted.walkSpeed, 15);
+    close(painted.runSpeed, 25);
+    const machine = e.Calculator.calculateMachineStatsFromState(state);
+    close(machine.default.defaultTime, 36);
+    // Paint is persistent on the Machine, not an expiring 15-second cooldown buff.
+    assert.equal(e.Calculator._getTimedMachineAbilityItems(toon, []).length, 0);
+    close(e.Calculator.calculateStatsFromState(e.Calculator._cloneCalculationState(state)).final.skillCheckChance, 0.2875);
+});
+
+test('One painted Machine applies once across player and teammates while Shelly remains independent', () => {
+    const e = loadEngine(), brusha = e.DataLoader.getToon('brusha');
+    const shelly = e.DataLoader.getToon('shelly').ability;
+    const state = scenario(e.DataLoader.getToon('poppy'), { activeAbilities: [brusha.ability, brusha.ability] });
+    close(stats(e, state).extractionSpeed, 1.25);
+    close(stats(e, state).skillCheckChance, 0.2875);
+    state.selectedToon = brusha;
+    e.localStorage.setItem(`ability-${brusha.ability.id}-state`, 'true');
+    close(stats(e, state).extractionSpeed, 1.25);
+    state.activeAbilities.push(shelly, shelly);
+    close(stats(e, state).extractionSpeed, 1.25 * 1.75 * 1.75);
+    e.localStorage.setItem(`ability-${brusha.ability.id}-state`, 'false');
+    close(stats(e, state).extractionSpeed, 1.25 * 1.75 * 1.75);
+});
+
+test('Paint Bucket speed is a Brusha-only independent snapshot; ordinary flat Chance applies first', () => {
+    const e = loadEngine(), toon = e.DataLoader.getToon('brusha');
+    const state = scenario(toon, { equippedTrinkets: [e.DataLoader.getTrinket('paint_bucket')], paintBucketBoost: true });
+    close(stats(e, state).walkSpeed, 18.75);
+    close(stats(e, state).runSpeed, 31.25);
+    close(stats(e, state).extractionSpeed, 1);
+    close(stats(e, state).skillCheckChance, 0.35);
+    e.localStorage.setItem(`ability-${toon.ability.id}-state`, 'true');
+    close(stats(e, state).skillCheckChance, 0.4025);
+    close(stats(e, state).walkSpeed, 18.75);
+    const cloned = e.Calculator._cloneCalculationState(state);
+    assert.equal(cloned.paintBucketBoost, true);
+    close(e.Calculator.calculateStatsFromState(cloned).final.walkSpeed, 18.75);
+    state.paintBucketBoost = false;
+    close(stats(e, state).walkSpeed, 15);
+    state.paintBucketBoost = true;
+    state.selectedToon = e.DataLoader.getToon('poppy');
+    close(stats(e, state).walkSpeed, 15);
+    close(stats(e, state).skillCheckChance, 0.35);
+    state.selectedToon = toon;
+    state.equippedTrinkets = [];
+    close(stats(e, state).walkSpeed, 15);
+});

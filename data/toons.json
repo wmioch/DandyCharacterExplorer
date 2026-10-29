@@ -282,23 +282,23 @@
       "ability": {
         "id": "brusha_artistic_inspiration",
         "name": "Artistic Inspiration",
-        "description": "(Toggle) Enter Painting Mode to inspire nearby Toons with a 50% Skill Check boost while they remain in your circle. This Toon moves 25% slower while in Painting Mode. Has a cooldown of 5.",
+        "description": "(Active) Paint a nearby Machine to give extracting Toons, including Brusha, 25% faster Extraction and a 15% relative Skill Check chance increase (25% becomes 28.75%). Has a cooldown of 15. Check this box while extracting from a painted Machine; the buff does not affect Treadmill Machines.",
         "effectType": "teamBuff",
-        "targetStat": "skillCheckAmount",
-        "value": 0.5,
+        "targetStat": "extractionSpeed",
+        "value": 0.25,
         "applicationType": "multiplicative",
-        "affectsSelf": false,
+        "affectsSelf": true,
         "stackable": false,
         "hasToggle": true,
         "playerEffect": {
-          "movementSpeed": -0.25,
+          "extractionSpeed": 0.25,
+          "skillCheckChance": 0.15,
           "applicationType": "multiplicative"
         },
         "teamEffect": {
-          "skillCheckSize": 0.5,
-          "skillCheckChance": 0.5,
-          "skillCheckSizeApplicationType": "multiplicative",
-          "skillCheckChanceApplicationType": "additive"
+          "extractionSpeed": 0.25,
+          "skillCheckChance": 0.15,
+          "applicationType": "multiplicative"
         }
       },
       "conditionalStats": null

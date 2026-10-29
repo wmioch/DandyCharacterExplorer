@@ -1,3 +1,9 @@
+## 2026-10-30 - Brusha painted-Machine candidate (release pending)
+
+- Replaced the old aura with a manual painted-Machine snapshot for player/team Extraction and relative Chance. Paint applies once across Brushas and leaves independent teammate effects intact.
+- Added Paint Bucket's independent Brusha speed snapshot with removal/Toon-change resets. Chance displays retain fractional percentage points. See [scope, sources and acceptance steps](brusha-painted-machine.md) for dependencies and unmodeled mechanics. This candidate requires explicit release approval.
+- Added calculator and desktop/mobile control regressions, retaining the isolated validation server and disabled production feedback/analytics.
+
 ## 2026-10-30 - Ribecca immunity qualification
 
 - Qualified The Undead's description to avoid claiming universal immunity and name the Bite-sized! exception. [Ribecca revision273039](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca?oldid=273039), dated October28 and checked October30, explicitly excludes that door effect and its team counterpart. The four supported debuff controls and calculations are unchanged; Bite-sized!, replacement rewards and machine modifiers are not simulated.
