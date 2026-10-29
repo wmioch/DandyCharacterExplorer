@@ -1051,7 +1051,7 @@
     {
       "id": "ribecca",
       "name": "Ribecca",
-      "description": "Ribecca is a skeleton Toon who is immune to all applied debuffs.",
+      "description": "Ribecca is a skeleton Toon who resists most applied debuffs.",
       "baseStats": {
         "walkSpeed": 15,
         "runSpeed": 25,
@@ -1073,7 +1073,7 @@
       "ability": {
         "id": "ribecca_the_undead",
         "name": "The Undead",
-        "description": "(Passive) Ribecca is immune to applied debuffs and non-trinket negative modifiers. Blocking one grants a random stat buff for 10 seconds. This explorer blocks selected debuffs; replacement buffs and machine modifiers are not simulated.",
+        "description": "(Passive) Ribecca is immune to most applied debuffs and non-trinket negative modifiers, with exceptions such as Bite-sized! Blocking an eligible effect grants a random stat buff for 10 seconds. This explorer blocks selected debuffs; replacement buffs, machine modifiers and Bite-sized! are not simulated.",
         "effectType": "immunity",
         "targetStat": "debuffImmunity",
         "value": 1.0,

@@ -1,3 +1,7 @@
+## 2026-10-30 - Ribecca immunity qualification
+
+- Qualified The Undead's description to avoid claiming universal immunity and name the Bite-sized! exception. [Ribecca revision273039](https://dandys-world-robloxhorror.fandom.com/wiki/Ribecca?oldid=273039), dated October28 and checked October30, explicitly excludes that door effect and its team counterpart. The four supported debuff controls and calculations are unchanged; Bite-sized!, replacement rewards and machine modifiers are not simulated.
+
 ## 2026-10-30 - Bobette ability wording
 
 - Updated Precious Packaging's displayed description to match the current ability text, removing its historical cooldown sentence. [Bobette revision273304](https://dandys-world-robloxhorror.fandom.com/wiki/Bobette?oldid=273304), dated October29 and checked October30, explicitly notes that the sentence was removed from the in-game description after the2024 Christmas Event. This is a wording correction, not a cooldown balance change; the eight-second defense, aura modifiers and calculations are unchanged.
