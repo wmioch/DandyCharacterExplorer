@@ -664,34 +664,14 @@ const UI = {
                 }
             }
             
-            // Special handling for Skill Check Chance (applies directly to base, not as modifier)
-            let modifierDisplay = stat.noModifier ? '-' : (percent > 0 ? `+${percent}%` : `${percent}%`);
-            if (stat.key === 'skillCheckChance') {
-                // For Skill Check Chance, always show the absolute change (e.g., +25% or -5%)
-                // skillCheckChance values are in decimal form (0.25 = 25%), so we convert the difference to percentage
-                const absoluteChange = final - originalBase;
-                const absoluteChangePercent = Number((absoluteChange * 100).toFixed(2));
-                if (absoluteChangePercent !== 0) {
-                    modifierDisplay = absoluteChangePercent > 0 ? `+${absoluteChangePercent}%` : `${absoluteChangePercent}%`;
-                } else {
-                    modifierDisplay = '-';
-                }
-            } 
-            // For other stats, ONLY show percentage modifiers. Base stat changes should not appear in MOD column.
-            else if (percent !== 0) {
-                // Show the percentage modifier
-                modifierDisplay = percent > 0 ? `+${percent}%` : `${percent}%`;
-            } else {
-                // No percentage modifier - show as "-"
-                modifierDisplay = '-';
-            }
-            
+            let modifierDisplay = percent === 0 ? '-' : (percent > 0 ? `+${percent}%` : `${percent}%`);
             let modifierClass = percent > 0 ? 'positive' : (percent < 0 ? 'negative' : '');
-            // For Skill Check Chance, use the absolute change instead
             if (stat.key === 'skillCheckChance') {
-                const absoluteChange = final - originalBase;
-                const absoluteChangePercent = Number((absoluteChange * 100).toFixed(2));
-                modifierClass = absoluteChangePercent > 0 ? 'positive' : (absoluteChangePercent < 0 ? 'negative' : '');
+                // Express the change from the displayed BASE as percentage points.
+                const displayedBase = advancedMode ? originalBase : base;
+                const change = Number(((final - displayedBase) * 100).toFixed(2));
+                modifierDisplay = change === 0 ? '-' : `${change > 0 ? '+' : ''}${change}%`;
+                modifierClass = change > 0 ? 'positive' : (change < 0 ? 'negative' : '');
             } else if (stat.key === 'stealth' && base < 0 && percent !== 0) {
                 // A positive factor can lower negative Stealth; color the resulting direction.
                 modifierClass = final > base ? 'positive' : (final < base ? 'negative' : '');

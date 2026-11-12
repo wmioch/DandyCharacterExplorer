@@ -134,7 +134,13 @@ test('Paint Bucket speed is independent of paint and resets on removal or Toon c
     await expect(finalCell(page, 'Walk Speed')).toHaveText('18.75');
     await expect(finalCell(page, 'Run Speed')).toHaveText('31.25');
     await expect(finalCell(page, 'Extraction Speed')).toHaveText('1.00');
+    const chance = row(page, 'Skill Check Chance');
+    await expect(chance.locator('.stat-base')).toHaveText('35%');
+    await expect(chance.locator('.stat-modifier')).toHaveText('-');
+    await expect(finalCell(page, 'Skill Check Chance')).toHaveText('35%');
     await page.locator('#ability-toggle-brusha_artistic_inspiration').check();
+    await expect(chance.locator('.stat-base')).toHaveText('35%');
+    await expect(chance.locator('.stat-modifier')).toHaveText('+5.25%');
     await expect(finalCell(page, 'Skill Check Chance')).toHaveText('40.25%');
     await expect(finalCell(page, 'Walk Speed')).toHaveText('18.75');
     await bucket.click({ button: 'right' });
