@@ -109,7 +109,7 @@ test('Connie and Squirm remain neutral N/A through sorting and Suppression', asy
         await expect(twisted.locator('.speed-value').first()).toHaveAttribute('class', 'speed-value');
     }
     const squirm = table.getByRole('row').filter({ hasText: 'Twisted Squirm' });
-    await expect(squirm.locator('img')).toHaveAttribute('src', /squirm\.png$/);
+    await expect(squirm.locator('.twisted-image')).toHaveCSS('background-image', /squirm\.png/);
     await page.locator('#sort-name').click();
     await page.locator('[data-tab="cards-debuffs"]').click();
     await page.locator('[data-card="suppression"]').click();
