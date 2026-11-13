@@ -23,6 +23,10 @@ Source scopes checked October16: [Whispering Flower254343](https://dandys-world-
 - Advanced turns green and enables in-place BASE editing. Invalid values are rejected; empty fields restore defaults. Disabling asks for confirmation: Cancel preserves mode and custom numbers; OK clears them. Changing Toon or reloading clears overrides. The first activation shows tutorial slide six, immediately before Feedback.
 - Dandy and Dyle have pale red portraits, a DEV badge and developer-only descriptions. They have five stars in every stat and 99 internal health (displayed compactly as heart × 99). Sources distinguish this from the game's three visible hearts. Their passives have no invented stat effect.
 
+## Twisted Connie and Squirm
+
+Open Twisted Speed and sort by name to find Connie and Squirm. Both rows show neutral N/A. Hover a speed cell for Connie’s possessed-Machine attack or Squirm’s ceiling grab. Squirm uses the [game render](https://dandys-world-robloxhorror.fandom.com/wiki/File:Twisted_Squirm_Render.png). Sort by speed, change Toon and toggle Suppression to confirm the visible cells keep their explanations. Waxwell retains its own avoidance tooltip, and numeric chase comparisons remain available for other Twisteds. The table compares chase speeds; Connie’s roaming speed and Squirm’s relocation have no comparison value.
+
 ## Twisted Dyle maximum-speed tooltip
 
 Twisted profile notes also appear on other records. Hover Glisten's name, portrait and speed cells: his24.0 Normal,28.8 Panic and27.6 suppressed chase comparisons are qualified as enraged; he cannot attack while passive. Gourdy's existing notes qualify his enraged profile and stationary passive state. Change Toon, toggle Suppression and sort the table; the visible speed-cell qualification should persist. This does not add passive-state controls or change speeds.

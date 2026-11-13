@@ -95,6 +95,34 @@ test('Dyle speed cells retain maximum-profile qualification after sorting', asyn
     await expect(dyle.locator('.speed-value').first()).toHaveAttribute('title', /highest|maximum/i);
 });
 
+test('Connie and Squirm remain neutral N/A through sorting and Suppression', async ({ page }) => {
+    const table = page.locator('.twisted-table-compact tbody');
+    const profiles = [
+        ['Twisted Connie', /possessed Machines/i],
+        ['Twisted Squirm', /ceiling-bound/i]
+    ];
+    for (const [name, explanation] of profiles) {
+        const twisted = table.getByRole('row').filter({ hasText: name });
+        await expect(twisted).toHaveCount(1);
+        await expect(twisted.locator('.speed-value')).toHaveText(['N/A', 'N/A', 'N/A']);
+        await expect(twisted.locator('.speed-value').first()).toHaveAttribute('title', explanation);
+        await expect(twisted.locator('.speed-value').first()).toHaveAttribute('class', 'speed-value');
+    }
+    const squirm = table.getByRole('row').filter({ hasText: 'Twisted Squirm' });
+    await expect(squirm.locator('img')).toHaveAttribute('src', /squirm\.png$/);
+    await page.locator('#sort-name').click();
+    await page.locator('[data-tab="cards-debuffs"]').click();
+    await page.locator('[data-card="suppression"]').click();
+    await page.locator('[data-tab="twisted-speed"]').click();
+    await page.locator('#sort-speed').click();
+    await page.locator('[data-toon-id="poppy"]').click();
+    for (const [name, explanation] of profiles) {
+        const twisted = table.getByRole('row').filter({ hasText: name });
+        await expect(twisted.locator('.speed-value:visible')).toHaveText(['N/A', 'N/A']);
+        await expect(twisted.locator('.speed-value:visible').last()).toHaveAttribute('title', explanation);
+    }
+});
+
 test('Brusha paint applies once through player and team controls with precise Chance', async ({ page }) => {
     await page.locator('[data-toon-id="brusha"]').click();
     const paint = page.locator('#ability-toggle-brusha_artistic_inspiration');

@@ -1,3 +1,8 @@
+## 2026-11-14 - Twisted Connie and Squirm comparisons
+
+- Connie and Squirm show neutral N/A across the speed comparison. Squirm joins the table with his sourced portrait. Connie’s tooltip explains the possessed-Machine attack, and Squirm’s explains his ceiling grab. Sorting and Suppression preserve both rows and their explanations.
+- [Twisted Connie](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Connie?oldid=275849) and [Twisted Squirm](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Squirm?oldid=271495) support the comparison scope. See [manual checks](preview-controls.md#twisted-connie-and-squirm).
+
 ## 2026-11-13 - Brusha painted-Machine and Paint Bucket
 
 - Replaced the old aura with a manual painted-Machine snapshot for player/team Extraction and relative Chance. Paint applies once across Brushas and leaves independent teammate effects intact.

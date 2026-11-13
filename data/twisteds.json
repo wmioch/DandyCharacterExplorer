@@ -205,18 +205,20 @@
       "id": "twisted_connie",
       "name": "Twisted Connie",
       "rarity": "Uncommon",
+      "noChase": true,
+      "noChaseTooltip": "Does not chase Toons; attacks from possessed Machines cannot be outrun.",
       "speeds": {
         "normal": {
-          "walk": 8.0,
-          "run": 8.0
+          "walk": null,
+          "run": null
         },
         "panic": {
-          "walk": 10.0,
-          "run": 10.0
+          "walk": null,
+          "run": null
         },
         "panicSuppressed": {
-          "walk": 9.6,
-          "run": 9.6
+          "walk": null,
+          "run": null
         }
       },
       "image": "twisteds/connie.png",
@@ -848,12 +850,35 @@
       },
       "image": "twisteds/waxwell.webp",
       "description": "Avoids Toons rather than chasing them. His trail supports other Twisteds. Roaming speeds await source verification."
+    },
+    {
+      "id": "twisted_squirm",
+      "name": "Twisted Squirm",
+      "rarity": "Rare",
+      "noChase": true,
+      "speeds": {
+        "normal": {
+          "walk": null,
+          "run": null
+        },
+        "panic": {
+          "walk": null,
+          "run": null
+        },
+        "panicSuppressed": {
+          "walk": null,
+          "run": null
+        }
+      },
+      "noChaseTooltip": "Ceiling-bound; no ground walk or chase speed. Strikes nearby Toons and then relocates.",
+      "description": "Ceiling-bound Rare Twisted. A nearby Toon triggers a grab attempt after a 1.5-second strike delay; Squirm then relocates. No ground chase speed applies.",
+      "image": "twisteds/squirm.png"
     }
   ],
   "metadata": {
     "source": "Dandy's World Wiki",
     "url": "https://dandys-world-robloxhorror.fandom.com/wiki/Twisteds",
     "scraped_at": "2025-10-28 16:30:42",
-    "total_count": 42
+    "total_count": 43
   }
 }
