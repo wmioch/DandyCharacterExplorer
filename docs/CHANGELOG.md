@@ -1,3 +1,7 @@
+## 2026-11-14 - Alarm and Pull Toy speed comparisons
+
+- Alarm now affects the opening Panic snapshot and Pull Toy affects the floor-opening snapshot. The stat table labels both ten-second boosts, and Twisted Speed adds a floor-opening column when Pull Toy is equipped. See [manual checks](preview-controls.md#alarm-and-pull-toy).
+
 ## 2026-11-14 - Twisted Connie and Squirm comparisons
 
 - Connie and Squirm show neutral N/A across the speed comparison. Squirm joins the table with his sourced portrait. Connie’s tooltip explains the possessed-Machine attack, and Squirm’s explains his ceiling grab. Sorting and Suppression preserve both rows and their explanations.

@@ -1369,8 +1369,10 @@ const App = {
         // Update table (pass pre-sorted array)
         const stats = this.getCalculatedStats();
         const panicStats = this.getCalculatedStats(true);
+        const hasPullToy = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'pull_toy');
+        const openingStats = hasPullToy ? this.getCalculatedStats(false, true) : null;
         if (stats) {
-            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true, panicStats?.final, this.state.cards.suppression);
+            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true, panicStats?.final, this.state.cards.suppression, openingStats?.final);
         } else {
             UI.updateTwistedTable(twisteds, 0, 0, true);
         }
@@ -1399,7 +1401,7 @@ const App = {
     /**
      * Get calculated stats for current state
      */
-    getCalculatedStats(panicMode = false) {
+    getCalculatedStats(panicMode = false, floorOpening = false) {
         if (!this.state.selectedToon) {
             return null;
         }
@@ -1428,7 +1430,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode, heldItemCount: this.state.heldItemCount, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards, paintBucketBoost: this.state.paintBucketBoost }
+            { floorParity: this.state.floorParity, panicMode, floorOpening, heldItemCount: this.state.heldItemCount, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards, paintBucketBoost: this.state.paintBucketBoost }
         );
     },
 
@@ -1454,7 +1456,14 @@ const App = {
         fourthSlot.disabled = fourthSlot.hidden;
         heldItemSelect.value = String(this.state.heldItemCount);
         const hasMirror = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'vanity_mirror');
-        const panicStats = hasMirror ? this.getCalculatedStats(true) : stats;
+        const hasAlarm = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'alarm');
+        const hasPullToy = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'pull_toy');
+        const panicStats = hasMirror || hasAlarm ? this.getCalculatedStats(true) : null;
+        const openingStats = hasPullToy ? this.getCalculatedStats(false, true) : null;
+        document.getElementById('alarm-stats-note').hidden = !hasAlarm;
+        document.getElementById('alarm-twisted-note').hidden = !hasAlarm;
+        document.getElementById('pull-toy-stats-note').hidden = !hasPullToy;
+        document.getElementById('pull-toy-twisted-note').hidden = !hasPullToy;
         const immune = this.state.selectedToon?.ability?.targetStat === 'debuffImmunity';
         document.getElementById('debuff-immunity-note').hidden = !immune;
         document.getElementById('train-whistle-immunity-note').hidden = !this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'train_whistle');
@@ -1476,7 +1485,7 @@ const App = {
         
         if (stats) {
             // Update stats table (pass the selected toon for star ratings and conditional stat set)
-            UI.updateStatsDisplay(stats, this.state.selectedToon, this.state.selectedConditionalStat, this.state.advancedMode, hasMirror ? panicStats?.final : null);
+            UI.updateStatsDisplay(stats, this.state.selectedToon, this.state.selectedConditionalStat, this.state.advancedMode, panicStats?.final, openingStats?.final);
             console.log('🔍 TOON STATS - Extraction Speed:', stats.final.extractionSpeed);
             console.log('   Full stats object:', stats);
             
@@ -1527,7 +1536,7 @@ const App = {
                 }
             }
             
-            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true, panicStats?.final, this.state.cards.suppression);
+            UI.updateTwistedTable(twisteds, stats.final.walkSpeed, stats.final.runSpeed, true, panicStats?.final, this.state.cards.suppression, openingStats?.final);
         }
 
         // Sync trinket UI selections after machine calculation so Stress Ball can show max stacks.

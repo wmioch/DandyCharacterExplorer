@@ -576,7 +576,7 @@ const UI = {
     /**
      * Update stats display
      */
-    updateStatsDisplay(statsResult, toon = null, conditionalStatSet = null, advancedMode = false, panicStats = null) {
+    updateStatsDisplay(statsResult, toon = null, conditionalStatSet = null, advancedMode = false, panicStats = null, openingStats = null) {
         if (!statsResult) return;
 
         const tbody = document.querySelector('.stats-table tbody');
@@ -734,9 +734,13 @@ const UI = {
             const baseDisplay = stat.isPercentage ? formatChance(base) : `${formatValue(base)}${suffix}`;
             let finalDisplay = stat.isPercentage ? formatChance(final) : `${formatValue(final)}${suffix}`;
             if (panicStats && ['walkSpeed', 'runSpeed'].includes(stat.key)) {
-                finalDisplay += ` <span class="panic-speed" title="Panic speed with Vanity Mirror">(${formatValue(panicStats[stat.key])})</span>`;
+                finalDisplay += ` <span class="panic-speed" title="Panic speed with selected trinkets">(${formatValue(panicStats[stat.key])})</span>`;
             }
             
+            if (openingStats && ['walkSpeed', 'runSpeed'].includes(stat.key)) {
+                finalDisplay += ` <span class="opening-speed" title="Pull Toy speed for the first 10 seconds of a floor">[${formatValue(openingStats[stat.key])}]</span>`;
+            }
+
             return `
                 <tr class="stat-group-${stat.group}">
                     <td class="stat-name">${stat.name}</td>
@@ -839,7 +843,7 @@ const UI = {
     /**
      * Update twisted comparison table with images
      */
-    updateTwistedTable(twisteds, playerWalkSpeed, playerRunSpeed, preSorted = false, panicStats = null, suppression = false) {
+    updateTwistedTable(twisteds, playerWalkSpeed, playerRunSpeed, preSorted = false, panicStats = null, suppression = false, openingStats = null) {
         const panicWalk = panicStats?.walkSpeed ?? playerWalkSpeed;
         const panicRun = panicStats?.runSpeed ?? playerRunSpeed;
         const tbody = document.querySelector('.twisted-table-compact tbody');
@@ -847,6 +851,7 @@ const UI = {
         const headers = document.querySelectorAll('.twisted-table-compact thead th');
         headers[2].textContent = suppression ? 'Panic + Sup' : 'Panic';
         headers[3].hidden = suppression;
+        headers[4].hidden = !openingStats;
         
         // Use provided array if already sorted, otherwise sort by Normal Run speed
         const sortedTwisteds = preSorted ? twisteds : [...twisteds].sort((a, b) => {
@@ -861,7 +866,8 @@ const UI = {
         
         // Check if we can do a fast update (same twisteds in same order, just different colors)
         const existingRows = tbody.querySelectorAll('tr');
-        let canFastUpdate = existingRows.length === sortedTwisteds.length;
+        let canFastUpdate = existingRows.length === sortedTwisteds.length
+            && existingRows[0]?.querySelectorAll('.speed-value').length === (openingStats ? 4 : 3);
         
         // Also verify that the twisteds are in the same order
         if (canFastUpdate) {
@@ -899,12 +905,21 @@ const UI = {
                     { value: panicSpeeds.run, color: colors.panicRun },
                     { value: speeds.panicSuppressed.run, color: colors.panicSuppRun }
                 ];
+                if (openingStats) {
+                    speedData.push({
+                        value: speeds.normal.run,
+                        color: Calculator.compareTwistedSpeed(openingStats.walkSpeed, openingStats.runSpeed, speeds.normal.run)
+                    });
+                }
                 
                 speedCells.forEach((cell, i) => {
                     const { value, color } = speedData[i];
                     cell.hidden = suppression && i === 2;
                     cell.textContent = stationary ? 'N/A' : value.toFixed(1);
-                    cell.title = stationary ? (twisted.noChase ? (twisted.noChaseTooltip || 'Avoids Toons; does not chase. Roaming speeds await source verification.') : 'Stationary; no chase speed.') : speedProfileNote;
+                    const comparisonNote = i === 3
+                        ? [speedProfileNote, 'Uses the Toon’s speed during the first 10 seconds of the floor.'].filter(Boolean).join(' ')
+                        : speedProfileNote;
+                    cell.title = stationary ? (twisted.noChase ? (twisted.noChaseTooltip || 'Avoids Toons; does not chase. Roaming speeds await source verification.') : 'Stationary; no chase speed.') : comparisonNote;
                     // Remove all color classes and add the new one
                     cell.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 });
@@ -973,13 +988,22 @@ const UI = {
                 { value: panicSpeeds.run, color: colors.panicRun },
                 { value: speeds.panicSuppressed.run, color: colors.panicSuppRun }
             ];
+            if (openingStats) {
+                speedValues.push({
+                    value: speeds.normal.run,
+                    color: Calculator.compareTwistedSpeed(openingStats.walkSpeed, openingStats.runSpeed, speeds.normal.run)
+                });
+            }
             
             speedValues.forEach(({ value, color }, i) => {
                 const td = document.createElement('td');
                 td.hidden = suppression && i === 2;
                 td.className = stationary ? 'speed-value' : `speed-value ${color}`;
                 td.textContent = stationary ? 'N/A' : value.toFixed(1);
-                td.title = stationary ? (twisted.noChase ? (twisted.noChaseTooltip || 'Avoids Toons; does not chase. Roaming speeds await source verification.') : 'Stationary; no chase speed.') : speedProfileNote;
+                const comparisonNote = i === 3
+                    ? [speedProfileNote, 'Uses the Toon’s speed during the first 10 seconds of the floor.'].filter(Boolean).join(' ')
+                    : speedProfileNote;
+                td.title = stationary ? (twisted.noChase ? (twisted.noChaseTooltip || 'Avoids Toons; does not chase. Roaming speeds await source verification.') : 'Stationary; no chase speed.') : comparisonNote;
                 row.appendChild(td);
             });
             

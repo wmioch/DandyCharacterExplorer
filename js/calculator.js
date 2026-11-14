@@ -33,7 +33,8 @@ const Calculator = {
                     if (floorBonusApplied) return false;
                     floorBonusApplied = true;
                 }
-                if (trinket.id === 'vanity_mirror') return scenario.panicMode === true;
+                if (trinket.id === 'vanity_mirror' || trinket.id === 'alarm') return scenario.panicMode === true;
+                if (trinket.id === 'pull_toy') return scenario.floorOpening === true;
                 return true;
             });
         }

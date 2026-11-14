@@ -46,6 +46,7 @@
 .advanced-tutorial-example > span { background: #287342; padding: 12px; border-radius: 8px; }
 .tutorial-base-example { border: 1px solid #65cc83; padding: 6px; }
 .panic-speed { white-space: nowrap; color: #e1ce61; }
+.opening-speed { white-space: nowrap; color: #9bd8b5; }
 .developer-only .toon-grid-image, .selected-toon-image.developer-only { background-color: #efb0b0; }
 .developer-only .toon-grid-image::after { content: 'DEV'; position: absolute; bottom: 1px; left: 2px; padding: 1px 3px; border-radius: 2px; background: #732a36; color: #fff; font: bold 9px sans-serif; }
 .developer-only .toon-grid-image { position: relative; }

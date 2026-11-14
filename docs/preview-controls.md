@@ -23,6 +23,12 @@ Source scopes checked October16: [Whispering Flower254343](https://dandys-world-
 - Advanced turns green and enables in-place BASE editing. Invalid values are rejected; empty fields restore defaults. Disabling asks for confirmation: Cancel preserves mode and custom numbers; OK clears them. Changing Toon or reloading clears overrides. The first activation shows tutorial slide six, immediately before Feedback.
 - Dandy and Dyle have pale red portraits, a DEV badge and developer-only descriptions. They have five stars in every stat and 99 internal health (displayed compactly as heart × 99). Sources distinguish this from the game's three visible hearts. Their passives have no invented stat effect.
 
+## Alarm and Pull Toy
+
+Select Boxten with no other buffs. Alarm keeps normal Walk and Run at 15/25 and shows (18.75)/(31.25) for the first ten seconds of Panic. Equip Vanity Mirror and remove Alarm to compare the rest of Panic with Vanity Mirror's Run bonus still active. Pull Toy gives [18.75]/[31.25] for the first ten seconds of the floor and adds the Start 10s column to Twisted Speed. Equip both trinkets to see the floor-opening and opening Panic values side by side. Sort by name and speed and toggle Suppression. Start 10s stays visible until Pull Toy is removed. These are static comparisons.
+
+The [Alarm entry](https://dandys-world-robloxhorror.fandom.com/wiki/Alarm?oldid=259672) and [Pull Toy entry](https://dandys-world-robloxhorror.fandom.com/wiki/Pull_Toy?oldid=268016) document the 25% Walk and Run bonuses and their ten-second durations.
+
 ## Twisted Connie and Squirm
 
 Open Twisted Speed and sort by name to find Connie and Squirm. Both rows show neutral N/A. Hover a speed cell for Connie’s possessed-Machine attack or Squirm’s ceiling grab. Squirm uses the [game render](https://dandys-world-robloxhorror.fandom.com/wiki/File:Twisted_Squirm_Render.png). Sort by speed, change Toon and toggle Suppression to confirm the visible cells keep their explanations. Waxwell retains its own avoidance tooltip, and numeric chase comparisons remain available for other Twisteds. The table compares chase speeds; Connie’s roaming speed and Squirm’s relocation have no comparison value.

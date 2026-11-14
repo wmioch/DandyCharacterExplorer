@@ -115,7 +115,7 @@ Lucky Coin's selected Skill Check roll applies +12% window size and +12 percenta
 
 For negative-base Stealth, the MOD color follows the final value's direction: a more negative result is red and a less negative result is green. The displayed percentage remains the existing modifier factor; calculations are unchanged.
 
-Razzle & Dazzle uses its own conditional floor selector. Other Toons receive one floor-trinket bonus even with both equipped. Normal and Panic results are calculated separately for Vanity Mirror; Panic comparison columns receive the Panic result, including after sorting.
+Razzle & Dazzle uses its own conditional floor selector. Other Toons receive one floor-trinket bonus even with both equipped. Normal, Panic and floor-opening speeds are calculated separately. Alarm and Vanity Mirror apply to the opening Panic snapshot, and Pull Toy applies to the floor-opening snapshot. Normal values and the comparison after sorting use the same scenarios.
 
 Toons may specify `image_name` and `developerOnly`. Dandy/Dyle use pale red portraits with DEV labels and compact99-health display. Custom health edits support1–99 integer hearts.
 

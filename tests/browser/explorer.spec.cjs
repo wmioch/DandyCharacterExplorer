@@ -86,6 +86,43 @@ test('Cards, Slow and machine estimates respond through real controls', async ({
     await expect(page.locator('#default-base-time')).toHaveText('40s');
 });
 
+test('Alarm and Pull Toy apply in distinct speed snapshots', async ({ page }) => {
+    const alarm = page.locator('[data-trinket-id="alarm"]');
+    const pullToy = page.locator('[data-trinket-id="pull_toy"]');
+    const mirror = page.locator('[data-trinket-id="vanity_mirror"]');
+    const run = finalCell(page, 'Run Speed');
+    const start = page.getByRole('columnheader', { name: 'Start 10s' });
+    await alarm.click();
+    await expect(run).toHaveText('25.0 (31.25)');
+    await expect(finalCell(page, 'Walk Speed')).toHaveText('15.0 (18.75)');
+    await expect(page.locator('#alarm-twisted-note')).toBeVisible();
+    await mirror.click();
+    await alarm.click();
+    await expect(run).toHaveText('25.0 (32.5)');
+    await expect(page.locator('#alarm-twisted-note')).toBeHidden();
+    await mirror.click();
+
+    await pullToy.click();
+    await alarm.click();
+    await expect(run).toHaveText('25.0 (31.25) [31.25]');
+    await expect(start).toBeVisible();
+    const squirm = page.locator('.twisted-table-compact tbody tr').filter({ hasText: 'Twisted Squirm' });
+    await expect(squirm.locator('.speed-value:visible')).toHaveText(['N/A', 'N/A', 'N/A', 'N/A']);
+    await page.locator('#sort-name').click();
+    await page.locator('[data-tab="cards-debuffs"]').click();
+    await page.locator('[data-card="suppression"]').click();
+    await page.locator('[data-tab="twisted-speed"]').click();
+    await page.locator('#sort-speed').click();
+    await expect(start).toBeVisible();
+    await expect(squirm.locator('.speed-value:visible')).toHaveText(['N/A', 'N/A', 'N/A']);
+    await expect(squirm.locator('.speed-value:visible').last()).toHaveAttribute('title', /ceiling-bound/i);
+    await pullToy.click();
+    await expect(start).toBeHidden();
+    await expect(run).toHaveText('25.0 (31.25)');
+    await alarm.click();
+    await expect(run).toHaveText('25.0');
+});
+
 test('Dyle speed cells retain maximum-profile qualification after sorting', async ({ page }) => {
     await page.locator('#sort-name').click();
     const dyle = page.locator('.twisted-table-compact tbody tr').filter({ hasText: 'Twisted Dyle' });
