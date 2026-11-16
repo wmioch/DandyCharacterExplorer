@@ -13,6 +13,29 @@ test.beforeEach(async ({ page }) => {
 const row = (page, label) => page.locator('.stats-table tbody tr').filter({ has: page.locator('td:first-child', { hasText: new RegExp(`^${label}$`) }) });
 const finalCell = (page, label) => row(page, label).locator('td').last();
 
+test('Star Pillow applies extraction regeneration and resets when removed', async ({ page }) => {
+    await page.locator('[data-toon-id="poppy"]').click();
+    const pillow = page.locator('[data-trinket-id="star_pillow"]');
+    const extracting = page.getByRole('checkbox', { name: 'Extracting from a Machine' });
+    const regeneration = finalCell(page, 'Stamina Regeneration');
+    await expect(extracting).toBeHidden();
+    await pillow.click();
+    await expect(extracting).toBeVisible();
+    await expect(extracting).not.toBeChecked();
+    await expect(regeneration).toHaveText('2.4/s');
+    await extracting.check();
+    await expect(regeneration).toHaveText('4.8/s');
+    await extracting.uncheck();
+    await expect(regeneration).toHaveText('2.4/s');
+    await extracting.check();
+    await pillow.click();
+    await expect(extracting).toBeHidden();
+    await expect(regeneration).toHaveText('2.4/s');
+    await pillow.click();
+    await expect(extracting).not.toBeChecked();
+    await expect(regeneration).toHaveText('2.4/s');
+});
+
 test('Flower inventory control keeps held items separate from consumed buffs and trinket selection', async ({ page }, testInfo) => {
     await expect(page.locator('#held-items-container')).toBeHidden();
     const flower = page.locator('[data-trinket-id="whispering_flower"]');

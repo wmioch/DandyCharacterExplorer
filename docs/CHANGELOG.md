@@ -1,3 +1,7 @@
+## 2026-11-16 - Star Pillow extraction
+
+- Star Pillow adds a manual extraction checkbox. Poppy’s Stamina Regeneration reads 2.4/s with the checkbox clear and 4.8/s with it selected. Removing Star Pillow clears the selection. See the [Star Pillow checks](preview-controls.md#star-pillow-extraction).
+
 ## 2026-11-14 - Alarm and Pull Toy speed comparisons
 
 - Alarm now affects the opening Panic snapshot and Pull Toy affects the floor-opening snapshot. The stat table labels both ten-second boosts, and Twisted Speed adds a floor-opening column when Pull Toy is equipped. See [manual checks](preview-controls.md#alarm-and-pull-toy).

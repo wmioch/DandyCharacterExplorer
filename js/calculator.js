@@ -35,6 +35,7 @@ const Calculator = {
                 }
                 if (trinket.id === 'vanity_mirror' || trinket.id === 'alarm') return scenario.panicMode === true;
                 if (trinket.id === 'pull_toy') return scenario.floorOpening === true;
+                if (trinket.id === 'star_pillow') return scenario.extractingFromMachine === true;
                 return true;
             });
         }
@@ -1015,6 +1016,7 @@ const Calculator = {
             skillCheckSuccessRate: state.skillCheckSuccessRate ?? 1.0,
             machineCompletionCount: Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
             heldItemCount: state.heldItemCount || 0,
+            extractingFromMachine: state.extractingFromMachine === true,
             floorParity: state.floorParity,
             panicMode: state.panicMode,
             debuffs: { ...state.debuffs },
@@ -1048,7 +1050,7 @@ const Calculator = {
             state.selectedConditionalStat,
             state.teamSize || 1,
             Number.isFinite(Number(state.machineCompletionCount)) ? Number(state.machineCompletionCount) : 1,
-            (state.floorParity || state.paintBucketBoost) ? { floorParity: state.floorParity, panicMode: false, heldItemCount: state.heldItemCount || 0, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards, paintBucketBoost: state.paintBucketBoost } : null
+            (state.floorParity || state.paintBucketBoost || state.extractingFromMachine) ? { floorParity: state.floorParity, panicMode: false, heldItemCount: state.heldItemCount || 0, extractingFromMachine: state.extractingFromMachine === true, abilityStacks: state.abilityStacks, debuffs: state.debuffs, customStats: state.customStats, cards: state.cards, paintBucketBoost: state.paintBucketBoost } : null
         );
     },
 

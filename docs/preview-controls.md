@@ -2,6 +2,12 @@
 
 The September 22 controls below were approved for release after the Waxwell portrait correction. The reusable local preview remains isolated from production feedback. The October 16 Flower candidate has its own release boundary.
 
+## Star Pillow extraction
+
+Equip Star Pillow with Poppy and no other effects. Stamina Regeneration reads 2.4/s. Select **Extracting from a Machine** below the trinket list to see 4.8/s, then clear it to return to 2.4/s. Select it again, unequip Star Pillow and equip it again. The checkbox starts clear. The value represents the extraction condition you selected.
+
+The standalone bonus follows the [Star Pillow wiki entry](https://dandys-world-robloxhorror.fandom.com/wiki/Star_Pillow?oldid=275860). Astro’s range and pillow pickup bonuses remain outside this control. The Astro and Whispering Flower combination is still under source review.
+
 ## Whispering Flower inventory
 
 `PREVIEW-SRC-WHISPERING-FLOWER-INVENTORY` has an isolated candidate on `codex/flower-inventory-review-20261016`, based on main without the unrelated Gumballs, Alarm/Pull Toy, random-outcome, custom-content or Soul Shield bundles. The reusable preview remains separate; publication still requires named-feature approval.

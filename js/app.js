@@ -15,6 +15,7 @@ const App = {
         teamToons: {}, // Map of toonId to count for team selection
         activeAbilities: [],
         activeItems: [],
+        extractingFromMachine: false, // Manual Star Pillow scenario.
         heldItemCount: 0, // Manual inventory snapshot, independent of consumed Item buffs.
         selectedConditionalStat: null,
         skillCheckSuccessRate: 1.0,
@@ -219,6 +220,11 @@ const App = {
             const maxHeld = this.state.selectedToon?.id === 'bassie' ? 4 : 3;
             const selected = Number(e.target.value);
             this.state.heldItemCount = Number.isInteger(selected) ? Math.max(0, Math.min(maxHeld, selected)) : 0;
+            this.updateDisplay();
+        });
+
+        document.getElementById('extracting-from-machine').addEventListener('change', event => {
+            this.state.extractingFromMachine = event.target.checked;
             this.updateDisplay();
         });
 
@@ -1430,7 +1436,7 @@ const App = {
             this.state.selectedConditionalStat,
             teamSize,
             this.state.machineCompletionCount,
-            { floorParity: this.state.floorParity, panicMode, floorOpening, heldItemCount: this.state.heldItemCount, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards, paintBucketBoost: this.state.paintBucketBoost }
+            { floorParity: this.state.floorParity, panicMode, floorOpening, heldItemCount: this.state.heldItemCount, extractingFromMachine: this.state.extractingFromMachine, abilityStacks: this.state.abilityStacks, debuffs: this.state.debuffs, customStats: this.state.customStats, cards: this.state.cards, paintBucketBoost: this.state.paintBucketBoost }
         );
     },
 
@@ -1443,6 +1449,10 @@ const App = {
         if (!hasPaintBucketBoost) this.state.paintBucketBoost = false;
         document.getElementById('paint-bucket-container').hidden = !hasPaintBucketBoost;
         document.getElementById('paint-bucket-boost').checked = hasPaintBucketBoost && this.state.paintBucketBoost;
+        const hasStarPillow = this.state.equippedTrinkets.some(entry => (entry.trinket || entry).id === 'star_pillow');
+        if (!hasStarPillow) this.state.extractingFromMachine = false;
+        document.getElementById('star-pillow-container').hidden = !hasStarPillow;
+        document.getElementById('extracting-from-machine').checked = this.state.extractingFromMachine;
         const stats = this.getCalculatedStats();
         const advanced = document.getElementById('advanced-mode');
         advanced.classList.toggle('enabled', this.state.advancedMode);
