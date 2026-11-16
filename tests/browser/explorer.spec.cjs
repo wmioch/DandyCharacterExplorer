@@ -13,14 +13,19 @@ test.beforeEach(async ({ page }) => {
 const row = (page, label) => page.locator('.stats-table tbody tr').filter({ has: page.locator('td:first-child', { hasText: new RegExp(`^${label}$`) }) });
 const finalCell = (page, label) => row(page, label).locator('td').last();
 
-test('Star Pillow applies extraction regeneration and resets when removed', async ({ page }) => {
+test('Star Pillow applies extraction regeneration from State Toggles and resets when removed', async ({ page }) => {
     await page.locator('[data-toon-id="poppy"]').click();
     const pillow = page.locator('[data-trinket-id="star_pillow"]');
-    const extracting = page.getByRole('checkbox', { name: 'Extracting from a Machine' });
+    const stateToggles = page.getByRole('region', { name: 'State Toggles' });
+    const extracting = stateToggles.getByRole('checkbox', { name: 'Extracting from a Machine' });
     const regeneration = finalCell(page, 'Stamina Regeneration');
-    await expect(extracting).toBeHidden();
+    await expect(stateToggles).toBeHidden();
     await pillow.click();
     await expect(extracting).toBeVisible();
+    const abilitiesBounds = await page.locator('#team-abilities').boundingBox();
+    const togglesBounds = await stateToggles.boundingBox();
+    expect(togglesBounds.y).toBeGreaterThanOrEqual(abilitiesBounds.y + abilitiesBounds.height);
+    await page.locator('[data-item-id="speed_candy"]').click({ trial: true });
     await expect(extracting).not.toBeChecked();
     await expect(regeneration).toHaveText('2.4/s');
     await extracting.check();
@@ -29,7 +34,7 @@ test('Star Pillow applies extraction regeneration and resets when removed', asyn
     await expect(regeneration).toHaveText('2.4/s');
     await extracting.check();
     await pillow.click();
-    await expect(extracting).toBeHidden();
+    await expect(stateToggles).toBeHidden();
     await expect(regeneration).toHaveText('2.4/s');
     await pillow.click();
     await expect(extracting).not.toBeChecked();

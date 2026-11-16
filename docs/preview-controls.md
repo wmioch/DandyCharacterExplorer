@@ -4,7 +4,7 @@ The September 22 controls below were approved for release after the Waxwell port
 
 ## Star Pillow extraction
 
-Equip Star Pillow with Poppy and no other effects. Stamina Regeneration reads 2.4/s. Select **Extracting from a Machine** below the trinket list to see 4.8/s, then clear it to return to 2.4/s. Select it again, unequip Star Pillow and equip it again. The checkbox starts clear. The value represents the extraction condition you selected.
+Equip Star Pillow with Poppy and no other effects. Stamina Regeneration reads 2.4/s. Select **Extracting from a Machine** in **State Toggles** below **Team Abilities** to see 4.8/s, then clear it to return to 2.4/s. Select it again, unequip Star Pillow and equip it again. The checkbox starts clear. The value represents the extraction condition you selected.
 
 The standalone bonus follows the [Star Pillow wiki entry](https://dandys-world-robloxhorror.fandom.com/wiki/Star_Pillow?oldid=275860). Astro’s range and pillow pickup bonuses remain outside this control. The Astro and Whispering Flower combination is still under source review.
 

@@ -925,6 +925,24 @@ button {
     min-width: 0;
 }
 
+/* State Toggles */
+.state-toggles {
+    flex-shrink: 0;
+}
+
+.state-toggles .ability-checkbox {
+    flex-direction: row;
+    align-items: center;
+    min-height: 36px;
+}
+
+.state-toggles small {
+    display: block;
+    margin-top: var(--spacing-xs);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
 /* Compact Items */
 .items-list-compact {
     display: flex;

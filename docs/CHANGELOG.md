@@ -1,5 +1,6 @@
 ## 2026-11-16 - Star Pillow extraction
 
+- Moved **Extracting from a Machine** to **State Toggles** below **Team Abilities** so the control leaves the Item grid clear.
 - Star Pillow adds a manual extraction checkbox. Poppy’s Stamina Regeneration reads 2.4/s with the checkbox clear and 4.8/s with it selected. Removing Star Pillow clears the selection. See the [Star Pillow checks](preview-controls.md#star-pillow-extraction).
 
 ## 2026-11-14 - Alarm and Pull Toy speed comparisons
