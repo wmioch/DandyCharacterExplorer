@@ -152,3 +152,23 @@ test('the Custom Content dialog keeps keyboard focus and restores it on dismissa
     await close.click();
     await expect(opener).toBeFocused();
 });
+
+test('an extreme custom Stress Ball forecast stays responsive and reports unavailable', async ({ page }) => {
+    await openEditor(page, 'toons');
+    const toon = JSON.parse(await definition(page).inputValue());
+    toon.name = 'Slow Practice Toon';
+    Object.assign(toon.baseStats, { extractionSpeed: 0.01, skillCheckAmount: 0, skillCheckChance: 1 });
+    await definition(page).fill(JSON.stringify(toon));
+    await save(page);
+    await page.getByTitle('Slow Practice Toon', { exact: true }).click();
+    await page.getByRole('button', { name: 'Machine Stats' }).click();
+    const stressBall = page.locator('[data-trinket-id="stress_ball"]');
+    await stressBall.click();
+    await expect(page.locator('#default-base-time')).toHaveText('4500s');
+    await expect(page.locator('#default-average-time')).toHaveText('Unavailable');
+    await expect(page.locator('#machine-forecast-notice')).toBeVisible();
+    await expect(stressBall.locator('.stress-ball-stack-value')).toHaveText('—');
+    await stressBall.click();
+    await expect(page.locator('#default-average-time')).toHaveText('4500s');
+    await expect(page.locator('#machine-forecast-notice')).toBeHidden();
+});

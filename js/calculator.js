@@ -1382,10 +1382,9 @@ const Calculator = {
             firstMachine: wrenchResult || defaultResult,
             hasWrench: hasWrench,
             hasStressBall: hasStressBall,
-            maxStressBallStacks: Math.max(
-                defaultResult.maxStressBallStacks || 0,
-                wrenchResult ? (wrenchResult.maxStressBallStacks || 0) : 0
-            ),
+            maxStressBallStacks: defaultResult.forecastUnavailable || wrenchResult?.forecastUnavailable
+                ? null
+                : Math.max(defaultResult.maxStressBallStacks || 0, wrenchResult?.maxStressBallStacks || 0),
             cascadeBreakdown: defaultResult.cascadeBreakdown
         };
 
@@ -1409,7 +1408,10 @@ const Calculator = {
         const cascadeBreakdown = [];
         const timeline = this._buildItemTimeline(itemsWithDuration);
         const EPSILON = 1e-9;
+        // Bound synchronous work when custom scenarios produce many recurring Stress Ball events.
+        const MAX_CASCADE_STEPS = 256;
         let unitsRemaining = machineUnits;
+        let completed = unitsRemaining <= EPSILON;
         let timeSoFar = 0;
         let totalSkillChecks = 0;
         let totalSuccessfulChecks = 0;
@@ -1422,7 +1424,7 @@ const Calculator = {
         console.log(`  📅 CASCADE TIMELINE (${timeline.length} item breakpoints${hasStressBall ? ' + Stress Ball events' : ''})`);
         console.log(`  🔄 Starting cascade with ${unitsRemaining.toFixed(2)} units`);
 
-        while (unitsRemaining > 0) {
+        while (!completed && cascadeBreakdown.length < MAX_CASCADE_STEPS) {
             while (stressExpirations.length > 0 && stressExpirations[0] <= timeSoFar + EPSILON) {
                 stressExpirations.shift();
             }
@@ -1456,6 +1458,7 @@ const Calculator = {
                 nextStressExpiryTime,
                 nextCompletionTime
             );
+            if (!Number.isFinite(nextBreakpointTime)) break;
             const segmentDuration = Math.max(0, nextBreakpointTime - timeSoFar);
             const segment = this._calculateMachineSegment(
                 stepExtractionSpeed,
@@ -1478,7 +1481,7 @@ const Calculator = {
             totalSkillChecks += segment.expectedSkillChecks;
             totalSuccessfulChecks += segment.expectedSuccessfulChecks;
 
-            const reachedCompletion = unitsRemaining <= EPSILON || segment.isComplete;
+            completed = unitsRemaining <= EPSILON || segment.isComplete;
             const itemExpiryTriggered = Math.abs(timeSoFar - nextItemTime) <= EPSILON;
             const stressProcTriggered = Math.abs(timeSoFar - nextStressProcTime) <= EPSILON;
             const stressExpiryTriggered = Math.abs(timeSoFar - nextStressExpiryTime) <= EPSILON;
@@ -1520,30 +1523,26 @@ const Calculator = {
                     stressStacks: currentStressStacks,
                     adjustedExtractionSpeed: segment.adjustedExtractionSpeed
                 },
-                unitsCompleted: segment.unitsCompleted,
-                unitsRemaining: segment.unitsRemaining,
-                skillChecksThisWindow: segment.expectedSkillChecks,
-                expectedSuccessfulChecks: segment.expectedSuccessfulChecks,
+                unitsCompleted: Math.round(segment.unitsCompleted * 100) / 100,
+                unitsRemaining: Math.round(segment.unitsRemaining * 100) / 100,
+                skillChecksThisWindow: Math.round(segment.expectedSkillChecks * 100) / 100,
+                expectedSuccessfulChecks: Math.round(segment.expectedSuccessfulChecks * 100) / 100,
                 actualTimeTaken: segment.timeConsumed,
                 events: {
                     itemExpiry: itemExpiryTriggered,
                     stressProc: stressProcTriggered,
                     stressExpiry: stressExpiryTriggered
                 },
-                isEarlyCompletion: reachedCompletion
+                isEarlyCompletion: completed
             });
-
-            if (reachedCompletion) {
-                console.log(`       ⚠️ Machine completed early!`);
-                break;
-            }
         }
 
         return {
             defaultTime: Math.round(this._calculateBaseMachineTime(machineUnits, permanentBaseExtractionSpeed) * 10) / 10,
-            averageTime: Math.round(timeSoFar * 10) / 10,
-            expectedSkillChecks: Math.round(totalSkillChecks * 10) / 10,
-            expectedSuccessfulChecks: Math.round(totalSuccessfulChecks * 10) / 10,
+            averageTime: completed ? Math.round(timeSoFar * 10) / 10 : null,
+            expectedSkillChecks: completed ? Math.round(totalSkillChecks * 10) / 10 : null,
+            expectedSuccessfulChecks: completed ? Math.round(totalSuccessfulChecks * 10) / 10 : null,
+            forecastUnavailable: !completed,
             effectiveProgressRate: initialExtractionSpeed,
             maxStressBallStacks: maxStressBallStacks,
             cascadeBreakdown: cascadeBreakdown
@@ -1607,10 +1606,10 @@ const Calculator = {
 
         return {
             adjustedExtractionSpeed: metrics.adjustedExtractionSpeed,
-            unitsCompleted: Math.round(unitsCompleted * 100) / 100,
-            unitsRemaining: Math.round(newUnitsRemaining * 100) / 100,
-            expectedSkillChecks: Math.round(expectedSkillChecksThisWindow * 100) / 100,
-            expectedSuccessfulChecks: Math.round(expectedSuccessfulChecks * 100) / 100,
+            unitsCompleted,
+            unitsRemaining: newUnitsRemaining,
+            expectedSkillChecks: expectedSkillChecksThisWindow,
+            expectedSuccessfulChecks,
             timeConsumed: actualTimeTaken,
             isComplete: timeToCompletion <= durationSeconds,
             effectiveProgressRate: Math.round(metrics.effectiveProgressRate * 100) / 100

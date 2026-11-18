@@ -267,7 +267,9 @@ const UI = {
 
                     const value = document.createElement('span');
                     value.className = 'stress-ball-stack-value';
-                    value.textContent = `x${machineExtractionResult?.maxStressBallStacks ?? 0}`;
+                    value.textContent = machineExtractionResult?.maxStressBallStacks === null
+                        ? '—'
+                        : `x${machineExtractionResult?.maxStressBallStacks ?? 0}`;
 
                     badge.appendChild(label);
                     badge.appendChild(value);
@@ -762,6 +764,9 @@ const UI = {
         const baseTimeEl = document.getElementById('default-base-time');
         const avgTimeEl = document.getElementById('default-average-time');
         const checksEl = document.getElementById('default-expected-checks');
+        const forecastNotice = document.getElementById('machine-forecast-notice');
+        if (forecastNotice) forecastNotice.hidden = !(extractionResult.default?.forecastUnavailable || extractionResult.firstMachine?.forecastUnavailable);
+        const duration = value => Number.isFinite(value) ? `${value}s` : 'Unavailable';
         
         console.log('📦 updateMachineExtraction called with:', extractionResult);
         console.log('   hasWrench:', extractionResult.hasWrench);
@@ -779,11 +784,12 @@ const UI = {
         const defaultStats = extractionResult.default;
         if (!defaultStats) return;
 
+        if (checksEl) checksEl.textContent = defaultStats.expectedSkillChecks ?? '—';
+
         // If NO Wrench, simple display
         if (!extractionResult.hasWrench || !extractionResult.firstMachine) {
-            if (baseTimeEl) baseTimeEl.textContent = `${defaultStats.defaultTime}s`;
-            if (avgTimeEl) avgTimeEl.textContent = `${defaultStats.averageTime}s`;
-            if (checksEl) checksEl.textContent = `${defaultStats.expectedSkillChecks}`;
+            if (baseTimeEl) baseTimeEl.textContent = duration(defaultStats.defaultTime);
+            if (avgTimeEl) avgTimeEl.textContent = duration(defaultStats.averageTime);
             return;
         }
 
@@ -799,7 +805,7 @@ const UI = {
             firstLine.style.alignItems = 'center';
             firstLine.style.gap = '0.4rem';
             firstLine.style.marginBottom = '0.3rem';
-            firstLine.textContent = `${firstMachineStats.defaultTime}s`;
+            firstLine.textContent = duration(firstMachineStats.defaultTime);
             
             const firstLabel = document.createElement('span');
             firstLabel.className = 'stat-label-small';
@@ -811,7 +817,7 @@ const UI = {
             
             const secondLine = document.createElement('div');
             secondLine.style.opacity = '0.6';
-            secondLine.textContent = `${defaultStats.defaultTime}s`;
+            secondLine.textContent = duration(defaultStats.defaultTime);
             baseTimeEl.appendChild(secondLine);
         }
         
@@ -823,7 +829,7 @@ const UI = {
             firstLine.style.alignItems = 'center';
             firstLine.style.gap = '0.4rem';
             firstLine.style.marginBottom = '0.3rem';
-            firstLine.textContent = `${firstMachineStats.averageTime}s`;
+            firstLine.textContent = duration(firstMachineStats.averageTime);
             
             const firstLabel = document.createElement('span');
             firstLabel.className = 'stat-label-small';
@@ -835,7 +841,7 @@ const UI = {
             
             const secondLine = document.createElement('div');
             secondLine.style.opacity = '0.6';
-            secondLine.textContent = `${defaultStats.averageTime}s`;
+            secondLine.textContent = duration(defaultStats.averageTime);
             avgTimeEl.appendChild(secondLine);
         }
     },

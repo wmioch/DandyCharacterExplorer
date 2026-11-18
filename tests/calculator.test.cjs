@@ -98,6 +98,34 @@ test('Zero Great Rate survives machine snapshots and earns no Stress Ball stacks
     assert.equal(machine.maxStressBallStacks, 0);
 });
 
+test('cascade segments retain precision for tiny progress between recurring events', () => {
+    const { Calculator } = loadEngine();
+    const segment = Calculator._calculateMachineSegment(0.0004, 0, 1, 3, 45, 1);
+    close(segment.unitsRemaining, 44.9988);
+    close(segment.unitsCompleted, 0.0012);
+});
+
+test('extreme Stress Ball forecasts stop without reporting partial times or stacks as final', () => {
+    const e = loadEngine();
+    const state = scenario(e.DataLoader.getToon('poppy'), {
+        customStats: { extractionSpeed: 0.01, skillCheckAmount: 0, skillCheckChance: 1 },
+        skillCheckSuccessRate: 1,
+        equippedTrinkets: [e.DataLoader.getTrinket('stress_ball')]
+    });
+    const machine = e.Calculator.calculateMachineStatsFromState(state);
+    assert.equal(machine.default.defaultTime, 4500);
+    assert.equal(machine.default.forecastUnavailable, true);
+    assert.equal(machine.default.averageTime, null);
+    assert.equal(machine.default.expectedSkillChecks, null);
+    assert.equal(machine.maxStressBallStacks, null);
+    assert.ok(machine.cascadeBreakdown.length > 0 && machine.cascadeBreakdown.length <= 256);
+
+    state.equippedTrinkets = [];
+    const noRecurringEvents = e.Calculator.calculateMachineStatsFromState(state);
+    assert.equal(noRecurringEvents.default.forecastUnavailable, false);
+    assert.equal(noRecurringEvents.default.averageTime, 4500);
+});
+
 test('Train Whistle blocks selected Slow while other debuffs still apply', () => {
     const e = loadEngine();
     const state = scenario(e.DataLoader.getToon('poppy'), {

@@ -107,7 +107,7 @@ Manual checks:
 5. Enter malformed JSON, a chance above 1, a fractional heart value, an unsupported effect target or a negative flat stamina effect: saving reports a useful error and does not refresh or replace the last saved definition. Existing local definitions remain intact.
 6. If a saved collection is unreadable while another valid definition is listed, trying to save or delete reports the preservation error. Neither action rewrites the stored content.
 
-The starter templates demonstrate the supported fields with example values.
+The starter templates demonstrate the supported fields with example values. For extreme settings, Machine Stats can report that the average forecast is unavailable while keeping Base Time available when finite.
 
 To check a flat Stealth effect, create a Trinket with one effect: `{"targetStat":"stealth","value":10,"applicationType":"additive"}`. Brightney shows BASE 0, a dash in MOD and FINAL 10. Poppy shows BASE 10, MOD +100% and FINAL 20.
 
