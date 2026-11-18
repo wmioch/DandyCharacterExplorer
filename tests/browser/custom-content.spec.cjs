@@ -130,3 +130,25 @@ test('a stale editor preserves newly saved definitions from a second tab', async
     await page.reload();
     await expect(page.getByRole('checkbox', { name: /Second Tab Buff/ })).toBeVisible();
 });
+
+test('the Custom Content dialog keeps keyboard focus and restores it on dismissal', async ({ page }) => {
+    const opener = page.getByRole('button', { name: 'Custom Content', exact: true });
+    const close = modal(page).getByRole('button', { name: 'Close custom content' });
+    const saveButton = modal(page).getByRole('button', { name: 'Save locally' });
+    await opener.press('Enter');
+    await expect(modal(page).getByLabel('Content type')).toBeFocused();
+
+    await close.focus();
+    await page.keyboard.press('Shift+Tab');
+    await expect(saveButton).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(modal(page)).toBeHidden();
+    await expect(opener).toBeFocused();
+
+    await opener.press('Enter');
+    await close.click();
+    await expect(opener).toBeFocused();
+});

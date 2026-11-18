@@ -3,8 +3,25 @@
    =================================== */
 
 /* Stats Table */
-.modal-content.custom-content-modal-content { width: min(720px, calc(100vw - 32px)); max-width: 720px; max-height: 88vh; overflow-y: auto; }
-.custom-content-modal-content .modal-body { display: grid; gap: var(--spacing-sm); }
+.modal-content.custom-content-modal-content {
+    width: min(720px, calc(100vw - 32px));
+    max-width: 720px;
+    max-height: 88vh;
+    margin: auto;
+    padding: 0;
+    color: var(--text-primary);
+    overflow: hidden;
+}
+.custom-content-modal-content[open] {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.custom-content-modal-content::backdrop { background: rgba(0, 0, 0, 0.7); }
+.custom-content-modal-content .modal-body {
+    display: grid;
+    gap: var(--spacing-sm);
+    overflow-y: auto;
+}
 .feedback-textarea.custom-content-json { min-height: 260px; font-family: Consolas, monospace; line-height: 1.4; resize: vertical; }
 .custom-content-list { display: grid; gap: var(--spacing-xs); }
 .custom-content-row { display: flex; align-items: center; gap: var(--spacing-sm); padding: 6px 0; border-bottom: 1px solid var(--border-color); }

@@ -44,7 +44,7 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css?v=20261118">
+    <link rel="stylesheet" href="css/components.css?v=20261118.2">
     <link rel="stylesheet" href="css/responsive.css">
     
     <!-- Structured Data (Schema.org - Rich Snippets) -->
@@ -438,36 +438,34 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast">Link copied to clipboard!</div>
 
-    <div id="custom-content-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="custom-content-title">
-        <div class="modal-content custom-content-modal-content">
-            <div class="modal-header">
-                <h3 id="custom-content-title" class="modal-title">Custom Content</h3>
-                <button id="close-custom-content" type="button" class="modal-close-btn" aria-label="Close custom content">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Your definitions stay in this browser. Edit the JSON template, then save to refresh the explorer. Custom content uses letter placeholders and is not game data.</p>
-                <label for="custom-content-type">Content type</label>
-                <select id="custom-content-type" class="filter-dropdown">
-                    <option value="toons">Toons</option><option value="trinkets">Trinkets</option><option value="buffs">Buffs</option><option value="twisteds">Twisteds</option>
-                </select>
-                <div id="custom-content-list" class="custom-content-list"></div>
-                <details>
-                    <summary>Definition fields and supported effects</summary>
-                    <p>Use decimals for percentage modifiers: 0.1 means +10%, -0.1 means -10%. Buffs are percentage modifiers. Trinkets accept multiplicative, additive or baseStatIncrease effects; flat decreases are supported only for Stealth.</p>
-                    <p>Effect targets: movementSpeed, walkSpeed, runSpeed, stealth, extractionSpeed, stamina, skillCheckAmount, skillCheckSize, skillCheckChance and staminaRegen. Base increases cannot target movementSpeed or staminaRegen.</p>
-                    <p>Toon ability/ability2 fields are optional and support active or passive percentage modifiers to movementSpeed, extractionSpeed, skillCheckChance or staminaRegen. Skill-check size follows the Toon’s skillCheckAmount star rating. Stars and numeric stats are authored separately.</p>
-                    <p>Saved definitions persist here, but selected buffs reset on refresh. Images, arbitrary mechanics and teammate effects are not supported by this editor.</p>
-                </details>
-                <label for="custom-content-json">Definition</label>
-                <textarea id="custom-content-json" class="feedback-textarea custom-content-json" maxlength="20000" spellcheck="false" aria-describedby="custom-content-status"></textarea>
-                <p id="custom-content-status" class="feedback-status" role="status"></p>
-            </div>
-            <div class="modal-footer">
-                <button id="new-custom-content" type="button" class="modal-reset-btn">New template</button>
-                <button id="save-custom-content" type="button" class="modal-apply-btn">Save locally</button>
-            </div>
+    <dialog id="custom-content-modal" class="modal-content custom-content-modal-content" aria-labelledby="custom-content-title">
+        <div class="modal-header">
+            <h3 id="custom-content-title" class="modal-title">Custom Content</h3>
+            <button id="close-custom-content" type="button" class="modal-close-btn" aria-label="Close custom content">&times;</button>
         </div>
-    </div>
+        <div class="modal-body">
+            <p>Your definitions stay in this browser. Edit the JSON template, then save to refresh the explorer. Custom content uses letter placeholders and is not game data.</p>
+            <label for="custom-content-type">Content type</label>
+            <select id="custom-content-type" class="filter-dropdown">
+                <option value="toons">Toons</option><option value="trinkets">Trinkets</option><option value="buffs">Buffs</option><option value="twisteds">Twisteds</option>
+            </select>
+            <div id="custom-content-list" class="custom-content-list"></div>
+            <details>
+                <summary>Definition fields and supported effects</summary>
+                <p>Use decimals for percentage modifiers: 0.1 means +10%, -0.1 means -10%. Buffs are percentage modifiers. Trinkets accept multiplicative, additive or baseStatIncrease effects; flat decreases are supported only for Stealth.</p>
+                <p>Effect targets: movementSpeed, walkSpeed, runSpeed, stealth, extractionSpeed, stamina, skillCheckAmount, skillCheckSize, skillCheckChance and staminaRegen. Base increases cannot target movementSpeed or staminaRegen.</p>
+                <p>Toon ability/ability2 fields are optional and support active or passive percentage modifiers to movementSpeed, extractionSpeed, skillCheckChance or staminaRegen. Skill-check size follows the Toon’s skillCheckAmount star rating. Stars and numeric stats are authored separately.</p>
+                <p>Saved definitions persist here, but selected buffs reset on refresh. Images, arbitrary mechanics and teammate effects are not supported by this editor.</p>
+            </details>
+            <label for="custom-content-json">Definition</label>
+            <textarea id="custom-content-json" class="feedback-textarea custom-content-json" maxlength="20000" spellcheck="false" aria-describedby="custom-content-status"></textarea>
+            <p id="custom-content-status" class="feedback-status" role="status"></p>
+        </div>
+        <div class="modal-footer">
+            <button id="new-custom-content" type="button" class="modal-reset-btn">New template</button>
+            <button id="save-custom-content" type="button" class="modal-apply-btn">Save locally</button>
+        </div>
+    </dialog>
 
     <!-- Feedback Modal -->
     <div id="feedback-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
@@ -675,7 +673,7 @@
 
     <!-- Scripts -->
     <script src="js/data-loader.js?v=20261118"></script>
-    <script src="js/custom-content.js?v=20261118"></script>
+    <script src="js/custom-content.js?v=20261118.2"></script>
     <script src="js/calculator.js?v=20261118"></script>
     <script src="js/ui.js?v=20261118"></script>
     <script src="js/app.js?v=20261118"></script>

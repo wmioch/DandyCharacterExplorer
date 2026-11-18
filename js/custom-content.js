@@ -178,13 +178,37 @@ const CustomContent = {
     initUI(app) {
         const modal = document.getElementById('custom-content-modal');
         const typeControl = document.getElementById('custom-content-type');
-        document.getElementById('open-custom-content').addEventListener('click', () => { this.resetEditor(); modal.style.display = 'flex'; typeControl.focus(); });
-        document.getElementById('close-custom-content').addEventListener('click', () => { modal.style.display = 'none'; });
-        modal.addEventListener('click', event => { if (event.target === modal) modal.style.display = 'none'; });
-        document.addEventListener('keydown', event => { if (event.key === 'Escape') modal.style.display = 'none'; });
+        const opener = document.getElementById('open-custom-content');
+        const closeButton = document.getElementById('close-custom-content');
+        const saveButton = document.getElementById('save-custom-content');
+        opener.addEventListener('click', () => {
+            this.resetEditor();
+            modal.showModal();
+            typeControl.focus();
+        });
+        closeButton.addEventListener('click', () => modal.close());
+        modal.addEventListener('close', () => opener.focus());
+        modal.addEventListener('click', event => {
+            if (event.target !== modal) return;
+            const bounds = modal.getBoundingClientRect();
+            if (event.clientX < bounds.left || event.clientX > bounds.right ||
+                event.clientY < bounds.top || event.clientY > bounds.bottom) {
+                modal.close();
+            }
+        });
+        modal.addEventListener('keydown', event => {
+            if (event.key !== 'Tab') return;
+            if (event.shiftKey && document.activeElement === closeButton) {
+                event.preventDefault();
+                saveButton.focus();
+            } else if (!event.shiftKey && document.activeElement === saveButton) {
+                event.preventDefault();
+                closeButton.focus();
+            }
+        });
         typeControl.addEventListener('change', () => this.resetEditor());
         document.getElementById('new-custom-content').addEventListener('click', () => this.resetEditor());
-        document.getElementById('save-custom-content').addEventListener('click', () => {
+        saveButton.addEventListener('click', () => {
             try {
                 if (this.storageUnreadable) throw new Error('Cannot replace unreadable saved data. Preserve or repair that browser storage first.');
                 const type = typeControl.value;
