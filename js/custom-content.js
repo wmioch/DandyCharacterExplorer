@@ -7,6 +7,7 @@ const CustomContent = {
     editingId: null,
     invalidCount: 0,
     storageUnreadable: false,
+    loadedStorage: null,
     statTargets: ['movementSpeed', 'walkSpeed', 'runSpeed', 'stealth', 'extractionSpeed', 'stamina', 'skillCheckAmount', 'skillCheckSize', 'skillCheckChance', 'staminaRegen'],
     baseKeys: ['walkSpeed', 'runSpeed', 'stealth', 'extractionSpeed', 'stamina', 'skillCheckAmount', 'skillCheckChance', 'hearts'],
     starKeys: ['walkSpeed', 'runSpeed', 'stealth', 'extractionSpeed', 'stamina', 'skillCheckAmount'],
@@ -107,8 +108,13 @@ const CustomContent = {
     read() {
         let saved;
         this.storageUnreadable = false;
-        try { saved = JSON.parse(localStorage.getItem(this.storageKey) || '{}'); }
-        catch { saved = {}; this.storageUnreadable = true; }
+        try {
+            this.loadedStorage = localStorage.getItem(this.storageKey);
+            saved = this.loadedStorage === null ? {} : JSON.parse(this.loadedStorage);
+        } catch {
+            saved = {};
+            this.storageUnreadable = true;
+        }
         if (!saved || typeof saved !== 'object' || Array.isArray(saved)) { saved = {}; this.storageUnreadable = true; }
         this.invalidCount = 0;
         for (const type of this.types) {
@@ -124,6 +130,13 @@ const CustomContent = {
                 } catch (error) { this.invalidCount++; console.warn(`Ignored invalid local ${type} definition:`, error); }
             }
         }
+    },
+    saveCollections(next) {
+        if (localStorage.getItem(this.storageKey) !== this.loadedStorage) {
+            throw new Error('Another tab changed your saved definitions. Reload this tab before making more changes.');
+        }
+        localStorage.setItem(this.storageKey, JSON.stringify(next));
+        location.reload();
     },
     apply(data) {
         this.read();
@@ -186,8 +199,7 @@ const CustomContent = {
                     if (next[type].length >= 50) throw new Error('This browser already has 50 definitions of this type. Edit or delete one first.');
                     next[type].push(entry);
                 }
-                localStorage.setItem(this.storageKey, JSON.stringify(next));
-                location.reload();
+                this.saveCollections(next);
             } catch (error) { this.showStatus(error.message, true); }
         });
         document.getElementById('custom-content-list').addEventListener('click', event => {
@@ -208,8 +220,7 @@ const CustomContent = {
                 try {
                     const next = structuredClone(this.definitions);
                     next[type] = next[type].filter(item => item?.id !== entry.id);
-                    localStorage.setItem(this.storageKey, JSON.stringify(next));
-                    location.reload();
+                    this.saveCollections(next);
                 } catch (error) { this.showStatus(error.message, true); }
             }
         });
@@ -222,9 +233,14 @@ const CustomContent = {
             app.updateDisplay();
         });
         this.current.buffs.forEach(buff => {
-            const label = document.createElement('label'); label.className = 'custom-buff-option';
-            const check = document.createElement('input'); check.type = 'checkbox'; check.dataset.buffId = buff.id;
-            const text = document.createElement('span'); text.textContent = `${buff.name} (${buff.value >= 0 ? '+' : ''}${Math.round(buff.value * 100)}% ${buff.targetStat})`;
+            const label = document.createElement('label');
+            label.className = 'ability-checkbox';
+            const check = document.createElement('input');
+            check.type = 'checkbox';
+            check.dataset.buffId = buff.id;
+            const text = document.createElement('span');
+            const percent = new Intl.NumberFormat('en', { style: 'percent', signDisplay: 'exceptZero', maximumFractionDigits: 2 });
+            text.textContent = `${buff.name} (${percent.format(buff.value)})`;
             label.append(check, text); buffs.appendChild(label);
         });
         document.getElementById('custom-buffs-section').hidden = this.current.buffs.length === 0;

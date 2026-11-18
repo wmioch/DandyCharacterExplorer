@@ -44,7 +44,7 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/components.css?v=20261118">
     <link rel="stylesheet" href="css/responsive.css">
     
     <!-- Structured Data (Schema.org - Rich Snippets) -->
@@ -151,11 +151,6 @@
                             <option value="4">4 items</option>
                         </select>
                         <small>Current inventory, separate from active Item effects. Bassie can hold 4; other Toons can hold 3.</small>
-                    </div>
-                    <div id="custom-buffs-section" class="item-outcome-control" hidden>
-                        <strong>Custom Buffs</strong>
-                        <div id="custom-buffs"></div>
-                        <small>Locally authored buffs apply only while checked.</small>
                     </div>
                 </section>
 
@@ -281,6 +276,11 @@
                             <span>Extracting from a Machine</span>
                         </label>
                         <small id="star-pillow-help">Applies Star Pillow’s +100% Stamina Regeneration bonus.</small>
+                    </section>
+
+                    <section id="custom-buffs-section" class="state-toggles" aria-labelledby="custom-buffs-heading" hidden>
+                        <h3 id="custom-buffs-heading" class="section-heading">Custom Buffs</h3>
+                        <div id="custom-buffs"></div>
                     </section>
                 </section>
 
@@ -674,13 +674,13 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/data-loader.js?v=20251028"></script>
-    <script src="js/custom-content.js?v=20260926"></script>
-    <script src="js/calculator.js?v=20260506"></script>
-    <script src="js/ui.js?v=20260506"></script>
-    <script src="js/app.js?v=20260506"></script>
+    <script src="js/data-loader.js?v=20261118"></script>
+    <script src="js/custom-content.js?v=20261118"></script>
+    <script src="js/calculator.js?v=20261118"></script>
+    <script src="js/ui.js?v=20261118"></script>
+    <script src="js/app.js?v=20261118"></script>
     <script src="js/feedback-config.js?v=20260413"></script>
-    <script src="js/feedback.js?v=20260413"></script>
+    <script src="js/feedback.js?v=20261118"></script>
     <script>
         // Debug script to log column scrollbar status
         function logColumnScrollbars() {

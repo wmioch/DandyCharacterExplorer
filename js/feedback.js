@@ -82,7 +82,7 @@ const Feedback = {
 
   collectContext() {
     const appState = window.App?.state || {};
-    const selectedToon = appState.selectedToon?.name || 'None';
+    const selectedToon = appState.selectedToon?.custom ? 'Custom Toon' : (appState.selectedToon?.name || 'None');
     const conditionalState = appState.selectedConditionalStat?.name || 'None';
 
     const trinkets = Array.isArray(appState.equippedTrinkets)
@@ -94,7 +94,8 @@ const Feedback = {
             return null;
           }
 
-          return count ? `${trinket.name} x${count}` : trinket.name;
+          const name = trinket.custom ? 'Custom Trinket' : trinket.name;
+          return count ? `${name} x${count}` : name;
         }).filter(Boolean)
       : [];
 
@@ -103,11 +104,11 @@ const Feedback = {
       : [];
 
     const teamMembers = Array.isArray(appState.teamMembers)
-      ? appState.teamMembers.map((toon) => toon?.name || null).filter(Boolean)
+      ? appState.teamMembers.map((toon) => toon?.custom ? 'Custom Toon' : (toon?.name || null)).filter(Boolean)
       : [];
 
     const activeAbilities = Array.isArray(appState.activeAbilities)
-      ? appState.activeAbilities.map((ability) => ability?.name || null).filter(Boolean)
+      ? appState.activeAbilities.map((ability) => ability?.id?.startsWith('custom_') ? 'Custom Ability' : (ability?.name || null)).filter(Boolean)
       : [];
 
     return {

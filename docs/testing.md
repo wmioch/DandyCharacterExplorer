@@ -20,6 +20,8 @@ The isolated Flower candidate adds checks for 0/1/3 held items, Bassie's fourth 
 
 Before an automatic small release: review the scope and sources, run `npm run validate`, parse changed JSON, and run `git diff --check` in an isolated checkout. A failure blocks publication until diagnosed. Missing browsers, network/install failures, or unavailable CI are reported as unavailable, never passed. After a reviewed PR is pushed, verify the validation workflow for its exact head commit. After an authorized main push, verify the exact Pages deployment and live read-only smoke. Existing Pages hosting is unchanged: the new validation workflow does not itself impose GitHub branch protection or gate branch-based Pages deployment.
 
+The Custom Content browser checks create and exercise each definition type, verify editing and deletion, check Machine Stats and zero-base MOD, and preserve data when storage is unreadable or another tab has saved newer definitions. The feedback check builds a synthetic message in memory and verifies that it omits custom names.
+
 Failure screenshots and traces are saved under ignored `output/playwright/`; CI retains them for seven days. Do not upload private feedback or user-session artifacts.
 
 The CI job allows 15 minutes for dependency/browser installation and the full validation suite. The October 23 run exhausted the former ten-minute limit during browser checks after slow package downloads; a timeout remains a failure, and every check must still pass.

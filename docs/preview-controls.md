@@ -61,10 +61,6 @@ Select Shrimpo with no effects, then select one Stealth Candy. MOD remains +25%,
 
 Validation is limited to manual source/diff inspection, JSON parsing and `git diff --check`, per repository instructions. No builds, tests, lint or automated browser checks.
 
-### Custom zero-base modifier display
-
-In the separate Custom Content preview, save a Trinket whose single effect is `{"targetStat":"stealth","value":10,"applicationType":"additive"}`. Equip it on Brightney: BASE0, MOD dash and FINAL10, without an infinite percentage. Remove it and select Diary: FINAL remains0 and MOD is a dash. Switch to Poppy and equip the custom trinket: BASE10, MOD+100% and FINAL20. This is a display-only correction; no final calculation or game-source claim changes. Preview release approval remains required.
-
 The preview changes share calculation/UI plumbing with earlier preview commits. Release only explicitly approved features; isolate unapproved changes if the approved set is smaller than the complete preview.
 
 ## Developer Toon evidence and assets
@@ -96,7 +92,7 @@ Cherished Blanket is intentionally absent from visible trinkets because it affec
 
 ## Local custom content — PREVIEW-FB75-CUSTOM-CONTENT
 
-The footer's Custom Content button opens a local JSON-template editor for Toons, Trinkets, percentage buffs and numeric-speed Twisteds. Definitions persist in this browser only; no data is sent to a service or shared with other visitors. Saves/edits/deletes refresh the explorer and clear the current scenario. Built-in game records remain intact. Custom records use letter placeholders and independent IDs.
+The footer's **Custom Content** button opens a JSON template editor for Toons, Trinkets, percentage buffs and Twisteds. Definitions stay in this browser and refresh the Explorer after saving, editing or deleting. Custom records use letter placeholders and independent IDs. **Custom Buffs** appears below **Team Abilities** after creating a buff. Reload a stale tab before modifying definitions saved from another tab.
 
 Unreadable saved JSON or a malformed saved collection blocks saves and deletion, preserving the stored content until it is repaired. Individual invalid definitions remain stored but are excluded from the loaded list.
 
@@ -111,7 +107,9 @@ Manual checks:
 5. Enter malformed JSON, a chance above 1, a fractional heart value, an unsupported effect target or a negative flat stamina effect: saving reports a useful error and does not refresh or replace the last saved definition. Existing local definitions remain intact.
 6. If a saved collection is unreadable while another valid definition is listed, trying to save or delete reports the preservation error. Neither action rewrites the stored content.
 
-This bundle implements the sanitized requests FB-75-1 through FB-75-4; PollingStation feedback remains pending until an approved production release. No gameplay values were inferred for these user-authored templates.
+The starter templates demonstrate the supported fields with example values.
+
+To check a flat Stealth effect, create a Trinket with one effect: `{"targetStat":"stealth","value":10,"applicationType":"additive"}`. Brightney shows BASE 0, a dash in MOD and FINAL 10. Poppy shows BASE 10, MOD +100% and FINAL 20.
 
 ## September 25 production correction: Bobette Festive Aura
 

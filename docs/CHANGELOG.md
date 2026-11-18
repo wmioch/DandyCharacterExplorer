@@ -1,3 +1,7 @@
+## 2026-11-18 - Custom Content
+
+- Added a browser-local editor for custom Toons, Trinkets, percentage buffs and Twisteds. Equip or select saved creations alongside the built-in records. The Custom Buffs checkboxes sit below Team Abilities. [Custom Content checks](preview-controls.md#local-custom-content--preview-fb75-custom-content)
+
 ## 2026-11-16 - Star Pillow extraction
 
 - Moved **Extracting from a Machine** to **State Toggles** below **Team Abilities** so the control leaves the Item grid clear.

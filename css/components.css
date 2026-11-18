@@ -11,7 +11,9 @@
 .custom-content-row span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .custom-content-row button { color: var(--text-primary); background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 9px; cursor: pointer; }
 .custom-content-row button:focus-visible { outline: 2px solid #b19cd9; outline-offset: 2px; }
-.custom-buff-option { display: flex; gap: 8px; align-items: center; padding: 4px 0; }
+#custom-buffs { display: grid; gap: var(--spacing-xs); }
+#custom-buffs-section:not([hidden]) { margin-top: var(--spacing-sm); }
+#custom-buffs .ability-checkbox span { overflow-wrap: anywhere; }
 #custom-content-status.error { color: #ffb1b1; }
 
 .scenario-icon-grid {
