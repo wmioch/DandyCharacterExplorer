@@ -74,6 +74,25 @@ test('Gumballs stays removed after a touch compatibility click and has a visible
     await expect(outcome).toBeHidden();
 });
 
+test('Gumballs uses fresh definitions when the old item URL serves pre-release data', async ({ page }) => {
+    const oldItems = await (await page.request.get('/data/items.json')).json();
+    const oldGumballs = oldItems.items.find(item => item.id === 'gumballs');
+    delete oldGumballs.randomOutcomes;
+    delete oldGumballs.uses;
+    await page.route(url => url.pathname === '/data/items.json' && !url.search,
+        route => route.fulfill({ json: oldItems }));
+    const revisedItems = page.waitForResponse(response => {
+        const url = new URL(response.url());
+        return url.pathname === '/data/items.json' && url.searchParams.has('v') && response.ok();
+    });
+    await page.reload();
+    await revisedItems;
+    await page.getByRole('button', { name: 'Gumballs', exact: true }).click();
+    await page.getByLabel('Observed Gumballs result').selectOption('skillCheck');
+    await expect(finalCell(page, 'Skill Check Chance')).toHaveText('35%');
+    await expect(finalCell(page, 'Skill Check Size')).toHaveText('165.0');
+});
+
 test('Star Pillow applies extraction regeneration from State Toggles and resets when removed', async ({ page }) => {
     await page.locator('[data-toon-id="poppy"]').click();
     const pillow = page.locator('[data-trinket-id="star_pillow"]');

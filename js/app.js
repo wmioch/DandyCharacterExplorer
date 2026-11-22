@@ -1290,7 +1290,7 @@ const App = {
             const item = DataLoader.getItem(itemId);
             if (item) {
                 const selectedItem = itemId === 'gumballs'
-                    ? { ...item, effects: item.randomOutcomes.find(outcome => outcome.id === this.state.gumballsOutcome)?.effects || [] }
+                    ? { ...item, effects: item.randomOutcomes?.find(outcome => outcome.id === this.state.gumballsOutcome)?.effects || [] }
                     : item;
                 this.state.activeItems.push({ item: selectedItem, count });
             }

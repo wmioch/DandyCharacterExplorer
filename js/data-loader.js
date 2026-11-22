@@ -21,7 +21,7 @@ const DataLoader = {
                 fetch('data/stat-mappings.json').then(r => r.json()),
                 fetch('data/toons.json').then(r => r.json()),
                 fetch('data/trinkets.json').then(r => r.json()),
-                fetch('data/items.json').then(r => r.json()),
+                fetch('data/items.json?v=20261122.4').then(r => r.json()),
                 fetch('data/twisteds.json').then(r => r.json())
             ]);
 
