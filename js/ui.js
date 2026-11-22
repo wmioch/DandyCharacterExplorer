@@ -487,18 +487,25 @@ const UI = {
             const imageFileName = item.image_name || `${item.id}.png`;
             const imagePath = `assets/images/items/${imageFileName}`;
             
-            const itemDiv = document.createElement('div');
+            const isGumballs = item.id === 'gumballs';
+            const itemDiv = document.createElement(isGumballs ? 'button' : 'div');
+            if (isGumballs) {
+                itemDiv.type = 'button';
+                itemDiv.setAttribute('aria-label', item.name);
+                itemDiv.setAttribute('aria-pressed', 'false');
+                itemDiv.setAttribute('aria-controls', 'gumballs-outcome-container');
+            }
             itemDiv.className = 'item-grid-item';
             itemDiv.dataset.itemId = item.id;
             itemDiv.title = `${item.name}\n${item.effect || ''}`;
             
             // Image/Placeholder container
-            const imgContainer = document.createElement('div');
+            const imgContainer = document.createElement(isGumballs ? 'span' : 'div');
             imgContainer.className = 'item-grid-image';
             imgContainer.textContent = item.name.charAt(0).toUpperCase();
             
             // Counter overlay (initially hidden)
-            const counterOverlay = document.createElement('div');
+            const counterOverlay = document.createElement(isGumballs ? 'span' : 'div');
             counterOverlay.className = 'item-counter-overlay';
             counterOverlay.textContent = '';
             counterOverlay.style.display = 'none';

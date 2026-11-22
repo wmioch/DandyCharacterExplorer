@@ -1,6 +1,6 @@
 ## 2026-11-22 - Gumballs observed result
 
-- Select Gumballs in Items, then choose the stat you observed. The Explorer represents one use. A Skill Check result adds 10 percentage points to Chance and 10% to Size. Machine estimates apply the result for five seconds, or nine with Glazed Fondant Bag. See the [manual checks](preview-controls.md#gumballs-observed-result).
+- Select Gumballs in Items, then choose the stat you observed in **State Toggles**. The Explorer represents one use. A Skill Check result adds 10 percentage points to Chance and 10% to Size. Machine estimates apply the result for five seconds, or nine with Glazed Fondant Bag. See the [manual checks](preview-controls.md#gumballs-observed-result).
 
 ## 2026-11-22 - Version 1.0 source corrections
 

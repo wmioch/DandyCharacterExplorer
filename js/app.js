@@ -205,7 +205,12 @@ const App = {
             const itemDiv = e.target.closest('.item-grid-item');
             if (itemDiv) {
                 const itemId = itemDiv.dataset.itemId;
-                this.handleItemIncrement(itemId);
+                // Native button activation from a keyboard or assistive technology toggles the single use.
+                if (itemId === 'gumballs' && e.detail === 0 && this.state.activeItems.some(({ item }) => item.id === itemId)) {
+                    this.handleItemDecrement(itemId);
+                } else {
+                    this.handleItemIncrement(itemId);
+                }
             }
         });
 
@@ -1503,8 +1508,10 @@ const App = {
         
         // Update item counters
         UI.updateItemCounters(this.state.activeItems);
-        document.getElementById('gumballs-outcome-container').hidden =
-            !this.state.activeItems.some(({ item }) => item.id === 'gumballs');
+        const hasGumballs = this.state.activeItems.some(({ item }) => item.id === 'gumballs');
+        document.getElementById('state-toggles').hidden = !hasStarPillow && !hasGumballs;
+        document.getElementById('gumballs-outcome-container').hidden = !hasGumballs;
+        document.querySelector('[data-item-id="gumballs"]')?.setAttribute('aria-pressed', String(hasGumballs));
         document.getElementById('gumballs-outcome').value = this.state.gumballsOutcome;
         
         // Update team toon selection display

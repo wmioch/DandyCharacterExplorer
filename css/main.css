@@ -186,6 +186,11 @@ body {
     flex-direction: column;
 }
 
+.column-one .trinket-list,
+.column-one .items-list-compact {
+    flex-shrink: 0;
+}
+
 .column-one .section-heading {
     flex-shrink: 0; /* Don't shrink headings */
 }
@@ -1233,6 +1238,17 @@ button {
     position: relative;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+button.item-grid-item {
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+button.item-grid-item:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
 }
 
 .item-grid-item:hover .item-grid-image {

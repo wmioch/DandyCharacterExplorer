@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css?v=20261122.2">
     <link rel="stylesheet" href="css/components.css?v=20261118.2">
     <link rel="stylesheet" href="css/responsive.css">
     
@@ -151,18 +151,6 @@
                             <option value="4">4 items</option>
                         </select>
                         <small>Current inventory, separate from active Item effects. Bassie can hold 4; other Toons can hold 3.</small>
-                    </div>
-                    <div id="gumballs-outcome-container" class="held-item-control" hidden>
-                        <label for="gumballs-outcome">Observed Gumballs result</label>
-                        <select id="gumballs-outcome" class="filter-dropdown">
-                            <option value="">Choose a stat</option>
-                            <option value="movementSpeed">Movement Speed</option>
-                            <option value="stamina">Max Stamina</option>
-                            <option value="stealth">Stealth</option>
-                            <option value="extractionSpeed">Extraction Speed</option>
-                            <option value="skillCheck">Skill Check</option>
-                        </select>
-                        <small>Shows one use. Machine estimates apply it for 5 seconds, or 9 with Glazed Fondant Bag.</small>
                     </div>
                 </section>
 
@@ -281,13 +269,27 @@
                         <p class="empty-message">Select team to see abilities</p>
                     </div>
 
-                    <section id="star-pillow-container" class="state-toggles" aria-labelledby="state-toggles-heading" hidden>
+                    <section id="state-toggles" class="state-toggles" aria-labelledby="state-toggles-heading" hidden>
                         <h3 id="state-toggles-heading" class="section-heading">State Toggles</h3>
-                        <label class="ability-checkbox">
-                            <input id="extracting-from-machine" type="checkbox" aria-describedby="star-pillow-help">
-                            <span>Extracting from a Machine</span>
-                        </label>
-                        <small id="star-pillow-help">Applies Star Pillow’s +100% Stamina Regeneration bonus.</small>
+                        <div id="star-pillow-container" hidden>
+                            <label class="ability-checkbox">
+                                <input id="extracting-from-machine" type="checkbox" aria-describedby="star-pillow-help">
+                                <span>Extracting from a Machine</span>
+                            </label>
+                            <small id="star-pillow-help">Applies Star Pillow’s +100% Stamina Regeneration bonus.</small>
+                        </div>
+                        <div id="gumballs-outcome-container" class="held-item-control" hidden>
+                            <label for="gumballs-outcome">Observed Gumballs result</label>
+                            <select id="gumballs-outcome" class="filter-dropdown">
+                                <option value="">Choose a stat</option>
+                                <option value="movementSpeed">Movement Speed</option>
+                                <option value="stamina">Max Stamina</option>
+                                <option value="stealth">Stealth</option>
+                                <option value="extractionSpeed">Extraction Speed</option>
+                                <option value="skillCheck">Skill Check</option>
+                            </select>
+                            <small>Shows one use. Machine estimates apply it for 5 seconds, or 9 with Glazed Fondant Bag.</small>
+                        </div>
                     </section>
 
                     <section id="custom-buffs-section" class="state-toggles" aria-labelledby="custom-buffs-heading" hidden>
@@ -688,8 +690,8 @@
     <script src="js/data-loader.js?v=20261118"></script>
     <script src="js/custom-content.js?v=20261118.2"></script>
     <script src="js/calculator.js?v=20261122"></script>
-    <script src="js/ui.js?v=20261122"></script>
-    <script src="js/app.js?v=20261122"></script>
+    <script src="js/ui.js?v=20261122.2"></script>
+    <script src="js/app.js?v=20261122.2"></script>
     <script src="js/feedback-config.js?v=20260413"></script>
     <script src="js/feedback.js?v=20261118"></script>
     <script>

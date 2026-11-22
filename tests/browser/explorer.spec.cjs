@@ -35,6 +35,26 @@ test('Gumballs applies one selected use and resets when removed', async ({ page 
     await expect(finalCell(page, 'Walk Speed')).toHaveText('15.0');
     await tile.click();
     await expect(outcome).toHaveValue('');
+    const stateToggles = page.getByRole('region', { name: 'State Toggles' });
+    await expect(stateToggles.getByLabel('Observed Gumballs result')).toBeVisible();
+    await expect(stateToggles.getByRole('checkbox', { name: 'Extracting from a Machine' })).toBeHidden();
+});
+
+test('Keyboard users can activate and remove the Gumballs scenario', async ({ page }) => {
+    const tile = page.getByRole('button', { name: 'Gumballs', exact: true });
+    await tile.focus();
+    await expect(tile).toBeFocused();
+    await tile.press('Space');
+    await expect(tile).toHaveAttribute('aria-pressed', 'true');
+    const outcome = page.getByLabel('Observed Gumballs result');
+    await expect(outcome).toBeVisible();
+    await outcome.selectOption('extractionSpeed');
+    await expect(finalCell(page, 'Extraction Speed')).toHaveText('1.10');
+    await tile.press('Enter');
+    await expect(tile).toHaveAttribute('aria-pressed', 'false');
+    await expect(outcome).toBeHidden();
+    await tile.press('Enter');
+    await expect(outcome).toHaveValue('');
 });
 
 test('Star Pillow applies extraction regeneration from State Toggles and resets when removed', async ({ page }) => {
