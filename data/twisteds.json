@@ -806,7 +806,8 @@
           "run": 18.4
         }
       },
-      "image": "twisteds/dandy.png"
+      "image": "twisteds/dandy.png",
+      "notes": "In The Labs, Twisted Dandy can break through walls and most cover."
     },
     {
       "id": "twisted_dyle",
@@ -849,7 +850,9 @@
         }
       },
       "image": "twisteds/waxwell.webp",
-      "description": "Avoids Toons rather than chasing them. His trail supports other Twisteds. Roaming speeds await source verification."
+      "description": "Normally avoids Toons and leaves a trail that supports other Twisteds. In The Labs, he can hurt Toons while controlled by Dessa.",
+      "notes": "Normally avoids Toons. Dessa can control him in The Labs.",
+      "noChaseTooltip": "No standard chase speed. In The Labs, Waxwell can hurt Toons while controlled by Dessa. Controlled movement speeds are unverified."
     },
     {
       "id": "twisted_squirm",

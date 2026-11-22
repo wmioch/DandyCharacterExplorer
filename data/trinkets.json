@@ -188,7 +188,7 @@
     },
     {
       "name": "Dandy Plush",
-      "effect": "Grants the user a 50% discount on all Dandy's Shop Items.",
+      "effect": "Increases Tapes earned by 25%. Does not apply to Tapes picked up.",
       "image": "trinket_dandy_plush.png",
       "category": "other",
       "rarity": "lethal",

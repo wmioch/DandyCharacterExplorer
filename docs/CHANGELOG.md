@@ -1,3 +1,8 @@
+## 2026-11-22 - Version 1.0 source corrections
+
+- Updated the hidden **Dandy Plush** record to describe its 25% Tape income bonus and pickup exception. The Explorer does not calculate Tape income. [Dandy Plush revision 280401](https://dandys-world-robloxhorror.fandom.com/wiki/Dandy_Plush?oldid=280401)
+- Qualified **Twisted Dandy** and **Twisted Waxwell** in the comparison tooltips. Dandy can break through cover in The Labs, and Waxwell can hurt Toons while controlled by Dessa. The comparison retains the standard speed values and Waxwell's N/A. Sources checked November 22. [Twisted Dandy revision 279822](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Dandy?oldid=279822) [Twisted Waxwell revision 280702](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Waxwell?oldid=280702)
+
 ## 2026-11-18 - Custom Content
 
 - Added a browser-local editor for custom Toons, Trinkets, percentage buffs and Twisteds. Equip or select saved creations alongside the built-in records. The Custom Buffs checkboxes sit below Team Abilities. [Custom Content checks](preview-controls.md#local-custom-content--preview-fb75-custom-content)
