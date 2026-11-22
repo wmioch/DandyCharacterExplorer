@@ -207,6 +207,17 @@
       "name": "Gumballs",
       "effect": "Upon use, boosts a random stat by 10% for 5 seconds. Can be used 3 times.",
       "duration": 5,
+      "uses": 3,
+      "randomOutcomes": [
+        { "id": "movementSpeed", "effects": [{ "targetStat": "movementSpeed", "value": 0.10, "applicationType": "multiplicative" }] },
+        { "id": "stamina", "effects": [{ "targetStat": "stamina", "value": 0.10, "applicationType": "multiplicative" }] },
+        { "id": "stealth", "effects": [{ "targetStat": "stealth", "value": 0.10, "applicationType": "multiplicative" }] },
+        { "id": "extractionSpeed", "effects": [{ "targetStat": "extractionSpeed", "value": 0.10, "applicationType": "multiplicative" }] },
+        { "id": "skillCheck", "effects": [
+          { "targetStat": "skillCheckChance", "value": 0.10, "applicationType": "additive" },
+          { "targetStat": "skillCheckSize", "value": 0.10, "applicationType": "multiplicative" }
+        ] }
+      ],
       "category": "random",
       "rarity": "common",
       "dandy_shop_only": false,

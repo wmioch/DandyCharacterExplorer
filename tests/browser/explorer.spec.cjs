@@ -13,6 +13,30 @@ test.beforeEach(async ({ page }) => {
 const row = (page, label) => page.locator('.stats-table tbody tr').filter({ has: page.locator('td:first-child', { hasText: new RegExp(`^${label}$`) }) });
 const finalCell = (page, label) => row(page, label).locator('td').last();
 
+test('Gumballs applies one selected use and resets when removed', async ({ page }) => {
+    const tile = page.locator('[data-item-id="gumballs"]');
+    const outcome = page.getByLabel('Observed Gumballs result');
+    await expect(outcome).toBeHidden();
+    await tile.click();
+    await expect(outcome).toHaveValue('');
+    await expect(finalCell(page, 'Skill Check Chance')).toHaveText('25%');
+    await outcome.selectOption('skillCheck');
+    await expect(finalCell(page, 'Skill Check Chance')).toHaveText('35%');
+    await expect(finalCell(page, 'Skill Check Size')).toHaveText('165.0');
+    await expect(finalCell(page, 'Skill Check Amount')).toHaveText('2.0');
+    await tile.click();
+    await expect(finalCell(page, 'Skill Check Chance')).toHaveText('35%');
+    await outcome.selectOption('movementSpeed');
+    await expect(finalCell(page, 'Walk Speed')).toHaveText('16.5');
+    await expect(finalCell(page, 'Skill Check Chance')).toHaveText('25%');
+    await page.locator('[data-item-id="speed_candy"]').click({ trial: true });
+    await tile.dispatchEvent('contextmenu');
+    await expect(outcome).toBeHidden();
+    await expect(finalCell(page, 'Walk Speed')).toHaveText('15.0');
+    await tile.click();
+    await expect(outcome).toHaveValue('');
+});
+
 test('Star Pillow applies extraction regeneration from State Toggles and resets when removed', async ({ page }) => {
     await page.locator('[data-toon-id="poppy"]').click();
     const pillow = page.locator('[data-trinket-id="star_pillow"]');

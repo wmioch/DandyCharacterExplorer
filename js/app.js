@@ -15,6 +15,7 @@ const App = {
         teamToons: {}, // Map of toonId to count for team selection
         activeAbilities: [],
         activeItems: [],
+        gumballsOutcome: '',
         customBuffIds: [], // Session-only selections from local custom definitions.
         extractingFromMachine: false, // Manual Star Pillow scenario.
         heldItemCount: 0, // Manual inventory snapshot, independent of consumed Item buffs.
@@ -216,6 +217,12 @@ const App = {
                 const itemId = itemDiv.dataset.itemId;
                 this.handleItemDecrement(itemId);
             }
+        });
+
+        document.getElementById('gumballs-outcome').addEventListener('change', event => {
+            this.state.gumballsOutcome = event.target.value;
+            this.updateItemState('gumballs', 1);
+            this.updateDisplay();
         });
 
         document.getElementById('held-item-count').addEventListener('change', (e) => {
@@ -1222,8 +1229,7 @@ const App = {
         const existingItem = this.state.activeItems.find(i => i.item.id === itemId);
         const currentCount = existingItem ? existingItem.count : 0;
         
-        // Increment (max 10)
-        const newCount = Math.min(currentCount + 1, 10);
+        const newCount = Math.min(currentCount + 1, itemId === 'gumballs' ? 1 : 10);
         // Selecting another use clears the current Slow snapshot, not future Slow sources.
         if (itemId === 'eject_button' && newCount > currentCount) {
             this.state.debuffs.slow = 0;
@@ -1255,11 +1261,17 @@ const App = {
         // Remove existing entry
         this.state.activeItems = this.state.activeItems.filter(i => i.item.id !== itemId);
         
-        // Add new entry if count > 0
+        if (count === 0 && itemId === 'gumballs') {
+            this.state.gumballsOutcome = '';
+        }
+
         if (count > 0) {
             const item = DataLoader.getItem(itemId);
             if (item) {
-                this.state.activeItems.push({ item, count });
+                const selectedItem = itemId === 'gumballs'
+                    ? { ...item, effects: item.randomOutcomes.find(outcome => outcome.id === this.state.gumballsOutcome)?.effects || [] }
+                    : item;
+                this.state.activeItems.push({ item: selectedItem, count });
             }
         }
     },
@@ -1491,6 +1503,9 @@ const App = {
         
         // Update item counters
         UI.updateItemCounters(this.state.activeItems);
+        document.getElementById('gumballs-outcome-container').hidden =
+            !this.state.activeItems.some(({ item }) => item.id === 'gumballs');
+        document.getElementById('gumballs-outcome').value = this.state.gumballsOutcome;
         
         // Update team toon selection display
         UI.updateTeamToonSelection(this.state.teamToons, this.state.selectedToon ? this.state.selectedToon.id : null);

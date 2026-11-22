@@ -467,7 +467,7 @@ const UI = {
         // Filter out items that don't affect stats (hidden from UI)
         // Check both the explicit hidden property and the hardcoded list for backward compatibility
         const hiddenItemNames = [
-            'Bandage', 'Basket', 'Bottle o\' Pop', 'Gumballs', 'Health Kit',
+            'Bandage', 'Basket', 'Bottle o\' Pop', 'Health Kit',
             'Ichor', 'Jawbreaker', 'Ornament', 'Pumpkin',
             'Smoke Bomb', 'Tapes', 'Valve'
         ];

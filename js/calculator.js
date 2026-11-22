@@ -207,7 +207,10 @@ const Calculator = {
         items.forEach(itemObj => {
             if (itemObj.item && itemObj.item.effects && itemObj.count > 0) {
                 itemObj.item.effects.forEach(effect => {
-                    if (effect.applicationType === 'multiplicative') {
+                    if (effect.applicationType === 'additive') {
+                        const stat = this._mapTargetStat(effect.targetStat);
+                        if (modifiers[stat]) modifiers[stat].additive += effect.value * itemObj.count;
+                    } else if (effect.applicationType === 'multiplicative') {
                         const stat = this._mapTargetStat(effect.targetStat);
                         if (modifiers[stat]) {
                             // Add modifier once per item count

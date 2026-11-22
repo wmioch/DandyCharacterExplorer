@@ -2,6 +2,12 @@
 
 The September 22 controls below were approved for release after the Waxwell portrait correction. The reusable local preview remains isolated from production feedback. The October 16 Flower candidate has its own release boundary.
 
+## Gumballs observed result
+
+With Boxten selected, add Gumballs under Items. Leave **Observed Gumballs result** clear to keep base stats. Select **Movement Speed** for 16.5 Walk and 27.5 Run, **Max Stamina** for 165, or **Skill Check** for 35% Chance, 165 Size, and unchanged Amount 2. The other choices affect only Stealth or Extraction. Remove the item and add it again to reset the selection. Use Machine Stats calculation details to check that a selected Extraction roll ends after five seconds, or nine with Glazed Fondant Bag.
+
+The snapshot represents one observed use. The Explorer neither rolls a random result nor combines multiple Gumballs uses. Sources checked November 22. [Items revision 280510](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=280510) · [Multipliers revision 278271](https://dandys-world-robloxhorror.fandom.com/wiki/Multipliers?oldid=278271) · [Glazed Fondant Bag revision 280375](https://dandys-world-robloxhorror.fandom.com/wiki/Glazed_Fondant_Bag?oldid=280375)
+
 ## Star Pillow extraction
 
 Equip Star Pillow with Poppy and no other effects. Stamina Regeneration reads 2.4/s. Select **Extracting from a Machine** in **State Toggles** below **Team Abilities** to see 4.8/s, then clear it to return to 2.4/s. Select it again, unequip Star Pillow and equip it again. The checkbox starts clear. The value represents the extraction condition you selected.

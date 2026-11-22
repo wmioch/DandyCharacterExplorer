@@ -1,3 +1,7 @@
+## 2026-11-22 - Gumballs observed result
+
+- Select Gumballs in Items, then choose the stat you observed. The Explorer represents one use. A Skill Check result adds 10 percentage points to Chance and 10% to Size. Machine estimates apply the result for five seconds, or nine with Glazed Fondant Bag. See the [manual checks](preview-controls.md#gumballs-observed-result).
+
 ## 2026-11-22 - Version 1.0 source corrections
 
 - Updated the hidden **Dandy Plush** record to describe its 25% Tape income bonus and pickup exception. The Explorer does not calculate Tape income. [Dandy Plush revision 280401](https://dandys-world-robloxhorror.fandom.com/wiki/Dandy_Plush?oldid=280401)
