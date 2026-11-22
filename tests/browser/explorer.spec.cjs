@@ -41,6 +41,7 @@ test('Gumballs applies one selected use and resets when removed', async ({ page 
 });
 
 test('Keyboard users can activate and remove the Gumballs scenario', async ({ page }) => {
+    await page.locator('[data-toon-id="poppy"]').click();
     const tile = page.getByRole('button', { name: 'Gumballs', exact: true });
     await tile.focus();
     await expect(tile).toBeFocused();
@@ -55,6 +56,22 @@ test('Keyboard users can activate and remove the Gumballs scenario', async ({ pa
     await expect(outcome).toBeHidden();
     await tile.press('Enter');
     await expect(outcome).toHaveValue('');
+});
+
+test('Gumballs stays removed after a touch compatibility click and has a visible remove action', async ({ page }) => {
+    const tile = page.getByRole('button', { name: 'Gumballs', exact: true });
+    const outcome = page.getByLabel('Observed Gumballs result');
+    await tile.click();
+    await outcome.selectOption('movementSpeed');
+    await tile.evaluate(el => {
+        el.dispatchEvent(new PointerEvent('contextmenu', { bubbles: true, button: 2, pointerType: 'touch' }));
+        el.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+    });
+    await expect(outcome).toBeHidden();
+    await tile.click();
+    await expect(outcome).toHaveValue('');
+    await page.getByRole('button', { name: 'Remove Gumballs' }).click();
+    await expect(outcome).toBeHidden();
 });
 
 test('Star Pillow applies extraction regeneration from State Toggles and resets when removed', async ({ page }) => {

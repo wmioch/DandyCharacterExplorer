@@ -200,11 +200,19 @@ const App = {
             }
         });
 
+        const itemGrid = document.getElementById('active-items');
+        let suppressGumballsTouchClick = false;
+        itemGrid.addEventListener('pointerdown', () => { suppressGumballsTouchClick = false; });
+
         // Items - left click to increment
-        document.getElementById('active-items').addEventListener('click', (e) => {
+        itemGrid.addEventListener('click', (e) => {
             const itemDiv = e.target.closest('.item-grid-item');
             if (itemDiv) {
                 const itemId = itemDiv.dataset.itemId;
+                if (itemId === 'gumballs' && suppressGumballsTouchClick && e.detail > 0) {
+                    suppressGumballsTouchClick = false;
+                    return;
+                }
                 // Native button activation from a keyboard or assistive technology toggles the single use.
                 if (itemId === 'gumballs' && e.detail === 0 && this.state.activeItems.some(({ item }) => item.id === itemId)) {
                     this.handleItemDecrement(itemId);
@@ -215,13 +223,21 @@ const App = {
         });
 
         // Items - right click to decrement
-        document.getElementById('active-items').addEventListener('contextmenu', (e) => {
+        itemGrid.addEventListener('contextmenu', (e) => {
             const itemDiv = e.target.closest('.item-grid-item');
             if (itemDiv) {
-                e.preventDefault(); // Prevent context menu
+                e.preventDefault();
                 const itemId = itemDiv.dataset.itemId;
+                if (itemId === 'gumballs' && (e.pointerType === 'touch' || e.sourceCapabilities?.firesTouchEvents)) {
+                    suppressGumballsTouchClick = true;
+                }
                 this.handleItemDecrement(itemId);
             }
+        });
+
+        document.getElementById('remove-gumballs').addEventListener('click', event => {
+            this.handleItemDecrement('gumballs');
+            if (event.detail === 0) itemGrid.querySelector('[data-item-id="gumballs"]')?.focus();
         });
 
         document.getElementById('gumballs-outcome').addEventListener('change', event => {
