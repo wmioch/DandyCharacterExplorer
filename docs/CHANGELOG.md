@@ -1,3 +1,7 @@
+## 2026-11-24 - Twisted Dessa and Twisted Dioda
+
+- Added both Labs-exclusive Twisteds to the speed comparison with their sourced portraits. The chase columns show Normal, Panic, and Panic with Suppression. Dessa reads 24.0, 28.8, and 27.6. Dioda reads 22.0, 26.4, and 25.3. The tooltips qualify Dessa's encounter changes and Dioda's grounded chase. [Twisted Dessa](https://dandysworldwiki.org/wiki/twisted-dessa/) [Twisted Dioda](https://dandysworldwiki.org/wiki/twisted-dioda/)
+
 ## 2026-11-22 - Gumballs observed result
 
 - Select Gumballs in Items, then choose the stat you observed in **State Toggles**. The Explorer represents one use. A Skill Check result adds 10 percentage points to Chance and 10% to Size. Machine estimates apply the result for five seconds, or nine with Glazed Fondant Bag. See the [manual checks](preview-controls.md#gumballs-observed-result).

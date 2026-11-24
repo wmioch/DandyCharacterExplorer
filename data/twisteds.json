@@ -831,6 +831,48 @@
       "notes": "Variable speed - these are highest speeds"
     },
     {
+      "id": "twisted_dessa",
+      "name": "Twisted Dessa",
+      "rarity": "Lethal",
+      "speeds": {
+        "normal": {
+          "walk": 16.0,
+          "run": 24.0
+        },
+        "panic": {
+          "walk": 19.2,
+          "run": 28.8
+        },
+        "panicSuppressed": {
+          "walk": 18.4,
+          "run": 27.6
+        }
+      },
+      "image": "twisteds/dessa.webp",
+      "notes": "The Labs only. Uses the listed chase speed. Dash, flight, and encounter-specific changes are excluded."
+    },
+    {
+      "id": "twisted_dioda",
+      "name": "Twisted Dioda",
+      "rarity": "Lethal",
+      "speeds": {
+        "normal": {
+          "walk": 12.0,
+          "run": 22.0
+        },
+        "panic": {
+          "walk": 14.4,
+          "run": 26.4
+        },
+        "panicSuppressed": {
+          "walk": 13.8,
+          "run": 25.3
+        }
+      },
+      "image": "twisteds/dioda.webp",
+      "notes": "The Labs only. Uses the listed chase speed when grounded. Ceiling movement and attacks are excluded."
+    },
+    {
       "id": "twisted_waxwell",
       "name": "Twisted Waxwell",
       "rarity": "Rare",
@@ -882,6 +924,6 @@
     "source": "Dandy's World Wiki",
     "url": "https://dandys-world-robloxhorror.fandom.com/wiki/Twisteds",
     "scraped_at": "2025-10-28 16:30:42",
-    "total_count": 43
+    "total_count": 45
   }
 }
