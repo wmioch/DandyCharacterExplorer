@@ -19,10 +19,10 @@ const DataLoader = {
         try {
             const [statMappings, toons, trinkets, items, twisteds] = await Promise.all([
                 fetch('data/stat-mappings.json').then(r => r.json()),
-                fetch('data/toons.json').then(r => r.json()),
+                fetch('data/toons.json?v=20261126.1').then(r => r.json()),
                 fetch('data/trinkets.json').then(r => r.json()),
                 fetch('data/items.json?v=20261122.4').then(r => r.json()),
-                fetch('data/twisteds.json?v=20261124.1').then(r => r.json())
+                fetch('data/twisteds.json?v=20261126.1').then(r => r.json())
             ]);
 
             this.data.statMappings = statMappings;

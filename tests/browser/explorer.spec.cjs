@@ -93,6 +93,32 @@ test('Gumballs uses fresh definitions when the old item URL serves pre-release d
     await expect(finalCell(page, 'Skill Check Size')).toHaveText('165.0');
 });
 
+test('Astro shows the reworked stats and one teammate Nap Time snapshot', async ({ page }) => {
+    const astro = page.locator('[data-toon-id="astro"]');
+    await astro.click();
+    await expect(finalCell(page, 'Stamina')).toHaveText('125.0');
+    await expect(finalCell(page, 'Extraction Speed')).toHaveText('1.20');
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('3.6/s');
+    await expect(page.getByText(/fully restores nearby teammates/)).toBeVisible();
+
+    await page.locator('[data-toon-id="poppy"]').click();
+    await astro.click({ button: 'right' });
+    await astro.click({ button: 'right' });
+    const pulse = page.locator('#team-abilities input[value="astro_nap_time"]');
+    await expect(pulse).toHaveCount(1);
+    await expect(pulse.locator('..')).toContainText('10s');
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('2.4/s');
+    await pulse.check();
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('3.6/s');
+    await expect(finalCell(page, 'Stamina')).toHaveText('150.0');
+    await pulse.uncheck();
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('2.4/s');
+    await pulse.check();
+    await page.locator('.clear-team-btn').click();
+    await expect(pulse).toHaveCount(0);
+    await expect(finalCell(page, 'Stamina Regeneration')).toHaveText('2.4/s');
+});
+
 test('Star Pillow applies extraction regeneration from State Toggles and resets when removed', async ({ page }) => {
     await page.locator('[data-toon-id="poppy"]').click();
     const pillow = page.locator('[data-trinket-id="star_pillow"]');

@@ -1,3 +1,8 @@
+## 2026-11-26 - Astro rework and Labs cover
+
+- Astro has 125 Stamina and 1.20 Extraction Speed, with current portraits for Astro and Twisted Astro. Nap Time in Team Abilities represents a single received pulse and applies +50% Stamina Regeneration for the selected scenario. The ability description gives the duration of ten seconds and the Stamina restore. The Explorer models the active buff as a manual snapshot. [Astro](https://dandysworldwiki.org/wiki/astro/) [Changelog revision 282866](https://dandys-world-robloxhorror.fandom.com/wiki/Changelog/2026?oldid=282866)
+- Twisted Astro’s comparison tooltip identifies the standard chase profile. Twisted Dandy’s Labs tooltip reflects the 1.0.5 limit on cover destruction. [Twisted Astro](https://dandysworldwiki.org/wiki/twisted-astro/) [1.0.5 patch](https://dandys-world-robloxhorror.fandom.com/wiki/Changelog/2026?oldid=282866)
+
 ## 2026-11-24 - Twisted Dessa and Twisted Dioda
 
 - Added both Labs-exclusive Twisteds to the speed comparison with their sourced portraits. The chase columns show Normal, Panic, and Panic with Suppression. Dessa reads 24.0, 28.8, and 27.6. Dioda reads 22.0, 26.4, and 25.3. The tooltips qualify Dessa's encounter changes and Dioda's grounded chase. [Twisted Dessa](https://dandysworldwiki.org/wiki/twisted-dessa/) [Twisted Dioda](https://dandysworldwiki.org/wiki/twisted-dioda/)

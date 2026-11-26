@@ -140,3 +140,10 @@ Currency descriptions retain base5, with10 only during the respective event's ac
 Select Goob and inspect Hug!: it now states that the pulled Toon is protected during the pull, while retaining direct line of sight and the 30-second cooldown. This is description-only behavior; the explorer does not simulate the pull or protection. The [Goob wiki revision 263078](https://dandys-world-robloxhorror.fandom.com/wiki/Goob?oldid=263078) (September 20) and [Goob guide](https://www.dandysworld.org/toons/goob), checked September 27, both support this detail.
 
 Sources checked September27: [Eclipse revision263654](https://dandys-world-robloxhorror.fandom.com/wiki/Eclipse?oldid=263654) (September24); [Twisted Soulvester revision250928](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Soulvester?oldid=250928) (July16); [Twisted Dyle revision264128](https://dandys-world-robloxhorror.fandom.com/wiki/Twisted_Dyle?oldid=264128) (September25); [Items revision264293](https://dandys-world-robloxhorror.fandom.com/wiki/Items?oldid=264293) (September26). Ornament/Pumpkin descriptions additionally follow their dedicated currency pages checked September27. The0% correction follows the valid slider input through the existing state clone; it changes no game value.
+
+## Astro and Nap Time
+
+1. Select Astro. Stamina reads 125, Extraction Speed reads 1.20, and Well Rested gives 3.6 Stamina Regeneration per second.
+2. Select Poppy, add two Astros to the team, and check Nap Time under Team Abilities. The single checkbox represents one received pulse. Regeneration rises from 2.4/s to 3.6/s, while maximum Stamina stays at 150.
+3. Uncheck Nap Time or clear the team. Regeneration returns to 2.4/s. The checkbox models the ten-second buff while active. Current Stamina, range, and pillow pickups are explained in the ability text.
+4. In Twisted Speed, inspect Twisted Astro's standard-chase tooltip and Twisted Dandy's Labs cover-limit tooltip.

@@ -36,6 +36,22 @@ test('Tech Savvy removes five work units at both normal and doubled extraction',
     }
 });
 
+test('Astro uses the updated base stats and models receipt of one Nap Time pulse', () => {
+    const e = loadEngine();
+    const astro = e.DataLoader.getToon('astro');
+    const caster = scenario(astro);
+    close(stats(e, caster).stamina, 125);
+    close(stats(e, caster).extractionSpeed, 1.2);
+    close(stats(e, caster).staminaRegen, 3.6);
+    close(e.Calculator.calculateMachineStatsFromState(caster).default.defaultTime, 37.5);
+
+    const recipient = scenario(e.DataLoader.getToon('poppy'), { activeAbilities: [astro.ability, astro.ability] });
+    close(stats(e, recipient).staminaRegen, 3.6);
+    close(stats(e, recipient).stamina, 150);
+    recipient.activeAbilities = [];
+    close(stats(e, recipient).staminaRegen, 2.4);
+});
+
 test('Item buffs do not simulate pickups for Whispering Flower', () => {
     const e = loadEngine();
     const state = scenario(e.DataLoader.getToon('poppy'), {

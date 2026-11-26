@@ -3,13 +3,14 @@
     {
       "id": "astro",
       "name": "Astro",
+      "image_name": "astro-rework.webp",
       "description": "Astro the Moon is a sleepy Toon who loves to take naps. Despite being tired, he's very observant and loves to help his friends. He teaches children the importance of rest and taking care of yourself.",
       "baseStats": {
         "walkSpeed": 15,
         "runSpeed": 25,
         "stealth": 20,
-        "extractionSpeed": 1.0,
-        "stamina": 150,
+        "extractionSpeed": 1.2,
+        "stamina": 125,
         "skillCheckAmount": 1.5,
         "skillCheckChance": 0.25,
         "hearts": 2
@@ -18,25 +19,29 @@
         "walkSpeed": 3,
         "runSpeed": 3,
         "stealth": 5,
-        "extractionSpeed": 3,
-        "stamina": 3,
+        "extractionSpeed": 4,
+        "stamina": 2,
         "skillCheckAmount": 2
       },
       "ability": {
         "id": "astro_nap_time",
         "name": "Nap Time",
-        "description": "(Active) This Toon can create a pulse that fully restores the Stamina of the Toons around him. Has a cooldown of 60.",
+        "description": "(Active) Hold to release a pulse that fully restores nearby teammates’ Stamina and increases their Stamina Regeneration by 50% for 10 seconds. Astro restores 20% of his own Stamina per teammate reached. He can hold up to 10 Star Pillows to extend the range, spending up to 5 per pulse. Cooldown: 55 seconds.",
         "effectType": "teamBuff",
         "targetStat": "stamina",
         "value": 1.0,
         "applicationType": "restore",
         "affectsSelf": false,
-        "stackable": false
+        "stackable": false,
+        "teamEffect": {
+          "staminaRegen": 0.5,
+          "applicationType": "multiplicative"
+        }
       },
       "ability2": {
         "id": "astro_well_rested",
         "name": "Well Rested",
-        "description": "(Passive) This Toon regenerates Stamina 50% faster, and can see Toons below 50% Stamina around the map. And can see the exact amount below 50%.",
+        "description": "(Passive) Astro regenerates Stamina 50% faster. He can see teammates below 50% Stamina around the map, read their exact remaining Stamina, and tell when those teammates are being chased.",
         "effectType": "self",
         "targetStat": "staminaRegen",
         "value": 0.5,

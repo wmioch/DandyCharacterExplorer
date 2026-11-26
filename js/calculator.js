@@ -183,7 +183,8 @@ const Calculator = {
             appliedNonStackingTeamAbilities.add(toon.ability.id);
         }
         teamAbilities.forEach(ability => {
-            if (['bobette_festive_aura', 'brusha_artistic_inspiration'].includes(ability.id)) {
+            // Nap Time represents one received pulse.
+            if (['bobette_festive_aura', 'brusha_artistic_inspiration', 'astro_nap_time'].includes(ability.id)) {
                 if (appliedNonStackingTeamAbilities.has(ability.id)) return;
                 appliedNonStackingTeamAbilities.add(ability.id);
             }

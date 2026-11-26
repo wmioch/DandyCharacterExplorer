@@ -336,6 +336,8 @@ const UI = {
             // Check both ability and ability2 for team effects
             [toon.ability, toon.ability2].forEach(ability => {
                 if (ability && ability.teamEffect) {
+                    // Represent one received Nap Time pulse even when several Astros are on the team.
+                    if (ability.id === 'astro_nap_time' && teamAbilities.some(item => item.ability.id === ability.id)) return;
                     teamAbilities.push({
                         ability: ability,
                         toonName: toon.name,
@@ -370,7 +372,10 @@ const UI = {
                     label.title = 'Checked means extracting from a painted Machine. Multiple Brushas represent the same Machine buff once; Treadmill Machines are excluded.';
                 }
                 
-                const effectText = this._formatTeamAbilityEffect(ability);
+                let effectText = this._formatTeamAbilityEffect(ability);
+                if (ability.id === 'astro_nap_time') {
+                    effectText += ' · 10s';
+                }
                 const isChecked = activeAbilityIds.has(uniqueId) ? 'checked' : '';
                 
                 label.innerHTML = `
